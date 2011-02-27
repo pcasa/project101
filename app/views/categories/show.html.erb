@@ -6,7 +6,7 @@
 </p>
 <p>
   <strong>Parent:</strong>
-  <%= @parent_category.name %>
+  <%= @parent_category.name unless @parent_category.blank? %>
 </p>
 
 <p>

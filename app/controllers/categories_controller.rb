@@ -1,7 +1,6 @@
 class CategoriesController < ApplicationController
-#  before_filter :authenticate_user!
-#  load_and_authorize_resource
-#  before_filter :check_if_in_subdomain
+  before_filter :authenticate_user!
+  load_and_authorize_resource
    
   def index
     @categories = Category.all
@@ -9,7 +8,9 @@ class CategoriesController < ApplicationController
 
   def show
     @category = Category.find(params[:id])
-    @parent_category = Category.find(@category.parent_id)
+    unless @category.parent_id.blank? 
+      @parent_category = Category.find(@category.parent_id) 
+    end
   end
 
   def new
