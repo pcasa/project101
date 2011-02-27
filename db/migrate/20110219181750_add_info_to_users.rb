@@ -8,16 +8,7 @@ class AddInfoToUsers < ActiveRecord::Migration
     add_index :users, :passcode,                :unique => true
     add_index :users, :role
     # Create the seed data  
-    ["admin", "manager", "employee"].each do |user|  
-      User.create!(:firstname => user,
-      :lastname => user,
-      :email => user + "@" + user + ".com",
-      :username => user,
-      :password => "123456",
-      :password_confirmation => "123456",
-      :passcode =>  user.upcase + "12345",
-      :role => user) 
-    end
+    
   end
 
   def self.down

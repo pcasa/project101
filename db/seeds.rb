@@ -131,3 +131,15 @@ Company.all.each do |company|
     ) 
   end
 end
+
+puts "Adding Users..."
+["admin", "manager", "employee"].each do |user|  
+  User.create!(:firstname => user,
+  :lastname => user,
+  :email => user + "@" + user + ".com",
+  :username => user,
+  :password => "123456",
+  :password_confirmation => "123456",
+  :passcode =>  user.upcase + "12345",
+  :role => user) 
+end
