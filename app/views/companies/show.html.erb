@@ -53,7 +53,7 @@
 		<%= user.firstname %> <%= user.lastname %> <%= link_to "Edit", edit_company_user_path(current_company, user) %><br />
 	<% end %>
 	<br />
-	<%= link_to "Add Employee", users_path %>
+	<%= link_to "Add Employee", company_users_path(current_company) %>
 </p>
 
 

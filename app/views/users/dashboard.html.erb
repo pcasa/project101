@@ -1,6 +1,7 @@
 <% title 'User Dashboard' %>
 
 I am User Dashboard.
+<p><%= current_user.firstname %></p>
 
 <table>
   <tr>
@@ -8,10 +9,10 @@ I am User Dashboard.
 	<th>subdomain</th>
     <th>Belongs To</th>
   </tr>
-  <% for company in @companies %>
+  <% for company in current_user.companies %>
     <tr>
       <td><%= company.name %></td>
-	  <td><%= link_to_unless(company.subdomain.blank?, company.subdomain, company) do |notthere|
+	  <td><%= link_to_unless(company.subdomain.blank?, company.subdomain, show_company_path(company)) do |notthere|
 		"No Subdomain Assigned"
 	end
 		 %></td>

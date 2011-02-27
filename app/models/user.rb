@@ -8,7 +8,14 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable, :timeoutable, :timeout_in => 200.minutes
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :firstname, :lastname, :username, :passcode, :role, :company_ids, :company_id
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :firstname, :lastname, :username, :passcode, :role, :company_ids, :company_id, :companies_attributes, :employmentships_attributes
+  
+  accepts_nested_attributes_for :companies, :allow_destroy => true, :reject_if => proc { |obj| obj.blank? }
+  
+  #for seed data
+  accepts_nested_attributes_for :employmentships, :allow_destroy => true, :reject_if => proc { |obj| obj.blank? }
+  
+  
   
   validates_uniqueness_of :username, :message => "must be unique"
   
