@@ -31,6 +31,7 @@ class Ability
     if user.role? :employee
       can :read, [User, Company, Category, Customer, Service, ServiceGroup]
       can :dashboard, User
+      can :my_customers, Customer
       can [:create, :update], [Customer, Address]
     end
     if user.role? :manager

@@ -9,7 +9,7 @@
   <% for company in @companies %>
     <tr>
       <td><%= company.name %></td>
-	  <td><%= link_to_unless(company.subdomain.blank?, company.subdomain, company) do |notthere|
+	  <td><%= link_to_unless(company.subdomain.blank?, company.subdomain, show_company_path(company)) do |notthere|
 		"No Subdomain Assigned"
 	end
 		 %></td>

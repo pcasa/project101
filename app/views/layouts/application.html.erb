@@ -8,30 +8,47 @@
     <%= yield(:head) %>
   </head>
   <body>
+	<div id="header_container">
+		<div id="header">
+			<div id="user_nav">
+				<% if user_signed_in? %>
+					Signed in as <%= current_user.email %> | <%= link_to "Log Out!", destroy_user_session_path, :class => "smallbtn green" %>
+				<% else %>
+					<%= link_to "Log In", new_user_session_path, :class => "smallbtn green" %>
+				<% end %>
+			</div>
+			<ul id="menu">
+				<li><%= link_to "Home", root_url %></li>
+				<li><%= link_to "Companies", :controller => '/companies', :action => 'index' %></li>
+				<% unless current_company.blank?  %>
+					<li><%= link_to "Customers", company_customers_path(current_company) %>
+						<ul>
+							<li><%= link_to "All Customers", company_customers_path(current_company) %></li>
+							<li><%= link_to current_company.name.capitalize + "'s Customers", my_customers_path %></li>
+						</ul>
+					</li>
+					<li><%= link_to "Users", company_users_path %></li>
+					<li><%= link_to "Categories", company_categories_path %></li>
+					<li><%= link_to "Services", company_services_path %></li>
+					<li><%= link_to "Service Group", company_service_groups_path %></li>
+				<% else %>
+					<li><br />"Choose A Company first!"</li>
+				<% end %>
+			</ul>
+			
+			
+		</div>
+		
+	</div>
     <div id="container">
 	
 	<div id="user_nav">
 		<table width="100%">
 			<tr>
 				<td width="70%">
-					<%= link_to "Home", root_url %> <%= link_to "Companies", :controller => '/companies', :action => 'index' %> | 
-					<% unless current_company.blank?  %>
-						<%= link_to "All Customers", company_customers_path(current_company) %> | 
-						<%= link_to current_company.name.capitalize + "'s Customers", my_customers_path %> | 
-						<%= link_to "Users", company_users_path %> | 
-						<%= link_to "Categories", company_categories_path %> | 
-						<%= link_to "Services", company_services_path %> | 
-						<%= link_to "Service Group", company_service_groups_path %>
-					<% else %>
-						"Choose A Company first!"
-					<% end %>
 				</td>
 				<td>
-					<% if user_signed_in? %>
-						Signed in as <%= current_user.email %> | <%= link_to "Log Out!", destroy_user_session_path %>
-					<% else %>
-						<%= link_to "Log In", new_user_session_path %>
-					<% end %>
+					
 				</td>
 			</tr>
 		</table>
