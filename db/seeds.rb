@@ -18,7 +18,7 @@ Vendor.delete_all
       {
         :name => c,
         :contact => Faker::Name.name,
-        :phone => Faker::PhoneNumber.phone_number,
+        :phone => Faker::PhoneNumber.phone_number[0, 16],
         :addresses_attributes => [{
           :street1 => Faker::Address.street_address,
           :city => Faker::Address.city,
