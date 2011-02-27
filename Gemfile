@@ -14,6 +14,7 @@ gem 'devise'
 gem 'cancan'
 gem 'formtastic'
 gem 'faker'
+gem 'bcrypt-ruby'
 
 # Use unicorn as the web server
 # gem 'unicorn'
