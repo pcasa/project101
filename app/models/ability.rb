@@ -29,7 +29,6 @@ class Ability
       can :read, Company
     end
     if user.role? :employee
-      can :manage, :all
       can [:create, :update], [Customer, Address]
     end
     if user.role? :manager

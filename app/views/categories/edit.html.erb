@@ -3,6 +3,6 @@
 <%= render 'form' %>
 
 <p>
-  <%= link_to "Show", @category %> |
-  <%= link_to "View All", categories_path %>
+  <%= link_to "Show", company_category_path(current_company, @category) %> |
+  <%= link_to "View All", company_categories_path(current_company) %>
 </p>

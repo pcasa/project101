@@ -21,7 +21,7 @@ class CategoriesController < ApplicationController
     @category = Category.new(params[:category])
     if @category.save
       flash[:notice] = "Successfully created category."
-      redirect_to @category
+      redirect_to company_category_path(current_company, @category)
     else
       render :action => 'new'
     end
@@ -36,7 +36,7 @@ class CategoriesController < ApplicationController
     @category = Category.find(params[:id])
     if @category.update_attributes(params[:category])
       flash[:notice] = "Successfully updated category."
-      redirect_to category_url
+      redirect_to company_category_url(current_company, category)
     else
       render :action => 'edit'
     end
@@ -46,6 +46,6 @@ class CategoriesController < ApplicationController
     @category = Category.find(params[:id])
     @category.destroy
     flash[:notice] = "Successfully destroyed category."
-    redirect_to categories_url
+    redirect_to company_categories_url(current_company)
   end
 end

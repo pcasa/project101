@@ -10,11 +10,11 @@
     <tr valign="top">
       <td><%= category.name %></td>
       <td><%= category.parent_id %></td>
-      <td><%= link_to "Show", category %></td>
-      <td><%= link_to "Edit", edit_category_path(category) %></td>
-      <td><%= link_to "Destroy", category, :confirm => 'Are you sure?', :method => :delete %></td>
+      <td><%= link_to "Show", company_category_path(current_company, category) %></td>
+      <td><%= link_to "Edit", edit_company_category_path(current_company, category) %></td>
+      <td><%= link_to "Destroy", [current_company, category], :confirm => 'Are you sure?', :method => :delete %></td>
     </tr>
   <% end %>
 </table>
 
-<p><%= link_to "New Category", new_category_path(category) %></p>
+<p><%= link_to "New Category", new_company_category_path(current_company, category) %></p>
