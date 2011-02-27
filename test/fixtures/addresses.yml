@@ -1,0 +1,23 @@
+one:
+  street1: 
+  street2: 
+  city: 
+  state: 
+  zipcode: 
+  deleted_at: 
+  addressable_type: 
+  addressable_id: 
+  current: false
+  full_address: MyString
+
+two:
+  street1: 
+  street2: 
+  city: 
+  state: 
+  zipcode: 
+  deleted_at: 
+  addressable_type: 
+  addressable_id: 
+  current: false
+  full_address: MyString

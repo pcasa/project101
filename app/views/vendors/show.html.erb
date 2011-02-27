@@ -1,0 +1,32 @@
+<% title "Vendor" %>
+
+<p>
+  <strong>Name:</strong>
+  <%= @vendor.name %>
+</p>
+<p>
+  <strong>Contact:</strong>
+  <%= @vendor.contact %>
+</p>
+<p>
+  <strong>Phone:</strong>
+  <%= @vendor.phone %>
+</p>
+
+<% unless @vendor.addresses.blank? %>
+<strong>Previous Addresses Used</strong><br />
+	<% for address in @vendor.addresses %>
+	    <br />
+		<%= address.street1 %><br />
+		<% unless address.street2.blank? %><%= address.street2 %><br /><% end %>
+		<%= address.city %>, <%= address.state %> <%= address.zipcode %><br />
+		<%= link_to "Edit", edit_company_vendor_address_path(current_company, @vendor, address) %><br />
+	<% end %>
+<% end %>
+</p>
+
+<p>
+  <%= link_to "Edit", edit_company_vendor_path(current_company, @vendor) %> |
+  <%= link_to "Destroy", [current_company, @vendor], :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "View All", company_vendors_path %>
+</p>

@@ -1,0 +1,19 @@
+<% title "Special Services" %>
+
+<table>
+  <tr>
+    <th>Service</th>
+    <th>Service Group</th>
+  </tr>
+  <% for special_service in @special_services %>
+    <tr>
+      <td><%= special_service.service_id %></td>
+      <td><%= special_service.service_group_id %></td>
+      <td><%= link_to "Show", special_service %></td>
+      <td><%= link_to "Edit", edit_special_service_path(special_service) %></td>
+      <td><%= link_to "Destroy", special_service, :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
+
+<p><%= link_to "New Special Service", new_special_service_path(special_service) %></p>

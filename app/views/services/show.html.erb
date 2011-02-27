@@ -1,0 +1,40 @@
+<% title "Service" %>
+
+<p>
+  <strong>Name:</strong>
+  <%= @service.name %>
+</p>
+<p>
+  <strong>Short Description:</strong>
+  <%= @service.short_description %>
+</p>
+<p>
+  <strong>Price:</strong>
+  <%= @service.price %>
+</p>
+<p>
+  <strong>Cost:</strong>
+  <%= @service.cost %>
+</p>
+<p>
+  <strong>Visible:</strong>
+  <%= @service.visible %>
+</p>
+<p>
+  <strong>New Service:</strong>
+  <%= @service.new_service %>
+</p>
+<p>
+  <strong>Deleted At:</strong>
+  <%= @service.deleted %>
+</p>
+<p>
+  <strong>Category:</strong>
+  <%= @service.category_id %>
+</p>
+
+<p>
+  <%= link_to "Edit", edit_company_service_path(@service) %> |
+  <%= link_to "Destroy", [current_company, @service], :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "View All", company_services_path %>
+</p>

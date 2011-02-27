@@ -1,0 +1,11 @@
+one:
+  firstname: MyString
+  lastname: MyString
+  customer_number: MyString
+  company_id: 1
+
+two:
+  firstname: MyString
+  lastname: MyString
+  customer_number: MyString
+  company_id: 1

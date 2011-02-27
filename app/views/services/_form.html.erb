@@ -1,0 +1,17 @@
+<%= semantic_form_for [current_company, @service] do |form| %>
+    <%= form.inputs do %>
+      <%= form.input :name %>
+      <%= form.input :short_description, :as => :text, :input_html => { :class => 'autogrow', :rows => 4, :cols => 80, :maxlength => 254  } %>
+	  <%= form.input :price %>
+	  <%= form.input :cost %>
+	  <%= form.input :visible %>
+	  <%= form.input :new_service %>
+	  <%= form.input :deleted %>
+	  <%= form.input :category_id, :as => :select, :collection => Category.all(:order => "name ASC") %>
+    <% end %>
+    <%= form.buttons do %>
+      <%= form.commit_button %>
+    <% end %>
+  <% end %>
+
+

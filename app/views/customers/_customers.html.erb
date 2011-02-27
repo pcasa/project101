@@ -1,0 +1,30 @@
+
+
+<table>
+	<caption>Sort By</caption>
+  <tr>
+    <th><%= sort_link @search, :firstname, "First Name" %></th>
+    <th><%= sort_link @search, :lastname %></th>
+    <th><%= sort_link @search, :customer_number %></th>
+  </tr>
+  <% if @customers.blank? %>
+	<tr>
+		<td colspan="3" align="center">
+			No Customers Found!
+		</td>
+	</tr>
+  <% else %>
+  <% for customer in @customers %>
+    <tr>
+      <td><%= customer.firstname %></td>
+      <td><%= customer.lastname %></td>
+      <td><%= customer.customer_number %></td>
+      <td><%= link_to "Show", company_customer_path(current_company, customer) %></td>
+      <td><%= link_to "Edit", edit_company_customer_path(current_company, customer) %></td>
+      <td><%= link_to "Destroy", customer, :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
+  <% end %>
+</table>
+
+<%= will_paginate @customers %>

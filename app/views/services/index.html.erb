@@ -1,0 +1,31 @@
+<% title "Services" %>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Short Description</th>
+    <th>Price</th>
+    <th>Cost</th>
+    <th>Visible</th>
+    <th>New Service</th>
+    <th>Deleted ?</th>
+    <th>Category</th>
+  </tr>
+  <% for service in @services %>
+    <tr>
+      <td><%= service.name %></td>
+      <td><%= truncate(service.short_description, :omission => "... (more)", :length => 60) %></td>
+      <td><%= service.price %></td>
+      <td><%= service.cost %></td>
+      <td><%= service.visible %></td>
+      <td><%= service.new_service %></td>
+      <td><%= service.deleted %></td>
+      <td><%= service.category.name unless service.category_id.blank? %></td>
+      <td><%= link_to "Show", company_service_path(current_company, service) %></td>
+      <td><%= link_to "Edit", edit_company_service_path(current_company, service) %></td>
+      <td><%= link_to "Destroy", [current_company, service], :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
+
+<p><%= link_to "New Service", new_company_service_path(current_company, service) %></p>

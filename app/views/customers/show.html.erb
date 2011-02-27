@@ -1,0 +1,46 @@
+<% title current_company.name.capitalize + "'s Customer" %>
+
+<p>
+  <strong>Firstname:</strong>
+  <%= @customer.firstname %>
+</p>
+<p>
+  <strong>Lastname:</strong>
+  <%= @customer.lastname %>
+</p>
+<p>
+  <strong>Customer Number:</strong>
+  <%= @customer.customer_number %>
+</p>
+<p>
+  <strong>Main Company:</strong>
+  <%= @parent_company.name %>
+</p>
+<p>
+  <strong>Assigned Company:</strong>
+  <%= @assigned_company.name %>
+</p>
+<p>
+	<strong>Current Address</strong><br />
+	<%= @customer.full_address.html_safe %>
+</p>
+
+<p>
+
+<% unless @customer.addresses.blank? %>
+<strong>Previous Addresses Used</strong><br />
+	<% for address in @customer.addresses %>
+	    <br />
+		<%= address.street1 %><br />
+		<% unless address.street2.blank? %><%= address.street2 %><br /><% end %>
+		<%= address.city %>, <%= address.state %> <%= address.zipcode %><br />
+		<%= link_to "Remove",  [current_company, @customer, address], :confirm => 'Are you sure?', :method => :delete %><br />
+	<% end %>
+<% end %>
+</p>
+
+<p>
+  <%= link_to "Edit", edit_company_customer_path %> |
+  <%= link_to "Destroy", [current_company, @customer], :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "View All", company_customers_path %>
+</p>

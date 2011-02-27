@@ -1,0 +1,41 @@
+<% title "New User" %>
+
+<%= form_for @user do |f| %>
+  <%= f.error_messages %>
+  <p>
+    <%= f.label :firstname %><br />
+    <%= f.text_field :firstname %>
+  </p>
+  <p>
+    <%= f.label :lastname %><br />
+    <%= f.text_field :lastname %>
+  </p>
+  <p>
+    <%= f.label :email %><br />
+    <%= f.text_field :email %>
+  </p>
+  <p>
+    <%= f.label :username %><br />
+    <%= f.text_field :username %>
+  </p>
+  <p><%= f.label :password %><br />
+  <%= f.password_field :password %></p>
+
+  <p><%= f.label :password_confirmation %><br />
+  <%= f.password_field :password_confirmation %></p>
+  
+  <p>
+  	<%= f.collection_select :role, User::ROLES, :to_s, :humanize %>
+  </p>
+<p>
+	<strong>Assigned to Work At:</strong><br />
+   <% Company.all.each do |company| %>
+<%= check_box_tag :company_ids, company.id, @user.companies.include?(company), :name => 'user[company_ids][]' -%>
+	 <%= label_tag :companies_ids, company.name %>
+   <% end %>
+</p>
+  
+  <p><%= f.submit %></p>
+<% end %>
+
+<p><%= link_to "Back to List", company_users_path %></p>

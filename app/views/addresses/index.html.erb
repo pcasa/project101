@@ -1,0 +1,35 @@
+<% title "Addresses" %>
+
+<table>
+  <tr>
+    <th>Street1</th>
+    <th>Street2</th>
+    <th>City</th>
+    <th>State</th>
+    <th>Zipcode</th>
+    <th>Deleted At</th>
+    <th>Addressable Type</th>
+    <th>Addressable</th>
+    <th>Current</th>
+    <th>Full Address</th>
+  </tr>
+  <% for address in @addresses %>
+    <tr>
+      <td><%= address.street1 %></td>
+      <td><%= address.street2 %></td>
+      <td><%= address.city %></td>
+      <td><%= address.state %></td>
+      <td><%= address.zipcode %></td>
+      <td><%= address.deleted_at %></td>
+      <td><%= address.addressable_type %></td>
+      <td><%= address.addressable_id %></td>
+      <td><%= address.current %></td>
+      <td><%= address.full_address %></td>
+      <td><%= link_to "Show", address %></td>
+      <td><%= link_to "Edit", edit_address_path(address) %></td>
+      <td><%= link_to "Destroy", address, :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
+
+<p><%= link_to "New Address", new_address_path(address) %></p>

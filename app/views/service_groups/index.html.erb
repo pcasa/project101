@@ -1,0 +1,29 @@
+<% title "Service Groups" %>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Short Description</th>
+    <th>Cost</th>
+    <th>Price</th>
+    <th>New Service</th>
+    <th>Deleted</th>
+    <th>Category</th>
+  </tr>
+  <% for service_group in @service_groups %>
+    <tr>
+      <td><%= service_group.name %></td>
+      <td><%= service_group.short_description %></td>
+      <td><%= service_group.cost %></td>
+      <td><%= service_group.price %></td>
+      <td><%= service_group.new_service %></td>
+      <td><%= service_group.deleted %></td>
+      <td><%= service_group.category_id %></td>
+      <td><%= link_to "Show", company_service_group_path(current_company, service_group) %></td>
+      <td><%= link_to "Edit", edit_company_service_group_path(current_company, service_group) %></td>
+      <td><%= link_to "Destroy", [current_company, service_group], :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
+
+<p><%= link_to "New Service Group", new_company_service_group_path(current_company, service_group) %></p>

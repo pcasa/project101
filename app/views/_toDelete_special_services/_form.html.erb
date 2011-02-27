@@ -1,0 +1,12 @@
+<%= form_for @special_service do |f| %>
+  <%= f.error_messages %>
+  <p>
+    <%= f.label :service_id %><br />
+    <%= f.text_field :service_id %>
+  </p>
+  <p>
+    <%= f.label :service_group_id %><br />
+    <%= f.text_field :service_group_id %>
+  </p>
+  <p><%= f.submit %></p>
+<% end %>

@@ -1,0 +1,19 @@
+one:
+  name: MyString
+  short_description: MyString
+  price: 9.99
+  cost: 9.99
+  visible: false
+  new_service: false
+  deleted_at: 2011-02-20 21:46:34
+  category_id: 1
+
+two:
+  name: MyString
+  short_description: MyString
+  price: 9.99
+  cost: 9.99
+  visible: false
+  new_service: false
+  deleted_at: 2011-02-20 21:46:34
+  category_id: 1

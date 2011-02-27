@@ -1,0 +1,13 @@
+<% title current_company.name + " Customers" %>
+
+<p>
+	<%= form_for [current_company, @search], :html => {:method => :get}, :id => "customers_search", :remote => true do |f| %>
+	    <%= f.label :firstname_or_lastname_or_customer_number_or_full_address_contains, "Quick Search Customers" %>
+	    <%= f.text_field :firstname_or_lastname_or_customer_number_or_full_address_contains %><br />
+	    <%= f.submit "Search" %>
+	<% end %>
+</p>
+
+<div id="customers"><%= render 'customers' %></div>
+
+<p><%= link_to "New Customer", new_company_customer_url %></p>

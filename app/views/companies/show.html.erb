@@ -1,0 +1,65 @@
+<% title "Company" %>
+
+<p>
+  <strong>Name:</strong>
+  <%= @company.name %>
+</p>
+
+<p>
+  <strong>Subdomain:</strong>
+  <%= @company.subdomain %>
+</p>
+<% unless @company.parent_id.blank? %>
+<p>
+  <strong>Parent:</strong>
+  <%= @company.parent.name %>
+</p>
+<% end %>
+
+<table>
+	<thead>
+		<tr>
+			<th>Locations</th>
+			<th></th>
+		</tr>
+	</thead>
+<% for location in @company.locations %>
+	<tbody>
+		<tr>
+			<td><%= location.name %></td>
+			<td><%= link_to "Edit", edit_company_path(location) %></td>
+		</tr>
+	</tbody>
+<% end %>
+</table>
+
+<% unless @company.addresses.empty? %>
+
+
+  <% for address in @company.addresses.billing %>
+      <%= address.street1 %><br />
+	  <%= address.street2 %><br />
+	  <%= address.city %><br />
+	  <%= address.state %><br />
+	  <%= address.zipcode %><br />
+	  <%= address.address_type %><br />
+  <% end %>
+<% end %>
+
+	
+<p>
+	<strong>Employees</strong><br />
+	<% @users.each do |user| %>
+		<%= user.firstname %> <%= user.lastname %> <%= link_to "Edit", edit_company_user_path(current_company, user) %><br />
+	<% end %>
+	<br />
+	<%= link_to "Add Employee", users_path %>
+</p>
+
+
+
+<p>
+  <%= link_to "Edit", edit_company_path(@company) %> |
+  <%= link_to "Destroy", root_url(@company), :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "View All", :controller => 'companies', :action => 'index', :subdomain => '' %>
+</p>

@@ -1,0 +1,48 @@
+<% title "Address" %>
+
+<p>
+  <strong>Street1:</strong>
+  <%= @address.street1 %>
+</p>
+<p>
+  <strong>Street2:</strong>
+  <%= @address.street2 %>
+</p>
+<p>
+  <strong>City:</strong>
+  <%= @address.city %>
+</p>
+<p>
+  <strong>State:</strong>
+  <%= @address.state %>
+</p>
+<p>
+  <strong>Zipcode:</strong>
+  <%= @address.zipcode %>
+</p>
+<p>
+  <strong>Deleted At:</strong>
+  <%= @address.deleted_at %>
+</p>
+<p>
+  <strong>Addressable Type:</strong>
+  <%= @address.addressable_type %>
+</p>
+<p>
+  <strong>Addressable:</strong>
+  <%= @address.addressable_id %>
+</p>
+<p>
+  <strong>Current:</strong>
+  <%= @address.current %>
+</p>
+<p>
+  <strong>Full Address:</strong>
+  <%= @address.full_address %>
+</p>
+
+<p>
+  <%= link_to "Edit", edit_address_path(@address) %> |
+  <%= link_to "Destroy", @address, :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "View All", addresses_path %>
+</p>

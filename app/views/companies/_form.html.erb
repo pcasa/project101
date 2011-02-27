@@ -1,0 +1,18 @@
+<%= form_for @company do |f| %>
+  <%= f.error_messages %>
+  <p>
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </p>
+<p>
+    <%= f.label :subdomain %><br />
+    <%= f.text_field :subdomain %>
+  </p>
+
+  <p>
+	<%= f.collection_select(:parent_id, Company.all, :id, :name, :prompt => "Select Main Company") %>
+  </p>
+
+  
+  <p><%= f.submit %></p>
+<% end %>

@@ -1,0 +1,47 @@
+<% title "User" %>
+
+<p>
+  <strong>First Name:</strong>
+  <%= @user.firstname %>
+</p>
+<p>
+  <strong>Last Name:</strong>
+  <%= @user.lastname %>
+</p>
+<p>
+  <strong>email:</strong>
+  <%= @user.email %>
+</p>
+<p>
+  <strong>username:</strong>
+  <%= @user.username %>
+</p>
+<p>
+  <strong>Passcode:</strong>
+  <%= @user.passcode %>
+</p>
+
+<table>
+  <tr>
+    <th>Go to Assigned Companies</th>
+  </tr>
+  <% unless @companies.empty? %>
+  <% for company in @companies %>
+    <tr>
+      <td>
+      	<%= link_to company.name, show_company_path(company) %>
+      </td>
+    </tr>
+  <% end %>
+  <% else %>
+	<tr>
+		<td> Please Contact Admin to add you as a Employee to a location. </td>
+	</tr>
+  <% end %>
+</table>
+
+<p>
+  <%= link_to "Edit", edit_company_user_path(current_company, @user) %> |
+  <%= link_to "Destroy", [current_company, @user], :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "View All", company_users_path %>
+</p>

@@ -1,0 +1,25 @@
+<% title "Users" %>
+
+<table>
+  <tr>
+    <th>First Name</th>
+	<th>Last Name</th>
+    <th>Email</th>
+	<th>Username</th>
+	<th>Passcode</th>
+  </tr>
+  <% for user in @users %>
+    <tr>
+      <td><%= user.firstname %></td>
+	  <td><%= user.lastname %></td>
+      <td><%= user.email %></td>
+	  <td><%= user.username %></td>
+	  <td><%= user.passcode %></td>
+      <td><%= link_to "Show", company_user_path(current_company, user.id) %></td>
+      <td><%= link_to "Edit", edit_company_user_path(current_company, user) %></td>
+      <td><%= link_to "Destroy", [current_company, user], :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
+
+<p><%= link_to "New User", new_company_user_path(current_company, user) %></p>

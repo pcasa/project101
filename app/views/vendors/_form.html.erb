@@ -1,0 +1,20 @@
+<%= form_for [current_company, @vendor] do |f| %>
+  <%= f.error_messages %>
+  <p>
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </p>
+  <p>
+    <%= f.label :contact %><br />
+    <%= f.text_field :contact %>
+  </p>
+  <p>
+    <%= f.label :phone %><br />
+    <%= f.text_field :phone %>
+  </p>
+<p>
+	<%= render "addresses/new", :f => f, :addressable_id => @vendor.id, :asset => @vendor, :type => "Vendor"%>
+</p>
+
+  <p><%= f.submit %></p>
+<% end %>
