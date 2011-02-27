@@ -132,6 +132,7 @@ Company.all.each do |company|
   end
 end
 
+User.delete_all
 puts "Adding Users..."
 ["admin", "manager", "employee"].each do |user|  
   User.create!(:firstname => user,
@@ -140,6 +141,6 @@ puts "Adding Users..."
   :username => user,
   :password => "123456",
   :password_confirmation => "123456",
-  :passcode =>  user.upcase + "12345",
+  :passcode =>  user.upcase + "12345"[0,8],
   :role => user) 
 end

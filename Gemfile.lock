@@ -96,6 +96,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  bcrypt-ruby
   cancan
   devise
   faker
