@@ -1,9 +1,4 @@
 Project101::Application.routes.draw do
-  
-  
-  devise_for :users
-  resources :users, :controller => "users"
-  resources :homes
 
   match '/' => 'companies#index'
   match '/companies' => 'companies#index'
@@ -51,7 +46,9 @@ Project101::Application.routes.draw do
    
   
 
-  
+  devise_for :users
+  resources :users, :controller => "users"
+  resources :homes
   
   # The priority is based upon order of creation:
   # first created -> highest priority.

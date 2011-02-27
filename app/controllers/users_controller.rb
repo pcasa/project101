@@ -50,7 +50,7 @@ class UsersController < ApplicationController
   end
   
   def dashboard
-    if current_user.companies.count == 1
+    if current_user.companies.count == '1'
       redirect_to show_company_path(current_user.companies.first)
     else
       @companies = current_user.companies
