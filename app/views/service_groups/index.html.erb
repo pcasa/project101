@@ -20,10 +20,13 @@
       <td><%= service_group.deleted %></td>
       <td><%= service_group.category_id %></td>
       <td><%= link_to "Show", company_service_group_path(current_company, service_group) %></td>
+	  <% if can? :update, service_group %>
       <td><%= link_to "Edit", edit_company_service_group_path(current_company, service_group) %></td>
       <td><%= link_to "Destroy", [current_company, service_group], :confirm => 'Are you sure?', :method => :delete %></td>
+	  <% end %>
     </tr>
   <% end %>
 </table>
-
+<% if can? :create, service_group %>
 <p><%= link_to "New Service Group", new_company_service_group_path(current_company, service_group) %></p>
+<% end %>

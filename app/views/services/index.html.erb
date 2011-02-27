@@ -22,10 +22,13 @@
       <td><%= service.deleted %></td>
       <td><%= service.category.name unless service.category_id.blank? %></td>
       <td><%= link_to "Show", company_service_path(current_company, service) %></td>
+	  <% if can? :update, service %>
       <td><%= link_to "Edit", edit_company_service_path(current_company, service) %></td>
       <td><%= link_to "Destroy", [current_company, service], :confirm => 'Are you sure?', :method => :delete %></td>
+	  <% end %>
     </tr>
   <% end %>
 </table>
-
+<% if can? :create, service %>
 <p><%= link_to "New Service", new_company_service_path(current_company, service) %></p>
+<% end %>

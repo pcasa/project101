@@ -20,8 +20,12 @@
       <td><%= customer.lastname %></td>
       <td><%= customer.customer_number %></td>
       <td><%= link_to "Show", company_customer_path(current_company, customer) %></td>
+	  <% if can? :update, customer %>
       <td><%= link_to "Edit", edit_company_customer_path(current_company, customer) %></td>
-      <td><%= link_to "Destroy", customer, :confirm => 'Are you sure?', :method => :delete %></td>
+      <% end %>
+	  <% if can? :destroy, customer %>
+      <td><%= link_to "Destroy", [current_company, customer], :confirm => 'Are you sure?', :method => :delete %></td>
+      <% end %>
     </tr>
   <% end %>
   <% end %>

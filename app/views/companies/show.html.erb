@@ -20,14 +20,15 @@
 	<thead>
 		<tr>
 			<th>Locations</th>
-			<th></th>
 		</tr>
 	</thead>
 <% for location in @company.locations %>
 	<tbody>
 		<tr>
-			<td><%= location.name %></td>
+			<td><%= link_to location.name, show_company_path(location) %></td>
+			<% if can? :update, location %>
 			<td><%= link_to "Edit", edit_company_path(location) %></td>
+			<% end %>
 		</tr>
 	</tbody>
 <% end %>
@@ -50,16 +51,23 @@
 <p>
 	<strong>Employees</strong><br />
 	<% @users.each do |user| %>
-		<%= user.firstname %> <%= user.lastname %> <%= link_to "Edit", edit_company_user_path(current_company, user) %><br />
+		<%= user.firstname %> <%= user.lastname %> 
+		<% if can? :update, user %>
+		<%= link_to "Edit", edit_company_user_path(current_company, user) %>
+		<% end %><br />
 	<% end %>
 	<br />
+	<% if can? :create, User %>
 	<%= link_to "Add Employee", company_users_path(current_company) %>
+	<% end %>
 </p>
 
 
 
 <p>
+<% if can? :update, @company %>
   <%= link_to "Edit", edit_company_path(@company) %> |
   <%= link_to "Destroy", root_url(@company), :confirm => 'Are you sure?', :method => :delete %> |
-  <%= link_to "View All", :controller => 'companies', :action => 'index', :subdomain => '' %>
+<% end %>
+  <%= link_to "View All", companies_path %>
 </p>

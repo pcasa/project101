@@ -11,10 +11,13 @@
       <td><%= category.name %></td>
       <td><%= category.parent_id %></td>
       <td><%= link_to "Show", company_category_path(current_company, category) %></td>
+	  <% if can? :update, category %>
       <td><%= link_to "Edit", edit_company_category_path(current_company, category) %></td>
       <td><%= link_to "Destroy", [current_company, category], :confirm => 'Are you sure?', :method => :delete %></td>
+	  <% end %>
     </tr>
   <% end %>
 </table>
-
+<% if can? :create, category %>
 <p><%= link_to "New Category", new_company_category_path(current_company, category) %></p>
+<% end %>

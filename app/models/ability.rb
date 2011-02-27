@@ -24,12 +24,12 @@ class Ability
     #   can :update, Article, :published => true
     #
     # See the wiki for details: https://github.com/ryanb/cancan/wiki/Defining-Abilities
-    
+    user ||= User.new # guest user (not logged in)
     if user.role.blank?
       can :read, Company
     end
     if user.role? :employee
-      can :read, [User, Company, Category, Service, ServiceGroup]
+      can :read, [User, Company, Category, Customer, Service, ServiceGroup]
       can :dashboard, User
       can [:create, :update], [Customer, Address]
     end

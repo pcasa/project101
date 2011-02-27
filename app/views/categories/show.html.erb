@@ -10,7 +10,9 @@
 </p>
 
 <p>
+  <% if can? :update, @category %>
   <%= link_to "Edit", edit_company_category_path(current_company, @category) %> |
   <%= link_to "Destroy", [current_company, @category], :confirm => 'Are you sure?', :method => :delete %> |
+  <% end %>
   <%= link_to "View All", company_categories_path %>
 </p>

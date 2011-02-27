@@ -15,10 +15,13 @@
 		 %></td>
       <td><b><%= company.parent.name unless company.parent_id.blank? %></b></td>
       <td><%= link_to "Go to", show_company_path(company) %></td>
+	  <% if user_signed_in? && can?(:update, company) %>
       <td><%= link_to "Edit", edit_company_path(company) %></td>
       <td><%= link_to "Destroy", delete_company_path(company), :confirm => 'Are you sure?', :method => :delete %></td>
+	  <% end %>
     </tr>
   <% end %>
 </table>
-
+<% if user_signed_in? && can?(:create, company) %>
 <p><%= link_to "New Company", new_company_path(company) %></p>
+<% end %>
