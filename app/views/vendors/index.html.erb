@@ -11,11 +11,11 @@
       <td><%= vendor.name %></td>
       <td><%= vendor.contact %></td>
       <td><%= vendor.phone %></td>
-      <td><%= link_to "Show", company_vendor_path(current_company, vendor) %></td>
-      <td><%= link_to "Edit", edit_company_vendor_path(current_company, vendor) %></td>
-      <td><%= link_to "Destroy", [current_company, vendor], :confirm => 'Are you sure?', :method => :delete %></td>
+      <td><%= link_to "Show", company_vendor_path(current_company, vendor), :class => "smallbtn blue smallertxt" %></td>
+      <td><%= link_to "Edit", edit_company_vendor_path(current_company, vendor), :class => "smallbtn blue smallertxt" %></td>
+      <td><%= link_to "Destroy", [current_company, vendor], :confirm => 'Are you sure?', :method => :delete, :class => "smallbtn blue smallertxt" %></td>
     </tr>
   <% end %>
 </table>
 
-<p><%= link_to "New Vendor", new_company_vendor_path(current_company, vendor) %></p>
+<p><%= link_to "New Vendor", new_company_vendor_path(current_company, vendor), :class => "smallbtn green" %></p>

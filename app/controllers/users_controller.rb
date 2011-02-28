@@ -57,4 +57,16 @@ class UsersController < ApplicationController
     end
   end
   
+  
+  
+  def verify_current_user
+    unless params[:verify_code] == nil
+      if params[:verify_code] == current_user.passcode
+        flash[:notice] = "Successfully verified passcode."
+      else 
+        flash[:alert] = "Code did not match!"
+      end
+    end
+  end
+  
 end

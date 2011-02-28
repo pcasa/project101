@@ -1,10 +1,14 @@
 class CompaniesController < ApplicationController
   before_filter :authenticate_user!, :except => :index
   skip_authorize_resource :only => :index
-  load_and_authorize_resource :only => [:show, :new, :create, :edit, :update, :destroy]
+  load_and_authorize_resource :only => [:show, :new, :create, :edit, :update, :destroy, :dashboard]
   
   def index
-    @companies = Company.all
+    if user_signed_in?
+      @companies = current_user.companies
+    else
+      @companies = Company.all
+    end
   end
 
   def show
@@ -49,7 +53,6 @@ class CompaniesController < ApplicationController
   end
   
   def dashboard
-    # home for logged in users and where all buttons are 
-    # after user logs in.  All logic goes here.
   end
+  
 end

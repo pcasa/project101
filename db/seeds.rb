@@ -81,30 +81,34 @@ Service.delete_all
 
 puts "Adding Services"
 ["Title", "Tag", "Runner"].each do |s|
-  Service.create!(:name => s, :price => 10, :cost => 5, :category_id => 1, :new_service => false, :deleted => false, :visible => true) 
+  Service.create!(:name => s, :short_description => "Short description for #{s}", :price => 10, :cost => 5, :category_id => 1, :new_service => false, :deleted => false, :visible => true) 
 end
 
 puts "Adding Service Group"
 a_service_group = ServiceGroup.new do |sg|
   sg.name = "Tag & Title - New"
   sg.price = 140
+  sg.short_description = "Basics for a New Tag and Title"
   tag = Service.find_by_name("Tag")
   title = Service.find_by_name("Title")
   runner = Service.find_by_name("Runner")
   sg.new_service = true
+  sg.category_id = 1
   sg.services = [tag, title, runner]
-  sg.save
+  sg.save!
 end
 
 a_service_group = ServiceGroup.new do |sg|
   sg.name = "Tag & Title - Renewal"
   sg.price = 140
+  sg.short_description = "Basics for Renewing Tag and Title"
   tag = Service.find_by_name("Tag")
   title = Service.find_by_name("Title")
   runner = Service.find_by_name("Runner")
   sg.new_service = false
+  sg.category_id = 1
   sg.services = [tag, title, runner]
-  sg.save
+  sg.save!
 end
 
 puts "Adding Customers"

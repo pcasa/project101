@@ -14,7 +14,8 @@ class CreateCustomers < ActiveRecord::Migration
       t.integer :assigned_company_id
       t.timestamps
     end
-    add_index(:customers, [ :firstname, :lastname, :customer_number, :full_address, :parent_company_id, :assigned_company_id ], :name => "index_all_fields")
+    add_index(:customers, [ :firstname, :lastname, :customer_number, :full_address ], :name => "index_customers_on_fn_and_ln_and_cn_and_fa")
+    add_index(:customers, [:parent_company_id, :assigned_company_id ])
   end
 
   def self.down

@@ -55,7 +55,7 @@ class ApplicationController < ActionController::Base
 protected
   def after_sign_in_path_for(resource_or_scope)
     if resource_or_scope.is_a?(User) 
-      users_dashboard_url
+      root_url
     else
       super
     end

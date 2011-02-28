@@ -48,7 +48,7 @@ class AddressesController < ApplicationController
     @address = Address.find(params[:id])
     @address.destroy
     flash[:notice] = "Successfully destroyed address."
-    redirect_to :controller => @address.addressable_type.downcase.pluralize, :action => 'show', :id => @address.addressable_id.to_i
+    redirect_to company_ + "#{@address.addressable_type.downcase.pluralize}" +  _url(current_company, @address.addressable_id.to_i)
   end
   
   private

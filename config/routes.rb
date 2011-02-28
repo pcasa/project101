@@ -8,8 +8,9 @@ Project101::Application.routes.draw do
   match '/companies/:id/destroy' => 'companies#destroy', :as => :delete_company
  
   match '/users/dashboard' => 'users#dashboard', :as => :users_dashboard
+  match '/:company_id/dashboard' => 'companies#dashboard', :as => :company_dashboard
   
-  
+  match '/:company_id/users/:id/verify_current_user' => 'users#verify_current_user', :as => :verify_user
   match "/:company_id/customers/my_customers" => "customers#my_customers", :as => :my_customers 
   
   scope '/:company_id', :as => :company do 

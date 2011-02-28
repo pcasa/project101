@@ -2,19 +2,22 @@
   <%= f.error_messages %>
   <%= f.hidden_field :parent_company_id %>
   <p>
-    <%= f.label :firstname %><br />
+    <strong><%= f.label :firstname %></strong><br />
     <%= f.text_field :firstname %>
   </p>
   <p>
-    <%= f.label :lastname %><br />
+    <strong><%= f.label :lastname %></strong><br />
     <%= f.text_field :lastname %>
   </p>
   <p>
-    <%= f.label :customer_number %><br />
-    <%= f.text_field :customer_number %>
-  </p>
+    <strong><%= f.label :customer_number %></strong><br />
+    <% if current_user.role == "admin" %>
+	  <%= f.text_field :customer_number %>
+	<% else %>
+	  <%= @customer.customer_number %>
+   <% end %>
   <p>
-  	Assigned Company is - <%= f.collection_select(:assigned_company_id, @companies, :id, :name, :prompt => "Select Main Company") %>
+  	<strong>Assigned Company is</strong> - <%= f.collection_select(:assigned_company_id, @companies, :id, :name, :prompt => "Select Main Company") %>
   </p>
 <p><table>
   	<caption> Address</caption>

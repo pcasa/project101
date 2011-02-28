@@ -1,4 +1,11 @@
 <% title "User" %>
+<div id="user_show">
+
+<%= render "verify_current_user" %>
+
+<p>
+	<%= link_to "Verify User Example", verify_user_path(current_company, @user) %>
+</p>
 
 <p>
   <strong>First Name:</strong>
@@ -45,3 +52,5 @@
   <%= link_to "Destroy", [current_company, @user], :confirm => 'Are you sure?', :method => :delete %> |
   <%= link_to "View All", company_users_path %>
 </p>
+
+</div>

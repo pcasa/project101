@@ -1,0 +1,14 @@
+<p>
+	<% flash.each do |name, msg| %>
+        <%= content_tag :div, msg, :id => "flash_#{name}" %>
+      <% end %>
+	
+</p>
+<p><% form_tag verify_user_path(current_company, current_user), :remote => true do %>
+  <%= label_tag "Verify user"%><br />
+  <%= text_field_tag :verify_code %><br />
+ <%= submit_tag "Verify"%>
+
+<% end %>
+</p>
+

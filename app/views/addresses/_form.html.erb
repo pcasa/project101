@@ -1,4 +1,4 @@
-<%= form_for @address do |f| %>
+<%= form_for [current_company, @address] do |f| %>
   <%= f.error_messages %>
   <p><table>
   	<caption> Address</caption>

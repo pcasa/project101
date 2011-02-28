@@ -21,6 +21,21 @@ a {
 }
 
 /*** Common ***/
+
+.pagination {
+	margin-top:15px;
+}
+
+.pagination a {
+	text-decoration:none;
+	padding:4px 6px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+}
+
+
+
+
 .smallbtn {
 	text-decoration: none;
 	font-weight: bold;
@@ -31,13 +46,13 @@ a {
 	border-radius: 3px;
 }
 
-.blue {
+.blue, .pagination a {
 	color: #eeeeee;
 	border: 1px solid #042040;
 	background: #0b5ea6 url(../images/blueBtnSmall.jpg) repeat-y;
 }
 
-.blue:hover {
+.blue:hover, .pagination a:hover {
 	border-color: #1d4e9c;
 	background: #0e274b url(../images/blueBtnSmallHover.jpg) repeat-x;
 }
@@ -52,6 +67,10 @@ a {
 	color: #fff;
 	border: 1px solid #399e00;
 	background: #246500 url(../images/greenBtnSmallHover.jpg) repeat-x;
+}
+
+.smallertxt {
+	font-size: 0.8em;
 }
 
 /*** Header Container ***/
@@ -78,6 +97,7 @@ a {
 	margin-top: 5px;
 	margin-bottom: 5px;
 	display: inline-block;
+	font-size: 0.8em;
 	
 }
 

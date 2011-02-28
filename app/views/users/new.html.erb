@@ -35,7 +35,6 @@
    <% end %>
 </p>
   
-  <p><%= f.submit %></p>
+  <p><%= f.submit(:class => "smallbtn green") %> | <%= link_to "Back to List", company_users_path, :class => "smallbtn green" %></p>
 <% end %>
 
-<p><%= link_to "Back to List", company_users_path %></p>

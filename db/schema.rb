@@ -65,7 +65,8 @@ ActiveRecord::Schema.define(:version => 20110226144805) do
     t.datetime "updated_at"
   end
 
-  add_index "customers", ["firstname", "lastname", "customer_number", "full_address", "parent_company_id", "assigned_company_id"], :name => "index_all_fields"
+  add_index "customers", ["firstname", "lastname", "customer_number", "full_address"], :name => "index_customers_on_fn_and_ln_and_cn_and_fa"
+  add_index "customers", ["parent_company_id", "assigned_company_id"], :name => "index_customers_on_parent_company_id_and_assigned_company_id"
 
   create_table "employmentships", :force => true do |t|
     t.integer  "company_id"
