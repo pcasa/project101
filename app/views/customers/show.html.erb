@@ -26,6 +26,16 @@
 </p>
 
 <p>
+	<%= link_to "Order", edit_company_order_path(current_company, current_order, :customer_id => @customer.id) %>
+</p>
+
+<p>
+	<%= link_to "Create Policy", new_company_customer_insurance_policy_path(current_company, @customer) %>
+</p>
+<%= render :partial => 'insurance_policies/show', :collection => @customer.insurance_policies, :as => :insurance_policy %>
+
+
+<p>
 
 <% unless @customer.addresses.blank? %>
 <strong>Previous Addresses Used</strong><br />

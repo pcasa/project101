@@ -1,0 +1,26 @@
+<div id="services_popup">
+<h1>Combined Services</h1>
+<table id="servicegroup">
+<% @service_groups.in_groups_of(3, false) do |row_services| %>
+  <tr>
+    <% for service in row_services %>
+      <td><%= link_to service.name, company_service_group_path(current_company, service), :class => "bigBtn" %></td>
+    <% end %>
+  </tr>
+<% end %>
+</table>
+
+<h1>Services</h1>
+<table id="individualService">
+<% @services.in_groups_of(3, false) do |row_services| %>
+  <tr>
+    <% for service in row_services %>
+      <td><%= link_to service.name, company_service_group_path(current_company, service), :class => "smallbtn green" %></td>
+    <% end %>
+  </tr>
+<% end %>
+</table>
+	
+
+
+</div>

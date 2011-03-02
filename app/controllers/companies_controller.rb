@@ -1,8 +1,8 @@
 class CompaniesController < ApplicationController
-  before_filter :authenticate_user!, :except => :index
-  skip_authorize_resource :only => :index
-  load_and_authorize_resource :only => [:show, :new, :create, :edit, :update, :destroy, :dashboard]
-  
+ # before_filter :authenticate_user!, :except => :index
+ # skip_authorize_resource :only => :index
+ # load_and_authorize_resource :only => [:show, :new, :create, :edit, :update, :destroy, :dashboard]
+ # 
   def index
     if user_signed_in?
       @companies = current_user.companies

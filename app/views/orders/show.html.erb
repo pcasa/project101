@@ -1,0 +1,44 @@
+<% title "Order" %>
+
+<p>
+  <strong>Assigned Company:</strong>
+  <%= @order.assigned_company_id %>
+</p>
+<p>
+  <strong>Parent Company:</strong>
+  <%= @order.parent_company_id %>
+</p>
+<p>
+  <strong>Customer:</strong>
+  <%= @order.customer_id %>
+</p>
+<p>
+  <strong>User:</strong>
+  <%= @order.user_id %>
+</p>
+<p>
+  <strong>Closed:</strong>
+  <%= @order.closed %>
+</p>
+<p>
+  <strong>Closed Date:</strong>
+  <%= @order.closed_date %>
+</p>
+<p>
+  <strong>Payment Type:</strong>
+  <%= @order.payment_type %>
+</p>
+<p>
+  <strong>Total Cost:</strong>
+  <%= @order.total_cost %>
+</p>
+<p>
+  <strong>Total Amount:</strong>
+  <%= @order.total_amount %>
+</p>
+
+<p>
+  <%= link_to "Edit", edit_company_order_path(current_company, @order) %> |
+  <%= link_to "Destroy", [current_company, @order], :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "View All", company_orders_path %>
+</p>

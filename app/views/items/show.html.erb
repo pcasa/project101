@@ -1,0 +1,60 @@
+<% title "Item" %>
+
+<p>
+  <strong>Name:</strong>
+  <%= @item.name %>
+</p>
+<p>
+  <strong>Short Description:</strong>
+  <%= @item.short_description %>
+</p>
+<p>
+  <strong>Price:</strong>
+  <%= @item.price %>
+</p>
+<p>
+  <strong>Cost:</strong>
+  <%= @item.cost %>
+</p>
+<p>
+  <strong>Category ID:</strong>
+  <%= @item.category_id %>
+</p>
+<p>
+  <strong>Qty:</strong>
+  <%= @item.qty %>
+</p>
+<p>
+  <strong>Visible:</strong>
+  <%= @item.visible %>
+</p>
+<p>
+  <strong>New Service:</strong>
+  <%= @item.new_service %>
+</p>
+<p>
+  <strong>Deleted:</strong>
+  <%= @item.deleted %>
+</p>
+<p>
+  <strong>Closed:</strong>
+  <%= @item.closed %>
+</p>
+<p>
+  <strong>Order:</strong>
+  <%= @item.order_id %>
+</p>
+<p>
+  <strong>Itemable Type:</strong>
+  <%= @item.itemable_type %>
+</p>
+<p>
+  <strong>Itemable ID:</strong>
+  <%= @item.itemable_id %>
+</p>
+
+<p>
+  <%= link_to "Edit", edit_company_item_path(current_company, @item) %> |
+  <%= link_to "Destroy", [current_company, @item], :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "View All", company_items_path(current_company) %>
+</p>

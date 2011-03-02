@@ -20,12 +20,8 @@
       <td><%= customer.lastname %></td>
       <td><%= customer.customer_number %></td>
       <td><%= link_to "Show", company_customer_path(current_company, customer), :class => "smallbtn blue smallertxt" %></td>
-	  <% if can? :update, customer %>
       <td><%= link_to "Edit", edit_company_customer_path(current_company, customer), :class => "smallbtn blue smallertxt" %></td>
-      <% end %>
-	  <% if can? :destroy, customer %>
       <td><%= link_to "Destroy", [current_company, customer], :confirm => 'Are you sure?', :method => :delete, :class => "smallbtn blue smallertxt" %></td>
-      <% end %>
     </tr>
   <% end %>
   <% end %>

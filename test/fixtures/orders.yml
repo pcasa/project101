@@ -1,0 +1,21 @@
+one:
+  assigned_company_id: 1
+  parent_company_id: 1
+  customer_id: 1
+  user_id: 1
+  closed: false
+  closed_date: 2011-03-01 10:37:42
+  payment_type: MyString
+  total_cost: 9.99
+  total_amount: 9.99
+
+two:
+  assigned_company_id: 1
+  parent_company_id: 1
+  customer_id: 1
+  user_id: 1
+  closed: false
+  closed_date: 2011-03-01 10:37:42
+  payment_type: MyString
+  total_cost: 9.99
+  total_amount: 9.99

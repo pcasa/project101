@@ -1,8 +1,13 @@
 class Company < ActiveRecord::Base
+  # after install run - rake friendly_id:make_slugs MODEL=company
+  has_friendly_id :subdomain, :use_slug => true
+  
   has_many :employmentships, :dependent => :destroy
   has_many :users, :through => :employmentships
   
   attr_accessible :name, :parent_id, :subdomain, :address, :addresses_attributes, :address
+  has_many :insurance_policies
+  has_many :orders
   
   
   has_many :locations, :class_name => "Company", :foreign_key => "parent_id"

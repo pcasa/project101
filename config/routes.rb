@@ -1,5 +1,8 @@
 Project101::Application.routes.draw do
 
+  
+  
+
   match '/' => 'companies#index'
   match '/companies' => 'companies#index'
   match '/:company_id' => 'companies#show', :as => :show_company
@@ -14,20 +17,32 @@ Project101::Application.routes.draw do
   match "/:company_id/customers/my_customers" => "customers#my_customers", :as => :my_customers 
   
   scope '/:company_id', :as => :company do 
-    resources :customers do 
-      resources :addresses
+    
+    resources :users 
+    resources :insurance_policies
+    match '/orders/all_services_popup' => 'orders#all_services_popup', :as => :all_services_popup
+    resources :orders do
+      resources :items
     end
-    resources :users
+    resources :items
     resources :categories
     resources :addresses
     resources :services
     resources :special_services
     resources :service_groups
+    resources :customers do 
+      resources :insurance_policies
+      resources :addresses
+      resources :orders
+      resources :items
+    end
     resources :vendors do 
+      resources :insurance_policies
       resources :addresses
     end
   end
   
+  resources :insurance_policies
   resources :companies
   resources :customers do 
     resources :addresses
@@ -36,7 +51,7 @@ Project101::Application.routes.draw do
     resources :addresses
   end
   
-  
+  resources :orders
   resources :services
   resources :special_services
 
@@ -44,6 +59,10 @@ Project101::Application.routes.draw do
   resources :categories
   
   resources :addresses
+  
+  resources :items
+
+  resources :orders
    
   
 

@@ -1,0 +1,23 @@
+one:
+  policy_number: MyString
+  yearly: false
+  customer_id: 1
+  vendor_id: 1
+  assigned_company_id: 1
+  parent_company_id: 1
+  due_date: 2011-02-28
+  cancelled: false
+  completed: false
+  number_of_payments_left: 1
+
+two:
+  policy_number: MyString
+  yearly: false
+  customer_id: 1
+  vendor_id: 1
+  assigned_company_id: 1
+  parent_company_id: 1
+  due_date: 2011-02-28
+  cancelled: false
+  completed: false
+  number_of_payments_left: 1

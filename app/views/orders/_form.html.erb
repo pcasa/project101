@@ -1,0 +1,94 @@
+<div id="order_form">
+	<%= form_for [current_company, @order] do |f| %>
+	  <%= f.error_messages %>
+<table width="940px" border="0">
+	<tr width="100%">
+		<td wdith="60%" class="silverBG">
+			
+			<% unless @customer.blank? %>
+			  	<%= render :partial => 'common/show_customer_condensed', :locals => {:customer => @customer } %>
+			<% else %>
+				<%= f.fields_for :customer do |customer| %>
+			    	<%= render :partial => 'common/new_customer', :locals => { :f => customer } %>
+			  <% end %>
+			<% end %>
+		</td>
+		<td align=center> 101 Logo Goes Here</td>
+	</tr>
+	<tr width="100%">
+		<td width="50%">&nbsp;</td>
+		<td width="50%">
+			<table width="100%" border="0" cellspacing="0" cellpadding="0" id="order_date">
+				<tr width="100%">
+					<td align=left>Order #</td>
+					<td align=right><%= @order.id %></td>
+				</tr>
+				<tr width="100%">
+					<td align=left>Invoice Date</td>
+					<td align=right><%= Date.today.strftime('%m/%d/%Y') %></td>
+				</tr>
+				<tr class="silverBoarderd">
+					<th align=left>Amount Due</th>
+					<th align=right><%= number_to_currency(@order.total_amount) %></th>
+				</tr>
+			</table>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2">
+			&nbsp;
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2">
+			<table width="100%" cellpadding="0" cellspacing="0">
+				<tr class="silverBoarderd">
+					<th width="25%">Product / Service</th>
+					<th width="35%">Description</th>
+					<th width="15%">Unit Price</th>
+					<th width="10%">Qty</th>
+					<th width="15%">Total </th>
+				</tr>
+			</table>
+		</td>
+	</tr>
+	<tr>
+		<td width="60%" align=CENTER>
+			Space for Notes
+		</td>
+		<td>
+			<table width="100%">
+				<tr>
+					<td width="45%"><%= f.label :payment_type %></td>
+					<td ALIGN=RIGHT><%= f.collection_select :payment_type, Order::PAYMENTTYPES, :to_s, :humanize %></td>
+				</tr>
+				<tr>
+					<td>Total Cost</td>
+					<td ALIGN=RIGHT><%= number_to_currency(@order.total_cost) %></td>
+				</tr>
+				<tr>
+					<td>Total Due:</td>
+					<td ALIGN=RIGHT><%= number_to_currency(@order.total_amount) %></td>
+				</tr>
+				<tr>
+					<td>Amount Paid</td>
+					<td ALIGN=RIGHT><%= f.text_field :amount_paid %></td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+</table>	
+
+
+  <p>
+    <%= f.hidden_field :assigned_company_id %>
+    <%= f.hidden_field :parent_company_id %>
+    <%= f.hidden_field :customer_id %>
+    <%= f.hidden_field :user_id %>
+    <%= f.hidden_field :closed %>
+  </p>
+  
+  
+  <p><%= f.submit %></p>
+<% end %>
+</div>

@@ -1,0 +1,14 @@
+<% title "Edit Order" %>
+
+
+<p>
+	<%= link_to "Add Product", company_all_services_popup_path(current_company), :rel => 'facebox', :class => "smallbtn blue" %>
+</p>
+
+<%= render "form" %>
+
+
+<p>
+  <%= link_to "Show", @order %> |
+  <%= link_to "View All", orders_path %>
+</p>

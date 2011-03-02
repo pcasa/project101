@@ -30,16 +30,18 @@ class Ability
     end
     if user.role? :employee
       can [:verify_current_user, :dashboard], User
-      can :read, [Company, Category, Service, ServiceGroup]
+      can :read, [Company, Category, Service, ServiceGroup, Vendor]
       can [:read, :update], User do |current_user|
         user.id == current_user.id
       end
+      can [:read, :create], InsurancePolicy
       can [:create, :update, :my_customers, :read], [Customer, Address]
     end
     if user.role? :manager
       can [:read, :update], User, :role => ["employee", "manager"]
       can :create, User
-      can [:create, :update], [Service, ServiceGroup]
+      can [:create, :update], [Service, ServiceGroup, Vendor]
+      can :update, InsurancePolicy
       can :manage, SpecialService
     end
     if user.role? :admin

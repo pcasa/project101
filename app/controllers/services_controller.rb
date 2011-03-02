@@ -1,6 +1,6 @@
 class ServicesController < ApplicationController
- before_filter :authenticate_user!
- load_and_authorize_resource
+   before_filter :authenticate_user!
+   load_and_authorize_resource
    
   def index
     @services = Service.all
@@ -38,10 +38,21 @@ class ServicesController < ApplicationController
     end
   end
 
+ # def destroy
+ #   @service = Service.find(params[:id])
+ #   @service.destroy
+ #   flash[:notice] = "Successfully destroyed service."
+ #   redirect_to company_services_url
+ # end
+  
   def destroy
     @service = Service.find(params[:id])
-    @service.destroy
-    flash[:notice] = "Successfully destroyed service."
-    redirect_to company_services_url
+    if @service.disable #instead of @model.destroy
+      flash[:notice] = "Successfully disabled #{@service.name}."
+      redirect_to company_services_url
+    else
+      flash[:error] = "Failed to disable #{@service.name}."
+      render :action => :show
+    end
   end
 end

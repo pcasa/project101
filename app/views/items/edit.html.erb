@@ -1,0 +1,8 @@
+<% title "Edit Item" %>
+
+<%= render 'form' %>
+
+<p>
+  <%= link_to "Show", company_item_path(current_company, @item) %> |
+  <%= link_to "View All", company_items_path(current_company) %>
+</p>

@@ -1,15 +1,18 @@
 class Customer < ActiveRecord::Base
   
+  default_scope order('lastname, firstname')
   
   belongs_to :company, :class_name => "Company", :foreign_key => "parent_company_id"
-  attr_accessible :firstname, :lastname, :customer_number, :parent_company_id, :assigned_company_id, :street1, :street2, :city, :state, :zipcode, :full_address, :addresses_attributes, :search
+  attr_accessible :firstname, :lastname, :customer_number, :parent_company_id, :assigned_company_id, :street1, :street2, :city, :state, :zipcode, :full_address, :addresses_attributes, :search, :full_name
   has_many :addresses, :class_name => "Address", :as => :addressable
-  
+  has_many :insurance_policies, :class_name => "InsurancePolicy"
+  has_many :orders
   
   accepts_nested_attributes_for :addresses, :allow_destroy => true, :reject_if => proc { |obj| obj.blank? }
   
-  before_validation(:on => :create){ make_customer_number }
   
+  before_validation(:on => :create){ make_customer_number }
+  validates_presence_of :firstname, :lastname, :street1, :city, :state, :zipcode, :message => "can't be blank"
   before_save :update_full_address
   before_update :check_if_address_changed
   
@@ -31,6 +34,10 @@ class Customer < ActiveRecord::Base
     end
     citystatezip = self.city + ", " + self.state + " " + self.zipcode
     self.full_address = street + citystatezip
+  end
+  
+  def full_name
+    self.firstname + " " + self.lastname
   end
   
   

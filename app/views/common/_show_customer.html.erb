@@ -1,0 +1,16 @@
+<table>
+	<tbody>
+	<tr>
+		<th>First Name:</th>
+		<th>Last name:</th>
+		<th>Customer Number:</th>
+		<th>Current Address:</th>
+	</tr>
+	<tr>
+		<td><%= customer.firstname %></td>
+		<td><%= customer.lastname %></td>
+		<td><%= customer.customer_number %></td>
+		<td><%= customer.full_address.html_safe %></td>
+	</tr>
+	</tbody>
+</table>

@@ -93,6 +93,7 @@ a_service_group = ServiceGroup.new do |sg|
   title = Service.find_by_name("Title")
   runner = Service.find_by_name("Runner")
   sg.new_service = true
+  sg.deleted = false
   sg.category_id = 1
   sg.services = [tag, title, runner]
   sg.save!
@@ -105,6 +106,7 @@ a_service_group = ServiceGroup.new do |sg|
   tag = Service.find_by_name("Tag")
   title = Service.find_by_name("Title")
   runner = Service.find_by_name("Runner")
+  sg.deleted = false
   sg.new_service = false
   sg.category_id = 1
   sg.services = [tag, title, runner]

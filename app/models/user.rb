@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
   has_many :employmentships, :dependent => :destroy
   has_many :companies, :through => :employmentships
+  has_many :orders
   
   
   # Include default devise modules. Others available are:

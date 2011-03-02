@@ -1,0 +1,47 @@
+<% title "Items" %>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Short Description</th>
+    <th>Price</th>
+    <th>Cost</th>
+    <th>Category ID</th>
+    <th>Qty</th>
+    <th>Visible</th>
+    <th>New Service</th>
+    <th>Deleted</th>
+    <th>Closed</th>
+    <th>Order</th>
+    <th>Itemable Type</th>
+	<th>Itemable ID</th>
+	<th>User</th>
+    <th>Assigned Company</th>
+	<th>Parent Company</th>
+  </tr>
+  <% for item in @items %>
+    <tr>
+      <td><%= item.name %></td>
+      <td><%= item.short_description %></td>
+      <td><%= item.price %></td>
+      <td><%= item.cost %></td>
+      <td><%= item.category_id %></td>
+      <td><%= item.qty %></td>
+      <td><%= item.visible %></td>
+      <td><%= item.new_service %></td>
+      <td><%= item.deleted %></td>
+      <td><%= item.closed %></td>
+      <td><%= item.order_id %></td>
+      <td><%= item.itemable_type %></td>
+	  <td><%= item.itemable_id %></td>
+	  <td><%= item.user_id %></td>
+      <td><%= item.assigned_company_id %></td>
+	  <td><%= item.parent_company_id %></td>
+      <td><%= link_to "Show", company_item_path(current_company, item) %></td>
+      <td><%= link_to "Edit", edit_company_item_path(current_company, item) %></td>
+      <td><%= link_to "Destroy", [current_company, item], :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
+
+<p><%= link_to "New Item", new_company, item_path(current_company, item) %></p>

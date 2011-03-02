@@ -1,0 +1,20 @@
+<% title "New Insurance Policy" %>
+
+
+
+<%= semantic_form_for [current_company, @insurance_policy] do |f| %>
+   <%= f.inputs do %>
+	  <%= f.input :policy_number %>
+	  <%= f.input :yearly, :as => :check_boxes %>
+	  <%= f.input :vendor %>
+	  <%= f.input :customer_id %>
+	  <%= f.input :due_date, :as => :date_picker %>
+	  <%= f.input :number_of_payments_left %>
+   <% end %>
+   <%= f.buttons do %>
+	<%= f.commit_button %>
+   <% end %>
+<% end %>
+
+
+<p><%= link_to "Back to List", insurance_policies_path %></p>

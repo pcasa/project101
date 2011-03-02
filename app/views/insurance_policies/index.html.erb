@@ -1,0 +1,35 @@
+<% title "Insurance Policies" %>
+
+<table>
+  <tr>
+    <th>Policy Number</th>
+    <th>Yearly</th>
+    <th>Customer</th>
+    <th>Vendor</th>
+    <th>Assigned Company</th>
+    <th>Parent Company</th>
+    <th>Due Date</th>
+    <th>Cancelled</th>
+    <th>Completed</th>
+    <th>Number Of Payments Left</th>
+  </tr>
+  <% for insurance_policy in @insurance_policies %>
+    <tr>
+      <td><%= insurance_policy.policy_number %></td>
+      <td><%= insurance_policy.yearly %></td>
+      <td><%= insurance_policy.customer_id %></td>
+      <td><%= insurance_policy.vendor_id %></td>
+      <td><%= insurance_policy.assigned_company_id %></td>
+      <td><%= insurance_policy.parent_company_id %></td>
+      <td><%= insurance_policy.due_date %></td>
+      <td><%= insurance_policy.cancelled %></td>
+      <td><%= insurance_policy.completed %></td>
+      <td><%= insurance_policy.number_of_payments_left %></td>
+      <td><%= link_to "Show", company_insurance_policy_path(current_company, insurance_policy) %></td>
+      <td><%= link_to "Edit", edit_company_insurance_policy_path(current_company, insurance_policy) %></td>
+      <td><%= link_to "Destroy", [current_company, insurance_policy], :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
+
+<p><%= link_to "New Insurance Policy", new_company_insurance_policy_path(current_company, insurance_policy) %></p>

@@ -1,0 +1,44 @@
+<%= form_for [current_company, @insurance_policy] do |f| %>
+  <%= f.error_messages %>
+  <p>
+    <%= f.label :policy_number %><br />
+    <%= f.text_field :policy_number %>
+  </p>
+  <p>
+    <%= f.label :yearly %><br />
+    <%= f.check_box :yearly %>
+  </p>
+  <p>
+	<%= f.label :customer_id %><br />
+    <%= f.text_field :customer_id %>
+  </p>
+  <p>
+    <%= f.label :vendor_id %><br />
+    <%= f.text_field :vendor_id %>
+  </p>
+  <p>
+    <%= f.label :assigned_company_id %><br />
+    <%= f.hidden_field :assigned_company_id %>
+  </p>
+  <p>
+    <%= f.label :parent_company_id %><br />
+    <%= f.hidden_field :parent_company_id %>
+  </p>
+  <p>
+    <%= f.label :due_date %><br />
+    <%= f.date_select :due_date %>
+  </p>
+  <p>
+    <%= f.label :cancelled %><br />
+    <%= f.check_box :cancelled %>
+  </p>
+  <p>
+    <%= f.label :completed %><br />
+    <%= f.check_box :completed %>
+  </p>
+  <p>
+    <%= f.label :number_of_payments_left %><br />
+    <%= f.text_field :number_of_payments_left %>
+  </p>
+  <p><%= f.submit %></p>
+<% end %>

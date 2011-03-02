@@ -1,0 +1,48 @@
+<% title "Insurance Policy" %>
+
+<p>
+  <strong>Policy Number:</strong>
+  <%= @insurance_policy.policy_number %>
+</p>
+<p>
+  <strong>Yearly:</strong>
+  <%= @insurance_policy.yearly %>
+</p>
+<p>
+  <strong>Customer:</strong>
+  <%= @insurance_policy.customer_id %>
+</p>
+<p>
+  <strong>Vendor:</strong>
+  <%= @insurance_policy.vendor_id %>
+</p>
+<p>
+  <strong>Assigned Company:</strong>
+  <%= @insurance_policy.assigned_company_id %>
+</p>
+<p>
+  <strong>Parent Company:</strong>
+  <%= @insurance_policy.parent_company_id %>
+</p>
+<p>
+  <strong>Due Date:</strong>
+  <%= @insurance_policy.due_date %>
+</p>
+<p>
+  <strong>Cancelled:</strong>
+  <%= @insurance_policy.cancelled %>
+</p>
+<p>
+  <strong>Completed:</strong>
+  <%= @insurance_policy.completed %>
+</p>
+<p>
+  <strong>Number Of Payments Left:</strong>
+  <%= @insurance_policy.number_of_payments_left %>
+</p>
+
+<p>
+  <%= link_to "Edit", edit_insurance_policy_path(@insurance_policy) %> |
+  <%= link_to "Destroy", @insurance_policy, :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "View All", insurance_policies_path %>
+</p>

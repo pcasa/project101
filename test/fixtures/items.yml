@@ -1,0 +1,27 @@
+one:
+  name: MyString
+  short_description: MyString
+  price: 9.99
+  cost: 9.99
+  price: 9.99
+  qty: 1
+  visible: false
+  new_service: false
+  deleted: false
+  closed: false
+  order_id: 1
+  itemable: 
+
+two:
+  name: MyString
+  short_description: MyString
+  price: 9.99
+  cost: 9.99
+  price: 9.99
+  qty: 1
+  visible: false
+  new_service: false
+  deleted: false
+  closed: false
+  order_id: 1
+  itemable: 

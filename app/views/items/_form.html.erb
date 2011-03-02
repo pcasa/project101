@@ -1,0 +1,68 @@
+<%= form_for [current_company, @item] do |f| %>
+  <%= f.error_messages %>
+  <p>
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </p>
+  <p>
+    <%= f.label :short_description %><br />
+    <%= f.text_field :short_description %>
+  </p>
+  <p>
+    <%= f.label :price %><br />
+    <%= f.text_field :price %>
+  </p>
+  <p>
+    <%= f.label :cost %><br />
+    <%= f.text_field :cost %>
+  </p>
+  <p>
+    <%= f.label :category_id %><br />
+    <%= f.text_field :category_id %>
+  </p>
+  <p>
+    <%= f.label :qty %><br />
+    <%= f.text_field :qty %>
+  </p>
+  <p>
+    <%= f.label :visible %><br />
+    <%= f.check_box :visible %>
+  </p>
+  <p>
+    <%= f.label :new_service %><br />
+    <%= f.check_box :new_service %>
+  </p>
+  <p>
+    <%= f.label :deleted %><br />
+    <%= f.check_box :deleted %>
+  </p>
+  <p>
+    <%= f.label :closed %><br />
+    <%= f.check_box :closed %>
+  </p>
+  <p>
+    <%= f.label :order_id %><br />
+    <%= f.text_field :order_id %>
+  </p>
+  <p>
+    <%= f.label :itemable_type %><br />
+    <%= f.text_field :itemable_type %>
+  </p>
+ <p>
+    <%= f.label :itemable_id %><br />
+    <%= f.text_field :itemable_id %>
+  </p>
+<p>
+    <%= f.label :user_id %><br />
+    <%= f.text_field :user_id %>
+  </p>
+  <p>
+    <%= f.label :assigned_company_id %><br />
+    <%= f.text_field :assigned_company_id %>
+  </p>
+ <p>
+    <%= f.label :parent_company_id %><br />
+    <%= f.text_field :parent_company_id %>
+  </p>
+  <p><%= f.submit %></p>
+<% end %>
