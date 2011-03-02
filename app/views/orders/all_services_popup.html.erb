@@ -4,7 +4,7 @@
 <% @service_groups.in_groups_of(3, false) do |row_services| %>
   <tr>
     <% for service in row_services %>
-      <td><%= link_to service.name, company_service_group_path(current_company, service), :class => "bigBtn" %></td>
+      <td><%= link_to service.name, company_add_service_groups_to_order_path(current_company, service), :class => "bigBtn" %></td>
     <% end %>
   </tr>
 <% end %>
@@ -15,7 +15,7 @@
 <% @services.in_groups_of(3, false) do |row_services| %>
   <tr>
     <% for service in row_services %>
-      <td><%= link_to service.name, company_service_group_path(current_company, service), :class => "smallbtn green" %></td>
+      <td><%= link_to service.name, company_add_service_to_order_path(current_company, service), :class => "smallbtn green" %></td>
     <% end %>
   </tr>
 <% end %>

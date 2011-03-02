@@ -39,6 +39,6 @@ class ItemsController < ApplicationController
     @item = Item.find(params[:id])
     @item.destroy
     flash[:notice] = "Successfully destroyed item."
-    redirect_to company_items_url(current_company)
+    redirect_to edit_company_order_url(current_company, @item.order_id)
   end
 end

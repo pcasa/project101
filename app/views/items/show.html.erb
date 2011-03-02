@@ -52,6 +52,14 @@
   <strong>Itemable ID:</strong>
   <%= @item.itemable_id %>
 </p>
+<p>
+	<strong>Customer:</strong>
+	<%= @item.customer_id %>
+</p>
+<p>
+	<strong>Parent ID:</strong>
+	<%= @item.parent_id %>
+</p>
 
 <p>
   <%= link_to "Edit", edit_company_item_path(current_company, @item) %> |

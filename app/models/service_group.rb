@@ -2,6 +2,8 @@ class ServiceGroup < ActiveRecord::Base
   belongs_to :category, :class_name => "Category", :foreign_key => "category_id"
   has_many :special_services, :dependent => :destroy
   has_many :services, :through => :special_services
+  has_many :items, :as => :itemable
+  
     attr_accessible :name, :short_description, :cost, :price, :new_service, :deleted, :category_id, :service_ids
     
     accepts_nested_attributes_for :services, :allow_destroy => true, :reject_if => proc { |obj| obj.blank? }

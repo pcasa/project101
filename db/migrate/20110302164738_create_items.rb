@@ -14,6 +14,7 @@ class CreateItems < ActiveRecord::Migration
       t.integer :category_id
       t.references :itemable, :polymorphic => true
       t.integer :user_id
+      t.integer :customer_id
       t.integer :assigned_company_id
       t.integer :parent_company_id
       t.timestamps
@@ -23,6 +24,7 @@ class CreateItems < ActiveRecord::Migration
     add_index(:items, :order_id)
     add_index(:items, [:new_service, :deleted, :visible, :closed])
     add_index(:items, :user_id)
+    add_index(:items, :customer_id)
     add_index(:items, :assigned_company_id)
     add_index(:items, :parent_company_id)
   end

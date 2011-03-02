@@ -18,6 +18,8 @@
 	<th>User</th>
     <th>Assigned Company</th>
 	<th>Parent Company</th>
+	<th>Customer ID</th>
+	<th>Parent ID</th>
   </tr>
   <% for item in @items %>
     <tr>
@@ -37,6 +39,8 @@
 	  <td><%= item.user_id %></td>
       <td><%= item.assigned_company_id %></td>
 	  <td><%= item.parent_company_id %></td>
+	  <td><%= item.customer_id %></td>
+	  <td><%= item.parent_id %></td>
       <td><%= link_to "Show", company_item_path(current_company, item) %></td>
       <td><%= link_to "Edit", edit_company_item_path(current_company, item) %></td>
       <td><%= link_to "Destroy", [current_company, item], :confirm => 'Are you sure?', :method => :delete %></td>
@@ -44,4 +48,4 @@
   <% end %>
 </table>
 
-<p><%= link_to "New Item", new_company, item_path(current_company, item) %></p>
+<p><%= link_to "New Item", new_company_item_path(current_company, item) %></p>

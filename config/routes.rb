@@ -27,8 +27,10 @@ Project101::Application.routes.draw do
     resources :items
     resources :categories
     resources :addresses
+    match '/services/:id/add_to_order' => 'services#add_to_order', :as => :add_service_to_order
     resources :services
     resources :special_services
+    match '/service_groups/:id/add_to_order' => 'service_groups#add_to_order', :as => :add_service_groups_to_order
     resources :service_groups
     resources :customers do 
       resources :insurance_policies

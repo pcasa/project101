@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110302164738) do
+ActiveRecord::Schema.define(:version => 20110302202110) do
 
   create_table "addresses", :force => true do |t|
     t.string   "street1"
@@ -113,18 +113,22 @@ ActiveRecord::Schema.define(:version => 20110302164738) do
     t.integer  "itemable_id"
     t.string   "itemable_type"
     t.integer  "user_id"
+    t.integer  "customer_id"
     t.integer  "assigned_company_id"
     t.integer  "parent_company_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "parent_id"
   end
 
   add_index "items", ["assigned_company_id"], :name => "index_items_on_assigned_company_id"
+  add_index "items", ["customer_id"], :name => "index_items_on_customer_id"
   add_index "items", ["itemable_type", "itemable_id"], :name => "index_items_on_itemable_type_and_itemable_id"
   add_index "items", ["name", "price", "cost", "qty"], :name => "index_items_on_name_and_price_and_cost_and_qty"
   add_index "items", ["new_service", "deleted", "visible", "closed"], :name => "index_items_on_new_service_and_deleted_and_visible_and_closed"
   add_index "items", ["order_id"], :name => "index_items_on_order_id"
   add_index "items", ["parent_company_id"], :name => "index_items_on_parent_company_id"
+  add_index "items", ["parent_id"], :name => "index_items_on_parent_id"
   add_index "items", ["user_id"], :name => "index_items_on_user_id"
 
   create_table "orders", :force => true do |t|

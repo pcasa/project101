@@ -24,10 +24,21 @@ class OrdersController < ApplicationController
 
   def edit
     @order = Order.find(params[:id])
-    unless params[:customer_id].blank?
-      @customer = Customer.find(params[:customer_id])
+    if @order.customer_id.blank?
+      unless params[:customer_id].blank?
+        @customer = Customer.find(params[:customer_id])
+      else
+        @order.customer = @order.build_customer
+      end
     else
-      @order.customer = @order.build_customer
+      unless params[:customer_id].blank?
+        if @order.customer_id != params[:customer_id]
+          @order.customer_id = params[:customer_id]
+        end
+        @customer = Customer.find(params[:customer_id])
+      else
+        @customer = Customer.find(@order.customer_id)
+      end 
     end
   end
 

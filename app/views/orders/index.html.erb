@@ -12,6 +12,7 @@
     <th>Total Cost</th>
     <th>Total Amount</th>
 	<th>Override</th>
+	<th>Paid</th>
   </tr>
   <% for order in @orders %>
     <tr>
@@ -25,6 +26,7 @@
       <td><%= order.total_cost %></td>
       <td><%= order.total_amount %></td>
 	  <td><%= order.override %></td>
+	  <td><%= order.amount_paid %></td>
       <td><%= link_to "Show", [current_company, order] %></td>
       <td><%= link_to "Edit", edit_company_order_path(current_company, order) %></td>
       <td><%= link_to "Destroy", [current_company, order], :confirm => 'Are you sure?', :method => :delete %></td>

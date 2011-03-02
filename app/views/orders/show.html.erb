@@ -36,7 +36,18 @@
   <strong>Total Amount:</strong>
   <%= @order.total_amount %>
 </p>
+<p>
+  <strong>Override:</strong>
+  <%= @order.override %>
+</p>
+<p>
+  <strong>Total Amount:</strong>
+  <%= @order.amount_paid %>
+</p>
 
+<% @order.items.each do |item| %>
+	<%= item.name %>
+<% end %>
 <p>
   <%= link_to "Edit", edit_company_order_path(current_company, @order) %> |
   <%= link_to "Destroy", [current_company, @order], :confirm => 'Are you sure?', :method => :delete %> |

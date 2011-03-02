@@ -49,6 +49,9 @@
 					<th width="10%">Qty</th>
 					<th width="15%">Total </th>
 				</tr>
+				<% @order.items.each do |item| %>
+					<%= render :partial => "item", :locals => { :item => item } %>
+				<% end %>
 			</table>
 		</td>
 	</tr>
@@ -64,11 +67,12 @@
 				</tr>
 				<tr>
 					<td>Total Cost</td>
-					<td ALIGN=RIGHT><%= number_to_currency(@order.total_cost) %></td>
+					<td ALIGN=RIGHT><%= number_to_currency(@order.true_cost) %></td>
 				</tr>
 				<tr>
 					<td>Total Due:</td>
-					<td ALIGN=RIGHT><%= number_to_currency(@order.total_amount) %></td>
+					<td ALIGN=RIGHT><%= number_to_currency(@order.total_price) %></td>
+					
 				</tr>
 				<tr>
 					<td>Amount Paid</td>
@@ -81,6 +85,8 @@
 
 
   <p>
+	<%= f.hidden_field :total_cost, :value => @order.true_cost %>
+	<%= f.hidden_field :total_amount, :value => @order.total_price %>
     <%= f.hidden_field :assigned_company_id %>
     <%= f.hidden_field :parent_company_id %>
     <%= f.hidden_field :customer_id %>

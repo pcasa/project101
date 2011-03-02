@@ -7,6 +7,7 @@ class Customer < ActiveRecord::Base
   has_many :addresses, :class_name => "Address", :as => :addressable
   has_many :insurance_policies, :class_name => "InsurancePolicy"
   has_many :orders
+  has_many :items
   
   accepts_nested_attributes_for :addresses, :allow_destroy => true, :reject_if => proc { |obj| obj.blank? }
   
