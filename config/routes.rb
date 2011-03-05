@@ -17,14 +17,17 @@ Project101::Application.routes.draw do
   match "/:company_id/customers/my_customers" => "customers#my_customers", :as => :my_customers 
   
   scope '/:company_id', :as => :company do 
-    
+    resources :items
     resources :users 
     resources :insurance_policies
     match '/orders/all_services_popup' => 'orders#all_services_popup', :as => :all_services_popup
     resources :orders do
       resources :items
+      collection do
+        post :update_attribute_on_the_spot
+      end
     end
-    resources :items
+    
     resources :categories
     resources :addresses
     match '/services/:id/add_to_order' => 'services#add_to_order', :as => :add_service_to_order
@@ -38,6 +41,7 @@ Project101::Application.routes.draw do
       resources :orders
       resources :items
     end
+    
     resources :vendors do 
       resources :insurance_policies
       resources :addresses

@@ -26,31 +26,33 @@
 </p>
 
 <p>
-	<%= link_to "Order", edit_company_order_path(current_company, current_order, :customer_id => @customer.id) %>
+	<strong>Orders Purchased:</strong><br />
+	<% @customer.orders.each do |order| %>
+		<% order.items.each do |item| %>
+			<%= link_to item.name, company_item_path(current_company, item) %><br />
+		<% end %>
+	<% end %>
+</p>
+
+<%= render "addresses"%>
+
+<p>
+	<%= link_to "New Order", edit_company_order_path(current_company, current_order, :customer_id => @customer.id), :class => "smallbtn green" %>
 </p>
 
 <p>
-	<%= link_to "Create Policy", new_company_customer_insurance_policy_path(current_company, @customer) %>
+	<%= link_to "New Policy", new_company_customer_insurance_policy_path(current_company, @customer), :class => "smallbtn green"  %>
 </p>
 <%= render :partial => 'insurance_policies/show', :collection => @customer.insurance_policies, :as => :insurance_policy %>
 
 
-<p>
 
-<% unless @customer.addresses.blank? %>
-<strong>Previous Addresses Used</strong><br />
-	<% for address in @customer.addresses %>
-	    <br />
-		<%= address.street1 %><br />
-		<% unless address.street2.blank? %><%= address.street2 %><br /><% end %>
-		<%= address.city %>, <%= address.state %> <%= address.zipcode %><br />
-		<%= link_to "Remove",  [current_company, @customer, address], :confirm => 'Are you sure?', :method => :delete %><br />
-	<% end %>
-<% end %>
-</p>
 
-<p>
+<p><% if can? :update, @customer %>
   <%= link_to "Edit", edit_company_customer_path %> |
+	<% end %>
+	<% if can? :destroy, @customer %>
   <%= link_to "Destroy", [current_company, @customer], :confirm => 'Are you sure?', :method => :delete %> |
+	<% end %>
   <%= link_to "View All", company_customers_path %>
 </p>

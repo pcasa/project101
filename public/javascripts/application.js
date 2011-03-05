@@ -6,6 +6,16 @@ $(document).ready(function(){
 			function() { $('ul', this).slideDown('fast'); },
 			function() { $('ul', this).slideUp('fast'); });
 			$('a[rel*=facebox]').facebox();
+		//	$(".on_the_spot_editing[data-ok]").click(function(){alert("Hello")});
+			$('.on_the_spot_editing').data('ok', 'Ok').live('click', function() {
+				setTimeout(getIt, 500);
+		    });
+
+			function getIt() {
+				$.getScript('edit.js');
+			}
+		    
+			
 	});
 	
 $(document).ready(function(){ $('input.ui-date-picker').datepicker(); });

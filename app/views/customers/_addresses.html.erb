@@ -1,0 +1,11 @@
+<p><% unless @customer.addresses.blank? %>
+<strong>Previous Addresses Used</strong><br />
+	<% for address in @customer.addresses %>
+	    <br />
+		<%= address.street1 %><br />
+		<% unless address.street2.blank? %><%= address.street2 %><br /><% end %>
+		<%= address.city %>, <%= address.state %> <%= address.zipcode %><br />
+		<%= link_to "Remove",  [current_company, @customer, address], :confirm => 'Are you sure?', :method => :delete %><br />
+	<% end %>
+<% end %>
+</p>

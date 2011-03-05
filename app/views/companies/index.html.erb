@@ -1,4 +1,10 @@
-<% title "Companies" %>
+<% title "101 Insurance" %>
+
+<% unless user_signed_in? %>
+
+<%= render 'common/login' %>
+
+<% else %>
 
 <table>
   <tr>
@@ -24,4 +30,5 @@
 </table>
 <% if user_signed_in? && can?(:create, company) %>
 <p><%= link_to "New Company", new_company_path(company), :class => "smallbtn green" %></p>
+<% end %>
 <% end %>

@@ -1,4 +1,7 @@
 class ItemsController < ApplicationController
+  before_filter :authenticate_user!
+  load_and_authorize_resource
+  
   def index
     @items = Item.all
   end
@@ -29,7 +32,7 @@ class ItemsController < ApplicationController
     @item = Item.find(params[:id])
     if @item.update_attributes(params[:item])
       flash[:notice] = "Successfully updated item."
-      redirect_to company_item_url(current_company, @item)
+      redirect_to edit_company_order_url(current_company, @item.order_id)
     else
       render :action => 'edit'
     end
@@ -37,6 +40,7 @@ class ItemsController < ApplicationController
 
   def destroy
     @item = Item.find(params[:id])
+    @item.children.destroy_all
     @item.destroy
     flash[:notice] = "Successfully destroyed item."
     redirect_to edit_company_order_url(current_company, @item.order_id)

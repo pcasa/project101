@@ -51,6 +51,6 @@ class ServiceGroupsController < ApplicationController
     @service_group.services.each do |service|
       @child_item = Item.create!(service.attributes.merge(:items => service.items, :order_id => current_order.id, :itemable => service, :parent_id => @parent_item.id, :visible => false, :qty => 1))
     end
-    redirect_to company_order_url(current_company, current_order)
+    redirect_to edit_company_order_url(current_company, current_order)
   end
 end

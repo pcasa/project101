@@ -38,7 +38,7 @@ class ApplicationController < ActionController::Base
       cookies[:order_id] = nil if @current_order.assigned_company_id != current_company.id
     end
     if cookies[:order_id].nil?
-      @order = Order.company(current_company).open.last
+      @order = Order.company(current_company).open_order.last
       # try to find the last open order for this company
       if @order.blank? || @order.assigned_company_id != current_company.id
         @current_order = Order.create!(:assigned_company_id => current_company.id, :parent_company_id => main_company.id, :closed => false)

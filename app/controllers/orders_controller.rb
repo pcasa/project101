@@ -1,4 +1,8 @@
 class OrdersController < ApplicationController
+  before_filter :authenticate_user!
+  load_and_authorize_resource
+  can_edit_on_the_spot
+  
   def index
     @orders = Order.all
   end
@@ -27,6 +31,7 @@ class OrdersController < ApplicationController
     if @order.customer_id.blank?
       unless params[:customer_id].blank?
         @customer = Customer.find(params[:customer_id])
+        @order.update_attribute(:customer_id, @customer.id)
       else
         @order.customer = @order.build_customer
       end
@@ -40,10 +45,16 @@ class OrdersController < ApplicationController
         @customer = Customer.find(@order.customer_id)
       end 
     end
+    respond_to do |format|  
+      format.html  
+      format.js if request.xhr?
+    end
   end
 
   def update
     @order = Order.find(params[:id])
+    @order.closed = true
+    @order.closed_date = Time.now
     if @order.update_attributes(params[:order])
       flash[:notice] = "Successfully updated order."
       redirect_to company_order_url

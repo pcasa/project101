@@ -104,10 +104,10 @@ ActiveRecord::Schema.define(:version => 20110302202110) do
     t.decimal  "price",                              :precision => 12, :scale => 2
     t.decimal  "cost",                               :precision => 12, :scale => 2
     t.integer  "qty"
-    t.boolean  "visible"
+    t.boolean  "visible",                                                           :default => true
     t.boolean  "new_service"
-    t.boolean  "deleted"
-    t.boolean  "closed"
+    t.boolean  "deleted",                                                           :default => false
+    t.boolean  "closed",                                                            :default => false
     t.integer  "order_id"
     t.integer  "category_id"
     t.integer  "itemable_id"
@@ -136,7 +136,7 @@ ActiveRecord::Schema.define(:version => 20110302202110) do
     t.integer  "parent_company_id"
     t.integer  "customer_id"
     t.integer  "user_id"
-    t.boolean  "closed"
+    t.boolean  "closed",                                                           :default => false
     t.datetime "closed_date"
     t.string   "payment_type",        :limit => 16
     t.decimal  "total_cost",                        :precision => 12, :scale => 2

@@ -42,7 +42,7 @@
 </p>
 <p>
   <strong>Order:</strong>
-  <%= @item.order_id %>
+  <%= link_to "View Order", company_order_path(current_company, @item.order_id) %>
 </p>
 <p>
   <strong>Itemable Type:</strong>

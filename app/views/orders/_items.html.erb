@@ -1,0 +1,20 @@
+<table width="100%" cellpadding="0" cellspacing="0">
+<tr class="silverBoarderd">
+	<th width="25%">Product / Service</th>
+	<th width="35%">Description</th>
+	<th width="15%">Unit Price<span style="font-size:0.7em;font-weight:normal;"><br /> Click on price to edit.</span> </th>
+	<th width="10%">Qty</th>
+	<th width="15%">Total </th>
+</tr>
+
+<% @order.items.each do |item| %>
+	
+<tr class="item">
+	<td width="25%"><%= item.name %><br /><%= link_to "Remove", [current_company, item], :confirm => 'Are you sure?', :method => :delete %></td>
+	<td width="35%"><%= item.short_description %></td>
+	<td width="15%" align=CENTER><%= number_to_currency(on_the_spot_edit item, :price) %></td>
+	<td width="10%" align=CENTER><%= item.qty %></td>
+	<td width="15%" align=CENTER> <%= number_to_currency(item.full_price) %> </td>
+</tr>
+<% end %>
+</table>

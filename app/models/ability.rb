@@ -29,8 +29,11 @@ class Ability
       can :read, Company
     end
     if user.role? :employee
+      can [:create, :update, :all_services_popup], Order, :closed => false
+      can :add_to_order, :all
+      can [:create, :update, :destroy], Item, :closed => false
       can [:verify_current_user, :dashboard], User
-      can :read, [Company, Category, Service, ServiceGroup, Vendor]
+      can :read, [Company, Category, Service, ServiceGroup, Vendor, Order, Item]
       can [:read, :update], User do |current_user|
         user.id == current_user.id
       end

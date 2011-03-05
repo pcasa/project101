@@ -1,4 +1,7 @@
-<div id="order_form">
+<%= javascript_include_tag :on_the_spot %>
+<script>
+	
+</script>
 	<%= form_for [current_company, @order] do |f| %>
 	  <%= f.error_messages %>
 <table width="940px" border="0">
@@ -7,6 +10,7 @@
 			
 			<% unless @customer.blank? %>
 			  	<%= render :partial => 'common/show_customer_condensed', :locals => {:customer => @customer } %>
+			<%= f.hidden_field :customer_id, :value => @customer.id %>
 			<% else %>
 				<%= f.fields_for :customer do |customer| %>
 			    	<%= render :partial => 'common/new_customer', :locals => { :f => customer } %>
@@ -29,7 +33,7 @@
 				</tr>
 				<tr class="silverBoarderd">
 					<th align=left>Amount Due</th>
-					<th align=right><%= number_to_currency(@order.total_amount) %></th>
+					<th align=right><%= number_to_currency(@order.total_price) %></th>
 				</tr>
 			</table>
 		</td>
@@ -41,18 +45,7 @@
 	</tr>
 	<tr>
 		<td colspan="2">
-			<table width="100%" cellpadding="0" cellspacing="0">
-				<tr class="silverBoarderd">
-					<th width="25%">Product / Service</th>
-					<th width="35%">Description</th>
-					<th width="15%">Unit Price</th>
-					<th width="10%">Qty</th>
-					<th width="15%">Total </th>
-				</tr>
-				<% @order.items.each do |item| %>
-					<%= render :partial => "item", :locals => { :item => item } %>
-				<% end %>
-			</table>
+			<div id="items"><%= render 'items' %></div><!-- items -->
 		</td>
 	</tr>
 	<tr>
@@ -89,12 +82,9 @@
 	<%= f.hidden_field :total_amount, :value => @order.total_price %>
     <%= f.hidden_field :assigned_company_id %>
     <%= f.hidden_field :parent_company_id %>
-    <%= f.hidden_field :customer_id %>
-    <%= f.hidden_field :user_id %>
-    <%= f.hidden_field :closed %>
+    <%= f.hidden_field :user_id, :value => current_user.id %>
   </p>
   
   
   <p><%= f.submit %></p>
 <% end %>
-</div>

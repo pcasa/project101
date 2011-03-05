@@ -5,7 +5,7 @@ class CreateOrders < ActiveRecord::Migration
       t.integer :parent_company_id
       t.integer :customer_id
       t.integer :user_id
-      t.boolean :closed
+      t.boolean :closed, :default => false
       t.datetime :closed_date
       t.string :payment_type, :limit => 16
       t.decimal :total_cost, :precision => 12, :scale => 2

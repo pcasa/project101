@@ -59,6 +59,6 @@ class ServicesController < ApplicationController
   def add_to_order
     @service = Service.find(params[:id])
     @item = Item.create!(@service.attributes.merge(:items => @service.items, :order_id => current_order.id, :itemable => @service, :qty => 1, :visible => true))
-    redirect_to company_item_url(current_company, @item)
+    redirect_to edit_company_order_url(current_company, current_order)
   end
 end

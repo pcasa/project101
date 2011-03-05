@@ -1,6 +1,4 @@
 class Service < ActiveRecord::Base
-  # Testing for disabeling instead of deleting
-  include MyDisableModule
   
   belongs_to :category, :class_name => "Category", :foreign_key => "category_id"
   has_many :special_services

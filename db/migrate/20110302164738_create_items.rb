@@ -6,10 +6,10 @@ class CreateItems < ActiveRecord::Migration
       t.decimal :price, :precision => 12, :scale => 2
       t.decimal :cost, :precision => 12, :scale => 2
       t.integer :qty
-      t.boolean :visible
+      t.boolean :visible, :default => true
       t.boolean :new_service
-      t.boolean :deleted
-      t.boolean :closed
+      t.boolean :deleted, :default => false
+      t.boolean :closed, :default => false
       t.integer :order_id
       t.integer :category_id
       t.references :itemable, :polymorphic => true

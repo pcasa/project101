@@ -1,4 +1,5 @@
 class Item < ActiveRecord::Base
+  
   belongs_to :order, :class_name => "Order", :foreign_key => "order_id"
   belongs_to :customer, :class_name => "Customer", :foreign_key => "customer_id"
   belongs_to :category, :class_name => "Category", :foreign_key => "category_id"
@@ -14,6 +15,8 @@ class Item < ActiveRecord::Base
     
     
     belongs_to :itemable, :polymorphic => true
+    
+    has_many :children, :class_name => "Item", :foreign_key => "parent_id"
     
     
     def full_price
