@@ -22,7 +22,7 @@ class InsurancePolicy < ActiveRecord::Base
     
     
     
-    def add_new_payment(current_order, customer_id, user_id, assigned_company_id, parent_company_id)
+    def add_new_payment(current_order, user_id, assigned_company_id, parent_company_id)
       # remove one payment since customer is making one now
       payments_left = self.number_of_payments_left - 1
       temp_desc = "Payment on policy #" + self.policy_number + " from " + self.vendor.name + ".  "
@@ -39,7 +39,7 @@ class InsurancePolicy < ActiveRecord::Base
         payment_amount = self.monthly_payment 
       end
       full_desc = temp_desc + temp_desc2
-      Item.create!(:name => "Policy Payment", :short_description => full_desc, :visible => true, :new_service => true, :itemable => self, :user_id => user_id, :customer_id => customer_id, :order_id => current_order.id, :parent_company_id => parent_company_id, :assigned_company_id => assigned_company_id, :cost => payment_amount, :price => payment_amount, :qty => 1)
+      Item.create!(:name => "Policy Payment", :short_description => full_desc, :visible => true, :new_service => true, :itemable => self, :user_id => user_id, :customer_id => self.customer_id, :order_id => current_order.id, :parent_company_id => parent_company_id, :assigned_company_id => assigned_company_id, :cost => payment_amount, :price => payment_amount, :qty => 1)
       current_order.update_attribute(:customer_id, self.customer_id)
       
     end
