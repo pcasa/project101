@@ -17,6 +17,11 @@ gem 'faker'
 gem 'bcrypt-ruby'
 gem 'friendly_id', '~> 3.2.1'
 
+# have to add for heroku here.
+# Delete for production
+
+gem "populator"
+
 # Use unicorn as the web server
 # gem 'unicorn'
 
