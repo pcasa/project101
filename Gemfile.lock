@@ -65,6 +65,7 @@ GEM
       rake
     nifty-generators (0.4.4)
     polyglot (0.3.1)
+    populator (1.0.0)
     rack (1.2.1)
     rack-mount (0.6.13)
       rack (>= 1.0.0)
@@ -109,6 +110,7 @@ DEPENDENCIES
   meta_search
   mocha
   nifty-generators
+  populator
   rails (= 3.0.3)
   sqlite3-ruby
   will_paginate (~> 3.0.pre2)
