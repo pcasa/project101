@@ -3,6 +3,6 @@
 <%= render 'form' %>
 
 <p>
-  <%= link_to "Show", @insurance_policy %> |
-  <%= link_to "View All", insurance_policies_path %>
+  <%= link_to "Show", company_insurance_policy_path(current_company, @insurance_policy) %> |
+  <%= link_to "View All", company_insurance_policies_path(current_company) %>
 </p>

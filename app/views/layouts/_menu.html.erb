@@ -1,0 +1,40 @@
+<ul id="menu">
+	
+	<% unless current_company.blank?  %>
+		<li><%= link_to image_tag("/images/icons/32/control_panel.png", :size => "32x32", :class => "menu32Icon") + "Dashboard", company_dashboard_url %></li>
+		<li><%= link_to image_tag("/images/icons/32/vcard.png", :size => "32x32", :class => "menu32Icon") + "Customers", company_customers_path(current_company) %>
+			<ul>
+				<li><%= link_to image_tag("/images/icons/32/vcard.png", :size => "32x32", :class => "menu32Icon") + "All Customers", company_customers_path(current_company) %></li>
+				<li><%= link_to image_tag("/images/icons/32/vcard.png", :size => "32x32", :class => "menu32Icon") + current_company.name.capitalize + "'s Customers", my_customers_path %></li>
+			</ul>
+		</li>
+		<li> <%= link_to image_tag("/images/icons/32/cash_register.png", :size => "32x32", :class => "menu32Icon") + "New Order", edit_company_order_path(current_company, current_order) %> </li>
+		<li><%= link_to image_tag("/images/icons/32/brick.png", :size => "32x32", :class => "menu32Icon") + "Services", company_services_path %>
+			<ul>
+				<li><%= link_to image_tag("/images/icons/32/brick.png", :size => "32x32", :class => "menu32Icon") + "Services", company_services_path %></li>
+				<li><%= link_to image_tag("/images/icons/32/bricks.png", :size => "32x32", :class => "menu32Icon") + "Service Group", company_service_groups_path %></li>
+				<li><%= link_to image_tag("/images/icons/32/curriculum_vitae.png", :size => "32x32", :class => "menu32Icon") + "Insurance Policies", company_insurance_policies_path %></li>
+			</ul>
+		</li>
+		<% if current_user.role? :manager || :admin %>
+			<li><%= link_to image_tag("/images/icons/32/user_suit.png", :size => "32x32", :class => "menu32Icon") + "Management Panel", company_user_path(current_company, current_user) %>
+				<ul>
+					<li><%= link_to image_tag("/images/icons/32/money_bag.png", :size => "32x32", :class => "menu32Icon") + " Orders", company_orders_path %></li>
+					<li><%= link_to image_tag("/images/icons/32/participation_rate.png", :size => "32x32", :class => "menu32Icon") + " Vendors", company_vendors_path %></li>
+					<li><%= link_to image_tag("/images/icons/32/user.png", :size => "32x32", :class => "menu32Icon") + "Employees", company_users_path %></li>
+					<% if current_user.role? :admin %>								
+					<li><%= link_to image_tag("/images/icons/32/building.png", :size => "32x32", :class => "menu32Icon") + "Companies", :controller => '/companies', :action => 'index' %></li>
+					<li><%= link_to image_tag("/images/icons/32/large_tiles.png", :size => "32x32", :class => "menu32Icon") + " Categories", company_categories_path %></li>
+					<% end %>
+				</ul>
+			</li>
+		<% end %>
+		<li><%= link_to image_tag("/images/icons/32/status_online.png", :size => "32x32", :class => "menu32Icon") + "Your Profile", company_user_path(current_company, current_user) %></li>
+	<% else %>
+		<% if user_signed_in? %>
+			<li><br />"Choose A Company first!"</li>
+		<% else %>
+			<li><br />"You have to sign in first!"</li>
+		<% end %>
+	<% end %>
+</ul>

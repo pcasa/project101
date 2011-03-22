@@ -1,49 +1,40 @@
-<% title current_company.name.capitalize + "'s Customer" %>
+<% title @customer.full_name %>
 
-<p>
-  <strong>Firstname:</strong>
-  <%= @customer.firstname %>
-</p>
-<p>
-  <strong>Lastname:</strong>
-  <%= @customer.lastname %>
-</p>
-<p>
-  <strong>Customer Number:</strong>
-  <%= @customer.customer_number %>
-</p>
-<p>
-  <strong>Main Company:</strong>
-  <%= @parent_company.name %>
-</p>
-<p>
-  <strong>Assigned Company:</strong>
-  <%= @assigned_company.name %>
-</p>
-<p>
-	<strong>Current Address</strong><br />
-	<%= @customer.full_address.html_safe %>
-</p>
 
-<p>
-	<strong>Orders Purchased:</strong><br />
-	<% @customer.orders.each do |order| %>
-		<% order.items.each do |item| %>
-			<%= link_to item.name, company_item_path(current_company, item) %><br />
-		<% end %>
-	<% end %>
-</p>
+<div id="tabs">
+	<ul>
+	    <li><a href="#firstTab">Customer Info</a></li>
+	
+	    <li><%= link_to "Orders Purchased", company_customer_orders_path(current_company, @customer) %> </li>
+	    <li><%= link_to "Insurance Policies", company_customer_policies_path(current_company, @customer) %></li>
+	    <li><%= link_to "Previous Addresses", company_customer_addresses_path(current_company, @customer) %></li>
+	</ul>
+	<div id="firstTab">
+		<p>
+			<strong>Customer Number:</strong> <%= @customer.customer_number %><br />
+			<br />
+			<strong>Assigned Company:</strong> <%= @assigned_company.name %><br />
+			<br />
+			<strong>Current Address</strong><br />
+			<%= @customer.full_address.html_safe %>
+		</p>
+		
+	</div>
 
-<%= render "addresses"%>
+	
+	
+</div>
 
-<p>
-	<%= link_to "New Order", edit_company_order_path(current_company, current_order, :customer_id => @customer.id), :class => "smallbtn green" %>
+
+
+
+
+
+
+<p class="floatRight">
+	<%= link_to "New Order", edit_company_order_path(current_company, current_order, :customer_id => @customer.id), :class => "smallbtn green" %> <%= link_to "New Policy", new_company_customer_insurance_policy_path(current_company, @customer), :class => "smallbtn green"  %>
 </p>
 
-<p>
-	<%= link_to "New Policy", new_company_customer_insurance_policy_path(current_company, @customer), :class => "smallbtn green"  %>
-</p>
-<%= render :partial => 'insurance_policies/show', :collection => @customer.insurance_policies, :as => :insurance_policy %>
 
 
 

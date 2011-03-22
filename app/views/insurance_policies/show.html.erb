@@ -10,11 +10,11 @@
 </p>
 <p>
   <strong>Customer:</strong>
-  <%= @insurance_policy.customer_id %>
+  <%= link_to @insurance_policy.customer.full_name, company_customer_path(current_company, @insurance_policy.customer) %>
 </p>
 <p>
   <strong>Vendor:</strong>
-  <%= @insurance_policy.vendor_id %>
+  <%= link_to @insurance_policy.vendor.name, company_vendor_path(current_company, @insurance_policy.vendor) %>
 </p>
 <p>
   <strong>Assigned Company:</strong>
@@ -42,7 +42,7 @@
 </p>
 
 <p>
-  <%= link_to "Edit", edit_insurance_policy_path(@insurance_policy) %> |
-  <%= link_to "Destroy", @insurance_policy, :confirm => 'Are you sure?', :method => :delete %> |
-  <%= link_to "View All", insurance_policies_path %>
+  <%= link_to "Edit", edit_company_insurance_policy_path(current_company, @insurance_policy) %> |
+  <%= link_to "Destroy", [current_company, @insurance_policy], :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "View All", company_insurance_policies_path(current_company) %>
 </p>

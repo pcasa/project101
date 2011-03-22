@@ -1,10 +1,14 @@
 class OrdersController < ApplicationController
   before_filter :authenticate_user!
   load_and_authorize_resource
-  can_edit_on_the_spot
   
   def index
-    @orders = Order.all
+    unless params[:customer_id]
+      @orders = Order.all
+    else
+      @customer = Customer.find(params[:customer_id])
+      @orders = @customer.orders
+    end
   end
 
   def show

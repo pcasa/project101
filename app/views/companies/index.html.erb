@@ -13,6 +13,7 @@
     <th>Belongs To</th>
   </tr>
   <% for company in @companies %>
+  <% if can?(:read, company) %>
     <tr>
       <td><%= company.name %></td>
 	  <td><%= link_to_unless(company.subdomain.blank?, company.subdomain, show_company_path(company)) do |notthere|
@@ -27,8 +28,10 @@
 	  <% end %>
     </tr>
   <% end %>
+  <% end %>
 </table>
 <% if user_signed_in? && can?(:create, company) %>
 <p><%= link_to "New Company", new_company_path(company), :class => "smallbtn green" %></p>
 <% end %>
 <% end %>
+

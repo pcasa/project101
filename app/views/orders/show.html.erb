@@ -1,53 +1,72 @@
 <% title "Order" %>
 
-<p>
-  <strong>Assigned Company:</strong>
-  <%= @order.assigned_company_id %>
-</p>
-<p>
-  <strong>Parent Company:</strong>
-  <%= @order.parent_company_id %>
-</p>
-<p>
-  <strong>Customer:</strong>
-  <%= @order.customer_id %>
-</p>
-<p>
-  <strong>User:</strong>
-  <%= @order.user_id %>
-</p>
-<p>
-  <strong>Closed:</strong>
-  <%= @order.closed %>
-</p>
-<p>
-  <strong>Closed Date:</strong>
-  <%= @order.closed_date %>
-</p>
-<p>
-  <strong>Payment Type:</strong>
-  <%= @order.payment_type %>
-</p>
-<p>
-  <strong>Total Cost:</strong>
-  <%= @order.total_cost %>
-</p>
-<p>
-  <strong>Total Amount:</strong>
-  <%= @order.total_amount %>
-</p>
-<p>
-  <strong>Override:</strong>
-  <%= @order.override %>
-</p>
-<p>
-  <strong>Total Amount:</strong>
-  <%= @order.amount_paid %>
-</p>
+<table width="860" border="0">
+	<tr width="100%">
+		<td wdith="58%" class="silverBG">
+			
+			<% unless @order.customer.blank? %>
+			  	<%= render :partial => 'common/show_customer_condensed', :locals => {:customer => @order.customer } %>			
+			<% end %>
+		</td>
+		<td align=center> 101 Logo Goes Here</td>
+	</tr>
+	<tr width="100%">
+		<td width="50%">&nbsp;</td>
+		<td width="50%">
+			<table width="100%" border="0" cellspacing="0" cellpadding="0" id="order_date">
+				<tr width="100%">
+					<td align=left>Order #</td>
+					<td align=right><%= @order.id %></td>
+				</tr>
+				<tr width="100%">
+					<td align=left>Invoice Date</td>
+					<td align=right><%= @order.closed_date.strftime('%m/%d/%Y') unless @order.closed_date.blank? %></td>
+				</tr>
+				<tr class="silverBoarderd">
+					<th align=left>Amount Due</th>
+					<th align=right><%= number_to_currency(@order.amount_due) %></th>
+				</tr>
+			</table>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2">
+			&nbsp;
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2">
+			<div id="items"><%= render 'items' %></div><!-- items -->
+		</td>
+	</tr>
+	<tr>
+		<td width="60%" align=CENTER>
+			Space for Notes
+		</td>
+		<td>
+			<table width="100%">
+				<tr>
+					<td width="45%">Payment Type:</td>
+					<td ALIGN=RIGHT><%= @order.payment_type %></td>
+				</tr>
+				<tr>
+					<td>Total Cost</td>
+					<td ALIGN=RIGHT><%= number_to_currency(@order.true_cost) %></td>
+				</tr>
+				<tr>
+					<td>Total Due:</td>
+					<td ALIGN=RIGHT><%= number_to_currency(@order.total_price) %></td>
+					
+				</tr>
+				<tr>
+					<td>Amount Paid</td>
+					<td ALIGN=RIGHT><%= @order.amount_paid %></td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+</table>
 
-<% @order.items.each do |item| %>
-	<%= item.name %>
-<% end %>
 <p>
   <%= link_to "Edit", edit_company_order_path(current_company, @order) %> |
   <%= link_to "Destroy", [current_company, @order], :confirm => 'Are you sure?', :method => :delete %> |

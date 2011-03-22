@@ -16,7 +16,6 @@ gem 'formtastic'
 gem 'faker'
 gem 'bcrypt-ruby'
 gem 'friendly_id', '~> 3.2.1'
-gem 'on_the_spot'
 
 # Use unicorn as the web server
 # gem 'unicorn'

@@ -1,8 +1,0 @@
-<tr>
-	<th><%= item.name %></th>
-	<th><%= item.short_description %></th>
-	<th><%= number_to_currency(item.price) %></th>
-	<th><%= item.qty %></th>
-	<th> <%= number_to_currency(item.full_price) %> </th>
-	<th> <%= link_to "Delete", [current_company, item], :confirm => 'Are you sure?', :method => :delete %> </th>
-</tr>

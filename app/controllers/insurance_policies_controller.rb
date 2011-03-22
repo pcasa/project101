@@ -12,13 +12,15 @@ class InsurancePoliciesController < ApplicationController
     @insurance_policy.setbase
     @insurance_policy.assigned_company_id = current_company.id
     @insurance_policy.parent_company_id = main_company.id
+    @insurance_policy.customer_id = params[:customer_id] unless params[:customer_id] == nil
   end
 
   def create
     @insurance_policy = InsurancePolicy.new(params[:insurance_policy])
     if @insurance_policy.save
       flash[:notice] = "Successfully created insurance policy."
-      redirect_to company_customer_path(current_company, @insurance_policy.customer_id)
+      @insurance_policy.add_new_payment(current_order, @insurance_policy.customer_id, current_user.id, @insurance_policy.assigned_company_id, @insurance_policy.parent_company_id)
+      redirect_to edit_company_order_path(current_company, current_order)
     else
       render :action => 'new'
     end
@@ -32,7 +34,7 @@ class InsurancePoliciesController < ApplicationController
     @insurance_policy = InsurancePolicy.find(params[:id])
     if @insurance_policy.update_attributes(params[:insurance_policy])
       flash[:notice] = "Successfully updated insurance policy."
-      redirect_to insurance_policy_url
+      redirect_to company_insurance_policy_url(current_company)
     else
       render :action => 'edit'
     end

@@ -1,0 +1,8 @@
+<% if !@policies.blank? %>
+  <% @policies.each do |policy| %>
+	<%= link_to policy.policy_number, company_insurance_policy_path(current_company, policy) %><br />
+	<br />
+  <% end %>
+<% else %>
+  <p>Does not have any Insurance Policies.</p>
+<% end %>

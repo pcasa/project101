@@ -70,17 +70,25 @@ class ApplicationController < ActionController::Base
   
   
   rescue_from CanCan::AccessDenied do |exception|
-    redirect_to root_url, :alert => exception.message
+    if user_signed_in? && current_company.present?
+      redirect_to company_dashboard_url, :alert => exception.message
+    else
+      redirect_to root_url, :alert => exception.message
+    end
   end
 
 protected
-  def after_sign_in_path_for(resource_or_scope)
-    if resource_or_scope.is_a?(User) 
-      root_url
-    else
-      super
-    end
-  end
+ def after_sign_in_path_for(resource_or_scope)
+   if resource_or_scope.is_a?(User) 
+     if resource_or_scope.companies.size == 1
+       company_dashboard_url(resource_or_scope.companies.first)
+     else
+       root_url
+     end
+   else
+     super
+   end
+ end
  
   
 end

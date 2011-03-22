@@ -1,0 +1,11 @@
+<% unless item.object.parent_id.blank? %>
+	<tr class="item subItem">
+<% else %>
+	<tr class="item">
+<% end %>
+	<td width="25%" class="itemName"><%= item.object.name %><br /><% unless @order.closed? %><%= link_to( "Remove", [current_company, item.object], :confirm => 'Are you sure?', :method => :delete) %><% end %></td>
+	<td width="35%"><%= item.object.short_description %></td>
+	<td width="15%" align=CENTER>$ <%= item.text_field :price, :class => "currency fancy-field" %></td>
+	<td width="10%" align=CENTER><%= item.object.qty %></td>
+	<td width="15%" align=CENTER> <%= number_to_currency(item.object.full_price) %> </td>
+</tr>

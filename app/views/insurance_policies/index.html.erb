@@ -12,6 +12,7 @@
     <th>Cancelled</th>
     <th>Completed</th>
     <th>Number Of Payments Left</th>
+	<th>Payments made</th>
   </tr>
   <% for insurance_policy in @insurance_policies %>
     <tr>
@@ -25,6 +26,7 @@
       <td><%= insurance_policy.cancelled %></td>
       <td><%= insurance_policy.completed %></td>
       <td><%= insurance_policy.number_of_payments_left %></td>
+	  <td><%= insurance_policy.items.count %></td>
       <td><%= link_to "Show", company_insurance_policy_path(current_company, insurance_policy) %></td>
       <td><%= link_to "Edit", edit_company_insurance_policy_path(current_company, insurance_policy) %></td>
       <td><%= link_to "Destroy", [current_company, insurance_policy], :confirm => 'Are you sure?', :method => :delete %></td>

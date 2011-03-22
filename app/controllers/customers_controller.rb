@@ -11,6 +11,7 @@ class CustomersController < ApplicationController
     @customer = Customer.find(params[:id])
     @parent_company = Company.find(@customer.parent_company_id)
     @assigned_company = Company.find(@customer.assigned_company_id)
+    
   end
 
   def new
@@ -54,5 +55,22 @@ class CustomersController < ApplicationController
   def my_customers
     @search = Customer.search(params[:search])
     @customers = @search.relation.where("assigned_company_id = ?", current_company.id).paginate(:page => params[:page], :per_page => 20)
+  end
+  
+  def customer_orders
+    @customer = Customer.find(params[:customer_id])
+    @orders = @customer.orders
+    render :layout => false
+  end
+  
+  def customer_policies
+    @customer = Customer.find(params[:customer_id])
+    @policies = @customer.insurance_policies
+    render :layout => false
+  end
+  
+  def customer_addresses
+    @customer = Customer.find(params[:customer_id])
+    render :layout => false
   end
 end

@@ -13,6 +13,8 @@ class Order < ActiveRecord::Base
   attr_accessible :assigned_company_id, :parent_company_id, :customer_id, :user_id, :closed, :closed_date, :payment_type, :total_cost, :total_amount, :amount_paid, :override, :customer_attributes
   
   accepts_nested_attributes_for :customer, :allow_destroy => true, :reject_if => proc { |obj| obj.blank? }
+  accepts_nested_attributes_for :items, :allow_destroy => true, :reject_if => proc { |obj| obj.blank? }
+  
   
   validates_presence_of :amount_paid, :on => :update, :message => "can't be blank"
   
@@ -30,6 +32,14 @@ class Order < ActiveRecord::Base
     def true_cost
       # convert to array so it doesn't try to do sum on database directly
       items.to_a.reject{|item|item.itemable_type == "ServiceGroup"}.sum(&:full_price)
+    end
+    
+    def amount_due
+      unless amount_paid.blank?
+        total_price - amount_paid
+      else
+        total_price
+      end
     end
   
 end

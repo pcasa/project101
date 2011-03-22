@@ -5,7 +5,7 @@ class CreateItems < ActiveRecord::Migration
       t.string :short_description, :limit => 256
       t.decimal :price, :precision => 12, :scale => 2
       t.decimal :cost, :precision => 12, :scale => 2
-      t.integer :qty
+      t.integer :qty, :default => 1
       t.boolean :visible, :default => true
       t.boolean :new_service
       t.boolean :deleted, :default => false

@@ -1,0 +1,7 @@
+<div id="user_nav">
+	<% if user_signed_in? %>
+		Signed in as <%=  current_user.email %> | <%= link_to image_tag("/images/icons/16/door_out.png", :size => "16x16", :class => "menu16Icon") + " Log Out!", destroy_user_session_path, :class => "smallbtn green" %>
+	<% else %>
+		<%= link_to image_tag("/images/icons/16/door_in.png", :size => "16x16", :class => "menu16Icon") + " Log In", new_user_session_path, :class => "smallbtn green" %>
+	<% end %>
+</div><!-- user_nav -->

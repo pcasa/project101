@@ -6,19 +6,13 @@ $(document).ready(function(){
 			function() { $('ul', this).slideDown('fast'); },
 			function() { $('ul', this).slideUp('fast'); });
 			$('a[rel*=facebox]').facebox();
-		//	$(".on_the_spot_editing[data-ok]").click(function(){alert("Hello")});
-			$('.on_the_spot_editing').data('ok', 'Ok').live('click', function() {
-				setTimeout(getIt, 500);
-		    });
-
-			function getIt() {
-				$.getScript('edit.js');
-			}
+			
+			$("#tabs").tabs();
 		    
 			
 	});
 	
-$(document).ready(function(){ $('input.ui-date-picker').datepicker(); });
+$(document).ready(function(){ $('input.ui-date-picker').datepicker({ dateFormat: 'd M yy' }); });
 
 // Below is for live search
 //

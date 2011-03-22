@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110302202110) do
+ActiveRecord::Schema.define(:version => 20110321210121) do
 
   create_table "addresses", :force => true do |t|
     t.string   "street1"
@@ -79,24 +79,8 @@ ActiveRecord::Schema.define(:version => 20110302202110) do
   add_index "employmentships", ["company_id"], :name => "index_employmentships_on_company_id"
   add_index "employmentships", ["user_id"], :name => "index_employmentships_on_user_id"
 
-  create_table "insurance_policies", :force => true do |t|
-    t.string   "policy_number",           :limit => 24
-    t.boolean  "yearly"
-    t.integer  "customer_id"
-    t.integer  "vendor_id"
-    t.integer  "assigned_company_id"
-    t.integer  "parent_company_id"
-    t.date     "due_date"
-    t.boolean  "cancelled"
-    t.boolean  "completed"
-    t.integer  "number_of_payments_left"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "insurance_policies", ["due_date"], :name => "index_insurance_policies_on_due_date"
-  add_index "insurance_policies", ["number_of_payments_left"], :name => "index_insurance_policies_on_number_of_payments_left"
-  add_index "insurance_policies", ["policy_number", "customer_id", "assigned_company_id", "parent_company_id", "cancelled", "completed"], :name => "add_index_to_insurance_policies_pn_ci_aci_pci_c_c"
+# Could not dump table "insurance_policies" because of following StandardError
+#   Unknown type 'decemal' for column 'first_payment'
 
   create_table "items", :force => true do |t|
     t.string   "name",                :limit => 64

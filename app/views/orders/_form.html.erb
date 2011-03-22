@@ -1,12 +1,9 @@
-<%= javascript_include_tag :on_the_spot %>
-<script>
-	
-</script>
+
 	<%= form_for [current_company, @order] do |f| %>
 	  <%= f.error_messages %>
-<table width="940px" border="0">
+<table width="860" border="0">
 	<tr width="100%">
-		<td wdith="60%" class="silverBG">
+		<td wdith="58%" class="silverBG">
 			
 			<% unless @customer.blank? %>
 			  	<%= render :partial => 'common/show_customer_condensed', :locals => {:customer => @customer } %>
@@ -33,7 +30,7 @@
 				</tr>
 				<tr class="silverBoarderd">
 					<th align=left>Amount Due</th>
-					<th align=right><%= number_to_currency(@order.total_price) %></th>
+					<th align=right><%= number_to_currency(@order.amount_due) %></th>
 				</tr>
 			</table>
 		</td>
@@ -45,7 +42,20 @@
 	</tr>
 	<tr>
 		<td colspan="2">
-			<div id="items"><%= render 'items' %></div><!-- items -->
+			<div id="items">
+				<table width="100%" cellpadding="0" cellspacing="0">
+				<tr class="silverBoarderd">
+					<th width="25%">Product / Service</th>
+					<th width="35%">Description</th>
+					<th width="15%">Unit Price</th>
+					<th width="10%">Qty</th>
+					<th width="15%">Total </th>
+				</tr>
+				<%= f.fields_for :items do |item| %>
+					 <%= render :partial => 'new_item', :locals => { :item => item } %>
+			    <% end %>
+				</table>
+			</div><!-- items -->
 		</td>
 	</tr>
 	<tr>
@@ -69,7 +79,7 @@
 				</tr>
 				<tr>
 					<td>Amount Paid</td>
-					<td ALIGN=RIGHT><%= f.text_field :amount_paid %></td>
+					<td ALIGN=RIGHT>$ <%= f.text_field :amount_paid, :class => "currency fancy-field" %></td>
 				</tr>
 			</table>
 		</td>
@@ -86,5 +96,5 @@
   </p>
   
   
-  <p><%= f.submit %></p>
+  <p style="float:right;"><%= f.submit :class => "smallbtn green" %></p>
 <% end %>

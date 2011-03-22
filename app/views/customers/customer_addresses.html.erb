@@ -7,5 +7,9 @@
 		<%= address.city %>, <%= address.state %> <%= address.zipcode %><br />
 		<%= link_to "Remove",  [current_company, @customer, address], :confirm => 'Are you sure?', :method => :delete %><br />
 	<% end %>
+<% else %>
+<p>
+	Has not changed address before.
+</p>
 <% end %>
 </p>

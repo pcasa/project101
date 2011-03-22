@@ -3,10 +3,10 @@
   <%= insurance_policy.policy_number %><br />
 
   <strong>Vendor:</strong>
-  <%= insurance_policy.vendor_id %><br />
+  <%= insurance_policy.vendor.name %><br />
 
   <strong>Due Date:</strong>
-  <%= insurance_policy.due_date %><br />
+  <%= insurance_policy.due_date.strftime('%m / %d / %Y') unless insurance_policy.due_date.blank? %><br />
 
   <strong>Number Of Payments Left:</strong>
   <%= insurance_policy.number_of_payments_left %>

@@ -29,6 +29,8 @@ class Ability
       can :read, Company
     end
     if user.role? :employee
+      can :dashboard, Company
+      can [:customer_policies, :customer_orders, :customer_addresses], Customer
       can [:create, :update, :all_services_popup], Order, :closed => false
       can :add_to_order, :all
       can [:create, :update, :destroy], Item, :closed => false

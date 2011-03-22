@@ -1,44 +1,40 @@
 Project101::Application.routes.draw do
 
-  
-  
-
-  match '/' => 'companies#index'
-  match '/companies' => 'companies#index'
+  match '/:company_id/companies' => 'companies#index', :as => :index_company
   match '/:company_id' => 'companies#show', :as => :show_company
   match '/companies/:id/edit' => 'companies#edit', :as => :edit_company
   match '/companies/:id/new' => 'companies#new', :as => :new_company
-  match '/companies/:id/destroy' => 'companies#destroy', :as => :delete_company
- 
-  match '/users/dashboard' => 'users#dashboard', :as => :users_dashboard
+  match '/companies/:id/destroy' => 'companies#destroy', :as => :delete_company  
   match '/:company_id/dashboard' => 'companies#dashboard', :as => :company_dashboard
-  
-  match '/:company_id/users/:id/verify_current_user' => 'users#verify_current_user', :as => :verify_user
   match "/:company_id/customers/my_customers" => "customers#my_customers", :as => :my_customers 
   
+  match '/users/dashboard' => 'users#dashboard', :as => :users_dashboard
+    
+  match '/:company_id/users/:id/verify_current_user' => 'users#verify_current_user', :as => :verify_user
+  
   scope '/:company_id', :as => :company do 
+    match '/orders/all_services_popup' => 'orders#all_services_popup', :as => :all_services_popup
+    match '/services/:id/add_to_order' => 'services#add_to_order', :as => :add_service_to_order
+    match '/service_groups/:id/add_to_order' => 'service_groups#add_to_order', :as => :add_service_groups_to_order
+    match '/customers/:customer_id/customer_orders' => 'customers#customer_orders', :as => :customer_orders
+    match '/customers/:customer_id/customer_policies' => 'customers#customer_policies', :as => :customer_policies
+    match '/customers/:customer_id/customer_addresses' => 'customers#customer_addresses', :as => :customer_addresses
     resources :items
     resources :users 
     resources :insurance_policies
-    match '/orders/all_services_popup' => 'orders#all_services_popup', :as => :all_services_popup
+    
     resources :orders do
       resources :items
-      collection do
-        post :update_attribute_on_the_spot
-      end
     end
-    
     resources :categories
     resources :addresses
-    match '/services/:id/add_to_order' => 'services#add_to_order', :as => :add_service_to_order
     resources :services
     resources :special_services
-    match '/service_groups/:id/add_to_order' => 'service_groups#add_to_order', :as => :add_service_groups_to_order
     resources :service_groups
     resources :customers do 
+      
       resources :insurance_policies
       resources :addresses
-      resources :orders
       resources :items
     end
     
@@ -48,27 +44,8 @@ Project101::Application.routes.draw do
     end
   end
   
-  resources :insurance_policies
   resources :companies
-  resources :customers do 
-    resources :addresses
-  end
-  resources :vendors do 
-    resources :addresses
-  end
   
-  resources :orders
-  resources :services
-  resources :special_services
-
-  resources :service_groups
-  resources :categories
-  
-  resources :addresses
-  
-  resources :items
-
-  resources :orders
    
   
 

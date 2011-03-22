@@ -1,20 +1,66 @@
 <% title "New Insurance Policy" %>
 
+<script>			
+$(document).ready(function() {
+	$('.iphone-style').live('click', function() {	
+		checkboxID		= '#' + $(this).attr('rel');
+		if($(checkboxID)[0].checked == false) {			
+			$(this).animate({backgroundPosition: '0% 100%'});			
+			$(checkboxID)[0].checked = true;
+			$(this).removeClass('off').addClass('on');			
+		} else {			
+			$(this).animate({backgroundPosition: '100% 0%'});			
+			$(checkboxID)[0].checked = false;
+			$(this).removeClass('on').addClass('off');			
+		}
+	});
+	
+	$('.iphone-style-checkbox, .firerift-style-checkbox').each(function() {		
+		thisID		= $(this).attr('id');
+		thisClass	= $(this).attr('class');
+		switch(thisClass) {
+			case "iphone-style-checkbox":
+				setClass = "iphone-style";
+			break;
+			case "firerift-style-checkbox":
+				setClass = "firerift-style";
+			break;
+		}		
+		$(this).addClass('hidden');		
+		if($(this)[0].checked == true)
+			$(this).after('<div class="'+ setClass +' on" rel="'+ thisID +'">&nbsp;</div>');
+		else
+			$(this).after('<div class="'+ setClass +' off" rel="'+ thisID +'">&nbsp;</div>');
+	});
+});
 
+</script>
+		
+		
+		
 
 <%= semantic_form_for [current_company, @insurance_policy] do |f| %>
    <%= f.inputs do %>
+	  <%= f.input :assigned_company_id, :as => :hidden %>
+	  <%= f.input :parent_company_id, :as => :hidden %>
+	  <%= f.input :parent_id, :as => :hidden %>
 	  <%= f.input :policy_number %>
-	  <%= f.input :yearly, :as => :check_boxes %>
+	  <%= f.input :policy_type, :as => :select, :collection => InsurancePolicy::POLICYTYPE, :include_blank => false %>
+	  <input name="insurance_policy[yearly]" type="hidden" value="0" />
+	 <label for="insurance_policy_yearly">Yearly</label>
+	   <input class="iphone-style-checkbox" id="checkbox-1"
+	name="insurance_policy[yearly]" type="checkbox" value="1" />
 	  <%= f.input :vendor %>
 	  <%= f.input :customer_id %>
+	  <%= f.input :first_payment %>
+ 	  <%= f.input :monthly_payment %>
 	  <%= f.input :due_date, :as => :date_picker %>
 	  <%= f.input :number_of_payments_left %>
    <% end %>
    <%= f.buttons do %>
-	<%= f.commit_button %>
+	<%= f.commit_button :button_html => {:class => "smallbtn green"} %>
    <% end %>
 <% end %>
 
 
-<p><%= link_to "Back to List", insurance_policies_path %></p>
+<p><%= link_to "Back to List", company_insurance_policies_path(current_company) %></p>
