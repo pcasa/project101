@@ -123,8 +123,7 @@ Company.all.each do |company|
   else
     parent_company = company.parent_id
   end
-  x = Random.new.rand(20..40)
-  x.times do 
+  40.times do 
     street = Faker::Address.street_address
     city = Faker::Address.city
     state = Faker::Address.us_state_abbr
