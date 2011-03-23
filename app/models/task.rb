@@ -24,7 +24,7 @@ class Task < ActiveRecord::Base
     # Due date scopes.
     scope :overdue, lambda { where("due_at IS NOT NULL AND due_at < ?", Time.now.midnight).order("id DESC")}
     scope :due_today,     lambda { where("due_at >= ? AND due_at < ?", Time.now.midnight, Time.now.midnight.tomorrow).order("id DESC")}
-    scope :due_tomorrow,  lambda { where.("due_at >= ? AND due_at < ?", Time.now.midnight.tomorrow, Time.now.midnight.tomorrow + 1.day).order("id DESC")}
+    scope :due_tomorrow,  lambda { where("due_at >= ? AND due_at < ?", Time.now.midnight.tomorrow, Time.now.midnight.tomorrow + 1.day).order("id DESC")}
     scope :due_this_week, lambda { where("due_at >= ? AND due_at < ?", Time.now.midnight.tomorrow + 1.day, Time.now.next_week).order("id DESC") }
     scope :due_next_week, lambda { where("due_at >= ? AND due_at < ?", Time.now.next_week, Time.now.next_week.end_of_week + 1.day).order("id DESC")}
     scope :due_later,     lambda { where("(due_at IS NULL AND bucket = 'due_later') OR due_at >= ?", Time.now.next_week.end_of_week + 1.day).order("id DESC")}
