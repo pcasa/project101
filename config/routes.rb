@@ -23,8 +23,9 @@ Project101::Application.routes.draw do
     match '/customers/:customer_id/customer_orders' => 'customers#customer_orders', :as => :customer_orders
     match '/customers/:customer_id/customer_policies' => 'customers#customer_policies', :as => :customer_policies
     match '/customers/:customer_id/customer_addresses' => 'customers#customer_addresses', :as => :customer_addresses
+    get '/admins/' => 'admins#index'
     get '/admins/deleted_items' => 'admins#deleted_items', :as => :deleted_items
-    resources :admins
+    
     resources :tasks
     resources :items
     resources :users 
