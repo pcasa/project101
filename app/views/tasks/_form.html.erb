@@ -1,0 +1,14 @@
+<%= semantic_form_for [current_company, @task] do |f| %>
+  <%= f.inputs do %>
+	<%= f.hidden_field :user_id %>
+	<%= f.input :assigned_to, :as => :select, :collection => @users %>
+	<%= f.input :completed_by, :as => :select, :collection => @users %>
+	<%= f.input :assigned_company, :as => :select, :collection => Company.all %>
+	<%= f.input :name %>
+	<%= f.input :category %>
+	<%= f.input :due_at, :as => :datetime_picker %>
+  	<% end %>
+  <%= f.buttons do %>
+    <%= f.commit_button %>
+  <% end %>
+<% end %>

@@ -1,5 +1,9 @@
 Project101::Application.routes.draw do
 
+  
+
+  
+
   match '/:company_id/companies' => 'companies#index', :as => :index_company
   match '/:company_id' => 'companies#show', :as => :show_company
   match '/companies/:id/edit' => 'companies#edit', :as => :edit_company
@@ -19,6 +23,9 @@ Project101::Application.routes.draw do
     match '/customers/:customer_id/customer_orders' => 'customers#customer_orders', :as => :customer_orders
     match '/customers/:customer_id/customer_policies' => 'customers#customer_policies', :as => :customer_policies
     match '/customers/:customer_id/customer_addresses' => 'customers#customer_addresses', :as => :customer_addresses
+    match '/admins/deleted_items' => 'admins#deleted_items', :as => :deleted_items
+    resources :admins
+    resources :tasks
     resources :items
     resources :users 
     resources :insurance_policies

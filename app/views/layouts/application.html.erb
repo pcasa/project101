@@ -3,7 +3,7 @@
   <head>
     <title><%= content_for?(:title) ? yield(:title) : "Untitled" %></title>
     <%= stylesheet_link_tag "application", 'formtastic', 'formtastic_changes', 'jquery-ui', 'facebox' %>
-    <%= javascript_include_tag :defaults, 'facebox', 'jquery.backgroundPosition' %>
+    <%= javascript_include_tag :defaults, 'facebox', 'jquery.backgroundPosition', 'jquery-ui-timepicker-addon' %>
 	
     <%= csrf_meta_tag %>
     <%= yield(:head) %>

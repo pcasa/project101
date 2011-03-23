@@ -57,9 +57,8 @@ class OrdersController < ApplicationController
 
   def update
     @order = Order.find(params[:id])
-    @order.closed = true
-    @order.closed_date = Time.now
     if @order.update_attributes(params[:order])
+      @order.close_order
       flash[:notice] = "Successfully updated order."
       redirect_to company_order_url
     else

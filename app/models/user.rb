@@ -2,6 +2,8 @@ class User < ActiveRecord::Base
   has_many :employmentships, :dependent => :destroy
   has_many :companies, :through => :employmentships
   has_many :orders
+  has_many :items
+  has_many :tasks
   
   
   # Include default devise modules. Others available are:
@@ -32,6 +34,10 @@ class User < ActiveRecord::Base
     charset = %w{ 0 1 2 3 4 5 6 7 8 0 }
     code = (0...size).map{ charset.to_a[rand(charset.size)] }.join
     self.passcode = code
+  end
+  
+  def full_name
+    self.firstname + " " + self.lastname
   end
     
   
@@ -82,6 +88,10 @@ class User < ActiveRecord::Base
 
    def self.find_record(username)
      where(attributes).where(["username = :value", { :value => username }]).first
+   end
+   
+    def password_required?
+     !persisted? || password.present? || password_confirmation.present?
    end
   
 end

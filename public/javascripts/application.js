@@ -7,12 +7,31 @@ $(document).ready(function(){
 			function() { $('ul', this).slideUp('fast'); });
 			$('a[rel*=facebox]').facebox();
 			
-			$("#tabs").tabs();
+			$("#tabs").tabs({
+				cache:true,
+				   load: function (e, ui) {
+				     $(ui.panel).find(".tab-loading").remove();
+					 $(ui.panel).css({float: 'none', textAlign: 'left'});
+				   },
+				   select: function (e, ui) {
+				     var $panel = $(ui.panel);
+
+				     if ($panel.is(":empty")) {
+				         $panel.append("<div class='tab-loading'><img src='/images/spinner.gif' /><br />Loading...</div>");
+						 $panel.css({float: 'none', textAlign: 'center'});
+						// $panel.css({float: 'none', display: 'inline'});
+						// $panel.css({float: 'none'});
+				     }
+				    }
+			});
 		    
 			
 	});
 	
-$(document).ready(function(){ $('input.ui-date-picker').datepicker({ dateFormat: 'd M yy' }); });
+$(document).ready(function(){ 
+	$('input.ui-date-picker').datepicker({ dateFormat: 'd M yy' }); 
+	$('input.ui-datetime-picker').datetimepicker({ dateFormat: 'd M yy', ampm: true }); 
+});
 
 // Below is for live search
 //

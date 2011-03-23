@@ -59,7 +59,7 @@ class CustomersController < ApplicationController
   
   def customer_orders
     @customer = Customer.find(params[:customer_id])
-    @orders = @customer.orders
+    @orders = @customer.orders.closed_orders
     render :layout => false
   end
   

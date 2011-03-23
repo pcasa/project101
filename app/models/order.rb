@@ -8,6 +8,7 @@ class Order < ActiveRecord::Base
   
   scope :company, lambda { |company| {:conditions => ["assigned_company_id = ?", company.id] }}
   scope :open_order, where(:closed => false)
+  scope :closed_orders, where(:closed => true)
   
   
   attr_accessible :assigned_company_id, :parent_company_id, :customer_id, :user_id, :closed, :closed_date, :payment_type, :total_cost, :total_amount, :amount_paid, :override, :customer_attributes
@@ -39,6 +40,13 @@ class Order < ActiveRecord::Base
         total_price - amount_paid
       else
         total_price
+      end
+    end
+    
+    def close_order
+      self.update_attributes(:closed => true, :closed_date => Date.today)
+      self.items.each do |item|
+        item.update_attributes(:closed => true, :customer_id => self.customer_id, :user_id => self.user_id)
       end
     end
   

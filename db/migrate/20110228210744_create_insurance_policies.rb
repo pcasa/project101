@@ -2,7 +2,7 @@ class CreateInsurancePolicies < ActiveRecord::Migration
   def self.up
     create_table :insurance_policies do |t|
       t.string :policy_number, :limit => 24
-      t.boolean :yearly
+      t.boolean :yearly, :default => false
       t.integer :customer_id
       t.integer :vendor_id
       t.integer :assigned_company_id

@@ -4,6 +4,7 @@ class Company < ActiveRecord::Base
   
   has_many :employmentships, :dependent => :destroy
   has_many :users, :through => :employmentships
+  has_many :tasks, :foreign_key => "assigned_company"
   
   attr_accessible :name, :parent_id, :subdomain, :address, :addresses_attributes, :address
   has_many :insurance_policies

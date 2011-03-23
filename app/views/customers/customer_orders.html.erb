@@ -4,7 +4,7 @@
 	<%= order.closed? %><br />
 	<% if !order.items.blank? %>
 		<% order.items.each do |item| %>
-			<%= item.name %><br />
+			<p><%= item.name %></p>
 		<% end %>
 	<% else %>
 		This order has nothing in it!<br />

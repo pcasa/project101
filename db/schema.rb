@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110321210121) do
+ActiveRecord::Schema.define(:version => 20110323175706) do
 
   create_table "addresses", :force => true do |t|
     t.string   "street1"
@@ -79,15 +79,37 @@ ActiveRecord::Schema.define(:version => 20110321210121) do
   add_index "employmentships", ["company_id"], :name => "index_employmentships_on_company_id"
   add_index "employmentships", ["user_id"], :name => "index_employmentships_on_user_id"
 
-# Could not dump table "insurance_policies" because of following StandardError
-#   Unknown type 'decemal' for column 'first_payment'
+  create_table "insurance_policies", :force => true do |t|
+    t.string   "policy_number",           :limit => 24
+    t.boolean  "yearly"
+    t.integer  "customer_id"
+    t.integer  "vendor_id"
+    t.integer  "assigned_company_id"
+    t.integer  "parent_company_id"
+    t.date     "due_date"
+    t.boolean  "cancelled"
+    t.boolean  "completed"
+    t.integer  "number_of_payments_left"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "parent_id"
+    t.string   "policy_type",             :limit => 64
+    t.decimal  "first_payment",                         :precision => 12, :scale => 2
+    t.decimal  "monthly_payment",                       :precision => 12, :scale => 2
+  end
+
+  add_index "insurance_policies", ["due_date"], :name => "index_insurance_policies_on_due_date"
+  add_index "insurance_policies", ["number_of_payments_left"], :name => "index_insurance_policies_on_number_of_payments_left"
+  add_index "insurance_policies", ["parent_id"], :name => "index_insurance_policies_on_parent_id"
+  add_index "insurance_policies", ["policy_number", "customer_id", "assigned_company_id", "parent_company_id", "cancelled", "completed"], :name => "add_index_to_insurance_policies_pn_ci_aci_pci_c_c"
+  add_index "insurance_policies", ["policy_type"], :name => "index_insurance_policies_on_policy_type"
 
   create_table "items", :force => true do |t|
     t.string   "name",                :limit => 64
     t.string   "short_description",   :limit => 256
     t.decimal  "price",                              :precision => 12, :scale => 2
     t.decimal  "cost",                               :precision => 12, :scale => 2
-    t.integer  "qty"
+    t.integer  "qty",                                                               :default => 1
     t.boolean  "visible",                                                           :default => true
     t.boolean  "new_service"
     t.boolean  "deleted",                                                           :default => false
@@ -103,10 +125,12 @@ ActiveRecord::Schema.define(:version => 20110321210121) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "parent_id"
+    t.datetime "deleted_at"
   end
 
   add_index "items", ["assigned_company_id"], :name => "index_items_on_assigned_company_id"
   add_index "items", ["customer_id"], :name => "index_items_on_customer_id"
+  add_index "items", ["deleted_at"], :name => "index_items_on_deleted_at"
   add_index "items", ["itemable_type", "itemable_id"], :name => "index_items_on_itemable_type_and_itemable_id"
   add_index "items", ["name", "price", "cost", "qty"], :name => "index_items_on_name_and_price_and_cost_and_qty"
   add_index "items", ["new_service", "deleted", "visible", "closed"], :name => "index_items_on_new_service_and_deleted_and_visible_and_closed"
@@ -188,6 +212,25 @@ ActiveRecord::Schema.define(:version => 20110321210121) do
   end
 
   add_index "special_services", ["service_id", "service_group_id"], :name => "add_index_to_special_services_si_sgi", :unique => true
+
+  create_table "tasks", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "assigned_to"
+    t.integer  "completed_by"
+    t.integer  "assigned_company"
+    t.string   "name",             :default => ""
+    t.integer  "asset_id"
+    t.string   "asset_type"
+    t.string   "category"
+    t.datetime "due_at"
+    t.datetime "deleted_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "tasks", ["assigned_company"], :name => "index_tasks_on_assigned_company"
+  add_index "tasks", ["assigned_to"], :name => "index_tasks_on_assigned_to"
+  add_index "tasks", ["user_id", "name", "deleted_at"], :name => "index_tasks_on_user_id_and_name_and_deleted_at", :unique => true
 
   create_table "users", :force => true do |t|
     t.string   "email",                               :default => "", :null => false

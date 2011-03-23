@@ -1,0 +1,8 @@
+<% title "Edit Task" %>
+
+<%= render 'form' %>
+
+<p>
+  <%= link_to "Show", [current_company, @task] %> |
+  <%= link_to "View All", company_tasks_path(current_company) %>
+</p>

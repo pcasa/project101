@@ -11,7 +11,7 @@ a img {
 }
 
 a {
-  color: #0000FF;
+  color: #0073ea;
 }
 
 .clear {
@@ -235,6 +235,13 @@ a {
 
 
 /*** customer info  ***/
+
+.tab-loading {
+	width: 100%;
+	margin: 0 auto;
+}
+
+
 .condensedCustomer {
 	padding: 10px;
 }
@@ -424,7 +431,13 @@ form.formtastic fieldset.buttons ol li.commit input {
 }
 
 
-
 .hidden {
 	display: none;
+}
+
+
+/*** jQuery UI Overrides ***/
+#tabs .ui-tabs-panel a {
+	color: #0073ea;
+	font-weight: bold;
 }
