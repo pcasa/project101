@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   include UrlHelper
-  protect_from_forgery
+ # protect_from_forgery
   helper_method :current_company, :main_company, :is_employed_at?, :current_order
   
   

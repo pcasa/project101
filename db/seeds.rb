@@ -123,15 +123,23 @@ Company.all.each do |company|
   else
     parent_company = company.parent_id
   end
-  Customer.populate(20..50) do |person|
-    person.firstname = Faker::Name.first_name 
-    person.lastname = Faker::Name.last_name 
-    person.parent_company_id = parent_company 
-    person.assigned_company_id = company.id 
-    person.street1 = Faker::Address.street_address 
-    person.city = Faker::Address.city
-    person.state = Faker::Address.us_state_abbr
-    person.zipcode = Faker::Address.zip_code
+  x = Random.new.rand(20..40)
+  x.times do 
+    street = Faker::Address.street_address
+    city = Faker::Address.city
+    state = Faker::Address.us_state_abbr
+    zip = Faker::Address.zip_code
+    Customer.create!(
+    :firstname => Faker::Name.first_name, 
+    :lastname => Faker::Name.last_name, 
+    :parent_company_id => parent_company, 
+    :assigned_company_id => company.id, 
+    :street1 => street, 
+    :city => city, 
+    :state => state, 
+    :zipcode => zip,
+    :full_address => street + "<br />" + city + ", " + state + " " + zip
+    ) 
   end
 end
 

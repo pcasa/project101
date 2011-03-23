@@ -17,6 +17,7 @@ class Customer < ActiveRecord::Base
   before_save :update_full_address
   before_update :check_if_address_changed
   
+  
   include ActiveModel::Dirty
 
   
