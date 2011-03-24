@@ -5,7 +5,7 @@
 	<%= f.input :completed_by, :as => :select, :collection => @users %>
 	<%= f.input :assigned_company, :as => :select, :collection => Company.all %>
 	<%= f.input :name %>
-	<%= f.input :category %>
+	<%= f.input :category, :as => :select, :collection => Task::CATEGORY %>
 	<%= f.input :due_at, :as => :datetime_picker %>
   	<% end %>
   <%= f.buttons do %>

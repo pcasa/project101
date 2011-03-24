@@ -37,3 +37,5 @@ class Task < ActiveRecord::Base
     scope :completed_this_month, lambda { where("completed_at >= ? AND completed_at < ?", Time.now.beginning_of_month, Time.now.beginning_of_week - 7.days)}
     scope :completed_last_month, lambda { where("completed_at >= ? AND completed_at < ?", (Time.now.beginning_of_month - 1.day).beginning_of_month, Time.now.beginning_of_month)}
 end
+
+    CATEGORY = %w[call email follow_up money]

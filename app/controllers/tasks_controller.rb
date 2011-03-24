@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
   before_filter :authenticate_user!
-  # load_and_authorize_resource
+  load_and_authorize_resource
   
   def index
     @tasks = Task.all

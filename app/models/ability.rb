@@ -29,12 +29,9 @@ class Ability
       can :read, Company
     end
     if user.role? :employee
-     # can :manage, Task, do |task|
-     #   # loop to see if task belongs to user, assigned to user or one of the tasks
-     #   (task.user_id == user.id) || (task.assigned_to == user.id) || user.companies.each do |company|
-     #     task.assigned_company == company.id
-     #     end
-     # end
+      can :manage, Task, do |task|
+         task.user_id == user.id || task.assigned_to == user.id || user.company_ids.include?(task.assigned_company)
+      end
       can :dashboard, Company
       can [:customer_policies, :customer_orders, :customer_addresses], Customer
       can [:create, :update, :all_services_popup], Order, :closed => false
