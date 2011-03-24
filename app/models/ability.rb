@@ -29,7 +29,7 @@ class Ability
       can :read, Company
     end
     if user.role? :employee
-      can :manage, Task, do |task|
+      can :manage, Task do |task|
          task.user_id == user.id || task.assigned_to == user.id || user.company_ids.include?(task.assigned_company)
       end
       can :dashboard, Company
