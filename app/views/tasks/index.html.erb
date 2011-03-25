@@ -1,35 +1,14 @@
 <% title "Tasks" %>
-
-<table>
-  <tr>
-    <th>User</th>
-    <th>Assigned To</th>
-    <th>Completed By</th>
-    <th>Assigned Company</th>
-    <th>Name</th>
-    <th>Asset</th>
-    <th>Asset Type</th>
-    <th>Category</th>
-    <th>Due At</th>
-    <th>Deleted At</th>
-  </tr>
-  <% for task in @tasks %>
-    <tr>
-      <td><%= task.user_id %></td>
-      <td><%= task.assigned_to %></td>
-      <td><%= task.completed_by %></td>
-      <td><%= task.assigned_company %></td>
-      <td><%= task.name %></td>
-      <td><%= task.asset_id %></td>
-      <td><%= task.asset_type %></td>
-      <td><%= task.category %></td>
-      <td><%= task.due_at %></td>
-      <td><%= task.deleted_at %></td>
-      <td><%= link_to "Show", company_task_path(current_company, task) %></td>
-      <td><%= link_to "Edit", edit_company_task_path(current_company, task) %></td>
-      <td><%= link_to "Destroy", company_task_path(current_company, task), :confirm => 'Are you sure?', :method => :delete %></td>
-    </tr>
-  <% end %>
-</table>
-
-<p><%= link_to "New Task", new_company_task_path(current_company, task) %></p>
+<%= render :partial => "tasks_show", :locals => { :tasks => @tasks.overdue, :title => "overdue" }%>
+<%= render :partial => "tasks_show", :locals => { :tasks => @tasks.due_today, :title => "due_today" }%>
+<%= render :partial => "tasks_show", :locals => { :tasks => @tasks.due_tomorrow, :title => "due_tomorrow" }%>	
+<%= render :partial => "tasks_show", :locals => { :tasks => @tasks.due_this_week, :title => "due_this_week" }%>
+<%= render :partial => "tasks_show", :locals => { :tasks => @tasks.due_next_week, :title => "due_next_week" }%>
+<%= render :partial => "tasks_show", :locals => { :tasks => @tasks.due_later, :title => "due_later" }%>
+<hr>
+<p class="new-task-button">
+<a href="#" >Create new task</a>
+</p>
+<div class="new-task-form hidden">
+<%= render :partial => "common/new_task", :locals => { :asset => current_company } %>	
+</div>

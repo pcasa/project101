@@ -3,8 +3,7 @@ class TasksController < ApplicationController
   load_and_authorize_resource
   
   def index
-    @asset = find_asset
-    @tasks = @asset.tasks
+    @tasks = Task.where("assigned_company = ? OR assigned_to = ? OR user_id = ?", current_company, current_user, current_user )
   end
 
   def show
@@ -49,16 +48,5 @@ class TasksController < ApplicationController
     @task.destroy
     flash[:notice] = "Successfully destroyed task."
     redirect_to company_tasks_url(current_company)
-  end
-  
-  private
-
-  def find_asset
-    params.each do |name, value|
-      if name =~ /(.+)_id$/
-        return $1.classify.constantize.find(value)
-      end
-    end
-    nil
   end
 end

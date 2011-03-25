@@ -1,11 +1,11 @@
 <% if !@orders.blank? %>
   <% @orders.each do |order| %>
-	<%= link_to order.id, company_order_path(current_company, order) %><br />
-	<%= order.closed? %><br />
+	<%= link_to "Order #" + order.id.to_s, company_order_path(current_company, order) %><br />
 	<% if !order.items.blank? %>
-		<% order.items.each do |item| %>
-			<p><%= item.name %></p>
+		<p><% order.items.each do |item| %>
+			<%= item.name %><br />
 		<% end %>
+		</p>
 	<% else %>
 		This order has nothing in it!<br />
 	<% end %>

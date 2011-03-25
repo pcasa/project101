@@ -357,6 +357,38 @@ a {
 }
 
 
+/*** tasks layout ***/
+#overdue h3{
+	color: #f02114;
+}
+
+#overdue #task-table {
+	color: #f02114;
+}
+
+#due_today h3 {
+	color: #c84c5e;
+}
+
+#due_today #task-table {
+	color: #c84c5e;
+}
+
+#due_tomorrow h3 {
+	color: #7b4241;
+}
+
+#due_tomorrow #task-table {
+	color: #7b4241;
+}
+
+.thinHr {
+	color: #999;
+background-color: #999;
+height: 1px;
+border: none;
+}
+
 
 /* formtastic changes */
 form.formtastic fieldset.buttons ol li.commit input {
