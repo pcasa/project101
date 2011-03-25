@@ -18,10 +18,7 @@ class Task < ActiveRecord::Base
     attr_accessible :user_id, :assigned_to, :completed_by, :assigned_company, :name, :asset_id, :asset_type, :category, :due_at, :deleted_at, :mark_as_completed, :current_tasks_for
     
     
-    
-    # Tasks created by the user for herself, or assigned to her by others. That's
-     # what gets shown on Tasks/Pending and Tasks/Completed pages.
-     scope :my, lambda { |user| where.("user_id = ? AND assigned_to IS NULL OR assigned_to = ?", user[:user] || user, user[:user] || user ).includes(:assignee) }
+   
     
     # Status based scopes to be combined with the due date and completion time.
     scope :pending,       where("completed_at IS NULL").order("due_at, id")
@@ -48,11 +45,7 @@ class Task < ActiveRecord::Base
     
     CATEGORY = %w[call email follow_up money]
     
-    # Matcher for the :my named scope.
-    #----------------------------------------------------------------------------
-    def my?(user)
-      (self.user == user && assignee.nil?) || assignee == user
-    end
+    
     
     def mark_as_completed(user_id)
       self.update_attributes(:completed_by => user_id, :deleted_at => Time.now)
