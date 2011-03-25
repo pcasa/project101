@@ -1,8 +1,15 @@
 <h3><%= title.humanize %></h3>
 <% if !tasks.blank? %>
+<table width="100%">
+
   <% for task in tasks %>
-    <%= render :partial => "common/show_task", :locals => {:task => task} %>
+    <tr>
+    	<td>
+    		<%= render :partial => "common/show_task", :locals => {:task => task} %>
+    	</td>
+    </tr>
   <% end %>
+	</table>
 <% else %>
   No Tasks Present
 <% end %>

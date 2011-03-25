@@ -47,10 +47,16 @@ class TasksController < ApplicationController
   end
 
   def destroy
+    session[:return_to] ||= request.referer
     @task = Task.find(params[:id])
     @task.update_attribute(:user_id, current_user.id)
     @task.destroy
     flash[:notice] = "Successfully destroyed task."
-    redirect_to company_tasks_url(current_company)
+    respond_to do |format|  
+      format.html { redirect_to(session[:return_to] || company_tasks_url(current_company)) }  
+      format.js if request.xhr?
+    end
+    
+    
   end
 end

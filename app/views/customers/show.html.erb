@@ -8,6 +8,7 @@
 	    <li><%= link_to "Orders Purchased", company_customer_orders_path(current_company, @customer) %> </li>
 	    <li><%= link_to "Insurance Policies", company_customer_policies_path(current_company, @customer) %></li>
 	    <li><%= link_to "Previous Addresses", company_customer_addresses_path(current_company, @customer) %></li>
+		<li><a href="#tasks">Tasks</a></li>
 	</ul>
 	<div id="firstTab">
 		<p>
@@ -18,7 +19,17 @@
 			<strong>Current Address</strong><br />
 			<%= @customer.full_address.html_safe %>
 		</p>
-		
+	</div>
+	<div id="tasks">
+		<p>
+			<% if !@customer.tasks.blank? %>
+			<%= render :partial => "common/tasks_show", :locals => {:tasks => @customer.tasks, :title => "Tasks"}%>
+			  
+			<% else %>
+			  
+			<% end %>
+			
+		</p>
 	</div>
 
 	

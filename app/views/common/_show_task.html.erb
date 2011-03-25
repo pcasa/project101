@@ -1,6 +1,6 @@
 
 <% if task.asset == current_company %>
-	<span><%= link_to "Go to", [current_company, task] %> <%= task.name %> Due: <%= task.due_at.strftime('%m/%d/%Y %I:%M%p') unless task.due_at.blank? %></span><br />
+	<span class="task-span"><%= link_to "Go to", [current_company, task] %> <%= task.name %> Due: <%= task.due_at.strftime('%m/%d/%Y %I:%M%p') unless task.due_at.blank? %><%= link_to "delete", [current_company, task], :method => :delete, :remote => true, :class => "delete-task" %></span> <br />
  <% else %>
-	<span><%= link_to "Go to", [current_company, task.asset] %> <%= task.name %> Due: <%= task.due_at.strftime('%m/%d/%Y %I:%M%p') unless task.due_at.blank? %></span><br />
+	<span class="task-span"><%= link_to "Go to", [current_company, task.asset] %> <%= task.name %> Due: <%= task.due_at.strftime('%m/%d/%Y %I:%M%p') unless task.due_at.blank? %><%= link_to "delete", [current_company, task], :method => :delete, :remote => true, :class => "delete-task" %></span><br />
  <% end %>

@@ -28,6 +28,9 @@ $(document).ready(function(){
 			$(".new-task-button").click(function () {
 			$(".new-task-form").toggle("slow");
 			});
+			$('.delete-task').bind('ajax:success', function() {  
+			    $(this).closest('tr').fadeOut();  
+			});
 		    
 			
 	});
