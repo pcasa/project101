@@ -21,7 +21,11 @@ class TasksController < ApplicationController
     @task = Task.new(params[:task])
     if @task.save
       flash[:notice] = "Successfully created task."
-      redirect_to [current_company, @task]
+      if @task.asset == current_company
+        redirect_to company_dashboard_url(current_company)
+      else
+        redirect_to [current_company, @task.asset]
+      end
     else
       render :action => 'new'
     end

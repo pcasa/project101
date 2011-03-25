@@ -250,6 +250,7 @@ a {
 	padding: 10px;
 }
 
+
 /*** Orders ***/
 .silverBoarderd {
 	font-size:1.1em;
@@ -358,6 +359,12 @@ a {
 
 
 /*** tasks layout ***/
+
+.new-task-form {
+	display: inline-block;
+	height: 130px;
+}
+
 #overdue h3{
 	color: #f02114;
 }

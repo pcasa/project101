@@ -45,7 +45,7 @@ Project101::Application.routes.draw do
     resources :special_services
     resources :service_groups
     resources :customers do 
-      
+      resources :tasks
       resources :insurance_policies
       resources :addresses
       resources :items

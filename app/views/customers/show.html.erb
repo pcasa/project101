@@ -45,5 +45,10 @@
 	<% if can? :destroy, @customer %>
   <%= link_to "Destroy", [current_company, @customer], :confirm => 'Are you sure?', :method => :delete %> |
 	<% end %>
-  <%= link_to "View All", company_customers_path %>
+  <%= link_to "View All", company_customers_path %> | 	<span class="new-task-button">
+	<a href="#" >Create task for customer</a>
+	</span>
+	<div class="new-task-form hidden">
+	<%= render :partial => "common/new_task", :locals => { :asset => @customer } %>	
+	</div>
 </p>

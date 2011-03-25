@@ -1,3 +1,10 @@
+<p class="new-task-button">
+<a href="#" >Create new task</a>
+</p>
+<div class="new-task-form hidden">
+<%= render :partial => "common/new_task", :locals => { :asset => current_company } %>	
+<hr>
+</div>
 <% title "Tasks" %>
 <%= render :partial => "tasks_show", :locals => { :tasks => @tasks.overdue, :title => "overdue" }%>
 <%= render :partial => "tasks_show", :locals => { :tasks => @tasks.due_today, :title => "due_today" }%>
@@ -5,10 +12,3 @@
 <%= render :partial => "tasks_show", :locals => { :tasks => @tasks.due_this_week, :title => "due_this_week" }%>
 <%= render :partial => "tasks_show", :locals => { :tasks => @tasks.due_next_week, :title => "due_next_week" }%>
 <%= render :partial => "tasks_show", :locals => { :tasks => @tasks.due_later, :title => "due_later" }%>
-<hr>
-<p class="new-task-button">
-<a href="#" >Create new task</a>
-</p>
-<div class="new-task-form hidden">
-<%= render :partial => "common/new_task", :locals => { :asset => current_company } %>	
-</div>
