@@ -1,12 +1,16 @@
 <% if !@policies.blank? %>
   <% @policies.each do |policy| %>
-	<p><%= link_to policy.policy_number, company_insurance_policy_path(current_company, policy) %></p>
+	<p>Policy #: <%= link_to policy.policy_number, company_insurance_policy_path(current_company, policy) %> - <span class="smallertxt"><%= link_to "Add Policy Payment", company_policy_payment_path(current_company, policy), :class => "smallbtn green whitetxt" %></span>
+		</p>
 	<% if !policy.tasks.blank? %>
 	  <ul><% for item in policy.items %>
 	    <li><%= link_to "Payment made on " + item.created_at.strftime('%m/%d/%y'), company_order_path(current_company, item.order_id) %></li>
 	  <% end %></ul>
+	
+		
+	
 	<% else %>
-	   did search, but No Task for policy
+	   No policy payments have been made.
 	<% end %>
   <% end %>
 <% else %>

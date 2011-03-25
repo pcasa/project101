@@ -44,6 +44,7 @@ $(document).ready(function() {
 	  <%= f.input :assigned_company_id, :as => :hidden %>
 	  <%= f.input :parent_company_id, :as => :hidden %>
 	  <%= f.input :parent_id, :as => :hidden %>
+	  <%= f.input :customer_id, :as => :hidden %>
 	  <%= f.input :policy_number %>
 	  <%= f.input :policy_type, :as => :select, :collection => InsurancePolicy::POLICYTYPE, :include_blank => false %>
 	  <input name="insurance_policy[yearly]" type="hidden" value="0" />
@@ -51,7 +52,6 @@ $(document).ready(function() {
 	   <input class="iphone-style-checkbox" id="checkbox-1"
 	name="insurance_policy[yearly]" type="checkbox" value="1" />
 	  <%= f.input :vendor %>
-	  <%= f.input :customer_id %>
 	  <%= f.input :first_payment, :label => "Down payment" %>
  	  <%= f.input :monthly_payment %>
 	  <%= f.input :due_date, :as => :date_picker %>

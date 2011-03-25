@@ -38,9 +38,10 @@ class Item < ActiveRecord::Base
     def schedule_any_tasks
       if (self.itemable_type == "InsurancePolicy") && (self.name == "Policy Payment")
         @policy = InsurancePolicy.find(self.itemable_id)
+        message = "Call " + @policy.customer.full_name + " to remind them about there payment"
         @current_policy_task = @policy.tasks.first
         if self.new_service?  || @current_policy_task.blank?
-          Task.create!(:asset_type => self.itemable_type, :asset_id => self.itemable_id, :user_id => self.user_id, :assigned_to => self.user_id, :assigned_company => self.assigned_company, :category => "call", :name => "I am working from scheduled any tasks", :due_at => @policy.due_date)
+          Task.create!(:asset_type => self.itemable_type, :asset_id => self.itemable_id, :user_id => self.user_id, :assigned_to => self.user_id, :assigned_company => self.assigned_company, :category => "call", :name => message, :due_at => @policy.due_date - 5.days)
           @policy.decrement!(:number_of_payments_left, 1)
         else
            @current_policy_task.mark_as_completed(self.user_id) 

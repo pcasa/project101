@@ -476,4 +476,6 @@ form.formtastic fieldset ol li.error {
 	font-weight: bold;
 }
 
-
+.whitetxt {
+	color: #FFFFFF!important;
+}
