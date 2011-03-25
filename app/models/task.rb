@@ -58,11 +58,6 @@ class Task < ActiveRecord::Base
       self.update_attributes(:completed_by => user_id, :deleted_at => Time.now)
     end
     
-   
-    
-    def self.current_tasks_for(user_id, company)
-      where.("assigned_to = ? AND assigned_company = ?", user_id, company_id)
-    end
 end
 
     
