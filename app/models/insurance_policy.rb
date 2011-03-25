@@ -1,11 +1,10 @@
 class InsurancePolicy < ActiveRecord::Base
   
-    attr_accessible :policy_number, :yearly, :customer_id, :vendor_id, :assigned_company_id, :parent_company_id, :due_date, :cancelled, :completed, :number_of_payments_left, :parent_id, :policy_type, :policy_payments, :first_payment, :monthly_payment
+    attr_accessible :policy_number, :yearly, :customer_id, :vendor_id, :assigned_company_id, :parent_company_id, :due_date, :cancelled, :completed, :number_of_payments_left, :parent_id, :policy_type, :first_payment, :monthly_payment
     belongs_to :customer, :class_name => "Customer", :foreign_key => "customer_id"
     belongs_to :vendor, :class_name => "Vendor", :foreign_key => "vendor_id"
     has_many :children, :class_name => "InsurancePolicy", :foreign_key => "parent_id"
     has_many :items, :as => :itemable
-    has_many :policy_payments, :through => :items
     has_many :tasks, :as => :asset
     
     scope :new_policies, where("policy_type='New'")
@@ -34,7 +33,7 @@ class InsurancePolicy < ActiveRecord::Base
       else
         temp_desc2 = "You have " + payments_left.to_s + " payment left.  Your renewal is comming up."
       end
-      if self.policy_type == "New" 
+      if self.items.blank? 
         payment_amount = self.first_payment 
       else 
         payment_amount = self.monthly_payment 

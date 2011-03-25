@@ -40,6 +40,14 @@
   <strong>Number Of Payments Left:</strong>
   <%= @insurance_policy.number_of_payments_left %>
 </p>
+<p>
+  <strong>Down Payment:</strong>
+  <%= number_to_currency(@insurance_policy.first_payment) %>
+</p>
+<p>
+  <strong>Monthly Payments:</strong>
+  <%= number_to_currency(@insurance_policy.monthly_payment) %>
+</p>
 
 <p>
 	<%= link_to "Add Policy Payment", company_policy_payment_path(current_company, @insurance_policy) %>
