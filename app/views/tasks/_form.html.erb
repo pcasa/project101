@@ -1,4 +1,6 @@
-<%= semantic_form_for [current_company, @task] do |f| %>
+
+
+<%= semantic_form_for [current_company, @asset, Task.new] do |f| %>
   <%= f.inputs do %>
 	<%= f.hidden_field :user_id %>
 	<%= f.input :assigned_to, :as => :select, :collection => @users %>
@@ -7,6 +9,8 @@
 	<%= f.input :name %>
 	<%= f.input :category, :as => :select, :collection => Task::CATEGORY %>
 	<%= f.input :due_at, :as => :datetime_picker %>
+	<%= f.input :asset_type %>
+	<%= f.input :asset_id %>
   	<% end %>
   <%= f.buttons do %>
     <%= f.commit_button %>

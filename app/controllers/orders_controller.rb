@@ -1,6 +1,7 @@
 class OrdersController < ApplicationController
   before_filter :authenticate_user!
   load_and_authorize_resource
+  before_filter :check_if_printable, :only => :print_order
   
   def index
     unless params[:customer_id]
@@ -77,5 +78,17 @@ class OrdersController < ApplicationController
     @services = Service.all
     @service_groups = ServiceGroup.all
     render :layout => false
+  end
+  
+  def print_order
+    @order = Order.find(params[:id])  
+    render :layout => false
+  end
+  
+  def check_if_printable
+    if !@order.closed?
+      flash[:alert] = "That Order is not printable!  Only Closed/Invoiced Orders can be printed."
+      redirect_to company_dashboard_url(current_company)
+    end
   end
 end

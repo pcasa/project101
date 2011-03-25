@@ -1,6 +1,21 @@
 <% title 'Company Dashboard' %>
 
-<%= render :partial => "tasks_show", :locals => { :tasks => current_company.tasks }%>
+<table cellspacing="10" border="0" width="">
+	<tr valign=TOP>
+		<td>
+		<%= render :partial => "common/tasks_show", :locals => { :tasks => current_tasks.due_today, :title => "Due Today:" }%>
+		<%= render :partial => "common/tasks_show", :locals => { :tasks => current_tasks.due_tomorrow, :title => "Due Tomorrow:" }%>	
+		<%= render :partial => "common/tasks_show", :locals => { :tasks => current_tasks.due_this_week, :title => "Due this week:" }%>
+		<%= render :partial => "common/tasks_show", :locals => { :tasks => current_tasks.due_next_week, :title => "Due next week:" }%>
+		</td>
+	</tr>
+</table>
+<p class="new-task-button">
+<a href="#" >Create new task</a>
+</p>
+<div class="new-task-form hidden">
+<%= render :partial => "common/new_task", :locals => { :asset => current_company } %>	
+</div>
 
 <ul id="dashboard">
 <li>

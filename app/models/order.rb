@@ -47,6 +47,7 @@ class Order < ActiveRecord::Base
       self.update_attributes(:closed => true, :closed_date => Date.today)
       self.items.each do |item|
         item.update_attributes(:closed => true, :customer_id => self.customer_id, :user_id => self.user_id)
+        item.schedule_any_tasks
       end
     end
   

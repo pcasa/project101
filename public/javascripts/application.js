@@ -24,13 +24,17 @@ $(document).ready(function(){
 				     }
 				    }
 			});
+			
+			$(".new-task-button").click(function () {
+			$(".new-task-form").toggle("slow");
+			});
 		    
 			
 	});
 	
 $(document).ready(function(){ 
 	$('input.ui-date-picker').datepicker({ dateFormat: 'd M yy' }); 
-	$('input.ui-datetime-picker').datetimepicker({ dateFormat: 'd M yy', ampm: true }); 
+	$('input.ui-datetime-picker, .task-datetime').datetimepicker({ dateFormat: 'd M yy', ampm: true }); 
 });
 
 // Below is for live search

@@ -2,12 +2,13 @@ class Customer < ActiveRecord::Base
   
   default_scope order('lastname, firstname')
   
-  belongs_to :company, :class_name => "Company", :foreign_key => "parent_company_id"
+  belongs_to :company, :class_name => "Company", :foreign_key => :parent_company_id
   attr_accessible :firstname, :lastname, :customer_number, :parent_company_id, :assigned_company_id, :street1, :street2, :city, :state, :zipcode, :full_address, :addresses_attributes, :search, :full_name
   has_many :addresses, :class_name => "Address", :as => :addressable
   has_many :insurance_policies, :class_name => "InsurancePolicy"
   has_many :orders
   has_many :items
+  has_many :tasks, :as => :asset, :dependent => :destroy
   
   accepts_nested_attributes_for :addresses, :allow_destroy => true, :reject_if => proc { |obj| obj.blank? }
   

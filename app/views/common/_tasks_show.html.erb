@@ -1,0 +1,11 @@
+<h3><%= title.humanize %></h3>
+<% if !tasks.blank? %>
+  <% for task in tasks %>
+    <%= render :partial => "common/show_task", :locals => {:task => task} %>
+  <% end %>
+<% else %>
+  No Tasks Present
+<% end %>
+
+
+

@@ -1,7 +1,8 @@
     <%= f.hidden_field :parent_company_id, :value => main_company.id %>
     <%= f.hidden_field :assigned_company_id, :value => current_company.id %>
 
-<table id="new_customer_info">
+<div id="new_customer_info">
+<table border="0">
 	<caption>New Customer Information:</caption>
 	<thead>
 		<tr>
@@ -16,13 +17,13 @@
 		</tr>
 	</tbody>
 </table>
-<table>
+<table border="0">
     <tr>
     	<th colspan="2">Street</th>
 		<th>Suite or Apt</th>
     </tr>
 	<tr>
-		<td colspan="2"><%= f.text_field :street1, :size => 60 %></td>
+		<td colspan="2"><%= f.text_field :street1, :size => 40 %></td>
 		<td><%= f.text_field :street2 %></td>
 	</tr>
 	<tr>
@@ -87,3 +88,4 @@
 		<td><%= f.text_field :zipcode %></td>
     </tr>
   </table>
+</div>

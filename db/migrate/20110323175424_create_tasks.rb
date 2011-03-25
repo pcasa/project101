@@ -13,9 +13,10 @@ class CreateTasks < ActiveRecord::Migration
       t.datetime :deleted_at
       t.timestamps
     end
-    add_index :tasks, [ :user_id, :name, :deleted_at ], :unique => true
+    add_index :tasks, [ :user_id, :name, :deleted_at ]
     add_index :tasks, :assigned_to
     add_index :tasks, :assigned_company
+    add_index :tasks, :deleted_at
   end
 
   def self.down

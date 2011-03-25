@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
   has_many :companies, :through => :employmentships
   has_many :orders
   has_many :items
-  has_many :tasks
+  has_many :tasks, :dependent => :destroy
   
   
   # Include default devise modules. Others available are:

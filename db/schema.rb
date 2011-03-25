@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110323175706) do
+ActiveRecord::Schema.define(:version => 20110323231030) do
 
   create_table "addresses", :force => true do |t|
     t.string   "street1"
@@ -29,6 +29,11 @@ ActiveRecord::Schema.define(:version => 20110323175706) do
   end
 
   add_index "addresses", ["addressable_id", "addressable_type"], :name => "index_addresses_on_addressable_id_and_addressable_type"
+
+  create_table "admins", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "categories", :force => true do |t|
     t.string   "name"
@@ -81,7 +86,7 @@ ActiveRecord::Schema.define(:version => 20110323175706) do
 
   create_table "insurance_policies", :force => true do |t|
     t.string   "policy_number",           :limit => 24
-    t.boolean  "yearly"
+    t.boolean  "yearly",                                                               :default => false
     t.integer  "customer_id"
     t.integer  "vendor_id"
     t.integer  "assigned_company_id"
@@ -230,7 +235,8 @@ ActiveRecord::Schema.define(:version => 20110323175706) do
 
   add_index "tasks", ["assigned_company"], :name => "index_tasks_on_assigned_company"
   add_index "tasks", ["assigned_to"], :name => "index_tasks_on_assigned_to"
-  add_index "tasks", ["user_id", "name", "deleted_at"], :name => "index_tasks_on_user_id_and_name_and_deleted_at", :unique => true
+  add_index "tasks", ["deleted_at"], :name => "index_tasks_on_deleted_at"
+  add_index "tasks", ["user_id", "name", "deleted_at"], :name => "index_tasks_on_user_id_and_name_and_deleted_at"
 
   create_table "users", :force => true do |t|
     t.string   "email",                               :default => "", :null => false

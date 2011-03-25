@@ -42,6 +42,10 @@
 </p>
 
 <p>
+	<%= link_to "Add Policy Payment", company_policy_payment_path(current_company, @insurance_policy) %>
+</p>
+
+<p>
   <%= link_to "Edit", edit_company_insurance_policy_path(current_company, @insurance_policy) %> |
   <%= link_to "Destroy", [current_company, @insurance_policy], :confirm => 'Are you sure?', :method => :delete %> |
   <%= link_to "View All", company_insurance_policies_path(current_company) %>

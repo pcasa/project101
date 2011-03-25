@@ -1,6 +1,13 @@
 <% if !@policies.blank? %>
   <% @policies.each do |policy| %>
 	<p><%= link_to policy.policy_number, company_insurance_policy_path(current_company, policy) %></p>
+	<% if !policy.tasks.blank? %>
+	  <ul><% for task in policy.tasks %>
+	    <li><%= link_to task.name, [current_company, task] %></li>
+	  <% end %></ul>
+	<% else %>
+	   did search, but No Task for policy
+	<% end %>
   <% end %>
 <% else %>
   <p>Does not have any Insurance Policies.</p>

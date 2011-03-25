@@ -6,6 +6,7 @@ class InsurancePolicy < ActiveRecord::Base
     has_many :children, :class_name => "InsurancePolicy", :foreign_key => "parent_id"
     has_many :items, :as => :itemable
     has_many :policy_payments, :through => :items
+    has_many :tasks, :as => :asset
     
     scope :new_policies, where("policy_type='New'")
     scope :renewal, where("policy_type='Renewal'")
@@ -22,7 +23,7 @@ class InsurancePolicy < ActiveRecord::Base
     
     
     
-    def add_new_payment(current_order, user_id, assigned_company_id, parent_company_id)
+    def add_new_payment(current_order, user_id, assigned_company_id, parent_company_id, true_or_false)
       # remove one payment since customer is making one now
       payments_left = self.number_of_payments_left - 1
       temp_desc = "Payment on policy #" + self.policy_number + " from " + self.vendor.name + ".  "
@@ -39,7 +40,7 @@ class InsurancePolicy < ActiveRecord::Base
         payment_amount = self.monthly_payment 
       end
       full_desc = temp_desc + temp_desc2
-      Item.create!(:name => "Policy Payment", :short_description => full_desc, :visible => true, :new_service => true, :itemable => self, :user_id => user_id, :customer_id => self.customer_id, :order_id => current_order.id, :parent_company_id => parent_company_id, :assigned_company_id => assigned_company_id, :cost => payment_amount, :price => payment_amount, :qty => 1)
+      Item.create!(:name => "Policy Payment", :short_description => full_desc, :visible => true, :new_service => true_or_false, :itemable => self, :user_id => user_id, :customer_id => self.customer_id, :order_id => current_order.id, :parent_company_id => parent_company_id, :assigned_company_id => assigned_company_id, :cost => payment_amount, :price => payment_amount, :qty => 1)
       current_order.update_attribute(:customer_id, self.customer_id)
       
     end

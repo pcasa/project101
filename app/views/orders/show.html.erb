@@ -1,6 +1,6 @@
 <% title "Order" %>
 
-<table width="860" border="0">
+<table width="100%" border="0">
 	<tr width="100%">
 		<td wdith="58%" class="silverBG">
 			
@@ -60,12 +60,18 @@
 				</tr>
 				<tr>
 					<td>Amount Paid</td>
-					<td ALIGN=RIGHT><%= @order.amount_paid %></td>
+					<td ALIGN=RIGHT><%= number_to_currency(@order.amount_paid) %></td>
 				</tr>
 			</table>
 		</td>
 	</tr>
 </table>
+
+<% if @order.closed? %>
+<p style="text-align:right;">
+	<%= link_to "Print Order", company_print_order_path(current_company, @order), :rel => 'facebox', :class => "smallbtn blue" %>
+</p>
+<% end %>
 
 <p>
   <%= link_to "Edit", edit_company_order_path(current_company, @order) %> |

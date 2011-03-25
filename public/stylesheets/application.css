@@ -49,29 +49,33 @@ a {
 .blue, .pagination a {
 	color: #eeeeee;
 	border: 1px solid #042040;
-	background: #0b5ea6 url(../images/blueBtnSmall.jpg) repeat-y;
+	background: #0b5ea6 url(../images/blueBtnSmall.jpg) repeat-y!important;
 }
 
 .blue:hover, .pagination a:hover {
 	border-color: #1d4e9c;
-	background: #0e274b url(../images/blueBtnSmallHover.jpg) repeat-x;
+	background: #0e274b url(../images/blueBtnSmallHover.jpg) repeat-x!important;
 }
 
 .green {
 	color: #fff;
 	border: 1px solid #223e19;
-	background: #42a33e url(../images/greenBtnSmall.jpg) repeat-x;
+	background: #42a33e url(../images/greenBtnSmall.jpg) repeat-x!important;
 }
 
 .green:hover {
 	color: #fff;
 	border: 1px solid #399e00;
-	background: #246500 url(../images/greenBtnSmallHover.jpg) repeat-x;
+	background: #246500 url(../images/greenBtnSmallHover.jpg) repeat-x!important;
 	cursor: pointer; cursor: hand
 }
 
 .smallertxt {
 	font-size: 0.8em;
+}
+
+.biggertxt {
+	font-size: 1.2em;
 }
 
 .floatLeft {
@@ -382,11 +386,11 @@ form.formtastic fieldset.buttons ol li.commit input {
 
 
 .fancy-field:hover {
-	border-color: blue;
+	border-color: blue!important;
 	}
 	
 .fancy-field:focus {
-	border-color: red;
+	border-color: red!important;
 }
 
 .subItem {
@@ -435,16 +439,25 @@ form.formtastic fieldset.buttons ol li.commit input {
 	display: none;
 }
 
-/*** Formtastic Overrides ***/
-form.formtastic fieldset.inputs ol li input {	
-	padding: 5px;
-	border: solid 1px #E5E5E5;
+/***  All Forms Basic Look ****/
+#container form input {
+	border: 1px solid #bbb;
 	outline: 0;
+	padding: 5px;
 	font-size:1.2em;
-	width: 70%;
-	background: #FFFFFF;
+	background: #FFFFFF url(../images/inputBG.png) repeat-x;
 	-moz-border-radius: 6px;
-	border-radius: 6px;	
+	border-radius: 6px;
+}
+
+#edit_order_form .silverBG table input {
+	min-width: 100px;
+	max-width: 300px;
+}
+
+
+/*** Formtastic Overrides ***/
+form.formtastic fieldset.inputs ol li input {	width: 70%;		
 }
 
 form.formtastic fieldset ol li input.ui-date-picker {
@@ -462,3 +475,5 @@ form.formtastic fieldset ol li.error {
 	color: #0073ea;
 	font-weight: bold;
 }
+
+

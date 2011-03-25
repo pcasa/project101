@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   include UrlHelper
   protect_from_forgery
-  helper_method :current_company, :main_company, :is_employed_at?, :current_order
+  helper_method :current_company, :main_company, :is_employed_at?, :current_order, :current_tasks
   
   
   
@@ -48,6 +48,15 @@ class ApplicationController < ActionController::Base
       cookies.permanent[:order_id] = @current_order.id
     end
     @current_order
+  end
+  
+  def current_tasks
+    if user_signed_in? && !current_company.blank?
+      @tasks = Task.where("assigned_company = ? OR assigned_to = ?", current_company, current_user)
+      @current_tasks = @tasks
+    else
+      @current_tasks = nil
+    end
   end
   
   

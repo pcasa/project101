@@ -34,7 +34,7 @@ class Ability
       end
       can :dashboard, Company
       can [:customer_policies, :customer_orders, :customer_addresses], Customer
-      can [:create, :update, :all_services_popup], Order, :closed => false
+      can [:create, :update, :all_services_popup, :print_order], Order, :closed => false
       can :add_to_order, :all
       can [:create, :update, :destroy], Item, :closed => false
       can [:verify_current_user, :dashboard], User

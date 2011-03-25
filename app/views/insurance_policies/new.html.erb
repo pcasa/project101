@@ -52,10 +52,10 @@ $(document).ready(function() {
 	name="insurance_policy[yearly]" type="checkbox" value="1" />
 	  <%= f.input :vendor %>
 	  <%= f.input :customer_id %>
-	  <%= f.input :first_payment %>
+	  <%= f.input :first_payment, :label => "Down payment" %>
  	  <%= f.input :monthly_payment %>
 	  <%= f.input :due_date, :as => :date_picker %>
-	  <%= f.input :number_of_payments_left %>
+	  <%= f.input :number_of_payments_left, :label => "Total number of payments" %>
    <% end %>
    <%= f.buttons do %>
 	<%= f.commit_button :button_html => {:class => "smallbtn green"} %>

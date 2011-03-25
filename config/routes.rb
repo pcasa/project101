@@ -18,6 +18,7 @@ Project101::Application.routes.draw do
   
   scope '/:company_id', :as => :company do 
     match '/orders/all_services_popup' => 'orders#all_services_popup', :as => :all_services_popup
+    match '/orders/:id/print_order' => 'orders#print_order', :as => :print_order
     match '/services/:id/add_to_order' => 'services#add_to_order', :as => :add_service_to_order
     match '/service_groups/:id/add_to_order' => 'service_groups#add_to_order', :as => :add_service_groups_to_order
     match '/customers/:customer_id/customer_orders' => 'customers#customer_orders', :as => :customer_orders
@@ -25,11 +26,15 @@ Project101::Application.routes.draw do
     match '/customers/:customer_id/customer_addresses' => 'customers#customer_addresses', :as => :customer_addresses
     get '/admins/' => 'admins#index'
     get '/admins/deleted_items' => 'admins#deleted_items', :as => :deleted_items
+    match '/insurance_policies/:id/add_policy_payment' => 'insurance_policies#add_policy_payment', :as => :policy_payment
     
-    resources :tasks
     resources :items
-    resources :users 
-    resources :insurance_policies
+    resources :users do
+      resources :tasks
+    end
+    resources :insurance_policies do
+      resources :tasks
+    end
     
     resources :orders do
       resources :items
@@ -50,6 +55,7 @@ Project101::Application.routes.draw do
       resources :insurance_policies
       resources :addresses
     end
+    resources :tasks
   end
   
   resources :companies

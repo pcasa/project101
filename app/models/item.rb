@@ -20,7 +20,7 @@ class Item < ActiveRecord::Base
   belongs_to :user, :class_name => "User", :foreign_key => "user_id"
   
   
-  attr_accessible :name, :short_description, :category_id, :cost, :price, :qty, :visible, :new_service, :deleted, :closed, :order_id, :customer_id, :itemable, :parent_id, :itemable_type, :itemable_id, :user_id, :assigned_company_id, :parent_company_id
+  attr_accessible :name, :short_description, :category_id, :cost, :price, :qty, :visible, :new_service, :deleted, :closed, :order_id, :customer_id, :itemable, :parent_id, :itemable_type, :itemable_id, :user_id, :assigned_company_id, :parent_company_id, :schedule_any_tasks
   
   scope :valid_items, where(:closed => true)
     
@@ -33,5 +33,20 @@ class Item < ActiveRecord::Base
     
     def full_price
         (price*qty)
+    end
+    
+    def schedule_any_tasks
+      if (self.itemable_type == "InsurancePolicy") && (self.name == "Policy Payment")
+        @policy = InsurancePolicy.find(self.itemable_id)
+        @current_policy_task = @policy.tasks.first
+        if self.new_service?  || @current_policy_task.blank?
+          Task.create!(:asset_type => self.itemable_type, :asset_id => self.itemable_id, :user_id => self.user_id, :assigned_to => self.user_id, :assigned_company => self.assigned_company, :category => "call", :name => "I am working from scheduled any tasks", :due_at => @policy.due_date)
+          @policy.decrement!(:number_of_payments_left, 1)
+        else
+           @current_policy_task.mark_as_completed(self.user_id) 
+           Task.create!(@current_policy_task.attributes.merge(:due_at => @current_policy_task.due_at + 30.days, :deleted_at => nil))
+           @policy.decrement!(:number_of_payments_left, 1)
+        end
+      end
     end
 end
