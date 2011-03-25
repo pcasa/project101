@@ -21,7 +21,7 @@ class Task < ActiveRecord::Base
     
     # Tasks created by the user for herself, or assigned to her by others. That's
      # what gets shown on Tasks/Pending and Tasks/Completed pages.
-  #   scope :my, lambda { |user| where.("(user_id = ? AND assigned_to IS NULL) OR assigned_to = ?", user[:user] || user, user[:user] || user ).includes(:assignee) }
+     scope :my, lambda { |user| where.("user_id = ? AND assigned_to IS NULL OR assigned_to = ?", user[:user] || user, user[:user] || user ).includes(:assignee) }
     
     # Status based scopes to be combined with the due date and completion time.
     scope :pending,       where("completed_at IS NULL").order("due_at, id")
