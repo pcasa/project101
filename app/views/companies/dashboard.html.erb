@@ -7,6 +7,7 @@
 		<%= render :partial => "common/tasks_show", :locals => { :tasks => current_tasks.due_tomorrow, :title => "Due Tomorrow:" }%>	
 		<%= render :partial => "common/tasks_show", :locals => { :tasks => current_tasks.due_this_week, :title => "Due this week:" }%>
 		<%= render :partial => "common/tasks_show", :locals => { :tasks => current_tasks.due_next_week, :title => "Due next week:" }%>
+		<%= render :partial => "common/tasks_show", :locals => { :tasks => current_tasks.due_later, :title => "Due later:" }%>
 		</td>
 	</tr>
 </table>
