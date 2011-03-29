@@ -10,7 +10,7 @@
       <td width="25%"><%= task.due_at %></td>
       <td><%= link_to "Show", company_task_path(current_company, task) %></td>
       <td><%= link_to "Edit", edit_company_task_path(current_company, task) %></td>
-      <td><%= link_to "Delete", company_task_path(current_company, task), :confirm => 'Are you sure?', :method => :delete %></td>
+      <td><%= link_to "Delete", company_task_path(current_company, task), :class => "delete-task", :confirm => 'Are you sure?', :method => :delete %></td>
     </tr>
 	<tr>
 		<td colspan="6"><hr class="thinHr"></td>
