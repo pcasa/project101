@@ -24,7 +24,7 @@ class Item < ActiveRecord::Base
   attr_accessible :name, :short_description, :category_id, :cost, :price, :qty, :visible, :new_service, :deleted, :closed, :order_id, :customer_id, :itemable, :parent_id, :itemable_type, :itemable_id, :user_id, :assigned_company_id, :parent_company_id, :schedule_any_tasks, :vendor_id
   
   scope :valid_items, where(:closed => true)
-  scope :in_orders_with, lambda { |orders, type| where('itemable_type IS ?', type).joins(:order) & orders }
+  scope :in_orders_with, lambda { |orders, type| where("itemable_type IS ?", type).joins(:order) & orders }
     
     
     
