@@ -39,7 +39,7 @@ class InsurancePolicy < ActiveRecord::Base
         payment_amount = self.monthly_payment 
       end
       full_desc = temp_desc + temp_desc2
-      Item.create!(:name => "Policy Payment", :short_description => full_desc, :visible => true, :new_service => true_or_false, :itemable => self, :user_id => user_id, :customer_id => self.customer_id, :order_id => current_order.id, :parent_company_id => parent_company_id, :assigned_company_id => assigned_company_id, :cost => payment_amount, :price => payment_amount, :qty => 1, :category_id => Category.find_or_create_by_name("Insurance Policy"))
+      Item.create!(:name => "Policy Payment", :short_description => full_desc, :visible => true, :new_service => true_or_false, :itemable => self, :user_id => user_id, :customer_id => self.customer_id, :order_id => current_order.id, :parent_company_id => parent_company_id, :assigned_company_id => assigned_company_id, :cost => payment_amount, :price => payment_amount, :qty => 1, :category_id => Category.find_by_name("Insurance Policy"))
       current_order.update_attribute(:customer_id, self.customer_id)
       
     end
