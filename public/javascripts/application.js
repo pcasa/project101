@@ -28,9 +28,37 @@ $(document).ready(function(){
 			$(".new-task-button").click(function () {
 			$(".new-task-form").toggle("slow");
 			});
+			$(".close-dashboard-tasks").click(function(){
+				$("#dashboard-tasks").slideUp("slow");
+				$(this).fadeOut("fast");
+				$(".open-dashboard-tasks").fadeIn();
+			});
+			$(".open-dashboard-tasks").click(function(){
+				$("#dashboard-tasks").slideDown("slow");
+				$(this).fadeOut("fast");
+				$(".close-dashboard-tasks").fadeIn();
+			});
+			
 			$('.delete-task').bind('ajax:success', function() {  
 			    $(this).closest('tr').fadeOut();  
 			});
+			
+			$('#select_orders').change(function(){
+				$.getScript('policy_reports')
+			});
+			
+			$('#yesterday').hide();
+			$('#this-week').hide();
+			$('#last-week').hide();
+			$('#this-month').hide();
+			$('#last-month').hide();
+			$('#this-year').hide();
+			$("#thechoices").change(function(){	
+				$("#reports").children().slideUp();
+				$("#" + this.value).slideDown();
+			});
+
+			$("#thechoices").change();
 		    
 			
 	});

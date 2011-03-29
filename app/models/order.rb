@@ -10,6 +10,23 @@ class Order < ActiveRecord::Base
   scope :open_order, where(:closed => false)
   scope :closed_orders, where(:closed => true)
   
+  scope :with_policies, joins(:items).where("items.itemable_type = 'InsurancePolicy'")
+  
+  # Scopes for time of closed orders
+  scope :closed_today, lambda { where("closed_date IS NOT ? AND closed_date >= ? AND closed_date < ?", nil, Time.now.midnight, Time.now.midnight.tomorrow)}
+  scope :closed_yesterday, lambda { where("closed_date IS NOT ? AND closed_date >= ? AND closed_date < ?", nil, Time.now.midnight.yesterday, Time.now.midnight)}
+  scope :closed_this_week,  lambda { where("closed_date IS NOT ? AND closed_date >= ? AND closed_date < ?", nil, Time.now.beginning_of_week , Time.now.midnight.yesterday)}
+  scope :closed_last_week,  lambda { where("closed_date IS NOT ? AND closed_date >= ? AND closed_date < ?", nil, Time.now.beginning_of_week - 7.days, Time.now.beginning_of_week)}
+  scope :closed_this_month, lambda { where("closed_date IS NOT ? AND closed_date >= ? AND closed_date < ?", nil, Time.now.beginning_of_month, Time.now.end_of_month)}
+  scope :closed_last_month, lambda { where("closed_date IS NOT ? AND closed_date >= ? AND closed_date < ?", nil, (Time.now.beginning_of_month - 1.day).beginning_of_month, Time.now.beginning_of_month)}
+  scope :closed_this_year, lambda { where("closed_date IS NOT ? AND closed_date >= ?", nil, Time.now.midnight.beginning_of_year)}
+  
+  # Scope for payment types 
+  scope :cash, where(:payment_type => "cash")
+  scope :check, where(:payment_type => "check")
+  scope :credit_card, where(:payment_type => "credit_card")
+  
+  
   
   attr_accessible :assigned_company_id, :parent_company_id, :customer_id, :user_id, :closed, :closed_date, :payment_type, :total_cost, :total_amount, :amount_paid, :override, :customer_attributes
   
@@ -35,11 +52,21 @@ class Order < ActiveRecord::Base
       items.to_a.reject{|item|item.itemable_type == "ServiceGroup"}.sum(&:full_price)
     end
     
+    
+    
     def amount_due
       unless amount_paid.blank?
         total_price - amount_paid
       else
         total_price
+      end
+    end
+    
+    def amount_received
+      if total_price <= amount_paid
+        amount_paid - (amount_paid - total_price)
+      else
+        amount_paid
       end
     end
     

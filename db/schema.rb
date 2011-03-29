@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110323231030) do
+ActiveRecord::Schema.define(:version => 20110327211138) do
 
   create_table "addresses", :force => true do |t|
     t.string   "street1"
@@ -38,10 +38,14 @@ ActiveRecord::Schema.define(:version => 20110323231030) do
   create_table "categories", :force => true do |t|
     t.string   "name"
     t.integer  "parent_id"
+    t.integer  "lft"
+    t.integer  "rgt"
+    t.integer  "depth"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
+  add_index "categories", ["lft", "rgt", "depth"], :name => "index_categories_on_lft_and_rgt_and_depth"
   add_index "categories", ["name", "parent_id"], :name => "index_categories_on_name_and_parent_id"
 
   create_table "companies", :force => true do |t|
@@ -131,6 +135,7 @@ ActiveRecord::Schema.define(:version => 20110323231030) do
     t.datetime "updated_at"
     t.integer  "parent_id"
     t.datetime "deleted_at"
+    t.integer  "vendor_id"
   end
 
   add_index "items", ["assigned_company_id"], :name => "index_items_on_assigned_company_id"
@@ -143,6 +148,7 @@ ActiveRecord::Schema.define(:version => 20110323231030) do
   add_index "items", ["parent_company_id"], :name => "index_items_on_parent_company_id"
   add_index "items", ["parent_id"], :name => "index_items_on_parent_id"
   add_index "items", ["user_id"], :name => "index_items_on_user_id"
+  add_index "items", ["vendor_id"], :name => "index_items_on_vendor_id"
 
   create_table "orders", :force => true do |t|
     t.integer  "assigned_company_id"

@@ -17,6 +17,7 @@ gem 'faker'
 gem 'bcrypt-ruby'
 gem 'friendly_id', '~> 3.2.1'
 gem 'rails3_acts_as_paranoid'
+gem 'nested_set'
 
 # have to add for heroku here.
 # Delete for production

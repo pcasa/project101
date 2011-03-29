@@ -1,15 +1,20 @@
 <% title 'Company Dashboard' %>
 
-<table cellspacing="10" border="0" width="">
-	<tr valign=TOP>
-		<td>
-		<%= render :partial => "common/tasks_show", :locals => { :tasks => current_tasks.overdue, :title => "Overdue:" }%>	
-		<%= render :partial => "common/tasks_show", :locals => { :tasks => current_tasks.due_today, :title => "Due Today:" }%>
-		</td>
-	</tr>
-</table>
-<p class="new-task-button">
-<a href="#" >Create new task</a>
+<div id="dashboard-tasks">
+	<table cellspacing="10" border="0" width="100%">
+		<tr valign=TOP>
+			<td>
+				
+			<div id="overdue-tasks"><%= render :partial => "tasks/tasks_show", :locals => { :tasks => current_tasks.overdue, :title => "overdue" }%></div>	
+			<div id="due-today-tasks"><%= render :partial => "tasks/tasks_show", :locals => { :tasks => current_tasks.due_today, :title => "due_today" }%></div>
+			</td>
+		</tr>
+	</table>
+</div>
+<p>
+<span class="new-task-button"><a href="#" class="smallbtn green smallertxt not-bold" >Create new task</a></span> | 
+<span class="close-dashboard-tasks"><a href="#" class="smallbtn green smallertxt not-bold" >Close Tasks</a></span>
+<span class="open-dashboard-tasks" style="display:none;"><a href="#" class="smallbtn green smallertxt not-bold" >Open Tasks</a></span>
 </p>
 <div class="new-task-form hidden">
 <%= render :partial => "common/new_task", :locals => { :asset => current_company } %>	

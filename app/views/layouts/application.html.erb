@@ -21,6 +21,8 @@
 		
 	</div><!-- header-container -->
     <div id="container">
+		<div id="flash_notice" style="display:none"></div>
+		<div id="flash_alert" style="display:none"></div>
 	
       <% flash.each do |name, msg| %>
         <%= content_tag :div, msg, :id => "flash_#{name}" %>

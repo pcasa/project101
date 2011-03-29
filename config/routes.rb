@@ -1,9 +1,5 @@
 Project101::Application.routes.draw do
 
-  
-
-  
-
   match '/:company_id/companies' => 'companies#index', :as => :index_company
   match '/:company_id' => 'companies#show', :as => :show_company
   match '/companies/:id/edit' => 'companies#edit', :as => :edit_company
@@ -56,6 +52,10 @@ Project101::Application.routes.draw do
       resources :addresses
     end
     resources :tasks
+    get '/reports' => 'reports#index', :as => :reports
+    get '/reports/store_reports' => 'reports#store_reports', :as => :store_reports
+    get '/reports/policy_reports' => 'reports#policy_reports', :as => :policy_reports
+    match '/reports/policy_reports/render_my_partial' => 'reports#render_my_partial', :as => :render_my_partial
   end
   
   resources :companies

@@ -1,0 +1,3 @@
+$("#flash_notice").slideUp();
+$("#flash_notice").html("<%= escape_javascript(flash[:notice])%>").slideDown();
+$("#flash_notice").show().delay(3000).slideUp();

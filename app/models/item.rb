@@ -18,11 +18,13 @@ class Item < ActiveRecord::Base
   belongs_to :parent_company, :class_name => "Company", :foreign_key => "parent_company_id"
   belongs_to :insurance_policy, :class_name => "InsurancePolicy"
   belongs_to :user, :class_name => "User", :foreign_key => "user_id"
+  belongs_to :vendor, :class_name => "Vendor", :foreign_key => "vendor_id"
   
   
   attr_accessible :name, :short_description, :category_id, :cost, :price, :qty, :visible, :new_service, :deleted, :closed, :order_id, :customer_id, :itemable, :parent_id, :itemable_type, :itemable_id, :user_id, :assigned_company_id, :parent_company_id, :schedule_any_tasks
   
   scope :valid_items, where(:closed => true)
+  scope :in_orders_with, lambda { |orders, type| where('itemable_type IS ?', type).joins(:order) & orders }
     
     
     

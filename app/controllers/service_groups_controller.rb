@@ -47,9 +47,9 @@ class ServiceGroupsController < ApplicationController
   
   def add_to_order
     @service_group = ServiceGroup.find(params[:id])
-    @parent_item = Item.create!(@service_group.attributes.merge(:items => @service_group.items, :order_id => current_order.id, :itemable => @service_group, :qty => 1, :visible => true))
+    @parent_item = Item.create!(@service_group.attributes.merge(:items => @service_group.items, :order_id => current_order.id, :itemable => @service_group, :qty => 1, :visible => true, :assigned_company_id => current_company.id, :parent_company_id => main_company.id))
     @service_group.services.each do |service|
-      @child_item = Item.create!(service.attributes.merge(:items => service.items, :order_id => current_order.id, :itemable => service, :parent_id => @parent_item.id, :visible => false, :qty => 1))
+      @child_item = Item.create!(service.attributes.merge(:items => service.items, :order_id => current_order.id, :itemable => service, :parent_id => @parent_item.id, :visible => false, :qty => 1, :assigned_company_id => current_company.id, :parent_company_id => main_company.id))
     end
     redirect_to edit_company_order_url(current_company, current_order)
   end

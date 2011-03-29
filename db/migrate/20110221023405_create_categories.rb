@@ -3,9 +3,13 @@ class CreateCategories < ActiveRecord::Migration
     create_table :categories do |t|
       t.string :name
       t.integer :parent_id
+      t.integer :lft
+      t.integer :rgt
+      t.integer :depth
       t.timestamps
     end
     add_index(:categories, [:name, :parent_id])
+    add_index(:categories, [:lft, :rgt, :depth])
   end
 
   def self.down

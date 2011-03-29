@@ -17,6 +17,8 @@ class CreateItems < ActiveRecord::Migration
       t.integer :customer_id
       t.integer :assigned_company_id
       t.integer :parent_company_id
+      t.integer :parent_it
+      t.datetime :deleted_at
       t.timestamps
     end
     add_index(:items, [:name, :price, :cost, :qty])
@@ -27,6 +29,8 @@ class CreateItems < ActiveRecord::Migration
     add_index(:items, :customer_id)
     add_index(:items, :assigned_company_id)
     add_index(:items, :parent_company_id)
+    add_index(:items, :deleted_at)
+    add_index(:items, :parent_id)
   end
 
   def self.down

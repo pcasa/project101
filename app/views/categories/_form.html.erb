@@ -5,7 +5,7 @@
     <%= f.text_field :name %>
   </p>
   <p>
-	<%= f.collection_select :parent_id, @categories, :id, :name %>
+	<%= f.select :parent_id, sorted_nested_set_options(Category, lambda(&:name)) {|i, level| "#{'-' * level} #{i.name}" }, {:include_blank => true} %>
   </p>
   <p><%= f.submit %></p>
 <% end %>

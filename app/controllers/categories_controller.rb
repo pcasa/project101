@@ -3,7 +3,7 @@ class CategoriesController < ApplicationController
   load_and_authorize_resource
    
   def index
-    @categories = Category.all
+    @categories = Category.order("lft ASC")
   end
 
   def show
@@ -37,7 +37,7 @@ class CategoriesController < ApplicationController
     @category = Category.find(params[:id])
     if @category.update_attributes(params[:category])
       flash[:notice] = "Successfully updated category."
-      redirect_to company_category_url(current_company, category)
+      redirect_to company_category_url(current_company, @category)
     else
       render :action => 'edit'
     end

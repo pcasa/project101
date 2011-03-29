@@ -14,6 +14,13 @@
 			</ul>
 		</li>
 		<li> <%= link_to image_tag("/images/icons/32/cash_register.png", :size => "32x32", :class => "menu32Icon") + "New Order", edit_company_order_path(current_company, current_order) %> </li>
+		<li>
+			<%= link_to image_tag("/images/icons/32/statistics.png", :size => "32x32", :class => "menu32Icon") + "Reports", company_reports_path(current_company) %>
+			<ul>
+				<li><%= link_to image_tag("/images/icons/32/chart_curve.png", :size => "32x32", :class => "menu32Icon") + "Sold", company_store_reports_path(current_company) %></li>
+				<li><%= link_to image_tag("/images/icons/32/chart_curve.png", :size => "32x32", :class => "menu32Icon") + "Policies Sold", company_policy_reports_path(current_company) %></li>
+			</ul>
+		</li>
 		<li><%= link_to image_tag("/images/icons/32/brick.png", :size => "32x32", :class => "menu32Icon") + "Services", company_services_path %>
 			<ul>
 				<li><%= link_to image_tag("/images/icons/32/brick.png", :size => "32x32", :class => "menu32Icon") + "Services", company_services_path %></li>

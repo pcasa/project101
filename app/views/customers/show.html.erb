@@ -23,10 +23,10 @@
 	<div id="tasks">
 		<p>
 			<% if !@customer.tasks.blank? %>
-			<%= render :partial => "common/tasks_show", :locals => {:tasks => @customer.tasks, :title => "Tasks"}%>
+			<%= render :partial => "tasks/tasks_show", :locals => {:tasks => @customer.tasks, :title => "Tasks"}%>
 			  
 			<% else %>
-			  
+			  No Tasks <%= @customer.full_name.titleize %>
 			<% end %>
 			
 		</p>

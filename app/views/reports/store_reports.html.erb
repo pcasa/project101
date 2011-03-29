@@ -1,0 +1,42 @@
+<% title current_company.name + " Reports" %>
+
+<select id="thechoices">
+	<option value="today">Today</option>
+	<option value="yesterday">Yesterday</option>
+	<option value="this-week">This Week</option>
+	<option value="last-week">Last Week</option>
+	<option value="this-month">This Month</option>
+	<option value="last-month">Last Month</option>
+	<option value="this-year">This Year</option>
+</select>
+
+<% orders =  @orders %>
+
+
+
+<div id="reports" 
+	
+
+<div id="today"> 
+<%= render :partial => "store_reports_details", :locals => { :orders => orders.closed_today, :title => "Today" } %>
+</div>
+<div id="yesterday"> 
+<%= render :partial => "store_reports_details", :locals => { :orders => orders.closed_yesterday, :title => "Yesterday"  } %>
+</div>
+<div id="this-week"> 
+<%= render :partial => "store_reports_details", :locals => { :orders => orders.closed_this_week, :title => "This Week"  } %>
+</div>
+<div id="last-week"> 
+<%= render :partial => "store_reports_details", :locals => { :orders => orders.closed_last_week, :title => "Last Week"  } %>
+</div>
+<div id="this-month"> 
+<%= render :partial => "store_reports_details", :locals => { :orders => orders.closed_this_month, :title => "This Month"  } %>
+</div>
+<div id="last-month"> 
+<%= render :partial => "store_reports_details", :locals => { :orders => orders.closed_last_month, :title => "Last Month"  } %>
+</div>
+<div id="this-year"> 
+<%= render :partial => "store_reports_details", :locals => { :orders => orders.closed_this_year, :title => "This Year"  } %>
+</div>
+
+</div>

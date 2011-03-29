@@ -4,7 +4,7 @@
 <% path_to = [current_company, asset, Task.new] %>
 <% end %>
 <% users = User.all %>
-<%= form_for path_to do |f| %>
+<%= form_for path_to, :remote => true do |f| %>
 	<%= f.hidden_field :user_id, :value => current_user.id %>
 	<%= f.hidden_field :asset_type, :value => asset.class %>
 	<%= f.hidden_field :asset_id, :value => asset.id %>

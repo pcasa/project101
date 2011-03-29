@@ -1,6 +1,6 @@
 class InsurancePolicy < ActiveRecord::Base
   
-    attr_accessible :policy_number, :yearly, :customer_id, :vendor_id, :assigned_company_id, :parent_company_id, :due_date, :cancelled, :completed, :number_of_payments_left, :parent_id, :policy_type, :first_payment, :monthly_payment
+    attr_accessible :policy_number, :yearly, :customer_id, :vendor_id, :assigned_company_id, :parent_company_id, :due_date, :cancelled, :completed, :number_of_payments_left, :parent_id, :policy_type, :down_payment, :monthly_payment
     belongs_to :customer, :class_name => "Customer", :foreign_key => "customer_id"
     belongs_to :vendor, :class_name => "Vendor", :foreign_key => "vendor_id"
     has_many :children, :class_name => "InsurancePolicy", :foreign_key => "parent_id"
@@ -11,7 +11,7 @@ class InsurancePolicy < ActiveRecord::Base
     scope :renewal, where("policy_type='Renewal'")
     scope :reinstated, where("policy_type='Reinstate'")
     
-    validates_presence_of :policy_number, :customer_id, :vendor_id, :due_date, :number_of_payments_left, :policy_type, :first_payment, :monthly_payment, :message => "can't be blank"
+    validates_presence_of :policy_number, :customer_id, :vendor_id, :due_date, :number_of_payments_left, :policy_type, :down_payment, :monthly_payment, :message => "can't be blank"
     
     POLICYTYPE = %w[New Renewal Reinstate]
     
@@ -34,12 +34,12 @@ class InsurancePolicy < ActiveRecord::Base
         temp_desc2 = "You have " + payments_left.to_s + " payment left.  Your renewal is comming up."
       end
       if self.items.blank? 
-        payment_amount = self.first_payment 
+        payment_amount = self.down_payment 
       else 
         payment_amount = self.monthly_payment 
       end
       full_desc = temp_desc + temp_desc2
-      Item.create!(:name => "Policy Payment", :short_description => full_desc, :visible => true, :new_service => true_or_false, :itemable => self, :user_id => user_id, :customer_id => self.customer_id, :order_id => current_order.id, :parent_company_id => parent_company_id, :assigned_company_id => assigned_company_id, :cost => payment_amount, :price => payment_amount, :qty => 1)
+      Item.create!(:name => "Policy Payment", :short_description => full_desc, :visible => true, :new_service => true_or_false, :itemable => self, :user_id => user_id, :customer_id => self.customer_id, :order_id => current_order.id, :parent_company_id => parent_company_id, :assigned_company_id => assigned_company_id, :cost => payment_amount, :price => payment_amount, :qty => 1, :category_id => Category.find_or_create_by_name("Insurance Policy").id)
       current_order.update_attribute(:customer_id, self.customer_id)
       
     end

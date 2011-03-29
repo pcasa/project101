@@ -63,6 +63,9 @@ GEM
     mime-types (1.16)
     mocha (0.9.10)
       rake
+    nested_set (1.6.4)
+      activerecord (>= 3.0.0)
+      railties (>= 3.0.0)
     nifty-generators (0.4.4)
     polyglot (0.3.1)
     populator (1.0.0)
@@ -111,6 +114,7 @@ DEPENDENCIES
   jquery-rails
   meta_search
   mocha
+  nested_set
   nifty-generators
   populator
   rails (= 3.0.3)

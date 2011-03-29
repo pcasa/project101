@@ -14,6 +14,10 @@ a {
   color: #0073ea;
 }
 
+.not-bold, a.not-bold {
+	font-weight:normal!important;
+}
+
 .clear {
   clear: both;
   height: 0;
@@ -355,6 +359,33 @@ a {
 
 .error_messages ul {
   margin: 0;
+}
+
+/*** Reports ***/
+#orders-reports {
+	margin: 0 auto;
+}
+
+#orders-reports tr th {
+	background-color: #999;
+	border-bottom: solid 1px #000;
+}
+
+#orders-reports tr {
+	height: 30px;
+}
+
+#orders-reports tr.even td, #orders-reports tr.odd td {
+	padding-left: 20px;
+	border-bottom: solid 1px #999;
+}
+
+#orders-reports tr.odd td {
+	background-color: #ddd;
+}
+
+#orders-reports #payment-type {
+	margin-top: 30px;
 }
 
 

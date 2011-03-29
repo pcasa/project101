@@ -1,0 +1,9 @@
+<h1>Report#index</h1>
+<p>Find me in app/views/report/index.html.erb</p>
+
+<ul id="dashboard">
+	<li><%= link_to image_tag("/images/icons/32/chart_curve.png", :size => "32x32", :class => "dashIcon") + "Sold" + "<br />
+	<div class='subText'>Orders sold.</div>".html_safe, company_store_reports_path %></li>
+	<li><%= link_to image_tag("/images/icons/32/chart_curve.png", :size => "32x32", :class => "dashIcon") + "Policies Sold" + "<br />
+	<div class='subText'>All Policies sold.</div>".html_safe, company_policy_reports_path %></li>
+</ul>
