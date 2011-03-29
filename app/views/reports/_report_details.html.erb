@@ -5,7 +5,7 @@
   <% @items.group_by{ |o| o.vendor }.each do |vendor, items| %>
    <%= vendor.name %> <br />Sold:<%= items.count %> <%= number_to_currency(items.collect.sum(&:price)) %><br /><br />
   <% end %>
-<b>Total Sold: <%= number_to_currency(@items.collect.sum(&:price)) %></b><br />
+<p>Total Sold: <%= number_to_currency(@items.collect.sum(&:price)) %></p><br />
 <% else %>
   Nothing to report from Policies<br />
 <% end %>
