@@ -1,7 +1,7 @@
 $(".new-task-form").slideUp();
-    $("#overdue-tasks").html("<%= escape_javascript(render(:partial => "common/tasks_show", :locals => { :tasks => current_tasks.overdue, :title => "Overdue:" })) %>").effect("highlight", {color:"#b1b1b1"}, 3000);
+    $("#overdue-tasks").html("<%= escape_javascript(render(:partial => "tasks/tasks_show", :locals => { :tasks => current_tasks.overdue, :title => "Overdue:" })) %>").effect("highlight", {color:"#b1b1b1"}, 3000);
 
-	$("#due-today-tasks").html("<%= escape_javascript(render(:partial => "common/tasks_show", :locals => { :tasks => current_tasks.due_today, :title => "Due today:" })) %>").effect("highlight", {color:"#b1b1b1"}, 3000);
+	$("#due-today-tasks").html("<%= escape_javascript(render(:partial => "tasks/tasks_show", :locals => { :tasks => current_tasks.due_today, :title => "Due today:" })) %>").effect("highlight", {color:"#b1b1b1"}, 3000);
 
 $("#flash_notice").html("<%= escape_javascript(flash[:notice])%>");
 $("#flash_notice").show().delay(3000).slideUp();
