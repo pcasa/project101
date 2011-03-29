@@ -95,16 +95,16 @@ ActiveRecord::Schema.define(:version => 20110327211138) do
     t.integer  "vendor_id"
     t.integer  "assigned_company_id"
     t.integer  "parent_company_id"
+    t.decimal  "down_payment",                          :precision => 12, :scale => 2
+    t.decimal  "monthly_payment",                       :precision => 12, :scale => 2
     t.date     "due_date"
     t.boolean  "cancelled"
     t.boolean  "completed"
     t.integer  "number_of_payments_left"
-    t.datetime "created_at"
-    t.datetime "updated_at"
     t.integer  "parent_id"
     t.string   "policy_type",             :limit => 64
-    t.decimal  "first_payment",                         :precision => 12, :scale => 2
-    t.decimal  "monthly_payment",                       :precision => 12, :scale => 2
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "insurance_policies", ["due_date"], :name => "index_insurance_policies_on_due_date"
@@ -131,10 +131,10 @@ ActiveRecord::Schema.define(:version => 20110327211138) do
     t.integer  "customer_id"
     t.integer  "assigned_company_id"
     t.integer  "parent_company_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
     t.integer  "parent_id"
     t.datetime "deleted_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.integer  "vendor_id"
   end
 
