@@ -26,17 +26,20 @@
   <p><%= f.label :password_confirmation %><br />
   <%= f.password_field :password_confirmation %></p>
   <p>
-  	<%= f.collection_select :role, User::ROLES, :to_s, :humanize %>
+  	<% if current_user.role?(:manager) %>
+	<%= f.collection_select :role, %w[employee manager], :to_s, :humanize %>
+	<% elsif current_user.role?(:admin) %>
+	<%= f.collection_select :role, User::ROLES, :to_s, :humanize %>
+	<% end %>
   </p>
-
+<% unless @companies.blank? %>
 <p>
 	<strong>Assigned to Work At:</strong><br />
-   <% Company.all.each do |company| %>
-<%= check_box_tag :company_ids, company.id, @user.companies.include?(company), :name => 'user[company_ids][]' -%>
-	 <%= label_tag :companies_ids, company.name %>
+   <% @companies.each do |company| %>
+		<%= check_box_tag :company_ids, company.id, @user.companies.include?(company), :name => 'user[company_ids][]' -%> <%= label_tag :companies_ids, company.name %>
    <% end %>
 </p>
-
+<% end %>
   
   <p><%= f.submit :class => "smallbtn green" %></p>
 <% end %>
