@@ -54,7 +54,11 @@
 </p>
 
 <p>
-  <%= link_to "Edit", edit_company_insurance_policy_path(current_company, @insurance_policy) %> |
-  <%= link_to "Destroy", [current_company, @insurance_policy], :confirm => 'Are you sure?', :method => :delete %> |
-  <%= link_to "View All", company_insurance_policies_path(current_company) %>
+  	<%= link_to "Show", company_insurance_policy_path(current_company, @insurance_policy) %>
+	<% if can? :update, @insurance_policy %>
+       | <%= link_to "Edit", edit_company_insurance_policy_path(current_company, @insurance_policy) %>
+	<% end %>
+	<% if can? :destroy, @insurance_policy %>
+       | <%= link_to "Destroy", [current_company, @insurance_policy], :confirm => 'Are you sure?', :method => :delete %>
+	<% end %>
 </p>

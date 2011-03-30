@@ -27,9 +27,14 @@
       <td><%= insurance_policy.completed %></td>
       <td><%= insurance_policy.number_of_payments_left %></td>
 	  <td><%= insurance_policy.items.count %></td>
-      <td><%= link_to "Show", company_insurance_policy_path(current_company, insurance_policy) %></td>
-      <td><%= link_to "Edit", edit_company_insurance_policy_path(current_company, insurance_policy) %></td>
-      <td><%= link_to "Destroy", [current_company, insurance_policy], :confirm => 'Are you sure?', :method => :delete %></td>
+      <td><%= link_to "Show", company_insurance_policy_path(current_company, insurance_policy) %>
+	<% if can? :update, insurance_policy %>
+       | <%= link_to "Edit", edit_company_insurance_policy_path(current_company, insurance_policy) %>
+	<% end %>
+	<% if can? :destroy, insurance_policy %>
+       | <%= link_to "Destroy", [current_company, insurance_policy], :confirm => 'Are you sure?', :method => :delete %>
+	<% end %>
+	</td>
     </tr>
   <% end %>
 </table>

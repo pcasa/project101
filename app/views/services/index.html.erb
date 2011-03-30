@@ -21,11 +21,14 @@
       <td><%= service.new_service %></td>
       <td><%= service.deleted %></td>
       <td><%= service.category.name unless service.category_id.blank? %></td>
-      <td><%= link_to "Show", company_service_path(current_company, service), :class => "smallbtn blue smallertxt" %></td>
+      <td><%= link_to "Show", company_service_path(current_company, service), :class => "smallbtn blue smallertxt" %>
 	  <% if can? :update, service %>
-      <td><%= link_to "Edit", edit_company_service_path(current_company, service), :class => "smallbtn blue smallertxt" %></td>
-      <td><%= link_to "Destroy", [current_company, service], :confirm => 'Are you sure?', :method => :delete, :class => "smallbtn blue smallertxt" %></td>
+      <%= link_to "Edit", edit_company_service_path(current_company, service), :class => "smallbtn blue smallertxt" %>
 	  <% end %>
+	  <% if can? :destroy, service %>
+      <%= link_to "Destroy", [current_company, service], :confirm => 'Are you sure?', :method => :delete, :class => "smallbtn blue smallertxt" %>
+	  <% end %>
+	</td>
     </tr>
   <% end %>
 </table>
