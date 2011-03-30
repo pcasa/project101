@@ -2,9 +2,9 @@
     <%= form.inputs do %>
       <%= form.input :name %>
       <%= form.input :short_description, :as => :text, :input_html => { :class => 'autogrow', :rows => 4, :cols => 80, :maxlength => 254  } %>
-	  <%= form.input :price %>
+	  <%= form.input :price, :as => :numeric %>
 	  <%= form.input :new_service %>
-	  <%= form.input :deleted %>
+	  <%= form.input :deleted, :label => "Disabled" %>
 	  <%= form.input :category_id, :as => :select, :collection => Category.all(:order => "name ASC") %>
 	 <%= form.input :services, :as => :check_boxes %>
     <% end %>

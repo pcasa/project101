@@ -3,6 +3,7 @@ class ServiceGroup < ActiveRecord::Base
   has_many :special_services, :dependent => :destroy
   has_many :services, :through => :special_services
   has_many :items, :as => :itemable
+  validates_numericality_of :price
   
     attr_accessible :name, :short_description, :cost, :price, :new_service, :deleted, :category_id, :service_ids
     

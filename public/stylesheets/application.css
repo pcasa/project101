@@ -75,7 +75,7 @@ a {
 }
 
 .smallertxt {
-	font-size: 0.8em;
+	font-size: 0.8em!important;
 }
 
 .biggertxt {
@@ -371,16 +371,16 @@ a {
 	border-bottom: solid 1px #000;
 }
 
-#orders-reports tr {
+#orders-reports tr, #customers tr {
 	height: 30px;
 }
 
-#orders-reports tr.even td, #orders-reports tr.odd td {
+tr.even td, tr.odd td {
 	padding-left: 20px;
 	border-bottom: solid 1px #999;
 }
 
-#orders-reports tr.odd td {
+tr.odd td {
 	background-color: #ddd;
 }
 

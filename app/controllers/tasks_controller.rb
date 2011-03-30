@@ -62,7 +62,5 @@ class TasksController < ApplicationController
       format.html { redirect_to(session[:return_to] || company_tasks_url(current_company)) }  
       format.js if request.xhr?
     end
-    
-    
   end
 end

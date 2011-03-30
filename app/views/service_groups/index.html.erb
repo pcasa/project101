@@ -22,6 +22,8 @@
       <td><%= link_to "Show", company_service_group_path(current_company, service_group), :class => "smallbtn blue smallertxt" %></td>
 	  <% if can? :update, service_group %>
       <td><%= link_to "Edit", edit_company_service_group_path(current_company, service_group), :class => "smallbtn blue smallertxt" %></td>
+	  <% end %>
+	<% if can? :destroy, service_group %>
       <td><%= link_to "Destroy", [current_company, service_group], :confirm => 'Are you sure?', :method => :delete, :class => "smallbtn blue smallertxt" %></td>
 	  <% end %>
     </tr>

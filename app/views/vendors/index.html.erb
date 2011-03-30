@@ -12,8 +12,12 @@
       <td><%= vendor.contact %></td>
       <td><%= vendor.phone %></td>
       <td><%= link_to "Show", company_vendor_path(current_company, vendor), :class => "smallbtn blue smallertxt" %></td>
+	<% if can? :update, vendor %>
       <td><%= link_to "Edit", edit_company_vendor_path(current_company, vendor), :class => "smallbtn blue smallertxt" %></td>
+	<% end %>
+	<% if can? :destroy, vendor%>
       <td><%= link_to "Destroy", [current_company, vendor], :confirm => 'Are you sure?', :method => :delete, :class => "smallbtn blue smallertxt" %></td>
+	<% end %>
     </tr>
   <% end %>
 </table>

@@ -32,6 +32,8 @@ class Item < ActiveRecord::Base
     
     has_many :children, :class_name => "Item", :foreign_key => "parent_id"
     
+    validates_numericality_of :price, :cost, :allow_nil => true
+    
     
     def full_price
         (price*qty)

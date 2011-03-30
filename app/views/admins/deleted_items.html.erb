@@ -11,6 +11,7 @@
 			<td><%= item.price %></td>
 			<td><%= item.user.firstname unless item.user_id.blank? %></td>
 			<td><%= link_to "See order", company_order_path(item.assigned_company, item.order) %> </td>
+			<td><%= link_to "Really Delete", item.destroy! %></td>
    		</tr>
     </table>
   <% end %>

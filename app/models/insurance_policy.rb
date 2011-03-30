@@ -13,6 +13,8 @@ class InsurancePolicy < ActiveRecord::Base
     
     validates_presence_of :policy_number, :customer_id, :vendor_id, :due_date, :number_of_payments_left, :policy_type, :down_payment, :monthly_payment, :message => "can't be blank"
     
+    validates_numericality_of :number_of_payments_left, :down_payment, :monthly_payment, :allow_nil => true
+    
     POLICYTYPE = %w[New Renewal Reinstate]
     
     

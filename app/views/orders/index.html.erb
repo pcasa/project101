@@ -28,8 +28,12 @@
 	  <td><%= order.override %></td>
 	  <td><%= order.amount_paid %></td>
       <td><%= link_to "Show", [current_company, order] %></td>
+	 <% if can? :update, order %>
       <td><%= link_to "Edit", edit_company_order_path(current_company, order) %></td>
+	  <% end %>
+	<% if can? :destroy, order %>
       <td><%= link_to "Destroy", [current_company, order], :confirm => 'Are you sure?', :method => :delete %></td>
+ 	<% end %>
     </tr>
   <% end %>
 </table>

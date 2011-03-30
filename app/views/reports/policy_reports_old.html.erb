@@ -1,0 +1,17 @@
+<% orders = @orders %>
+<% option0 = orders.closed_today %>
+<% option1 = orders.closed_this_week %>
+<% option2 = orders.closed_last_month %>
+<% option3 = orders.closed_this_year %>
+<% @options = [["today", option0], ["this week", option1.all],["last month", option2],["this year", option3]]%>
+<%= select 'select', 'orders', @options.collect {|f| [f[0], f[1]]}, :remote => true %>
+
+<div id="reports-div"> 
+<%= render :partial => "report_details", :locals => { :orders => option0 } %>
+</div>
+
+
+
+
+
+

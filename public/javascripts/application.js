@@ -43,8 +43,10 @@ $(document).ready(function(){
 			    $(this).closest('tr').fadeOut();  
 			});
 			
-			$('#select_orders').change(function(){
-				$.getScript('policy_reports')
+			$('#orders_orders').change(function(){
+				$.ajax({
+					url :'policy_reports/render_my_partial'
+				});
 			});
 			
 			$('#yesterday').hide();

@@ -34,7 +34,8 @@ class Ability
       end
       can :dashboard, Company
       can [:customer_policies, :customer_orders, :customer_addresses], Customer
-      can [:create, :update, :all_services_popup, :print_order], Order, :closed => false
+      can [:create, :update, :all_services_popup], Order, :closed => false
+      can [:check_if_printable, :print_order], Order
       can :add_to_order, :all
       can [:create, :update, :destroy], Item, :closed => false
       can [:verify_current_user, :dashboard], User
@@ -44,6 +45,7 @@ class Ability
       end
       can [:read, :create], InsurancePolicy
       can [:create, :update, :my_customers, :read], [Customer, Address]
+      can [:index, :store_reports, :policy_reports, :render_my_partial, :set_orders], Report
     end
     if user.role? :manager
       can [:read, :update], User, :role => ["employee", "manager"]

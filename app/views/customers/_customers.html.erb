@@ -1,11 +1,11 @@
 
 
-<table>
+<table width="100%" cellpadding="0" cellspacing="0">
 	<caption>Sort By</caption>
   <tr>
-    <th><%= sort_link @search, :firstname, "First Name" %></th>
-    <th><%= sort_link @search, :lastname %></th>
-    <th><%= sort_link @search, :customer_number %></th>
+    <th width="25%"><%= sort_link @search, :firstname, "First Name" %></th>
+    <th width="25%"><%= sort_link @search, :lastname %></th>
+    <th width="20%"><%= sort_link @search, :customer_number %></th>
   </tr>
   <% if @customers.blank? %>
 	<tr>
@@ -15,13 +15,18 @@
 	</tr>
   <% else %>
   <% for customer in @customers %>
-    <tr>
+    <tr class="<%= cycle("even", "odd") -%>">
       <td><%= customer.firstname %></td>
       <td><%= customer.lastname %></td>
       <td><%= customer.customer_number %></td>
-      <td><%= link_to "Show", company_customer_path(current_company, customer), :class => "smallbtn blue smallertxt" %></td>
-      <td><%= link_to "Edit", edit_company_customer_path(current_company, customer), :class => "smallbtn blue smallertxt" %></td>
-      <td><%= link_to "Destroy", [current_company, customer], :confirm => 'Are you sure?', :method => :delete, :class => "smallbtn blue smallertxt" %></td>
+      <td><%= link_to "Show", company_customer_path(current_company, customer), :class => "smallbtn blue smallertxt" %>
+	<% if can? :update, customer %>
+       | <%= link_to "Edit", edit_company_customer_path(current_company, customer), :class => "smallbtn blue smallertxt" %>
+	<% end %>
+	<% if can? :destroy, customer %>
+       | <%= link_to "Destroy", [current_company, customer], :confirm => 'Are you sure?', :method => :delete, :class => "smallbtn blue smallertxt" %>
+	<% end %>
+	</td>
     </tr>
   <% end %>
   <% end %>

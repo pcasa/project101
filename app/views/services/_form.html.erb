@@ -6,7 +6,7 @@
 	  <%= form.input :cost %>
 	  <%= form.input :visible %>
 	  <%= form.input :new_service %>
-	  <%= form.input :deleted %>
+	  <%= form.input :deleted, :label => "Disabled" %>
 	  <%= form.input :category_id, :as => :select, :collection => Category.all(:order => "name ASC") %>
     <% end %>
     <%= form.buttons do %>

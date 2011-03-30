@@ -36,6 +36,8 @@ class Order < ActiveRecord::Base
   
   validates_presence_of :amount_paid, :on => :update, :message => "can't be blank"
   
+  validates_numericality_of :amount_paid, :allow_nil => true
+  
     
     PAYMENTTYPES = %w[cash check credit_card]
     

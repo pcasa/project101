@@ -39,6 +39,8 @@
 <p>
   <% if can? :update, @service_group %>
   <%= link_to "Edit", edit_company_service_group_path(current_company, @service_group) %> |
+<% end %>
+<% if can? :destroy, @service %>
   <%= link_to "Destroy", [current_company, @service_group], :confirm => 'Are you sure?', :method => :delete %> |
   <% end %>
   <%= link_to "View All", company_service_groups_path %>

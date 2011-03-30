@@ -74,7 +74,11 @@
 <% end %>
 
 <p>
+	<% if can? :update, @order %>
   <%= link_to "Edit", edit_company_order_path(current_company, @order) %> |
+	<% end %>
+	<% if can? :destroy, @order %>
   <%= link_to "Destroy", [current_company, @order], :confirm => 'Are you sure?', :method => :delete %> |
+	<% end %>
   <%= link_to "View All", company_orders_path %>
 </p>
