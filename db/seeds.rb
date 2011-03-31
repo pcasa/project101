@@ -53,6 +53,13 @@ c_category = Category.new do |c|
   c.save
 end
 
+d_category = Category.new do |c|
+  c.id = 4
+  c.name = "Profit"
+  c.parent_id = 1 
+  c.save
+end
+
 
 
 puts"Adding Companies"

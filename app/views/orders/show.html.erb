@@ -40,14 +40,15 @@
 		</td>
 	</tr>
 	<tr>
-		<td width="60%" align=CENTER>
-			Space for Notes
+		<td width="60%" align=LEFT>
+			<b>Notes:</b><br />
+			<%= @order.comment.content unless @order.comment.blank?  %>
 		</td>
 		<td>
 			<table width="100%">
 				<tr>
 					<td width="45%">Payment Type:</td>
-					<td ALIGN=RIGHT><%= @order.payment_type %></td>
+					<td ALIGN=RIGHT><%= @order.payment_type.titleize %></td>
 				</tr>
 				<tr>
 					<td>Total Cost</td>

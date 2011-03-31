@@ -59,8 +59,14 @@
 		</td>
 	</tr>
 	<tr>
-		<td width="60%" align=CENTER>
-			Space for Notes
+		<td width="60%" align=LEFT >
+			<b>Notes:</b><br />
+			<div id="new-comment-form">
+				<%= f.fields_for :comment do |comment| %>
+				<%= comment.hidden_field :commentable, :value => @order %>
+					<%= comment.text_area :content, :cols => 75, :rows => 8, :class => "content" %>
+				<% end %>	
+			</div>
 		</td>
 		<td>
 			<table width="100%">

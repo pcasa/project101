@@ -49,6 +49,7 @@ $(document).ready(function(){
 				});
 			});
 			
+			$('#today').hide();
 			$('#yesterday').hide();
 			$('#this-week').hide();
 			$('#last-week').hide();
@@ -57,10 +58,12 @@ $(document).ready(function(){
 			$('#this-year').hide();
 			$("#thechoices").change(function(){	
 				$("#reports").children().slideUp();
-				$("#" + this.value).slideDown();
+				$("#" + this.value).fadeIn();
 			});
+			
 
-			$("#thechoices").change();
+		//	$("#thechoices").change();
+			$('#today').show();
 		    
 			
 	});

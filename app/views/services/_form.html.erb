@@ -7,7 +7,7 @@
 	  <%= form.input :visible %>
 	  <%= form.input :new_service %>
 	  <%= form.input :deleted, :label => "Disabled" %>
-	  <%= form.input :category_id, :as => :select, :collection => Category.all(:order => "name ASC") %>
+	  <%= form.input :category_id, :as => :select, :collection => sorted_nested_set_options(Category, lambda(&:name)) {|i, level| "#{'-' * level} #{i.name}" } %>
     <% end %>
     <%= form.buttons do %>
       <%= form.commit_button %>

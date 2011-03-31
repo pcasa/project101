@@ -15,7 +15,7 @@
 		<td><%= link_to order.id, [current_company, order] %></td>
 		<td><%= number_to_currency(order.total_amount) %></td>
 		<td><%= number_to_currency(order.amount_paid) %></td>
-		<td><%= order.payment_type.capitalize %></td>
+		<td><%= order.payment_type.titleize %></td>
 		<td><%= number_to_currency(order.amount_received) %></td>
 	</tr>
   <% end %>
@@ -25,9 +25,6 @@
 				<tr>
 					<td width="33%"><b>Credit Card Totals:<br />
 						<%= number_to_currency(orders.select{ |order| order.payment_type == "credit_card"}.sum(&:amount_received)) %></b>
-					</td>
-					<td width="33%"><b>Checks Totals:<br />
-						<%= number_to_currency(orders.select{ |order| order.payment_type == "check"}.sum(&:amount_received)) %></b>
 					</td>
 					<td width="33%"><b>Cash Totals:<br />
 						<%= number_to_currency(orders.select{ |order| order.payment_type == "cash"}.sum(&:amount_received)) %></b>

@@ -96,9 +96,9 @@ a {
 	width: 100%;
 	min-width: 1020px;
 	margin: 0;
-	background-color: #063263;
+	background-color: darkgreen;
 	padding: 0;
-	border-bottom: 2px solid #3875d7;
+	border-bottom: 2px solid green;
 }
 
 #header {
@@ -142,18 +142,18 @@ a {
 	display: inline-block;
 	-moz-border-radius: 6px;
 	border-radius: 6px;
-	background: #0b5ea6 url(../images/bluemenu.jpg) repeat-x;
+	background: #3bb351 url(../images/greenmenu.jpg) repeat-x;
 }
 
 #menu a:hover {
-	background: #0e274b url(/images/bluemenuhover.jpg) repeat-x;
-	border-color: #0b5ea6;
+	background: #1f5327 url(/images/greenmenuhover.jpg) repeat-x;
+	border-color: #349e49;
 }
 
 #menu li ul { display: none;padding: 0;
 	margin: 0; position: absolute;
 	list-style-type: none;
-	background-color:#063263;
+	background-color: #296e35;
 	padding: 10px;
 	-moz-border-radius: 6px;
 	border-radius: 6px;
@@ -523,6 +523,10 @@ form.formtastic fieldset.buttons ol li.commit input {
 #edit_order_form .silverBG table input {
 	min-width: 100px;
 	max-width: 300px;
+}
+
+#new-comment-form .content {
+	resize: none;
 }
 
 

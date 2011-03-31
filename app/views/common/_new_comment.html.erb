@@ -1,0 +1,12 @@
+
+<div id="new-comment-form">
+	<%= form_for [current_company, Comment.new], :remote => true do |f| %>
+	<%= f.hidden_field :commentable_type, :value => commentable.class %>
+	<%= f.hidden_field :commentable_id, :value => commentable.id %>
+	  <p>
+	    <strong>Add a Note:</strong><br />
+	    <%= f.text_area :content, :cols => 70, :rows => 4, :class => "content" %><br />
+
+	  <%= f.submit "Submit" %></p>
+	<% end %>	
+</div>

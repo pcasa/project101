@@ -5,15 +5,19 @@
     <%= f.hidden_field :parent_company_id %>
     <%= f.hidden_field :assigned_company_id %>
   <p>
-    <%= f.label :firstname %><br />
-    <%= f.text_field :firstname %>
-  </p>
-  <p>
-    <%= f.label :lastname %><br />
-    <%= f.text_field :lastname %>
+	<table>
+		<tr align=LEFT>
+			<th>First Name:</th>
+			<th>Last Name</th>
+		</tr>
+		<tr align=LEFT>
+			<td><%= f.text_field :firstname %></td>
+			<td><%= f.text_field :lastname %></td>
+		</tr>
+	</table>
   </p>
   <p><table>
-  	<caption> Address</caption>
+  	<caption> <b>Address</b></caption>
     <tr>
     	<th colspan="2">Street</th>
 		<th>Suite or Apt</th>

@@ -19,7 +19,7 @@ class InsurancePoliciesController < ApplicationController
     @insurance_policy = InsurancePolicy.new(params[:insurance_policy])
     if @insurance_policy.save
       flash[:notice] = "Successfully created insurance policy."
-      @insurance_policy.add_new_payment(current_order, current_user.id, @insurance_policy.assigned_company_id, @insurance_policy.parent_company_id, true)
+      @insurance_policy.add_new_payment(current_order, current_user.id, current_company, @insurance_policy.parent_company_id, true)
       redirect_to edit_company_order_path(current_company, current_order)
     else
       render :action => 'new'
@@ -49,7 +49,7 @@ class InsurancePoliciesController < ApplicationController
   
   def add_policy_payment
     @insurance_policy = InsurancePolicy.find(params[:id])
-    @insurance_policy.add_new_payment(current_order, current_user.id, @insurance_policy.assigned_company_id, @insurance_policy.parent_company_id, false)
+    @insurance_policy.add_new_payment(current_order, current_user.id, current_company, @insurance_policy.parent_company_id, false)
     redirect_to edit_company_order_path(current_company, current_order)
   end
 end

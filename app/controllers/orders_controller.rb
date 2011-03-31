@@ -33,6 +33,7 @@ class OrdersController < ApplicationController
 
   def edit
     @order = Order.find(params[:id])
+    @comment = @order.build_comment
     if @order.customer_id.blank?
       unless params[:customer_id].blank?
         @customer = Customer.find(params[:customer_id])

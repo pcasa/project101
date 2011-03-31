@@ -20,17 +20,16 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(params[:task])
     if @task.save
-      flash[:notice] = "Successfully created task."
       respond_to do |format|  
         format.html { 
           if @task.asset == current_company
-            redirect_to company_dashboard_url(current_company)
+            redirect_to company_dashboard_url(current_company), :notice => "Successfully created task."
           else
-            redirect_to [current_company, @task.asset]
+            redirect_to [current_company, @task.asset], :notice => "Successfully created task."
           end
           
         }  
-        format.js if request.xhr?
+        format.js if request.xhr? 
       end
     else
       render :action => 'new'

@@ -8,6 +8,7 @@ class CreateInsurancePolicies < ActiveRecord::Migration
       t.integer :assigned_company_id
       t.integer :parent_company_id
       t.decimal :down_payment, :precision => 12, :scale => 2
+      t.decimal :club_price, :precision => 12, :scale => 2
       t.decimal :monthly_payment, :precision => 12, :scale => 2
       t.date :due_date
       t.boolean :cancelled
@@ -17,7 +18,7 @@ class CreateInsurancePolicies < ActiveRecord::Migration
       t.string :policy_type, :limit => 64
       t.timestamps
     end
-    add_index(:insurance_policies, [:policy_number, :customer_id, :assigned_company_id, :parent_company_id, :cancelled, :completed], :name => "add_index_to_insurance_policies_pn_ci_aci_pci_c_c")
+    add_index(:insurance_policies, [:policy_number, :customer_id, :assigned_company_id, :parent_company_id, :cancelled, :completed, :club_price], :name => "add_index_to_insurance_policies_pn_ci_aci_pci_c_c_cp")
     add_index(:insurance_policies, :due_date)
     add_index(:insurance_policies, :number_of_payments_left)
     add_index(:insurance_policies, :parent_id)

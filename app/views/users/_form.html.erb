@@ -1,30 +1,40 @@
 <%= form_for [current_company, @user] do |f| %>
   <%= f.error_messages %>
-  <p>
-    <%= f.label :firstname %><br />
-    <%= f.text_field :firstname %>
-  </p>
-  <p>
-    <%= f.label :lastname %><br />
-    <%= f.text_field :lastname %>
-  </p>
-  <p>
-    <%= f.label :email %><br />
-    <%= f.text_field :email %>
-  </p>
-<p>
-    <%= f.label :username %><br />
-    <%= f.text_field :username %>
-  </p>
-  <p>
-    <%= f.label :passcode %><br />
-    <%= f.text_field :passcode %>
-  </p>
-  <p><%= f.label :password %><br />
-  <%= f.password_field :password %></p>
 
-  <p><%= f.label :password_confirmation %><br />
-  <%= f.password_field :password_confirmation %></p>
+<table>
+	<tr align=RIGHT>
+		<th>First Name:</th>
+		<th>Last Name:</th>
+	</tr>
+	<tr>
+		<td><%= f.text_field :firstname %></td>
+		<td><%= f.text_field :lastname %></td>
+	</tr>
+	<tr>
+		<th>Email:</th>
+		<th>Username / Login:</th>
+	</tr>
+	<tr>
+		<td><%= f.text_field :email %></td>
+		<td><%= f.text_field :username %></td>
+	</tr>
+	<tr>
+		<th colspan="2">Passcode:</th>
+	</tr>
+	<tr>
+		<td colspan="2"><%= f.text_field :passcode %></td>
+	</tr>
+	<tr>
+		<th>Password:</th>
+		<th>Password Confirmation:</th>
+	</tr>
+	<tr>
+		<td><%= f.password_field :password %></td>
+		<td><%= f.password_field :password_confirmation %></td>
+	</tr>
+</table>
+
+
   <p>
   	<% if current_user.role?(:manager) %>
 	<%= f.collection_select :role, %w[employee manager], :to_s, :humanize %>

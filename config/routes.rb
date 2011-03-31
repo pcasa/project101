@@ -20,6 +20,7 @@ Project101::Application.routes.draw do
     match '/customers/:customer_id/customer_orders' => 'customers#customer_orders', :as => :customer_orders
     match '/customers/:customer_id/customer_policies' => 'customers#customer_policies', :as => :customer_policies
     match '/customers/:customer_id/customer_addresses' => 'customers#customer_addresses', :as => :customer_addresses
+    match '/customers/:customer_id/customer_comments' => 'customers#customer_comments', :as => :customer_comments
     get '/admins/' => 'admins#index'
     get '/admins/deleted_items' => 'admins#deleted_items', :as => :deleted_items
     match '/insurance_policies/:id/add_policy_payment' => 'insurance_policies#add_policy_payment', :as => :policy_payment
@@ -34,6 +35,7 @@ Project101::Application.routes.draw do
     
     resources :orders do
       resources :items
+      resources :comments
     end
     resources :categories
     resources :addresses
@@ -45,12 +47,16 @@ Project101::Application.routes.draw do
       resources :insurance_policies
       resources :addresses
       resources :items
+      resources :comments
     end
     
     resources :vendors do 
       resources :insurance_policies
       resources :addresses
     end
+    
+    resources :comments
+    
     resources :tasks
     get '/reports' => 'reports#index', :as => :reports
     get '/reports/store_reports' => 'reports#store_reports', :as => :store_reports

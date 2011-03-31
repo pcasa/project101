@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110327211138) do
+ActiveRecord::Schema.define(:version => 20110331134318) do
 
   create_table "addresses", :force => true do |t|
     t.string   "street1"
@@ -47,6 +47,16 @@ ActiveRecord::Schema.define(:version => 20110327211138) do
 
   add_index "categories", ["lft", "rgt", "depth"], :name => "index_categories_on_lft_and_rgt_and_depth"
   add_index "categories", ["name", "parent_id"], :name => "index_categories_on_name_and_parent_id"
+
+  create_table "comments", :force => true do |t|
+    t.text     "content"
+    t.string   "commentable_type"
+    t.integer  "commentable_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "comments", ["commentable_type", "commentable_id"], :name => "index_comments_on_commentable_type_and_commentable_id"
 
   create_table "companies", :force => true do |t|
     t.string   "name"
@@ -96,6 +106,7 @@ ActiveRecord::Schema.define(:version => 20110327211138) do
     t.integer  "assigned_company_id"
     t.integer  "parent_company_id"
     t.decimal  "down_payment",                          :precision => 12, :scale => 2
+    t.decimal  "club_price",                            :precision => 12, :scale => 2
     t.decimal  "monthly_payment",                       :precision => 12, :scale => 2
     t.date     "due_date"
     t.boolean  "cancelled"
@@ -110,7 +121,7 @@ ActiveRecord::Schema.define(:version => 20110327211138) do
   add_index "insurance_policies", ["due_date"], :name => "index_insurance_policies_on_due_date"
   add_index "insurance_policies", ["number_of_payments_left"], :name => "index_insurance_policies_on_number_of_payments_left"
   add_index "insurance_policies", ["parent_id"], :name => "index_insurance_policies_on_parent_id"
-  add_index "insurance_policies", ["policy_number", "customer_id", "assigned_company_id", "parent_company_id", "cancelled", "completed"], :name => "add_index_to_insurance_policies_pn_ci_aci_pci_c_c"
+  add_index "insurance_policies", ["policy_number", "customer_id", "assigned_company_id", "parent_company_id", "cancelled", "completed", "club_price"], :name => "add_index_to_insurance_policies_pn_ci_aci_pci_c_c_cp"
   add_index "insurance_policies", ["policy_type"], :name => "index_insurance_policies_on_policy_type"
 
   create_table "items", :force => true do |t|

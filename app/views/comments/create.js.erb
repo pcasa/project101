@@ -1,0 +1,3 @@
+$('#customer-comments').append("<%= escape_javascript(render :partial => "common/comment", :locals => { :comment => @comment } ) %>"); // Insert the _comment partial at the bottom of the comments list
+$('.comment').last().effect("highlight", {}, 2500);
+$('#comment_content').val(""); // Clear the form text area

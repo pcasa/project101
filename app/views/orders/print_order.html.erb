@@ -56,7 +56,12 @@
 	
 	</table>
 	</p>
-
+	<% unless @order.comment.blank? %>
+	<p>
+		<b>Notes:</b><br />
+		<%= @order.comment.content %>
+	</p>
+	<% end %>
 
 	<p class="payment-info">
 	<table width="100%">

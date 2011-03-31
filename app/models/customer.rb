@@ -9,8 +9,11 @@ class Customer < ActiveRecord::Base
   has_many :orders
   has_many :items
   has_many :tasks, :as => :asset, :dependent => :destroy
+  has_many :comments, :as => :commentable, :dependent => :destroy
   
   accepts_nested_attributes_for :addresses, :allow_destroy => true, :reject_if => proc { |obj| obj.blank? }
+  accepts_nested_attributes_for :comments, :allow_destroy => true, :reject_if => lambda { |a| a[:content].blank? }
+  
   
   
   before_validation(:on => :create){ make_customer_number }

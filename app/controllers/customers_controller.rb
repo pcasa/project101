@@ -2,6 +2,7 @@ class CustomersController < ApplicationController
   before_filter :authenticate_user!
   load_and_authorize_resource
   
+  
   def index
     @search = Customer.search(params[:search])
     @customers = @search.relation.where("parent_company_id = ?", main_company.id).paginate(:page => params[:page], :per_page => 20)
@@ -73,4 +74,10 @@ class CustomersController < ApplicationController
     @customer = Customer.find(params[:customer_id])
     render :layout => false
   end
+  
+  def customer_comments
+    @customer = Customer.find(params[:customer_id])
+    render :layout => false
+  end
+  
 end

@@ -5,6 +5,7 @@ class Order < ActiveRecord::Base
   belongs_to :assigned_company, :class_name => "Company", :foreign_key => "assigned_company_id"
   belongs_to :parent_company, :class_name => "Company", :foreign_key => "parent_company_id"
   has_many :items
+  has_one :comment, :as => :commentable
   
   scope :company, lambda { |company| {:conditions => ["assigned_company_id = ?", company.id] }}
   scope :open_order, where(:closed => false)
@@ -23,15 +24,16 @@ class Order < ActiveRecord::Base
   
   # Scope for payment types 
   scope :cash, where(:payment_type => "cash")
-  scope :check, where(:payment_type => "check")
   scope :credit_card, where(:payment_type => "credit_card")
   
   
   
-  attr_accessible :assigned_company_id, :parent_company_id, :customer_id, :user_id, :closed, :closed_date, :payment_type, :total_cost, :total_amount, :amount_paid, :override, :customer_attributes
+  attr_accessible :assigned_company_id, :parent_company_id, :customer_id, :user_id, :closed, :closed_date, :payment_type, :total_cost, :total_amount, :amount_paid, :override, :customer_attributes, :comment_attributes
   
   accepts_nested_attributes_for :customer, :allow_destroy => true, :reject_if => proc { |obj| obj.blank? }
   accepts_nested_attributes_for :items, :allow_destroy => true, :reject_if => proc { |obj| obj.blank? }
+  accepts_nested_attributes_for :comment, :allow_destroy => true, :reject_if => lambda { |a| a[:content].blank? }
+  
   
   
   validates_presence_of :amount_paid, :on => :update, :message => "can't be blank"
@@ -39,7 +41,7 @@ class Order < ActiveRecord::Base
   validates_numericality_of :amount_paid, :allow_nil => true
   
     
-    PAYMENTTYPES = %w[cash check credit_card]
+    PAYMENTTYPES = %w[cash credit_card]
     
     # totals only items that are not nested in parent_id like service groups.
     def total_price

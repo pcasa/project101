@@ -33,7 +33,7 @@ class Ability
          task.user_id == user.id || task.assigned_to == user.id || user.company_ids.include?(task.assigned_company)
       end
       can :dashboard, Company
-      can [:customer_policies, :customer_orders, :customer_addresses], Customer
+      can [:customer_policies, :customer_orders, :customer_addresses, :customer_comments], Customer
       can [:create, :update, :all_services_popup], Order, :closed => false
       can [:check_if_printable, :print_order], Order
       can :add_to_order, :all
