@@ -7,33 +7,30 @@
 	
 	<tr valign="TOP">
 		<td width="25%">Vendor: <br />
-			<% f.checks :vendor_id_in,
-			  Vendor.all.collect {|f| [ f.name, f.id ] }, :class => 'checkboxy' do |check| %>
-			    <%= check.box %>
-			    <%= check.label %><br />
+			<% f.collection_checks :vendor_id_in, Vendor.all, :id, :name, :class => 'headcheck' do |check| %>
+			   <%= check.box %> <%= check.label %><br />
 			<% end %>
+			
 		</td>
 		<td width="25%">Category: <br />
-			<% f.checks :category_id_in,
-			  sorted_nested_set_options(Category, lambda(&:name)) {|i, level| "#{'-' * level} #{i.name}" }, :class => 'checkboxy' do |check| %>
-			    <%= check.box %>
-			    <%= check.label %><br />
+			<% f.collection_checks :category_id_in, Category.all, :id, :name, :class => 'headcheck' do |check| %>
+			   <%= check.box %> <%= check.label %><br />
 			<% end %>
+			
+			
 		
 		</td>
 		<td width="25%">Location: <br />
-			<% f.checks :assigned_company_id_in,
-			  Company.all.collect {|f| [ f.name, f.id ] }, :class => 'checkboxy' do |check| %>
-			    <%= check.box %>
-			    <%= check.label %><br />
+			<% f.collection_checks :assigned_company_id_in, Company.all, :id, :name, :class => 'headcheck' do |check| %>
+			   <%= check.box %> <%= check.label %><br />
 			<% end %>
+			
 		</td>
 		<td width="25%">Sold By: <br />
-			<% f.checks :user_id_in,
-			  User.all.collect {|f| [ f.full_name, f.id ] }, :class => 'checkboxy' do |check| %>
-			    <%= check.box %>
-			    <%= check.label %><br />
+			<% f.collection_checks :user_id_in, User.all, :id, :full_name, :class => 'headcheck' do |check| %>
+			   <%= check.box %> <%= check.label %><br />
 			<% end %>
+			
 		</td>
 	</tr>
 	<tr>
