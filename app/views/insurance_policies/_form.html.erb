@@ -50,9 +50,14 @@ $(document).ready(function() {
 	 
 	  <%= f.input :vendor %>
 	  <%= f.input :customer_id %>
-	  <%= f.input :down_payment %>
-	  <%= f.input :club_price %>
- 	  <%= f.input :monthly_payment %>
+	  <table>
+		<tr>
+			<td width="230px">&nbsp;</td>
+			<td><%= f.input :down_payment, :label => "Down payment" %></td>
+			<td><%= f.input :club_price %></td>
+		 	<td><%= f.input :monthly_payment %></td>
+		</tr>
+	  </table><br />
 	  <%= f.input :due_date, :as => :date_picker %>
 	  <%= f.input :number_of_payments_left %>
    <% end %>
