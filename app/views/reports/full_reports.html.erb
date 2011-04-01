@@ -6,7 +6,9 @@
 <table border=0 width="100%"> 
 	
 	<tr>
-		<td width="25%">Vendor: <br /><%= f.select :vendor_id_in,  @vendors.collect {|f| [ f.name, f.id ] }, :include_blank => "All Vendors" %> </td>
+		<td width="25%">Vendor: <br />
+			<%= f.select(:vendor_id_in, options_for_select([["Vendor","0"]].concat(Vendor.all.collect {|f| [ f.name, f.id ] })), :include_blank => "All Vendors") %>
+		</td>
 		<td width="25%">Category: <br /><%= f.select :category_id_in,  sorted_nested_set_options(Category, lambda(&:name)) {|i, level| "#{'-' * level} #{i.name}" }, :include_blank => "All Categories" %>
 		</td>
 		<td width="25%">Location: <br /><%= f.select :assigned_company_id_in,  Company.all.collect {|f| [ f.name, f.id ] }, :include_blank => "All Locations" %>
