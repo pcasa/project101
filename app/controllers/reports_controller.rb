@@ -30,6 +30,7 @@ class ReportsController < ApplicationController
     @search = Item.valid_items.search(params[:search])
     @items = @search.paginate(:page => params[:page], :per_page => 25)
     @items_totals = @search.all
+    @vendors = Vendor.all
   end
   
 
