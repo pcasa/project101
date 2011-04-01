@@ -27,6 +27,9 @@
 			<ul>
 				<li><%= link_to image_tag("/images/icons/32/chart_curve.png", :size => "32x32", :class => "menu32Icon") + "Sold", company_store_reports_path(current_company) %></li>
 				<li><%= link_to image_tag("/images/icons/32/chart_curve.png", :size => "32x32", :class => "menu32Icon") + "Policies Sold", company_policy_reports_path(current_company) %></li>
+				<% if current_user.role? :admin %>
+				<li><%= link_to image_tag("/images/icons/32/chart_curve.png", :size => "32x32", :class => "menu32Icon") + "Company Reports", company_full_reports_path(current_company) %></li>
+				<% end %>
 			</ul>
 		</li>
 		<% if current_user.role? :manager || :admin %>

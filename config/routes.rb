@@ -61,6 +61,7 @@ Project101::Application.routes.draw do
     get '/reports' => 'reports#index', :as => :reports
     get '/reports/store_reports' => 'reports#store_reports', :as => :store_reports
     get '/reports/policy_reports' => 'reports#policy_reports', :as => :policy_reports
+    get '/reports/full_reports' => 'reports#full_reports', :as => :full_reports
     match '/reports/policy_reports/render_my_partial' => 'reports#render_my_partial', :as => :render_my_partial
   end
   

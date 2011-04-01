@@ -27,7 +27,7 @@
 <%= link_to image_tag("/images/icons/32/vcard.png", :size => "32x32", :class => "dashIcon") + "Customers" + "<br />
 <div class='subText'>See customers and all there details.</div>".html_safe, company_customers_path(current_company) %>
 </li>
-<li> <%= link_to image_tag("/images/icons/32/cash_register.png", :size => "32x32", :class => "dashIcon") + "New Order" + "<br /><div class='subText'>Create a New Order.</div>".html_safe, edit_company_order_path(current_company, current_order) %> </li>
+<li> <%= link_to image_tag("/images/icons/32/cash_register.png", :size => "32x32", :class => "dashIcon") + "New Order" + "<br /><div class='subText'>Create a New Order and Customer at the same time.</div>".html_safe, edit_company_order_path(current_company, current_order) %> </li>
 
 <li><%= link_to image_tag("/images/icons/32/brick.png", :size => "32x32", :class => "dashIcon") + "Services" + "<br />
 <div class='subText'>See All services.</div>".html_safe, company_services_path %></li>

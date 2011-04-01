@@ -1,0 +1,40 @@
+
+<% title "Company Wide Reports" %>
+
+<%= form_for @search, :url => company_full_reports_path(current_company), :html => {:method => :get}, :id => "full-reports-search" do |f| %>
+<div id="full-reports-search-form" class="">
+<table border=0 width="100%"> 
+	
+	<tr>
+		<td width="25%">Vendor: <br /><%= f.select :vendor_id_in,  Vendor.all.collect {|f| [ f.name, f.id ] }, :include_blank => "All Vendors" %> </td>
+		<td width="25%">Category: <br /><%= f.select :category_id_in,  sorted_nested_set_options(Category, lambda(&:name)) {|i, level| "#{'-' * level} #{i.name}" }, :include_blank => "All Categories" %>
+		</td>
+		<td width="25%">Location: <br /><%= f.select :assigned_company_id_in,  Company.all.collect {|f| [ f.name, f.id ] }, :include_blank => "All Locations" %>
+		</td>
+		<td width="25%">Sold By: <br /><%= f.select :user_id_equals,  User.all.collect {|f| [ f.full_name, f.id ] }, :include_blank => "All Employees" %>
+		</td>
+	</tr>
+	<tr>
+		<td>Item Name: <br /><%= f.text_field :name_contains %></td>
+		<td>Sold from date: <br />
+			<%= f.text_field :created_at_gt, :class => "ui-date-picker", :value => f.object.try(:created_at_gt).try(:strftime,'%b %d %Y') %>
+		</td>
+		<td>
+			to date:<br />
+			<%= f.text_field :created_at_lt, :class => "ui-date-picker", :value => f.object.try(:created_at_lt).try(:strftime,'%b %d %Y') %><br />
+		    
+		</td>
+		<td>&nbsp;</td>
+	</tr>
+</table>
+<%= f.submit "Search", :class => "smallbtn  blue" %> <a href="#" id="clear-frf" class="smallbtn blue">Reset Form</a>
+<% end %>
+	
+</div>
+
+
+<p>
+	<div id="full-reports-results"><%= render :partial => 'items' %></div>
+	
+</p>
+

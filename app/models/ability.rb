@@ -45,7 +45,7 @@ class Ability
       end
       can [:read, :create], InsurancePolicy
       can [:create, :update, :my_customers, :read], [Customer, Address]
-      can [:index, :store_reports, :policy_reports, :render_my_partial, :set_orders], Report
+      can [:index, :store_reports, :policy_reports, :render_my_partial], Report
     end
     if user.role? :manager
       can [:read, :update], User, :role => ["employee", "manager"]

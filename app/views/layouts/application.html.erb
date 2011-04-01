@@ -30,5 +30,6 @@
       <%= content_tag :h1, yield(:title) if show_title? %>
       <%= yield %>
     </div><!-- container -->
+	<%= yield(:footer) %>
   </body>
 </html>

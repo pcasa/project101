@@ -62,15 +62,20 @@ $(document).ready(function(){
 			});
 			
 
-		//	$("#thechoices").change();
+			$("#thechoices").change();
 			$('#today').show();
+			
+			$("#clear-frf").click(function(){
+				$('#item_search select').val(0);
+				$('#item_search :input:not(:submit)').val('');		
+			});
 		    
 			
 	});
 	
 $(document).ready(function(){ 
-	$('input.ui-date-picker').datepicker({ dateFormat: 'd M yy' }); 
-	$('input.ui-datetime-picker, .task-datetime').datetimepicker({ dateFormat: 'd M yy', ampm: true }); 
+	$('input.ui-date-picker').datepicker({ dateFormat: 'M d yy' }); 
+	$('input.ui-datetime-picker, .task-datetime').datetimepicker({ dateFormat: 'M d yy', ampm: true }); 
 });
 
 // Below is for live search

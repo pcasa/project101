@@ -1,5 +1,4 @@
-<% title "Edit Order" %>
-
+<% title @order.closed? ? "Edit Order" : "Order" %>
 
 <p>
 	<%= link_to "Add Product", company_all_services_popup_path(current_company), :rel => 'facebox', :class => "smallbtn blue" %> 

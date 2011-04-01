@@ -26,9 +26,11 @@ class ReportsController < ApplicationController
     end
   end
   
-  
-  def set_orders
-    @orders = Order.where(:assigned_company_id => current_company.id)
+  def full_reports
+    @search = Item.valid_items.search(params[:search])
+    @items = @search.paginate(:page => params[:page], :per_page => 25)
+    @items_totals = @search.all
   end
+  
 
 end

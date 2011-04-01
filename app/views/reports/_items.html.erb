@@ -1,0 +1,54 @@
+
+<p><%= will_paginate @items %></p>
+<table cellspacing="0" cellpadding="0" id="full-reports" width="100%">
+	<tr>
+		<th><%= sort_link @search, :order_id, "Order #:" %></th>
+		<th><%= sort_link @search, :assigned_company_id, "Location" %></th>
+		<th><%= sort_link @search, :user_id, "Sold By" %></th>
+		<th><%= sort_link @search, :name, "Item" %></th>
+		<th><%= sort_link @search, :category_id, "Category" %></th>
+		<th><%= sort_link @search, :vendor_id, "Vendor" %></th>
+		<th><%= sort_link @search, :cost %></th>
+		<th><%= sort_link @search, :price, "Sold for" %></th>
+	</tr>
+	<% if !@items.blank? %>
+	  <% for item in @items %>
+	<tr class="<%= cycle("even", "odd") -%>">
+		<td><%= item.order_id %></td>
+		<td><%= item.assigned_company.name %></td>
+		<td><%= item.user_id %></td>
+		<td><%= item.name %></td>
+		<td><%= item.category_id %></td>
+		<td><%= item.vendor_id %></td>
+		<td><%= number_to_currency(item.cost) %></td>
+		<td><%= number_to_currency(item.price) %></td>
+	</tr>
+	  <% end %>
+	<tr>
+		<td colspan="8" width="100%"><hr></td>
+	</tr>
+	<tr class ="biggertxt">
+		<td colspan="2">&nbsp;</td>
+		<td colspan="2">
+			<b>Total Cost:</b><br />
+			<%= number_to_currency(@items_totals.collect.sum(&:cost)) %>
+		</td>
+		<td colspan="2">
+			<b>Total Sold:</b><br />
+			<%= number_to_currency(@items_totals.collect.sum(&:price)) %>
+		</td>
+		<td colspan="2">
+			<b>Total Profit:</b><br />
+			<%= number_to_currency(@items_totals.collect.sum(&:price) - @items_totals.collect.sum(&:cost)) %>
+		</td>
+	</tr>
+	<% else %>
+	  <tr>
+	  	<td colspan="8">Nothing to report.</td>
+	  </tr>
+	<% end %>
+
+	
+</table>
+
+

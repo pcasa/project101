@@ -371,7 +371,7 @@ a {
 	border-bottom: solid 1px #000;
 }
 
-#orders-reports tr, #customers tr {
+#orders-reports tr, #customers tr, #full-reports tr {
 	height: 30px;
 }
 
@@ -480,8 +480,8 @@ form.formtastic fieldset.buttons ol li.commit input {
 	border-radius: 5px;
 	overflow: hidden;
 	cursor: pointer;
-	margin-left: 195px;
-	margin-bottom: 15px;
+	margin-left: 5px;
+	margin-bottom: 5px;
 }
 	
 .firerift-style {		
@@ -540,6 +540,15 @@ form.formtastic fieldset ol li input.ui-date-picker {
 
 form.formtastic fieldset ol li.error {
 	background-color: #FCC;
+}
+
+#policy-new {
+	width: 800px;
+	margin: 0 auto;
+}
+
+.insurance_policy fieldset.buttons #insurance_policy_submit {
+	margin-left: 350px;
 }
 
 
