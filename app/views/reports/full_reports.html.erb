@@ -13,9 +13,12 @@
 			
 		</td>
 		<td width="25%">Category: <br />
-			<% f.collection_checks :category_id_in, Category.all, :id, :name, :class => 'headcheck' do |check| %>
-			   <%= check.box %> <%= check.label %><br />
+			<% f.checks :category_id_in,
+			   sorted_nested_set_options(Category, lambda(&:name)) {|i, level| "#{'-' * level} #{i.name}" }, :class => 'checkboxy' do |check| %>
+			     <%= check.box %>
+			     <%= check.label %><br />
 			<% end %>
+			
 			
 			
 		
