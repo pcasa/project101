@@ -37,10 +37,14 @@
 			<% end %>
 		</td>
 		<td><b>Sold By:</b> <br />
-			<%= f.checks :user_id_in, User.all.collect { |f| [f.full_name, f.id]} do |check| %>
-			   <%= check.box %>
-			   <%= check.label %><br />
-			<% end %>
+			<% f.checks(:user_id_in, User.all.collect { |f| [f.full_name, f.id]}).in_groups_of(1, false) do |checks| %>
+		        <% checks.each do |check| %>
+		          <%= check.box %>
+		          <%= check.label %>
+		        <% end %>
+		        <br />
+		      <% end %>
+			  
 		</td>
 	</tr>
 </table>
