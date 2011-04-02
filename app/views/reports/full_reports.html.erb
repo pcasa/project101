@@ -37,7 +37,7 @@
 			<% end %>
 		</td>
 		<td><b>Sold By:</b> <br />
-			<% f.checks :user_id_in, User.all.collect { |f| [f.full_name, f.id]} do |check| %>
+			<%= f.checks :user_id_in, User.all.collect { |f| [f.full_name, f.id]} do |check| %>
 			   <%= check.box %>
 			   <%= check.label %><br />
 			<% end %>
