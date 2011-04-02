@@ -1,20 +1,22 @@
 <% if !@items.blank? %>
+<table>
+	<tr>
+		<th>Item Name</th>
+		<th>Item amount</th>
+		<th>Deleted by</th>
+	</tr>
   <% for item in @items %>
-    <table>
-   		<tr>
-   			<th>Item Name</th>
-			<th>Item amount</th>
-			<th>Deleted by</th>
-   		</tr>
-   		<tr>
+    
+   		<%= content_tag_for(:tr, item) do %>
    			<td><%= item.name %></td>
 			<td><%= item.price %></td>
 			<td><%= item.user.firstname unless item.user_id.blank? %></td>
 			<td><%= link_to "See order", company_order_path(item.assigned_company, item.order) %> </td>
-			<td><%= link_to "Really Delete", item.destroy! %></td>
-   		</tr>
-    </table>
+			<td><%= link_to "Really Delete", company_item_really_destroy_path(current_company, item), :remote => true %></td>
+   		<% end %>
+    
   <% end %>
+</table>
 <% else %>
   <p>Nothing has been deleted.</p>
 <% end %>

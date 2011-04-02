@@ -3,8 +3,8 @@ class CreateServiceGroups < ActiveRecord::Migration
     create_table :service_groups do |t|
       t.string :name, :limit => 64
       t.string :short_description, :limit => 256
-      t.decimal :cost, :precision => 12, :scale => 2
-      t.decimal :price, :precision => 12, :scale => 2
+      t.decimal :cost, :precision => 7, :scale => 2
+      t.decimal :price, :precision => 7, :scale => 2
       t.boolean :new_service
       t.boolean :deleted
       t.integer :category_id

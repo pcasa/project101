@@ -1,0 +1,2 @@
+$("#full-reports-results").html("<%= escape_javascript(render :partial => 'items') %>");
+document.title = "<%= escape_javascript("#{params[:search].to_s.titleize} - Page #{params[:page] || 1}").html_safe %>"

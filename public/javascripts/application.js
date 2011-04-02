@@ -40,8 +40,10 @@ $(document).ready(function(){
 			});
 			
 			$('.delete-task').bind('ajax:success', function() {  
-			    $(this).closest('tr').fadeOut();  
+			    $(this).closest('tr').fadeOut();
+			  	
 			});
+			
 			
 			$('#orders_orders').change(function(){
 				$.ajax({
@@ -70,13 +72,10 @@ $(document).ready(function(){
 				$('#item_search :input:not(:submit)').val('');		
 			});
 		    
-			
+			$('input.ui-date-picker').datepicker({ dateFormat: 'M d yy' }); 
+			$('input.ui-datetime-picker, .task-datetime').datetimepicker({ dateFormat: 'M d yy', ampm: true });
 	});
 	
-$(document).ready(function(){ 
-	$('input.ui-date-picker').datepicker({ dateFormat: 'M d yy' }); 
-	$('input.ui-datetime-picker, .task-datetime').datetimepicker({ dateFormat: 'M d yy', ampm: true }); 
-});
 
 // Below is for live search
 //

@@ -1,13 +1,20 @@
-
-	<%= form_for [current_company, @order] do |f| %>
+<script>
+$(document).ready(function(){
+	$('.delete-order-item').bind('ajax:success', function() {  
+	    $(this).closest('tr').fadeOut();
+	  	
+	});
+});
+</script>
+	<%= form_for [current_company, order] do |f| %>
 	  <%= f.error_messages %>
 <table width="100%" border="0">
 	<tr width="100%">
 		<td wdith="58%" class="silverBG">
 			
-			<% unless @customer.blank? %>
-			  	<%= render :partial => 'common/show_customer_condensed', :locals => {:customer => @customer } %>
-			<%= f.hidden_field :customer_id, :value => @customer.id %>
+			<% unless customer.blank? %>
+			  	<%= render :partial => 'common/show_customer_condensed', :locals => {:customer => customer } %>
+			<%= f.hidden_field :customer_id, :value => customer.id %>
 			<% else %>
 				<%= f.fields_for :customer do |customer| %>
 			    	<%= render :partial => 'common/new_customer', :locals => { :f => customer } %>
@@ -22,7 +29,7 @@
 			<table width="100%" border="0" cellspacing="0" cellpadding="0" id="order_date">
 				<tr width="100%">
 					<td align=left>Order #</td>
-					<td align=right><%= @order.id %></td>
+					<td align=right><%= order.id %></td>
 				</tr>
 				<tr width="100%">
 					<td align=left>Invoice Date</td>
@@ -30,7 +37,7 @@
 				</tr>
 				<tr class="silverBoarderd">
 					<th align=left>Amount Due</th>
-					<th align=right><%= number_to_currency(@order.amount_due) %></th>
+					<th align=right class="order-amount-due"><%= number_to_currency(order.amount_due) %></th>
 				</tr>
 			</table>
 		</td>
@@ -53,7 +60,7 @@
 					<th width="14%">Total </th>
 				</tr>
 				<%= f.fields_for :items do |item| %>
-					 <%= render :partial => 'new_item', :locals => { :item => item } %>
+					 <%= render :partial => 'orders/new_item', :locals => { :item => item, :order => order } %>
 			    <% end %>
 				</table>
 			</div><!-- items -->
@@ -64,7 +71,7 @@
 			<b>Notes:</b><br />
 			<div id="new-comment-form">
 				<%= f.fields_for :comment do |comment| %>
-				<%= comment.hidden_field :commentable, :value => @order %>
+				<%= comment.hidden_field :commentable, :value => order %>
 					<%= comment.text_area :content, :cols => 75, :rows => 8, :class => "content" %>
 				<% end %>	
 			</div>
@@ -77,11 +84,11 @@
 				</tr>
 				<tr>
 					<td>Total Cost</td>
-					<td ALIGN=RIGHT><%= number_to_currency(@order.true_cost) %></td>
+					<td ALIGN=RIGHT class="order-true-cost"><%= number_to_currency(order.true_cost) %></td>
 				</tr>
 				<tr>
 					<td>Total Due:</td>
-					<td ALIGN=RIGHT><%= number_to_currency(@order.total_price) %></td>
+					<td ALIGN=RIGHT class="order-total-price"><%= number_to_currency(order.total_price) %></td>
 					
 				</tr>
 				<tr>
@@ -95,8 +102,8 @@
 
 
   <p>
-	<%= f.hidden_field :total_cost, :value => @order.true_cost %>
-	<%= f.hidden_field :total_amount, :value => @order.total_price %>
+	<%= f.hidden_field :total_cost, :value => order.true_cost %>
+	<%= f.hidden_field :total_amount, :value => order.total_price %>
     <%= f.hidden_field :assigned_company_id %>
     <%= f.hidden_field :parent_company_id %>
     <%= f.hidden_field :user_id, :value => current_user.id %>

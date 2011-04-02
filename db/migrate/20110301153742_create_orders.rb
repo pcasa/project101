@@ -8,9 +8,9 @@ class CreateOrders < ActiveRecord::Migration
       t.boolean :closed, :default => false
       t.datetime :closed_date
       t.string :payment_type, :limit => 16
-      t.decimal :total_cost, :precision => 12, :scale => 2
-      t.decimal :total_amount, :precision => 12, :scale => 2
-      t.decimal :amount_paid, :precision => 12, :scale => 2
+      t.decimal :total_cost, :precision => 7, :scale => 2
+      t.decimal :total_amount, :precision => 7, :scale => 2
+      t.decimal :amount_paid, :precision => 7, :scale => 2
       t.string :override, :limit => 6
       t.timestamps
     end

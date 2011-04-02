@@ -42,7 +42,13 @@ class ItemsController < ApplicationController
     @item = Item.find(params[:id])
     @item.children.destroy_all
     @item.destroy
-    flash[:notice] = "Successfully destroyed item."
-    redirect_to edit_company_order_url(current_company, @item.order_id)
+    respond_to do |format|
+      format.html {
+        redirect_to edit_company_order_url(current_company, @item.order_id), :notice => "Successfully destroyed item."
+      }
+      format.js if request.xhr?
+    end
   end
+  
+  
 end

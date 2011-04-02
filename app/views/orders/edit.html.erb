@@ -4,7 +4,7 @@
 	<%= link_to "Add Product", company_all_services_popup_path(current_company), :rel => 'facebox', :class => "smallbtn blue" %> 
 </p>
 
-<div id="edit_order_form"><%= render "form" %></div>
+<div id="edit_order_form"><%= render :partial => "form", :locals => { :order => @order, :customer => @customer } %></div>
 
 
 <p>

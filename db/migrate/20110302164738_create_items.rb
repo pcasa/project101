@@ -3,8 +3,8 @@ class CreateItems < ActiveRecord::Migration
     create_table :items do |t|
       t.string :name, :limit => 64
       t.string :short_description, :limit => 256
-      t.decimal :price, :precision => 12, :scale => 2
-      t.decimal :cost, :precision => 12, :scale => 2
+      t.decimal :price, :precision => 7, :scale => 2
+      t.decimal :cost, :precision => 7, :scale => 2
       t.integer :qty, :default => 1
       t.boolean :visible, :default => true
       t.boolean :new_service

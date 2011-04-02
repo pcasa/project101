@@ -1,12 +1,8 @@
-<% unless item.object.parent_id.blank? %>
-	<tr class="item subItem">
-<% else %>
-	<tr class="item">
-<% end %>
-	<td class="itemName"><%= item.object.name %><br /><% unless @order.closed? %><%= link_to( "Remove", [current_company, item.object], :confirm => 'Are you sure?', :method => :delete) %><% end %></td>
+<%= content_tag_for(:tr, item.object) do %>
+	<td class="itemName"><%= item.object.name %><br /><% unless order.closed? %><%= link_to( "Remove", [current_company, item.object], :method => :delete, :remote => true, :class => "delete-order-item") %><% end %></td>
 	<td><%= item.object.short_description %></td>
-	<td align=CENTER>$ <%= item.text_field :cost, :class => "currency", :size => 4 %></td>
-	<td align=CENTER>$ <%= item.text_field :price, :class => "currency", :size => 4 %></td>
+	<td align=CENTER>$ <%= item.text_field :cost, :class => "currency", :size => 5 %></td>
+	<td align=CENTER>$ <%= item.text_field :price, :class => "currency", :size => 5 %></td>
 	<td align=CENTER><%= item.object.qty %></td>
 	<td align=CENTER> <%= number_to_currency(item.object.full_price) %> </td>
-</tr>
+<% end %>

@@ -21,9 +21,11 @@ Project101::Application.routes.draw do
     match '/customers/:customer_id/customer_policies' => 'customers#customer_policies', :as => :customer_policies
     match '/customers/:customer_id/customer_addresses' => 'customers#customer_addresses', :as => :customer_addresses
     match '/customers/:customer_id/customer_comments' => 'customers#customer_comments', :as => :customer_comments
+    
+    match '/insurance_policies/:id/add_policy_payment' => 'insurance_policies#add_policy_payment', :as => :policy_payment
+    match '/admins/item_really_destroy/:item_id/' => 'admins#item_really_destroy', :as => :item_really_destroy
     get '/admins/' => 'admins#index'
     get '/admins/deleted_items' => 'admins#deleted_items', :as => :deleted_items
-    match '/insurance_policies/:id/add_policy_payment' => 'insurance_policies#add_policy_payment', :as => :policy_payment
     
     resources :items
     resources :users do
