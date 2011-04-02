@@ -5,46 +5,10 @@
 <div id="full-reports-search-form" class="">
 <table border=0 width="100%"> 
 	
-	
-	<tr>
-		<td width="25%"><b>Item Name:</b> <br /><%= f.text_field :name_contains %></td>
-		<td width="25%"><b>Sold from date:</b> <br />
-			<%= f.text_field :created_at_gt, :class => "ui-date-picker", :value => f.object.try(:created_at_gt).try(:strftime,'%b %d %Y') %>
-		</td>
-		<td width="25%">
-			<b>to date:</b><br />
-			<%= f.text_field :created_at_lt, :class => "ui-date-picker", :value => f.object.try(:created_at_lt).try(:strftime,'%b %d %Y') %><br />
-		    
-		</td>
-		<td width="25%">&nbsp;</td>
-	</tr>
-	<tr valign="TOP">
-		<td><b>Vendor: </b><br />
-			<% f.collection_checks :vendor_id_in, Vendor.all, :id, :name, :class => 'headcheck' do |check| %>
-			   <%= check.box %> <%= check.label %><br />
-			<% end %>
-		</td>
-		<td><b>Category:</b> <br />
-			<% f.checks :category_id_in,
-			   sorted_nested_set_options(Category, lambda(&:name)) {|i, level| "#{'-' * level} #{i.name}" }, :class => 'checkboxy' do |check| %>
-			     <%= check.box %>
-			     <%= check.label %><br />
-			<% end %>
-		</td>
-		<td><b>Location:</b> <br />
-			<% f.collection_checks :assigned_company_id_in, Company.all, :id, :name, :class => 'headcheck' do |check| %>
-			   <%= check.box %> <%= check.label %><br />
-			<% end %>
-		</td>
 		<td><b>Sold By:</b> <br />
-			<%= f.checks(:user_id_in, User.all.collect { |f| [f.full_name, f.id]}).in_groups_of(1, false) do |checks| %>
-		        <% checks.each do |check| %>
-		          <%= check.box %>
-		          <%= check.label %>
-		        <% end %>
-		        <br />
-		      <% end %>
-			  
+			<% f.checks :user_id_in, User.all.collect { |f| [f.full_name, f.id]} do |check| %>
+			   <%= check.box %> <%= check.label %><br />
+			<% end %>
 		</td>
 	</tr>
 </table>
