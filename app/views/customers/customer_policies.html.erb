@@ -2,7 +2,7 @@
   <% @policies.each do |policy| %>
 	<p>Policy #: <%= link_to policy.policy_number, company_insurance_policy_path(current_company, policy) %> - <span class="smallertxt"><%= link_to "Add Policy Payment", company_policy_payment_path(current_company, policy), :class => "smallbtn green whitetxt" %></span>
 		</p>
-	<% if !policy.tasks.blank? %>
+	<% if !policy.items.blank? %>
 	  <ul><% for item in policy.items %>
 	    <li><%= link_to "Payment made on " + item.created_at.strftime('%m/%d/%y'), company_order_path(current_company, item.order_id) %></li>
 	  <% end %></ul>

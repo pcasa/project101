@@ -24,6 +24,7 @@ class InsurancePolicy < ActiveRecord::Base
     
     
     
+    
     def add_new_payment(current_order, user_id, assigned_company, parent_company_id, true_or_false)
       # remove one payment since customer is making one now
       payments_left = self.number_of_payments_left - 1
@@ -37,14 +38,17 @@ class InsurancePolicy < ActiveRecord::Base
       end
       if self.items.blank? 
         payment_amount = self.down_payment 
+        sale_price = payment_amount + club_price
       else 
         payment_amount = self.monthly_payment 
+        sale_price = self.monthly_payment
       end
       full_desc = temp_desc + temp_desc2
-      sale_price = payment_amount + club_price
       current_order.update_attribute(:customer_id, self.customer_id)
       Item.create!(:name => "Policy Payment", :short_description => full_desc, :visible => true, :new_service => true_or_false, :itemable => self, :user_id => user_id, :customer_id => self.customer_id, :order_id => current_order.id, :parent_company_id => parent_company_id, :assigned_company_id => assigned_company.id, :cost => payment_amount, :price => sale_price, :qty => 1, :category_id => Category.find_by_name("Insurance Policy").id, :vendor_id => self.vendor_id)
-      Item.create!(:name => "Processing Fee", :short_description => "Processing Fee", :visible => true, :new_service => true_or_false, :itemable => assigned_company, :user_id => user_id, :customer_id => self.customer_id, :order_id => current_order.id, :parent_company_id => parent_company_id, :assigned_company_id => assigned_company.id, :cost => "0.00", :price => "2.00", :qty => 1, :category_id => Category.find_by_name("Profit").id)
+      if self.items.blank?
+        Item.create!(:name => "Processing Fee", :short_description => "Processing Fee", :visible => true, :new_service => true_or_false, :itemable => assigned_company, :user_id => user_id, :customer_id => self.customer_id, :order_id => current_order.id, :parent_company_id => parent_company_id, :assigned_company_id => assigned_company.id, :cost => "0.00", :price => "2.00", :qty => 1, :category_id => Category.find_by_name("Profit").id)
+      end
     end
     
     def schedule_policy_task(policy, user_id, current_company_id)
