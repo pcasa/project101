@@ -13,9 +13,9 @@ class UsersController < ApplicationController
   end
 
   def new
-    if current_user.role?(:manager)
+    if current_user.role == "manager"
       @companies = current_user.companies
-    elsif current_user.role?(:admin)
+    elsif current_user.role == "admin"
       @companies = Company.all
     end
     @user = User.new
@@ -33,9 +33,9 @@ class UsersController < ApplicationController
   end
 
   def edit
-    if current_user.role?(:manager)
+    if current_user.role == "manager"
       @companies = current_user.companies
-    elsif current_user.role?(:admin)
+    elsif current_user.role == "admin"
       @companies = Company.all
     end
     @user = User.find(params[:id])

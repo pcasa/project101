@@ -5,7 +5,11 @@ class OrdersController < ApplicationController
   
   def index
     unless params[:customer_id]
-      @orders = Order.all
+      if current_user.role == "admin"
+        @order = Order.all
+      else
+        @orders = Order.closed_orders
+      end
     else
       @customer = Customer.find(params[:customer_id])
       @orders = @customer.orders

@@ -8,17 +8,28 @@ $(document).ready(function(){
 </script>
 	<%= form_for [current_company, order] do |f| %>
 	  <%= f.error_messages %>
+	
+	<% if order.closed? %>
+	<p class="extrapadding" style="background-color:red;color:#eee;">  Sold At Location: <%= f.select :assigned_company_id, Company.all.collect { |u| [u.name, u.id] }, :selected => order.assigned_company_id unless order.assigned_company_id.nil? %> | 
+	Sold By: <%= f.select :user, User.all.collect { |u| [u.full_name, u.id] }, :selected => order.user_id unless order.user_id.nil? %> <%= f.hidden_field :parent_company_id %> </p>
+	<% else %>
+	<%= f.hidden_field :assigned_company_id %>
+    <%= f.hidden_field :parent_company_id %>
+    <%= f.hidden_field :user_id, :value => current_user.id %>
+	<% end %>
+	
+	
 <table width="100%" border="0">
 	<tr width="100%">
 		<td wdith="58%" class="silverBG">
 			
 			<% unless customer.blank? %>
 			  	<%= render :partial => 'common/show_customer_condensed', :locals => {:customer => customer } %>
-			<%= f.hidden_field :customer_id, :value => customer.id %>
+			    <%= f.hidden_field :customer_id, :value => customer.id %>
 			<% else %>
 				<%= f.fields_for :customer do |customer| %>
 			    	<%= render :partial => 'common/new_customer', :locals => { :f => customer } %>
-			  <% end %>
+			    <% end %>
 			<% end %>
 		</td>
 		<td align=center> 101 Logo Goes Here</td>
@@ -59,7 +70,7 @@ $(document).ready(function(){
 					<th width="8%">Qty</th>
 					<th width="14%">Total </th>
 				</tr>
-				<%= f.fields_for :items do |item| %>
+				<%= f.fields_for :items, :order => ("id ASC") do |item| %>
 					 <%= render :partial => 'orders/new_item', :locals => { :item => item, :order => order } %>
 			    <% end %>
 				</table>
@@ -101,13 +112,10 @@ $(document).ready(function(){
 </table>	
 
 
-  <p>
-	<%= f.hidden_field :total_cost, :value => order.true_cost %>
-	<%= f.hidden_field :total_amount, :value => order.total_price %>
-    <%= f.hidden_field :assigned_company_id %>
-    <%= f.hidden_field :parent_company_id %>
-    <%= f.hidden_field :user_id, :value => current_user.id %>
-  </p>
+  
+	
+	
+  
   
   
   <p style="float:right;"><%= f.submit :class => "smallbtn green" %></p>

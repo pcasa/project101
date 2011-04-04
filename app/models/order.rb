@@ -4,7 +4,7 @@ class Order < ActiveRecord::Base
   belongs_to :user, :class_name => "User", :foreign_key => "user_id"
   belongs_to :assigned_company, :class_name => "Company", :foreign_key => "assigned_company_id"
   belongs_to :parent_company, :class_name => "Company", :foreign_key => "parent_company_id"
-  has_many :items
+  has_many :items, :dependent => :destroy
   has_one :comment, :as => :commentable
   
   scope :company, lambda { |company| {:conditions => ["assigned_company_id = ?", company.id] }}
@@ -25,6 +25,7 @@ class Order < ActiveRecord::Base
   # Scope for payment types 
   scope :cash, where(:payment_type => "cash")
   scope :credit_card, where(:payment_type => "credit_card")
+  scope :other, where(:payment_type => "other")
   
   
   
@@ -41,7 +42,7 @@ class Order < ActiveRecord::Base
   validates_numericality_of :amount_paid, :allow_nil => true
   
     
-    PAYMENTTYPES = %w[cash credit_card]
+    PAYMENTTYPES = %w[cash credit_card other]
     
     # totals only items that are not nested in parent_id like service groups.
     def total_price
@@ -75,7 +76,7 @@ class Order < ActiveRecord::Base
     end
     
     def close_order
-      self.update_attributes(:closed => true, :closed_date => Date.today)
+      self.update_attributes(:closed => true, :closed_date => Date.today, :total_cost => self.true_cost, :total_amount => self.total_price)
       self.items.each do |item|
         item.update_attributes(:closed => true, :customer_id => self.customer_id, :user_id => self.user_id)
         item.schedule_any_tasks

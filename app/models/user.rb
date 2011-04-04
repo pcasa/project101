@@ -1,4 +1,8 @@
 class User < ActiveRecord::Base
+  #
+  # Use Banned Role if Employee is ever fired.
+  #
+  
   has_many :employmentships, :dependent => :destroy
   has_many :companies, :through => :employmentships
   has_many :orders

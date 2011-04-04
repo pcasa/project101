@@ -1,8 +1,10 @@
-<% title @order.closed? ? "Edit Order" : "Order" %>
+<% title @order.closed? ? "Editing Closed Order" : "Order" %>
 
+<% unless @order.closed %>
 <p>
 	<%= link_to "Add Product", company_all_services_popup_path(current_company), :rel => 'facebox', :class => "smallbtn blue" %> 
 </p>
+<% end %>
 
 <div id="edit_order_form"><%= render :partial => "form", :locals => { :order => @order, :customer => @customer } %></div>
 

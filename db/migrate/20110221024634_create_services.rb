@@ -8,10 +8,11 @@ class CreateServices < ActiveRecord::Migration
       t.boolean :visible
       t.boolean :new_service
       t.boolean :deleted
+      t.boolean :disabled
       t.integer :category_id
       t.timestamps
     end
-    add_index(:services, [:name, :short_description, :price, :cost, :visible, :new_service, :deleted, :category_id], :unique => true, :name => 'add_index_to_services_n_sd_p_c_v_ns_da_ci')
+    add_index(:services, [:name, :short_description, :price, :cost, :visible, :new_service, :deleted, :category_id, :disabled], :unique => true, :name => 'add_index_to_services_n_sd_p_c_v_ns_da_ci')
   end
 
   def self.down

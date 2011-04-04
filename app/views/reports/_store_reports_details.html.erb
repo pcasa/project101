@@ -23,6 +23,9 @@
 		<td colspan="5">
 			<table width="100%" border="0" id="payment-type">
 				<tr>
+					<td width="33%"><b>Other:<br />
+						<%= number_to_currency(orders.select{ |order| order.payment_type == "other"}.sum(&:amount_received)) %></b>
+					</td>
 					<td width="33%"><b>Credit Card Totals:<br />
 						<%= number_to_currency(orders.select{ |order| order.payment_type == "credit_card"}.sum(&:amount_received)) %></b>
 					</td>

@@ -1,6 +1,7 @@
 class InsurancePoliciesController < ApplicationController
   def index
-    @insurance_policies = InsurancePolicy.all
+    @search = InsurancePolicy.search(params[:search])
+    @insurance_policies = @search.all.paginate(:page => params[:page], :per_page => 20)
   end
 
   def show

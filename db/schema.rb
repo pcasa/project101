@@ -60,13 +60,13 @@ ActiveRecord::Schema.define(:version => 20110331134318) do
 
   create_table "companies", :force => true do |t|
     t.string   "name"
+    t.string   "subdomain"
     t.integer  "parent_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "subdomain"
   end
 
-  add_index "companies", ["subdomain"], :name => "index_companies_on_subdomain"
+  add_index "companies", ["name", "subdomain"], :name => "index_companies_on_name_and_subdomain"
 
   create_table "customers", :force => true do |t|
     t.string   "firstname"
@@ -100,14 +100,14 @@ ActiveRecord::Schema.define(:version => 20110331134318) do
 
   create_table "insurance_policies", :force => true do |t|
     t.string   "policy_number",           :limit => 24
-    t.boolean  "yearly",                                                               :default => false
+    t.boolean  "yearly",                                                              :default => false
     t.integer  "customer_id"
     t.integer  "vendor_id"
     t.integer  "assigned_company_id"
     t.integer  "parent_company_id"
-    t.decimal  "down_payment",                          :precision => 12, :scale => 2
-    t.decimal  "club_price",                            :precision => 12, :scale => 2
-    t.decimal  "monthly_payment",                       :precision => 12, :scale => 2
+    t.decimal  "down_payment",                          :precision => 7, :scale => 2
+    t.decimal  "club_price",                            :precision => 7, :scale => 2
+    t.decimal  "monthly_payment",                       :precision => 7, :scale => 2
     t.date     "due_date"
     t.boolean  "cancelled"
     t.boolean  "completed"
@@ -127,17 +127,18 @@ ActiveRecord::Schema.define(:version => 20110331134318) do
   create_table "items", :force => true do |t|
     t.string   "name",                :limit => 64
     t.string   "short_description",   :limit => 256
-    t.decimal  "price",                              :precision => 12, :scale => 2
-    t.decimal  "cost",                               :precision => 12, :scale => 2
-    t.integer  "qty",                                                               :default => 1
-    t.boolean  "visible",                                                           :default => true
+    t.decimal  "price",                              :precision => 7, :scale => 2
+    t.decimal  "cost",                               :precision => 7, :scale => 2
+    t.integer  "qty",                                                              :default => 1
+    t.boolean  "visible",                                                          :default => true
     t.boolean  "new_service"
-    t.boolean  "deleted",                                                           :default => false
-    t.boolean  "closed",                                                            :default => false
+    t.boolean  "deleted",                                                          :default => false
+    t.boolean  "closed",                                                           :default => false
     t.integer  "order_id"
     t.integer  "category_id"
     t.integer  "itemable_id"
     t.string   "itemable_type"
+    t.integer  "vendor_id"
     t.integer  "user_id"
     t.integer  "customer_id"
     t.integer  "assigned_company_id"
@@ -146,32 +147,27 @@ ActiveRecord::Schema.define(:version => 20110331134318) do
     t.datetime "deleted_at"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "vendor_id"
   end
 
-  add_index "items", ["assigned_company_id"], :name => "index_items_on_assigned_company_id"
   add_index "items", ["customer_id"], :name => "index_items_on_customer_id"
   add_index "items", ["deleted_at"], :name => "index_items_on_deleted_at"
   add_index "items", ["itemable_type", "itemable_id"], :name => "index_items_on_itemable_type_and_itemable_id"
-  add_index "items", ["name", "price", "cost", "qty"], :name => "index_items_on_name_and_price_and_cost_and_qty"
+  add_index "items", ["name", "price", "cost", "qty", "parent_id"], :name => "index_items_on_name_and_price_and_cost_and_qty_and_parent_id"
   add_index "items", ["new_service", "deleted", "visible", "closed"], :name => "index_items_on_new_service_and_deleted_and_visible_and_closed"
-  add_index "items", ["order_id"], :name => "index_items_on_order_id"
-  add_index "items", ["parent_company_id"], :name => "index_items_on_parent_company_id"
-  add_index "items", ["parent_id"], :name => "index_items_on_parent_id"
-  add_index "items", ["user_id"], :name => "index_items_on_user_id"
-  add_index "items", ["vendor_id"], :name => "index_items_on_vendor_id"
+  add_index "items", ["order_id", "vendor_id"], :name => "index_items_on_order_id_and_vendor_id"
+  add_index "items", ["user_id", "assigned_company_id", "parent_company_id"], :name => "add_index_to_items_usr_assgn_comp_prnt_comp"
 
   create_table "orders", :force => true do |t|
     t.integer  "assigned_company_id"
     t.integer  "parent_company_id"
     t.integer  "customer_id"
     t.integer  "user_id"
-    t.boolean  "closed",                                                           :default => false
+    t.boolean  "closed",                                                          :default => false
     t.datetime "closed_date"
     t.string   "payment_type",        :limit => 16
-    t.decimal  "total_cost",                        :precision => 12, :scale => 2
-    t.decimal  "total_amount",                      :precision => 12, :scale => 2
-    t.decimal  "amount_paid",                       :precision => 12, :scale => 2
+    t.decimal  "total_cost",                        :precision => 7, :scale => 2
+    t.decimal  "total_amount",                      :precision => 7, :scale => 2
+    t.decimal  "amount_paid",                       :precision => 7, :scale => 2
     t.string   "override",            :limit => 6
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -187,8 +183,8 @@ ActiveRecord::Schema.define(:version => 20110331134318) do
   create_table "service_groups", :force => true do |t|
     t.string   "name",              :limit => 64
     t.string   "short_description", :limit => 256
-    t.decimal  "cost",                             :precision => 12, :scale => 2
-    t.decimal  "price",                            :precision => 12, :scale => 2
+    t.decimal  "cost",                             :precision => 7, :scale => 2
+    t.decimal  "price",                            :precision => 7, :scale => 2
     t.boolean  "new_service"
     t.boolean  "deleted"
     t.integer  "category_id"
@@ -201,18 +197,18 @@ ActiveRecord::Schema.define(:version => 20110331134318) do
   create_table "services", :force => true do |t|
     t.string   "name",              :limit => 64
     t.string   "short_description", :limit => 256
-    t.decimal  "price",                            :precision => 12, :scale => 2
-    t.decimal  "cost",                             :precision => 12, :scale => 2
+    t.decimal  "price",                            :precision => 7, :scale => 2
+    t.decimal  "cost",                             :precision => 7, :scale => 2
     t.boolean  "visible"
     t.boolean  "new_service"
     t.boolean  "deleted"
+    t.boolean  "disabled"
     t.integer  "category_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "disabled"
   end
 
-  add_index "services", ["name", "short_description", "price", "cost", "visible", "new_service", "deleted", "category_id"], :name => "add_index_to_services_n_sd_p_c_v_ns_da_ci", :unique => true
+  add_index "services", ["name", "short_description", "price", "cost", "visible", "new_service", "deleted", "category_id", "disabled"], :name => "add_index_to_services_n_sd_p_c_v_ns_da_ci", :unique => true
 
   create_table "slugs", :force => true do |t|
     t.string   "name"

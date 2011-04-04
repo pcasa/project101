@@ -26,12 +26,12 @@ class Task < ActiveRecord::Base
     scope :completed,     where("completed_at IS NOT NULL").order("completed_at DESC")
     
     # Due date scopes.
-    scope :overdue, lambda { where("due_at IS NOT NULL AND due_at < ?", Time.now.midnight).order("id DESC")}
-    scope :due_today,     lambda { where("due_at >= ? AND due_at < ?", Time.now.midnight, Time.now.midnight.tomorrow).order("id DESC")}
-    scope :due_tomorrow,  lambda { where("due_at >= ? AND due_at < ?", Time.now.midnight.tomorrow, Time.now.midnight.tomorrow + 1.day).order("id DESC")}
-    scope :due_this_week, lambda { where("due_at >= ? AND due_at < ?", Time.now.midnight.tomorrow + 1.day, Time.now.next_week).order("id DESC") }
-    scope :due_next_week, lambda { where("due_at >= ? AND due_at < ?", Time.now.next_week, Time.now.next_week.end_of_week + 1.day).order("id DESC")}
-    scope :due_later,     lambda { where("due_at IS NULL OR due_at >= ?", Time.now.next_week.end_of_week + 1.day).order("id DESC")}
+    scope :overdue, lambda { where("due_at IS NOT NULL AND due_at < ?", Time.now.midnight).order("due_at ASC")}
+    scope :due_today,     lambda { where("due_at >= ? AND due_at < ?", Time.now.midnight, Time.now.midnight.tomorrow).order("due_at ASC")}
+    scope :due_tomorrow,  lambda { where("due_at >= ? AND due_at < ?", Time.now.midnight.tomorrow, Time.now.midnight.tomorrow + 1.day).order("due_at ASC")}
+    scope :due_this_week, lambda { where("due_at >= ? AND due_at < ?", Time.now.midnight.tomorrow + 1.day, Time.now.next_week).order("due_at ASC") }
+    scope :due_next_week, lambda { where("due_at >= ? AND due_at < ?", Time.now.next_week, Time.now.next_week.end_of_week + 1.day).order("due_at ASC")}
+    scope :due_later,     lambda { where("due_at IS NULL OR due_at >= ?", Time.now.next_week.end_of_week + 1.day).order("due_at ASC")}
 
     # Completion time scopes.
     scope :completed_today,      lambda { where("completed_at >= ? AND completed_at < ?", Time.now.midnight, Time.now.midnight.tomorrow)}

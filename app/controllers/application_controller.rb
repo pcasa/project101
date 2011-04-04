@@ -89,10 +89,14 @@ class ApplicationController < ActionController::Base
 protected
  def after_sign_in_path_for(resource_or_scope)
    if resource_or_scope.is_a?(User) 
-     if resource_or_scope.companies.size == 1
-       company_dashboard_url(resource_or_scope.companies.first)
+     if resource_or_scope.role == "banned"
+        destroy_user_session_path
      else
-       root_url
+      if resource_or_scope.companies.size == 1
+        company_dashboard_url(resource_or_scope.companies.first)
+      else
+        root_url
+      end
      end
    else
      super

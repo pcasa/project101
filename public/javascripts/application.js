@@ -28,6 +28,10 @@ $(document).ready(function(){
 			$(".new-task-button").click(function () {
 			$(".new-task-form").toggle("slow");
 			});
+			$(".new-task-form").bind('ajax:success', function(evt, data, status, xhr){
+			    var $this = $(this);
+			    $this.find('input:text,textarea').val('');	
+			  });
 			$(".close-dashboard-tasks").click(function(){
 				$("#dashboard-tasks").slideUp("slow");
 				$(this).fadeOut("fast");
@@ -53,11 +57,6 @@ $(document).ready(function(){
 			
 			$('#today').hide();
 			$('#yesterday').hide();
-			$('#this-week').hide();
-			$('#last-week').hide();
-			$('#this-month').hide();
-			$('#last-month').hide();
-			$('#this-year').hide();
 			$("#thechoices").change(function(){	
 				$("#reports").children().slideUp();
 				$("#" + this.value).fadeIn();

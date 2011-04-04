@@ -36,9 +36,9 @@
 
 
   <p>
-  	<% if current_user.role?(:manager) %>
+  	<% if current_user.role == "manager" %>
 	<%= f.collection_select :role, %w[employee manager], :to_s, :humanize %>
-	<% elsif current_user.role?(:admin) %>
+	<% elsif current_user.role == "admin" %>
 	<%= f.collection_select :role, User::ROLES, :to_s, :humanize %>
 	<% end %>
   </p>

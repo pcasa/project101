@@ -13,6 +13,7 @@ class CreateItems < ActiveRecord::Migration
       t.integer :order_id
       t.integer :category_id
       t.references :itemable, :polymorphic => true
+      t.integer :vendor_id
       t.integer :user_id
       t.integer :customer_id
       t.integer :assigned_company_id
@@ -21,16 +22,13 @@ class CreateItems < ActiveRecord::Migration
       t.datetime :deleted_at
       t.timestamps
     end
-    add_index(:items, [:name, :price, :cost, :qty])
+    add_index(:items, [:name, :price, :cost, :qty, :parent_id])
     add_index(:items, [:itemable_type, :itemable_id])
-    add_index(:items, :order_id)
+    add_index(:items, [:order_id, :vendor_id])
     add_index(:items, [:new_service, :deleted, :visible, :closed])
-    add_index(:items, :user_id)
     add_index(:items, :customer_id)
-    add_index(:items, :assigned_company_id)
-    add_index(:items, :parent_company_id)
+    add_index(:items, [:user_id, :assigned_company_id, :parent_company_id], :name => 'add_index_to_items_usr_assgn_comp_prnt_comp')
     add_index(:items, :deleted_at)
-    add_index(:items, :parent_id)
   end
 
   def self.down

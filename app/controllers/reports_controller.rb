@@ -27,7 +27,12 @@ class ReportsController < ApplicationController
   end
   
   def full_reports
-    @search = Item.valid_items.search(params[:search])
+    if params[:search].blank?
+      @search = Item.valid_items.where("created_at >= ?", Time.now.beginning_of_month).search(params[:search])
+    else
+      @search = Item.valid_items.search(params[:search])
+    end
+    
     @items = @search.paginate(:page => params[:page], :per_page => 25)
     @items_totals = @search.all
   end

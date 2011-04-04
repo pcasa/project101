@@ -24,6 +24,10 @@ a {
   overflow: hidden;
 }
 
+.extrapadding {
+	padding: 10px;
+}
+
 /*** Common ***/
 
 .pagination {
@@ -393,7 +397,7 @@ tr.odd td {
 
 .new-task-form {
 	display: inline-block;
-	height: 130px;
+	background-color:#ddd;
 }
 
 #overdue h3{
@@ -541,6 +545,8 @@ form.formtastic fieldset ol li input.ui-date-picker {
 form.formtastic fieldset ol li.error {
 	background-color: #FCC;
 }
+
+form.formtastic fieldset ol li .inline-errors { margin-left:5px;color:red; }
 
 #policy-new {
 	width: 800px;

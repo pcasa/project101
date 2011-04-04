@@ -11,8 +11,8 @@ class CreateInsurancePolicies < ActiveRecord::Migration
       t.decimal :club_price, :precision => 7, :scale => 2
       t.decimal :monthly_payment, :precision => 7, :scale => 2
       t.date :due_date
-      t.boolean :cancelled
-      t.boolean :completed
+      t.boolean :cancelled, :default => false
+      t.boolean :completed, :default => false
       t.integer :number_of_payments_left
       t.integer :parent_id
       t.string :policy_type, :limit => 64

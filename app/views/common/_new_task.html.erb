@@ -9,16 +9,23 @@
 	<%= f.hidden_field :asset_type, :value => asset.class %>
 	<%= f.hidden_field :asset_id, :value => asset.id %>
 	<%= f.hidden_field :assigned_company, :value => current_company.id %>
-	<table width="100%">
+	<table width="100%" border=0>
 	<tr>
 		<td><%= f.label "Description: "%> <%= f.text_field :name %></td>
-		<td colspan="2"><%= f.label "Type of Task: "%> <%= f.collection_select :category, Task::CATEGORY, :to_s, :humanize %></td>
+		<td><%= f.label "Type of Task: "%> <%= f.collection_select :category, Task::CATEGORY, :to_s, :humanize %></td>
 	</tr>
 	<tr>
 		<td><%= f.label "Assigned To: "%><%= f.collection_select :assigned_to, users, :id, :full_name, :selected_value => current_user %></td>
-		<td><%= f.label "Completed By: "%><%= f.collection_select :completed_by, users, :id, :full_name, {:include_blank => true} %></td>
 		<td><%= f.label "Due By: "%><%= f.text_field :due_at, :class => "task-datetime" %></td>
 	</tr>
+	<tr>
+		<td colspan="2">
+			<p style="text-align:right;"><%= f.submit :class => "smallbtn green" %> <span class="new-task-button"><a href="#" class="smallbtn biggertxt green">Cancel</a></span></p>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2"><hr></td>
+	</tr>
 	</table>
-	<p style="text-align:right;"><%= f.submit :class => "smallbtn green" %> <span class="new-task-button"><a href="#" class="smallbtn biggertxt green">Cancel</a></span></p>
+	
 <% end %>

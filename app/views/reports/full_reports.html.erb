@@ -9,7 +9,7 @@
 	<tr>
 		<td width="25%"><b>Item Name:</b> <br /><%= f.text_field :name_contains %></td>
 		<td width="25%"><b>Sold from date:</b> <br />
-			<%= f.text_field :created_at_gt, :class => "ui-date-picker", :value => f.object.try(:created_at_gt).try(:strftime,'%b %d %Y') %>
+			<%= f.text_field :created_at_gt, :class => "ui-date-picker", :value => (f.object.created_at_gt.blank? ? Time.now.beginning_of_month.strftime('%b %d %Y') : f.object.try(:created_at_gt).try(:strftime,'%b %d %Y')) %>
 		</td>
 		<td width="25%">
 			<b>to date:</b><br />

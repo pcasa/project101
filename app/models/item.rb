@@ -8,7 +8,7 @@ class Item < ActiveRecord::Base
   # item.destroy!
   # Item.delete_all!(conditions)
   
-  default_scope order('id DESC')
+#  default_scope order('id DESC')
   
   belongs_to :order, :class_name => "Order", :foreign_key => "order_id"
   belongs_to :customer, :class_name => "Customer", :foreign_key => "customer_id"
