@@ -8,8 +8,7 @@ class CreateCategories < ActiveRecord::Migration
       t.integer :depth
       t.timestamps
     end
-    add_index(:categories, [:name, :parent_id])
-    add_index(:categories, [:lft, :rgt, :depth])
+    add_index(:categories, [:name, :parent_id, :lft, :rgt, :depth])
   end
 
   def self.down
