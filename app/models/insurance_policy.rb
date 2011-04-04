@@ -15,7 +15,7 @@ class InsurancePolicy < ActiveRecord::Base
     
     validates_numericality_of :number_of_payments_left, :down_payment, :monthly_payment, :allow_nil => true
     
-    POLICYTYPE = %w[New Renewal Reinstate]
+    POLICYTYPE = %w[New Renewal Reinstate Existing]
     
     
     def setbase
@@ -36,17 +36,17 @@ class InsurancePolicy < ActiveRecord::Base
       else
         temp_desc2 = "You have " + payments_left.to_s + " payment left.  Your renewal is comming up.  Your Renewal will be on #{(self.due_date + 30.days).strftime('%b %d, %Y')}"
       end
-      if self.items.blank? 
-        payment_amount = self.down_payment 
-        sale_price = payment_amount + club_price
-      else 
+      if !self.items.blank? || self.policy_type == "Existing"
         payment_amount = self.monthly_payment 
         sale_price = self.monthly_payment
+      else 
+        payment_amount = self.down_payment 
+        sale_price = payment_amount + club_price
       end
       full_desc = temp_desc + temp_desc2
       current_order.update_attribute(:customer_id, self.customer_id)
       Item.create!(:name => "Policy Payment", :short_description => full_desc, :visible => true, :new_service => true_or_false, :itemable => self, :user_id => user_id, :customer_id => self.customer_id, :order_id => current_order.id, :parent_company_id => parent_company_id, :assigned_company_id => assigned_company.id, :cost => payment_amount, :price => sale_price, :qty => 1, :category_id => Category.find_by_name("Insurance Policy").id, :vendor_id => self.vendor_id)
-      unless self.items.blank?
+      if !self.items.blank? || self.policy_type == "Existing"
         Item.create!(:name => "Processing Fee", :short_description => "Processing Fee", :visible => true, :new_service => true_or_false, :itemable => assigned_company, :user_id => user_id, :customer_id => self.customer_id, :order_id => current_order.id, :parent_company_id => parent_company_id, :assigned_company_id => assigned_company.id, :cost => "0.00", :price => "2.00", :qty => 1, :category_id => Category.find_by_name("Profit").id)
       end
     end

@@ -89,6 +89,14 @@ c_company = Company.new do |p|
   p.save
 end
 
+d_company = Company.new do |p| 
+  p.id = 4
+  p.name = 'Cumming'
+  p.subdomain = 'Comming'
+  p.parent_id = 1
+  p.save
+end
+
 puts "Clearing Services, Service Groups and Special Services"
 SpecialService.delete_all
 ServiceGroup.delete_all
@@ -99,63 +107,9 @@ puts "Adding Services"
   Service.create!(:name => s, :short_description => "Short description for #{s}", :price => 10, :cost => 5, :category_id => 1, :new_service => false, :deleted => false, :visible => true) 
 end
 
-puts "Adding Service Group"
-a_service_group = ServiceGroup.new do |sg|
-  sg.name = "Tag & Title - New"
-  sg.price = 140
-  sg.short_description = "Basics for a New Tag and Title"
-  tag = Service.find_by_name("Tag")
-  title = Service.find_by_name("Title")
-  runner = Service.find_by_name("Runner")
-  sg.new_service = true
-  sg.deleted = false
-  sg.category_id = 1
-  sg.services = [tag, title, runner]
-  sg.save!
-end
-
-a_service_group = ServiceGroup.new do |sg|
-  sg.name = "Tag & Title - Renewal"
-  sg.price = 140
-  sg.short_description = "Basics for Renewing Tag and Title"
-  tag = Service.find_by_name("Tag")
-  title = Service.find_by_name("Title")
-  runner = Service.find_by_name("Runner")
-  sg.deleted = false
-  sg.new_service = false
-  sg.category_id = 1
-  sg.services = [tag, title, runner]
-  sg.save!
-end
-
-puts "Adding Customers"
 
 
-Company.all.each do |company|
-  
-  if company.parent_id.blank?
-    parent_company = company.id
-  else
-    parent_company = company.parent_id
-  end
-  100.times do 
-    street = Faker::Address.street_address
-    city = Faker::Address.city
-    state = Faker::Address.us_state_abbr
-    zip = Faker::Address.zip_code
-    Customer.create!(
-    :firstname => Faker::Name.first_name, 
-    :lastname => Faker::Name.last_name, 
-    :parent_company_id => parent_company, 
-    :assigned_company_id => company.id, 
-    :street1 => street, 
-    :city => city, 
-    :state => state, 
-    :zipcode => zip,
-    :full_address => street + "<br />" + city + ", " + state + " " + zip
-    ) 
-  end
-end
+
 
 puts "Deleting Users and Employmentships in Companies"
 User.delete_all

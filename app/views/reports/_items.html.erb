@@ -4,7 +4,6 @@
 	<tr>
 		<th><%= sort_link @search, :order_id, "Order #:" %></th>
 		<th><%= sort_link @search, :assigned_company_id, "Location" %></th>
-		<th><%= sort_link @search, :user_id, "Sold By" %></th>
 		<th><%= sort_link @search, :name, "Item" %></th>
 		<th><%= sort_link @search, :category_id, "Category" %></th>
 		<th><%= sort_link @search, :vendor_id, "Vendor" %></th>
@@ -16,10 +15,9 @@
 	<tr class="<%= cycle("even", "odd") -%>">
 		<td><%= item.order_id %></td>
 		<td><%= item.assigned_company.name %></td>
-		<td><%= item.user_id %></td>
 		<td><%= item.name %></td>
-		<td><%= item.category_id %></td>
-		<td><%= item.vendor_id %></td>
+		<td><%= item.category.name unless item.category_id.blank? %></td>
+		<td><%= item.vendor.name unless item.vendor_id.blank? %></td>
 		<td><%= number_to_currency(item.cost) %></td>
 		<td><%= number_to_currency(item.price) %></td>
 	</tr>

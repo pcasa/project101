@@ -5,17 +5,11 @@
   <tr>
     <th>Name</th>
     <th>Parent</th>
-	<th>lft</th>
-	<th>rgt</th>
-	<th>Depth</th>
   </tr>
   <% for category in @categories %>
     <tr valign="top" class="<%= 'child' unless category.parent_id.blank? %>">
       <td><%= category.name %></td>
-      <td><%= category.parent_id %></td>
-	  <td><%= category.lft %></td>
-	  <td><%= category.rgt %></td>
-	  <td><%= category.depth %></td>
+      <td><%= category.parent.name unless category.parent_id.blank? %></td>
       <td><%= link_to "Show", company_category_path(current_company, category), :class => "smallbtn blue smallertxt" %></td>
 	  <% if can? :update, category %>
       <td><%= link_to "Edit", edit_company_category_path(current_company, category), :class => "smallbtn blue smallertxt" %></td>
