@@ -1,6 +1,6 @@
 <% title @order.closed? ? "Editing Closed Order" : "Order" %>
 
-<% unless @order.closed %>
+<% unless @order.closed && !current_user.role == "admin" %>
 <p>
 	<%= link_to "Add Product", company_all_services_popup_path(current_company), :rel => 'facebox', :class => "smallbtn blue" %> 
 </p>
