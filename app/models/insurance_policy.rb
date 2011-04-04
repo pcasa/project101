@@ -30,11 +30,11 @@ class InsurancePolicy < ActiveRecord::Base
       payments_left = self.number_of_payments_left - 1
       temp_desc = "Payment on policy #" + self.policy_number + " from " + self.vendor.name + ".  "
       if payments_left > 1
-        temp_desc2 = "You have " + payments_left.to_s + " payments left."
+        temp_desc2 = "You have " + payments_left.to_s + " payments left.  Your next payment is on #{(self.due_date + 30.days).strftime('%b %d %Y')}"
       elsif payments_left == 0
         temp_desc2 = "This is your last payment.  If you have any questions about your renewal, please feel free to ask us."
       else
-        temp_desc2 = "You have " + payments_left.to_s + " payment left.  Your renewal is comming up."
+        temp_desc2 = "You have " + payments_left.to_s + " payment left.  Your renewal is comming up.  Your Renewal will be on #{(self.due_date + 30.days).strftime('%b %d, %Y')}"
       end
       if self.items.blank? 
         payment_amount = self.down_payment 
