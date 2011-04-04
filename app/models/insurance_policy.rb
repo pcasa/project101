@@ -46,7 +46,7 @@ class InsurancePolicy < ActiveRecord::Base
       full_desc = temp_desc + temp_desc2
       current_order.update_attribute(:customer_id, self.customer_id)
       Item.create!(:name => "Policy Payment", :short_description => full_desc, :visible => true, :new_service => true_or_false, :itemable => self, :user_id => user_id, :customer_id => self.customer_id, :order_id => current_order.id, :parent_company_id => parent_company_id, :assigned_company_id => assigned_company.id, :cost => payment_amount, :price => sale_price, :qty => 1, :category_id => Category.find_by_name("Insurance Policy").id, :vendor_id => self.vendor_id)
-      if self.items.blank?
+      unless self.items.blank?
         Item.create!(:name => "Processing Fee", :short_description => "Processing Fee", :visible => true, :new_service => true_or_false, :itemable => assigned_company, :user_id => user_id, :customer_id => self.customer_id, :order_id => current_order.id, :parent_company_id => parent_company_id, :assigned_company_id => assigned_company.id, :cost => "0.00", :price => "2.00", :qty => 1, :category_id => Category.find_by_name("Profit").id)
       end
     end
