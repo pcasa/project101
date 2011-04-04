@@ -45,7 +45,7 @@ ActiveRecord::Schema.define(:version => 20110331134318) do
     t.datetime "updated_at"
   end
 
-  add_index "categories", ["name", "parent_id", "lft", "rgt", "depth"], :name => "index_categories_on_name_and_parent_id_and_lft_and_rgt_and_depth"
+  add_index "categories", ["name", "parent_id", "lft", "rgt", "depth"], :name => "add_index_to_categories_n_pi_l_r_dpth"
 
   create_table "comments", :force => true do |t|
     t.text     "content"
