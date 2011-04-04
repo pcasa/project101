@@ -47,7 +47,7 @@ class ServicesController < ApplicationController
   
   def destroy
     @service = Service.find(params[:id])
-    if @service.disable #instead of @model.destroy
+    if @service.destroy #instead of @model.destroy
       flash[:notice] = "Successfully disabled #{@service.name}."
       redirect_to company_services_url
     else
