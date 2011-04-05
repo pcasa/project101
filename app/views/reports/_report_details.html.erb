@@ -50,6 +50,7 @@
 			<%= number_to_currency((@items.collect.sum(&:price) - (@items.collect.sum(&:cost)))) %>
 		</td>
 	</tr>
+	
 	<% else %>
 	  Nothing here
 	<% end %>

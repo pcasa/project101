@@ -41,6 +41,20 @@
 			<td colspan="4">
 				<table width="100%" border="0" id="payment-type">
 					<tr>
+						<td class="biggertxt"><b>Insurance Cost:</b><br />
+							<%= number_to_currency(@items.select{ |item| item.itemable_type == "InsurancePolicy"}.sum(&:cost)) %>
+						</td>
+						<td class="biggertxt"><b>Services Cost:</b><br />
+							<%= number_to_currency(@items.select{ |item| item.itemable_type == "Service"}.sum(&:cost)) %>
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="4">
+				<table width="100%" border="0" id="payment-type">
+					<tr>
 						<td width="33%"><b>Other:<br />
 							<%= number_to_currency(orders.select{ |order| order.payment_type == "other"}.sum(&:amount_received)) %></b>
 						</td>
@@ -54,6 +68,7 @@
 				</table>
 			</td>
 		</tr>
+		
 		<% else %>
 		  Nothing to show here.
 		<% end %>
@@ -63,4 +78,7 @@
 <% else %>
   No Orders to Report.
 <% end %>
+
+
+
 
