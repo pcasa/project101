@@ -55,16 +55,16 @@ $(document).ready(function(){
 				});
 			});
 			
-			$('#today').hide();
-			$('#yesterday').hide();
-			$("#thechoices").change(function(){	
-				$("#reports").children().slideUp();
-				$("#" + this.value).fadeIn();
-			});
-			
-
-			$("#thechoices").change();
-			$('#today').show();
+		   // $('#today').hide();
+		   // $('#yesterday').hide();
+		   // $("#thechoices").change(function(){	
+		   // 	$("#reports").children().slideUp();
+		   // 	$("#" + this.value).fadeIn();
+		   // });
+		   // 
+           //
+		   // $("#thechoices").change();
+		   // $('#today').show();
 			
 			$("#clear-frf").click(function(){
 				$('#item_search select').val(0);
