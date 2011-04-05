@@ -1,5 +1,6 @@
-<% title "Order" %>
 
+<div id="show-order">
+	<% title "Order" %>
 <table width="100%" border="0">
 	<tr width="100%">
 		<td wdith="58%" class="silverBG">
@@ -70,7 +71,7 @@
 
 <% if @order.closed? %>
 <p style="text-align:right;">
-	<%= link_to "Print Order", company_print_order_path(current_company, @order), :rel => 'facebox', :class => "smallbtn blue" %>
+	<%= link_to "Print Order", company_print_order_url(current_company, @order), :rel => 'facebox', :class => "smallbtn blue" %>
 </p>
 <% end %>
 
@@ -83,3 +84,4 @@
 	<% end %>
   <%= link_to "View All", company_orders_path %>
 </p>
+</div>

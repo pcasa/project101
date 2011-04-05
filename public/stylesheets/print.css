@@ -1,0 +1,11 @@
+body {font-family: Georgia, serif;background: none;color: black;}
+#page {width: 100%;margin: 0;padding: 0;background: none;}
+#header, #menu, #show-order, .print-btn, h1, select, #full-reports-search-form {display: none;}
+#reports {display: visible;}
+tr th {background-color: #999;border-bottom: solid 1px #000;}
+#orders-reports tr, #customers tr, #full-reports tr {height: 30px;}
+tr.even td, tr.odd td {padding-left: 20px;border-bottom: solid 1px #999;}
+tr.odd td {background-color: #ddd;}
+#orders-reports #payment-type {margin-top: 30px;}
+#print-order {}
+#full-reports-results {}
