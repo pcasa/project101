@@ -30,7 +30,6 @@
 
 <li><%= link_to image_tag("/images/icons/32/brick.png", :size => "32x32", :class => "dashIcon") + "Services" + "<br />
 <div class='subText'>See All services.</div>".html_safe, company_services_path %></li>
-<li><%= link_to image_tag("/images/icons/32/bricks.png", :size => "32x32", :class => "dashIcon") + "Service Group" + "<br /><div class='subText'>Bundled services.</div>".html_safe, company_service_groups_path %></li>
 <li><%= link_to image_tag("/images/icons/32/curriculum_vitae.png", :size => "32x32", :class => "dashIcon") + "Insurance Policies" + "<br /><div class='subText'>See All Insurance Policies.</div>".html_safe, company_insurance_policies_path %></li>
 
 <% if current_user.role? :manager || :admin %>
