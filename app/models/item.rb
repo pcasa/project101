@@ -27,6 +27,8 @@ class Item < ActiveRecord::Base
   
   scope :valid_items, where(:closed => true)
   scope :in_orders_with, lambda { |orders, type| where("itemable_type = ?", type.to_s).joins(:order) & orders }
+  
+  scope :in_orders, lambda { |orders| joins(:order) & orders }
     
     
     

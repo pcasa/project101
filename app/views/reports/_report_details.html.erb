@@ -21,17 +21,16 @@
 		<th>Cost</th>
 		<th>Sold For:</th>
 	</tr>
-
-	
-	
-	
-	
 	<% if !@items.blank? %>
 	  <% for item in @items %>
 	    <tr>
 			<td><%= item.customer.full_name%></td>
 			<td>#<%= item.itemable.policy_number %></td>
-			<td><%= item.itemable.policy_type %></td>
+			<% if item.itemable.items.count == 1  %>
+				<td>Policy Payment</td>
+			<% else %>
+				<td><%= item.itemable.policy_type %></td>
+			<% end %>
 			<td><%= item.vendor.name %></td>
 			<td><%= number_to_currency(item.cost) %></td>
 			<td><%= number_to_currency(item.price) %></td>

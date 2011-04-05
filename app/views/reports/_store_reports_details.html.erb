@@ -40,3 +40,52 @@
 <% else %>
   No Orders to Report.
 <% end %>
+
+<p>
+	<% @items = Item.in_orders(orders) %>
+	<table width="85%" border="0" id="orders-reports" cellpadding="0" cellspacing="0">
+		<tr>
+			<th width="30%">Item Name</th>
+			<th width="14%">Type</th>
+			<th width="14%">Cost</th>
+			<th width="14%">Sold For:</th>
+		</tr>
+		<% if !@items.blank? %>
+		  <% for item in @items %>
+		    <tr class="<%= cycle("even", "odd") -%>">
+		    	<td><%= item.name %></td>
+				<td><%= item.itemable_type.titleize %></td>
+				<td><%= number_to_currency(item.cost) %></td>
+				<td><%= number_to_currency(item.price) %></td>
+		    </tr>
+		  <% end %>
+		<tr>
+			<td colspan="2"><b>Sold For:</b><br />
+				<%= number_to_currency(@items.collect.sum(&:price)) %>
+			</td>
+			<td colspan="2"><b>Cost:</b><br />
+				<%= number_to_currency(@items.collect.sum(&:cost)) %>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="4">
+				<table width="100%" border="0" id="payment-type">
+					<tr>
+						<td width="33%"><b>Other:<br />
+							<%= number_to_currency(orders.select{ |order| order.payment_type == "other"}.sum(&:amount_received)) %></b>
+						</td>
+						<td width="33%"><b>Credit Card Totals:<br />
+							<%= number_to_currency(orders.select{ |order| order.payment_type == "credit_card"}.sum(&:amount_received)) %></b>
+						</td>
+						<td width="33%"><b>Cash Totals:<br />
+							<%= number_to_currency(orders.select{ |order| order.payment_type == "cash"}.sum(&:amount_received)) %></b>
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<% else %>
+		  Nothing to show here.
+		<% end %>
+		</table>
+</p>
