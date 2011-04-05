@@ -1,58 +1,19 @@
 <h2><%= title %></h2>
 <% if !orders.blank? %>
-
-<table width="85%" border="0" id="orders-reports" cellpadding="0" cellspacing="0">
-	<tr>
-		<th width="30%">Order Number</th>
-		<th width="14%">Order Total</th>
-		<th width="14%">Customer Paid</th>
-		<th width="14%">Payment type</th>
-		<th width="18%">Amount Received</th>
-	</tr>
-
-  <% for order in orders %>
-	<tr class="<%= cycle("even", "odd") -%>">
-		<td><%= link_to order.id, [current_company, order] %></td>
-		<td><%= number_to_currency(order.total_amount) %></td>
-		<td><%= number_to_currency(order.amount_paid) %></td>
-		<td><%= order.payment_type.titleize %></td>
-		<td><%= number_to_currency(order.amount_received) %></td>
-	</tr>
-  <% end %>
-	<tr>
-		<td colspan="5">
-			<table width="100%" border="0" id="payment-type">
-				<tr>
-					<td width="33%"><b>Other:<br />
-						<%= number_to_currency(orders.select{ |order| order.payment_type == "other"}.sum(&:amount_received)) %></b>
-					</td>
-					<td width="33%"><b>Credit Card Totals:<br />
-						<%= number_to_currency(orders.select{ |order| order.payment_type == "credit_card"}.sum(&:amount_received)) %></b>
-					</td>
-					<td width="33%"><b>Cash Totals:<br />
-						<%= number_to_currency(orders.select{ |order| order.payment_type == "cash"}.sum(&:amount_received)) %></b>
-					</td>
-				</tr>
-			</table>
-		</td>
-	</tr>
-</table>
-<% else %>
-  No Orders to Report.
-<% end %>
-
 <p>
 	<% @items = Item.in_orders(orders) %>
 	<table width="85%" border="0" id="orders-reports" cellpadding="0" cellspacing="0">
 		<tr>
-			<th width="30%">Item Name</th>
-			<th width="14%">Type</th>
+			<th width="14%">Order #</th>
+			<th width="28%">Item Name</th>
+			<th width="30%">Type</th>
 			<th width="14%">Cost</th>
 			<th width="14%">Sold For:</th>
 		</tr>
 		<% if !@items.blank? %>
 		  <% for item in @items %>
 		    <tr class="<%= cycle("even", "odd") -%>">
+				<td><%= item.order_id %></td>
 		    	<td><%= item.name %></td>
 				<td><%= item.itemable_type.titleize %></td>
 				<td><%= number_to_currency(item.cost) %></td>
@@ -60,11 +21,20 @@
 		    </tr>
 		  <% end %>
 		<tr>
-			<td colspan="2"><b>Sold For:</b><br />
-				<%= number_to_currency(@items.collect.sum(&:price)) %>
-			</td>
-			<td colspan="2"><b>Cost:</b><br />
-				<%= number_to_currency(@items.collect.sum(&:cost)) %>
+			<td colspan="4">
+				<table width="100%">
+					<tr>
+						<td><b>Sold For:</b><br />
+							<%= number_to_currency(@items.collect.sum(&:price)) %>
+						</td>
+						<td><b>Cost:</b><br />
+							<%= number_to_currency(@items.collect.sum(&:cost)) %>
+						</td>
+						<td><b>Profie:</b><br />
+							<%= number_to_currency((@items.collect.sum(&:price)) - (@items.collect.sum(&:cost))) %>
+						</td>
+					</tr>
+				</table>
 			</td>
 		</tr>
 		<tr>
@@ -89,3 +59,8 @@
 		<% end %>
 		</table>
 </p>
+
+<% else %>
+  No Orders to Report.
+<% end %>
+
