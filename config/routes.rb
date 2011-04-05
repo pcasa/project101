@@ -1,5 +1,6 @@
 Project101::Application.routes.draw do
 
+  match '/companies' => 'companies#index'
   match '/:company_id/companies' => 'companies#index', :as => :index_company
   match '/:company_id' => 'companies#show', :as => :show_company
   match '/companies/:id/edit' => 'companies#edit', :as => :edit_company

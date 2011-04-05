@@ -4,83 +4,100 @@
 	<title></title>
 	<style>
 		body, html{width:230px; padding:0;margin:0;}
-		#print-logo {text-align:center;}
+		#print-logo {margin-left:30px;}
 		p {padding:5px;}
 	</style>
 </head>
 
 <body>
-	<div id="print-order">
-		<div id="print-logo">
-			Logo Goes here
-		</div>
-	<div id="" class="customer-info">
-		<p><%= @order.customer.full_name %><br />
-		<%= @order.customer.full_address.html_safe %></p>
-	</div>
+<div id="print-order">
+	<table border="0" width="100%">
+		<tr>
+			<td id="print-logo" align=CENTER><%= image_tag("/images/logos/small.jpg", :size => "150x104", :alt => "Logo") %></td>
+		</tr>
+		<tr>
+			<td it="location-address">
+				<%= @order.assigned_company.name %>	<br />
+				Phone: <%= @order.assigned_company.phone_number unless @order.assigned_company.phone_number.blank? %><br />
+				<%= @order.assigned_company.full_address.html_safe unless @order.assigned_company.full_address.blank? %><br />
+			</td>
+		</tr>
+		<tr>
+			<td id="customer-info">
+				<p><%= @order.customer.full_name %></p>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<p class="order-base-info">
+				<table width="100%">
+				<tr>
+					<td><b>Order</b></td>
+					<td>#<%= @order.id %></td>
+				</tr>
+				<tr>
+					<td><b>Invoice Date</b></td>
+					<td><%= @order.closed_date.strftime('%m/%d/%Y') unless @order.closed_date.blank? %></td>
+				</tr>
+				</table>
+				<br />
+				</p>
+				<p>
+				<table width="100%" border="0">
 
+					<% if !@order.items.blank? %>
+					  <% for item in @order.items %>
+						<% if item.parent_id.blank? %>
+						<tr valign=TOP>
+						<td width="75%">
+							<b><%= item.name unless item.name.blank? %></b><br /><%= item.short_description unless item.short_description.blank? %>
+						</td>
+						<td width="7%">
+							<%= item.qty %>
+						</td>
+						<td width="18%">
+							<%= number_to_currency(item.full_price)%>
+						</td>
+						</tr>
+						<% end %>
+					  <% end %>
+					<% else %>
+					 <tr><td colspan="3">Nothing Purchased </td></tr>
+					<% end %>
 
-	<p class="order-base-info">
-	<table width="100%">
-	<tr>
-		<td><b>Order</b></td>
-		<td>#<%= @order.id %></td>
-	</tr>
-	<tr>
-		<td><b>Invoice Date</b></td>
-		<td><%= @order.closed_date.strftime('%m/%d/%Y') unless @order.closed_date.blank? %></td>
-	</tr>
+				</table>
+				</p>
+				<% unless @order.comment.blank? %>
+				<p>
+					<b>Notes:</b><br />
+					<%= @order.comment.content %>
+				</p>
+				<% end %>
+
+				<p class="payment-info">
+				<table width="100%">
+				<tr>
+					<td width="60%"><b>Payment Type:</b></td>
+					<td><%= @order.payment_type %></td>
+				</tr>
+				<tr>
+					<td><b>Total Price:</b></td>
+					<td><%= number_to_currency(@order.total_price) %></td>
+				</tr>
+				<tr>
+					<td><b>Amount Paid:</b></td>
+					<td><%= number_to_currency(@order.amount_paid) %></td>
+				</tr>
+				</table>
+				</p>
+			</td>
+		</tr>
 	</table>
-	<br />
-	</p>
-	<p>
-	<table width="100%" border="0">
 	
-		<% if !@order.items.blank? %>
-		  <% for item in @order.items %>
-			<% if item.parent_id.blank? %>
-			<tr valign=TOP>
-			<td width="75%">
-				<b><%= item.name unless item.name.blank? %></b><br /><%= item.short_description unless item.short_description.blank? %>
-			</td>
-			<td width="7%">
-				<%= item.qty %>
-			</td>
-			<td width="18%">
-				<%= number_to_currency(item.full_price)%>
-			</td>
-			</tr>
-			<% end %>
-		  <% end %>
-		<% else %>
-		 <tr><td colspan="3">Nothing Purchased </td></tr>
-		<% end %>
 	
-	</table>
-	</p>
-	<% unless @order.comment.blank? %>
-	<p>
-		<b>Notes:</b><br />
-		<%= @order.comment.content %>
-	</p>
-	<% end %>
+	
 
-	<p class="payment-info">
-	<table width="100%">
-	<tr>
-		<td width="60%"><b>Payment Type:</b></td>
-		<td><%= @order.payment_type %></td>
-	</tr>
-	<tr>
-		<td><b>Total Price:</b></td>
-		<td><%= number_to_currency(@order.total_price) %></td>
-	</tr>
-	<tr>
-		<td><b>Amount Paid:</b></td>
-		<td><%= number_to_currency(@order.amount_paid) %></td>
-	</tr>
-	</table>
-	</p>
+	
 
 	</div>	
 </body>
