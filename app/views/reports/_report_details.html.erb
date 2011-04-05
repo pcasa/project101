@@ -10,3 +10,49 @@
   Nothing to report from Policies<br />
 <% end %>
 </p>
+
+<p>
+<table width="100%">
+	<tr>
+		<th>Customer Name</th>
+		<th>Policy Number</th>
+		<th>Payment Type</th>
+		<th>Vendor</th>
+		<th>Cost</th>
+		<th>Sold For:</th>
+	</tr>
+
+	
+	
+	
+	
+	<% if !@items.blank? %>
+	  <% for item in @items %>
+	    <tr>
+			<td><%= item.customer.full_name%></td>
+			<td>#<%= item.itemable.policy_number %></td>
+			<td><%= item.itemable.policy_type %></td>
+			<td><%= item.vendor.name %></td>
+			<td><%= number_to_currency(item.cost) %></td>
+			<td><%= number_to_currency(item.price) %></td>
+		</tr>
+	  <% end %>
+	<tr>
+		<td colspan="6" ><hr></td>
+	</tr>
+	<tr>
+		<td colspan="2"><b>Total Sold:</b><br />
+			<%= number_to_currency(@items.collect.sum(&:price)) %>
+		</td>
+		<td colspan="2"><b>Total Cost:</b><br />
+			<%= number_to_currency(@items.collect.sum(&:cost)) %>
+		</td>
+		<td colspan="2"><b>Total Sold:</b><br />
+			<%= number_to_currency((@items.collect.sum(&:price) - (@items.collect.sum(&:cost)))) %>
+		</td>
+	</tr>
+	<% else %>
+	  Nothing here
+	<% end %>
+</table>	
+</p>
