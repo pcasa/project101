@@ -43,7 +43,11 @@ $(document).ready(function() {
 
 <%= semantic_form_for [current_company, @insurance_policy] do |f| -%>
    <%= f.inputs do %>
-	  <%= f.input :assigned_company_id, :as => :hidden %>
+<% if current_user.role == "admin" %>
+<p class="extrapadding" style="background-color:red;color:#eee;">  Assigned Location: <%= f.select :assigned_company_id, Company.all.collect { |u| [u.name, u.id] }, :selected => f.object.assigned_company_id unless f.object.assigned_company_id.nil? %> </p>
+<% else %>
+<%= f.input :assigned_company_id, :as => :hidden %>
+<% end %>
 	  <%= f.input :parent_company_id, :as => :hidden %>
 	  <%= f.input :parent_id, :as => :hidden %>
 	  <%= f.input :customer_id, :as => :hidden %>
