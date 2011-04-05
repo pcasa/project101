@@ -25,7 +25,7 @@
   <% for insurance_policy in @insurance_policies %>
     <tr>
       <td><%= insurance_policy.policy_number %></td>
-      <td><%= insurance_policy.customer.full_name %></td>
+      <td><%= insurance_policy.customer.full_name unless insurance_policy.customer.blank? %></td>
       <td><%= insurance_policy.vendor.name %></td>
       <td><%= insurance_policy.due_date.strftime("%b %d %Y") %></td>
       <td><%= insurance_policy.cancelled_on %></td>
