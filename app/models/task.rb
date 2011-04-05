@@ -21,9 +21,9 @@ class Task < ActiveRecord::Base
    
     
     # Status based scopes to be combined with the due date and completion time.
-    scope :pending,       where("completed_at IS NULL").order("due_at, id")
-    scope :assigned,      where("completed_at IS NULL AND assigned_to IS NOT NULL").order("due_at, id")
-    scope :completed,     where("completed_at IS NOT NULL").order("completed_at DESC")
+    scope :pending,       where("completed_by IS NULL").order("due_at, id")
+    scope :assigned,      where("completed_by IS NULL AND assigned_to IS NOT NULL").order("due_at, id")
+    scope :completed,     where("completed_by IS NOT NULL").order("completed_by DESC")
     
     # Due date scopes.
     scope :overdue, lambda { where("due_at IS NOT NULL AND due_at < ?", Time.now.midnight).order("due_at ASC")}

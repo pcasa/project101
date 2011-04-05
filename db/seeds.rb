@@ -11,6 +11,28 @@ require 'faker'
 puts "Clearing Addresses"
 Address.delete_all
 
+puts "Clearing Tasks"
+Task.delete_all!
+
+puts "Clearing Orders"
+Order.delete_all
+
+puts "Clearing Items"
+Item.delete_all!
+
+puts "Clearing Insurance Policies"
+InsurancePolicy.delete_all
+
+puts "Clearing Notes"
+Comment.delete_all
+
+puts "Clearing Phones"
+Phone.delete_all
+
+puts "Clearing Customers"
+Customer.delete_all
+
+
 puts "Adding Vendors"
 Vendor.delete_all
 ["Progressive", "Asurance America", "United Auto", "Infinity", "Georgia Mutual"].each do |c|
@@ -104,7 +126,7 @@ d_company = Company.new do |p|
   p.save
 end
 
-puts "Clearing Services, Service Groups and Special Services"
+puts "Clearing Services"
 
 Service.delete_all
 
