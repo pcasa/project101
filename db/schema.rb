@@ -115,7 +115,7 @@ ActiveRecord::Schema.define(:version => 20110404190448) do
     t.decimal  "club_price",                            :precision => 7, :scale => 2
     t.decimal  "monthly_payment",                       :precision => 7, :scale => 2
     t.date     "due_date"
-    t.boolean  "cancelled",                                                           :default => false
+    t.date     "cancelled_on"
     t.boolean  "completed",                                                           :default => false
     t.integer  "number_of_payments_left"
     t.integer  "parent_id"
@@ -127,7 +127,7 @@ ActiveRecord::Schema.define(:version => 20110404190448) do
   add_index "insurance_policies", ["due_date"], :name => "index_insurance_policies_on_due_date"
   add_index "insurance_policies", ["number_of_payments_left"], :name => "index_insurance_policies_on_number_of_payments_left"
   add_index "insurance_policies", ["parent_id"], :name => "index_insurance_policies_on_parent_id"
-  add_index "insurance_policies", ["policy_number", "customer_id", "assigned_company_id", "parent_company_id", "cancelled", "completed", "club_price"], :name => "add_index_to_insurance_policies_pn_ci_aci_pci_c_c_cp"
+  add_index "insurance_policies", ["policy_number", "customer_id", "assigned_company_id", "parent_company_id", "cancelled_on", "completed", "club_price"], :name => "add_index_to_insurance_policies_pn_ci_aci_pci_c_c_cp"
   add_index "insurance_policies", ["policy_type"], :name => "index_insurance_policies_on_policy_type"
 
   create_table "items", :force => true do |t|

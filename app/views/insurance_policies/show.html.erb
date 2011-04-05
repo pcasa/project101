@@ -35,8 +35,8 @@
   <%= @insurance_policy.due_date %>
 </p>
 <p>
-  <strong>Cancelled:</strong>
-  <%= @insurance_policy.cancelled %>
+  <strong>Cancelled on:</strong>
+  <%= @insurance_policy.cancelled_on.strftime('%b %d, %Y') unless @insurance_policy.cancelled_on.blank? %>
 </p>
 <p>
   <strong>Completed:</strong>
@@ -57,6 +57,18 @@
 <p>
   <strong>Monthly Payments:</strong>
   <%= number_to_currency(@insurance_policy.monthly_payment) %>
+</p>
+
+<p>
+	Tasks:
+	<% if !@insurance_policy.tasks.blank? %>
+	  <% for task in @insurance_policy.tasks %>
+	    <%= task.name %> <br />
+	  <% end %>
+	<% else %>
+	  
+	<% end %>
+	
 </p>
 
 <p>

@@ -10,7 +10,6 @@ class InsurancePoliciesController < ApplicationController
 
   def new
     @insurance_policy = InsurancePolicy.new
-    @insurance_policy.setbase
     @insurance_policy.policy_number = params[:policy_number] 
     @insurance_policy.policy_type = params[:policy_type] 
     @insurance_policy.vendor_id = params[:vendor_id] 
@@ -57,6 +56,12 @@ class InsurancePoliciesController < ApplicationController
     @insurance_policy = InsurancePolicy.find(params[:id])
     @insurance_policy.add_new_payment(current_order, current_user.id, current_company, @insurance_policy.parent_company_id, false)
     redirect_to edit_company_order_path(current_company, current_order)
+  end
+  
+  def cancel_policy
+    @insurance_policy = InsurancePolicy.find(params[:id])
+    @insurance_policy.update_attribute(:cancelled_on, Time.now)
+    redirect_to [current_company, @insurance_policy.customer]
   end
   
 end

@@ -71,11 +71,13 @@ $(document).ready(function() {
 			<td><%= f.input :club_price %></td>
 		 	<td><%= f.input :monthly_payment %></td>
 		</tr>
-		<tr>
+		<tr valign="BOTTOM">
 			<td colspan="2">Total number of payments including Down Payment.
 				<%= f.input :number_of_payments_left, :label => "" %>
 			</td>
-		 	<td><%= f.input :due_date, :as => :date_picker, :label => "Date first payment due on" %></td>
+		 	<td>Date first payment due on.<br /><span class="smallertxt">If existing policy, enter next due date.</span>
+				<%= f.input :due_date, :as => :date_picker, :label => "" %>
+			</td>
 		</tr>
 	  </table><br />
 	<% end %>

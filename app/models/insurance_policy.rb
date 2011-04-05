@@ -1,9 +1,9 @@
 class InsurancePolicy < ActiveRecord::Base
   
-    attr_accessible :policy_number, :yearly, :customer_id, :vendor_id, :assigned_company_id, :parent_company_id, :due_date, :cancelled, :completed, :number_of_payments_left, :parent_id, :policy_type, :down_payment, :monthly_payment, :club_price
+    attr_accessible :policy_number, :yearly, :customer_id, :vendor_id, :assigned_company_id, :parent_company_id, :due_date, :cancelled_on, :completed, :number_of_payments_left, :parent_id, :policy_type, :down_payment, :monthly_payment, :club_price
     belongs_to :customer, :class_name => "Customer", :foreign_key => "customer_id"
     belongs_to :vendor, :class_name => "Vendor", :foreign_key => "vendor_id"
-    has_many :children, :class_name => "InsurancePolicy", :foreign_key => "parent_id"
+    has_one :child, :class_name => "InsurancePolicy", :foreign_key => "parent_id"
     belongs_to :parent, :class_name => "InsurancePolicy"
     has_many :items, :as => :itemable
     has_many :tasks, :as => :asset, :dependent => :destroy
@@ -17,11 +17,6 @@ class InsurancePolicy < ActiveRecord::Base
     validates_numericality_of :number_of_payments_left, :down_payment, :monthly_payment, :allow_nil => true
     
     POLICYTYPE = %w[New Renewal Reinstate Existing]
-    
-    
-    def setbase
-      self.attributes = {:cancelled => false, :completed => false}
-    end
     
     
     
@@ -60,14 +55,15 @@ class InsurancePolicy < ActiveRecord::Base
     
     def schedule_policy_task(policy, user_id, current_company_id)
       # First we update policy due_date if not Down Payment
-      unless policy.items.blank? || (policy.items.count == 1)
+      unless policy.items.blank? || (policy.items.count == 1) || !policy.policy_type == "Existing"
         new_due_date = policy.due_date.next_month
         policy.update_attribute(:due_date, new_due_date)
       end
       # Check to see if any tasks associated with Parent Policy
-      # if so we clear them all.
+      # if so we clear them all.  Also update parent to mark as completed
       if (policy.items.count == 1) && !policy.parent_id.blank?
         if policy.policy_type == "Renewal"
+          policy.parent.update_attribute(:completed, true)
          unless policy.parent.tasks.pending.blank?
            policy.parent.tasks.pending.each do |p|
              p.mark_as_completed(user_id)
@@ -89,6 +85,10 @@ class InsurancePolicy < ActiveRecord::Base
         Task.create!(:asset_type => policy.class, :asset_id => policy.id, :user_id => user_id, :assigned_to => user_id, :assigned_company => current_company_id, :category => "call", :name => "Call #{policy.customer.full_name} about renewing there policy.", :due_at => policy.due_date - 5.days)
       end
       policy.decrement!(:number_of_payments_left, 1)
+    end
+    
+    def cancelled?
+      !self.cancelled_on.blank?
     end
     
 end

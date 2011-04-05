@@ -1,7 +1,11 @@
 <p><%= form_for [current_company, @search], :html => {:method => :get} do |f| %>
     Search by Policy Number: <%= f.text_field :policy_number_contains %><br />
-	Cancelled Policies: <%= f.check_box :cancelled_is_true %>
-	Completed Policies: <%= f.check_box :completed_is_true %>
+	
+	
+	Cancelled from:<%= f.text_field :cancelled_on_gt, :class => "ui-date-picker", :value => (f.object.cancelled_on_gt.blank? ? '' : f.object.try(:cancelled_on_gt).try(:strftime,'%b %d %Y')) %> - 
+	
+	to:<%= f.text_field :cancelled_on_lt, :class => "ui-date-picker", :value => (f.object.cancelled_on_lt.blank? ? '' : f.object.try(:cancelled_on_lt).try(:strftime,'%b %d %Y')) %><br />
+	Completed Policies: <%= f.check_box :completed_is_true %><br />
     <%= f.submit "Search", :class => "smallbtn  blue" %>
 <% end %>
 </p>
@@ -13,7 +17,7 @@
     <th><%= sort_link @search, :customer %>	</th>
     <th><%= sort_link @search, :vendor %></th>
     <th><%= sort_link @search, :due_date %></th>
-    <th><%= sort_link @search, :cancelled %></th>
+    <th><%= sort_link @search, :cancelled_on %></th>
     <th><%= sort_link @search, :completed %></th>
     <th><%= sort_link @search, :number_of_payments_left, "Payments Left" %></th>
   </tr>
@@ -24,7 +28,7 @@
       <td><%= insurance_policy.customer.full_name %></td>
       <td><%= insurance_policy.vendor.name %></td>
       <td><%= insurance_policy.due_date.strftime("%b %d %Y") %></td>
-      <td><%= insurance_policy.cancelled %></td>
+      <td><%= insurance_policy.cancelled_on %></td>
       <td><%= insurance_policy.completed %></td>
       <td><%= insurance_policy.number_of_payments_left %></td>
       <td><%= link_to "Show", company_insurance_policy_path(current_company, insurance_policy) %>
