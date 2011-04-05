@@ -41,13 +41,13 @@
 		<td colspan="6" ><hr></td>
 	</tr>
 	<tr>
-		<td colspan="2"><b>Total Sold:</b><br />
+		<td colspan="2" class="biggertxt"><b>Total Sold:</b><br />
 			<%= number_to_currency(@items.collect.sum(&:price)) %>
 		</td>
-		<td colspan="2"><b>Total Cost:</b><br />
+		<td colspan="2" class="biggertxt"><b>Total Cost:</b><br />
 			<%= number_to_currency(@items.collect.sum(&:cost)) %>
 		</td>
-		<td colspan="2"><b>Total Sold:</b><br />
+		<td colspan="2" class="biggertxt"><b>Total Profit:</b><br />
 			<%= number_to_currency((@items.collect.sum(&:price) - (@items.collect.sum(&:cost)))) %>
 		</td>
 	</tr>
