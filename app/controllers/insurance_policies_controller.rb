@@ -11,9 +11,13 @@ class InsurancePoliciesController < ApplicationController
   def new
     @insurance_policy = InsurancePolicy.new
     @insurance_policy.setbase
+    @insurance_policy.policy_number = params[:policy_number] 
+    @insurance_policy.policy_type = params[:policy_type] 
+    @insurance_policy.vendor_id = params[:vendor_id] 
+    @insurance_policy.parent_id = params[:parent_id] 
     @insurance_policy.assigned_company_id = current_company.id
     @insurance_policy.parent_company_id = main_company.id
-    @insurance_policy.customer_id = params[:customer_id] unless params[:customer_id] == nil
+    @insurance_policy.customer_id = params[:customer_id]
   end
 
   def create
@@ -23,6 +27,7 @@ class InsurancePoliciesController < ApplicationController
       @insurance_policy.add_new_payment(current_order, current_user.id, current_company, @insurance_policy.parent_company_id, true)
       redirect_to edit_company_order_path(current_company, current_order)
     else
+      flash[:error] = "Something not right."
       render :action => 'new'
     end
   end
@@ -53,4 +58,5 @@ class InsurancePoliciesController < ApplicationController
     @insurance_policy.add_new_payment(current_order, current_user.id, current_company, @insurance_policy.parent_company_id, false)
     redirect_to edit_company_order_path(current_company, current_order)
   end
+  
 end

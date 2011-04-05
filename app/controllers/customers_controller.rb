@@ -18,6 +18,8 @@ class CustomersController < ApplicationController
   def new
     @company = current_company
     @customer = @company.customers.new(:parent_company_id => main_company.id, :assigned_company_id => current_company.id)
+    
+      phone = @customer.phones.build
   end
 
   def create

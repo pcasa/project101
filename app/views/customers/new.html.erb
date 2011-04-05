@@ -1,9 +1,10 @@
 <% title "New Customer" %>
 
-<%= form_for [current_company, @customer] do |f| %>
+<%= nested_form_for [current_company, @customer] do |f| %>
   <%= f.error_messages %>
     <%= f.hidden_field :parent_company_id %>
     <%= f.hidden_field :assigned_company_id %>
+	
   <p>
 	<table>
 		<tr align=LEFT>
@@ -16,6 +17,13 @@
 		</tr>
 	</table>
   </p>
+	<p>
+		<p><%= f.fields_for :phones do |builder| %>
+			<%= render "phone_fields", :f => builder %>
+		<% end %></p>
+		<div class="clear"></div>
+	<p><%= f.link_to_add "Add phone number", :phones %></p>
+	</p>
   <p><table>
   	<caption> <b>Address</b></caption>
     <tr>
@@ -90,7 +98,7 @@
   </table>
 </p>
   
-  <p><%= f.submit %></p>
+  <p><%= f.submit :class => "green" %></p>
 <% end %>
 
 <p><%= link_to "Back to List", company_customers_path %></p>

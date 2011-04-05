@@ -1,9 +1,16 @@
 <% if !@policies.blank? %>
-  <% @policies.each do |policy| %>
-	<p>Policy #: <%= link_to policy.policy_number, company_insurance_policy_path(current_company, policy) %> - <span class="smallertxt"><%= link_to "Add Policy Payment", company_policy_payment_path(current_company, policy), :class => "smallbtn green whitetxt" %></span>
+  <% @policies.order("id DESC").each do |policy| %>
+	<p>Policy #: <%= link_to policy.policy_number, company_insurance_policy_path(current_company, policy) %> - 
+		<span class="smallertxt">
+			<% unless policy.number_of_payments_left <= 0 %>
+				<%= link_to "Add Policy Payment", company_policy_payment_path(current_company, policy), :class => "smallbtn green whitetxt" %>
+			<% else %>
+				<%= link_to "Renew Policy", new_company_insurance_policy_path(current_company, :policy_number => policy.policy_number, :parent_id => policy.id, :policy_type => "Renewal", :vendor_id => policy.vendor_id, :customer_id => @customer.id), :class => "smallbtn green whitetxt" %>
+			<% end %>
+		</span>
 		</p>
-	<% if !policy.items.blank? %>
-	  <ul><% for item in policy.items %>
+	<% if !policy.items.valid_items.blank? %>
+	  <ul><% for item in policy.items.valid_items %>
 	    <li><%= link_to "Payment made on " + item.created_at.strftime('%m/%d/%y'), company_order_path(current_company, item.order_id) %></li>
 	  <% end %></ul>
 	

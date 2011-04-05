@@ -29,7 +29,7 @@ class Order < ActiveRecord::Base
   
   
   
-  attr_accessible :assigned_company_id, :parent_company_id, :customer_id, :user_id, :closed, :closed_date, :payment_type, :total_cost, :total_amount, :amount_paid, :override, :customer_attributes, :comment_attributes
+  attr_accessible :assigned_company_id, :parent_company_id, :customer_id, :user_id, :closed, :closed_date, :payment_type, :total_cost, :total_amount, :amount_paid, :override, :customer_attributes, :comment_attributes, :items_attributes
   
   accepts_nested_attributes_for :customer, :allow_destroy => true, :reject_if => proc { |obj| obj.blank? }
   accepts_nested_attributes_for :items, :allow_destroy => true, :reject_if => proc { |obj| obj.blank? }
@@ -54,7 +54,7 @@ class Order < ActiveRecord::Base
     #  something like |item|item.itemable_type == "ServiceGroup" || "whatever_else"
     def true_cost
       # convert to array so it doesn't try to do sum on database directly
-      items.to_a.reject{|item|item.itemable_type == "ServiceGroup"}.sum(&:full_price)
+      items.to_a.reject{|item|item.itemable_type == "ServiceGroup"}.sum(&:cost)
     end
     
     
@@ -76,10 +76,14 @@ class Order < ActiveRecord::Base
     end
     
     def close_order
-      self.update_attributes(:closed => true, :closed_date => Date.today, :total_cost => self.true_cost, :total_amount => self.total_price)
-      self.items.each do |item|
-        item.update_attributes(:closed => true, :customer_id => self.customer_id, :user_id => self.user_id)
-        item.schedule_any_tasks
+      if self.closed?
+        self.update_attributes(:total_cost => self.true_cost, :total_amount => self.total_price, :amount_paid => self.amount_received)
+      else
+        self.update_attributes(:closed => true, :closed_date => Date.today, :total_cost => self.true_cost, :total_amount => self.total_price, :amount_paid => self.amount_received)
+        self.items.each do |item|
+          item.update_attributes(:closed => true, :customer_id => self.customer_id, :user_id => self.user_id)
+          item.schedule_any_tasks
+        end
       end
     end
   

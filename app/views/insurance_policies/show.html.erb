@@ -4,6 +4,12 @@
   <strong>Policy Number:</strong>
   <%= @insurance_policy.policy_number %>
 </p>
+<% unless @insurance_policy.parent_id.blank? %>
+<p>
+  <strong>Renewal of:</strong>
+  <%= @insurance_policy.parent_id %>
+</p>
+<% end %>
 <p>
   <strong>Yearly:</strong>
   <%= @insurance_policy.yearly %>

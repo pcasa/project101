@@ -12,14 +12,31 @@
 		<li><a href="#tasks">Tasks</a></li>
 	</ul>
 	<div id="firstTab">
-		<p>
-			<strong>Customer Number:</strong> <%= @customer.customer_number %><br />
-			<br />
-			<strong>Assigned Company:</strong> <%= @assigned_company.name %><br />
-			<br />
-			<strong>Current Address</strong><br />
-			<%= @customer.full_address.html_safe %>
-		</p>
+		<table width="100%">
+			<tr valign=TOP>
+			<td>
+				<p>
+					<strong>Customer Number:</strong> <%= @customer.customer_number %><br />
+					<br />
+					<strong>Assigned Company:</strong> <%= @assigned_company.name %><br />
+					<br />
+					<strong>Current Address</strong><br />
+					<%= @customer.full_address.html_safe %>
+				</p>
+			</td>
+			<td>
+				<p><b>Numbers on File:</b><br /><br />
+				<% if !@customer.phones.blank? %>
+				  <% for phone in @customer.phones %>
+				    <b><%= phone.phone_type.capitalize %></b>: <%= phone.phone_number %><br /><br />
+				  <% end %>
+				<% else %>
+				  No Number on file
+				<% end %></p>
+				
+			</td>	
+			</tr>
+		</table>
 	</div>
 	<div id="tasks">
 		<p>

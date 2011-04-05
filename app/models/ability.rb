@@ -39,7 +39,7 @@ class Ability
       can :add_to_order, :all
       can [:create, :update, :destroy], Item, :closed => false
       can [:verify_current_user, :dashboard], User
-      can :read, [Company, Category, Service, ServiceGroup, Vendor, Order, Item]
+      can :read, [Company, Category, Service, Vendor, Order, Item]
       can [:read, :update], User do |current_user|
         user.id == current_user.id
       end
@@ -50,9 +50,8 @@ class Ability
     if user.role? :manager
       can [:read, :update], User, :role => ["employee", "manager"]
       can :create, User
-      can [:create, :update], [Service, ServiceGroup, Vendor]
+      can [:create, :update], [Service, Vendor]
       can :update, InsurancePolicy
-      can :manage, SpecialService
     end
     if user.role? :admin
       can :manage, :all

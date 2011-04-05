@@ -16,7 +16,6 @@ Project101::Application.routes.draw do
     match '/orders/all_services_popup' => 'orders#all_services_popup', :as => :all_services_popup
     match '/orders/:id/print_order' => 'orders#print_order', :as => :print_order
     match '/services/:id/add_to_order' => 'services#add_to_order', :as => :add_service_to_order
-    match '/service_groups/:id/add_to_order' => 'service_groups#add_to_order', :as => :add_service_groups_to_order
     match '/customers/:customer_id/customer_orders' => 'customers#customer_orders', :as => :customer_orders
     match '/customers/:customer_id/customer_policies' => 'customers#customer_policies', :as => :customer_policies
     match '/customers/:customer_id/customer_addresses' => 'customers#customer_addresses', :as => :customer_addresses
@@ -42,14 +41,13 @@ Project101::Application.routes.draw do
     resources :categories
     resources :addresses
     resources :services
-    resources :special_services
-    resources :service_groups
     resources :customers do 
       resources :tasks
       resources :insurance_policies
       resources :addresses
       resources :items
       resources :comments
+      resources :phones
     end
     
     resources :vendors do 

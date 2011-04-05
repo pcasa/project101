@@ -60,6 +60,13 @@ d_category = Category.new do |c|
   c.save
 end
 
+e_category = Category.new do |c|
+  c.id = 5
+  c.name = "Runner Fees"
+  c.parent_id = 2 
+  c.save
+end
+
 
 
 
@@ -92,20 +99,25 @@ end
 d_company = Company.new do |p| 
   p.id = 4
   p.name = 'Cumming'
-  p.subdomain = 'Comming'
+  p.subdomain = 'Commin'
   p.parent_id = 1
   p.save
 end
 
 puts "Clearing Services, Service Groups and Special Services"
-SpecialService.delete_all
-ServiceGroup.delete_all
+
 Service.delete_all
 
 puts "Adding Services"
-["Title", "Tag", "Runner"].each do |s|
-  Service.create!(:name => s, :short_description => "Short description for #{s}", :price => 10, :cost => 5, :category_id => 1, :new_service => false, :deleted => false, :visible => true) 
-end
+
+
+Service.create!(:name => "Tag & Title", :short_description => "Tag & Title Services", :price => 140, :cost => 40, :category_id => 5, :new_service => true, :deleted => false, :visible => true)
+Service.create!(:name => "Title", :short_description => "Title Services", :price => 88, :cost => 48, :category_id => 5, :new_service => true, :deleted => false, :visible => true)
+Service.create!(:name => "Tag", :short_description => "Tag Services", :price => 140, :cost => 40, :category_id => 5, :new_service => true, :deleted => false, :visible => true)
+Service.create!(:name => "Special Tag", :short_description => "Special Tag Services", :price => 225, :cost => 125, :category_id => 5, :new_service => true, :deleted => false, :visible => true)
+Service.create!(:name => "Tag Renewal", :short_description => "Tag Renewal Services", :price => 50, :cost => 20, :category_id => 5, :new_service => true, :deleted => false, :visible => true)
+Service.create!(:name => "Salvage Title", :short_description => "Salvage Title Services", :price => 370, :cost => 370, :category_id => 5, :new_service => true, :deleted => false, :visible => true)
+Service.create!(:name => "Title Bond", :short_description => "Title Bond Services", :price => 140, :cost => 40, :category_id => 5, :new_service => true, :deleted => false, :visible => true)
 
 
 

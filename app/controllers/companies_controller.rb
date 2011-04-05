@@ -20,7 +20,6 @@ class CompaniesController < ApplicationController
 
   def new
     @company = Company.new
-    @company.addresses.build
   end
 
   def create

@@ -28,15 +28,16 @@ class InsurancePolicy < ActiveRecord::Base
     def add_new_payment(current_order, user_id, assigned_company, parent_company_id, true_or_false)
       # remove one payment since customer is making one now
       payments_left = self.number_of_payments_left - 1
+      
       temp_desc = "Payment on policy #" + self.policy_number + " from " + self.vendor.name + ".  "
       if payments_left > 1
-        temp_desc2 = "You have " + payments_left.to_s + " payments left.  Your next payment is on #{(self.due_date + 30.days).strftime('%b %d %Y')}"
+        temp_desc2 = "You have " + payments_left.to_s + " payments left.  Your next payment is on #{self.when_next_due_date.strftime('%b %d, %Y')}"
       elsif payments_left == 0
         temp_desc2 = "This is your last payment.  If you have any questions about your renewal, please feel free to ask us."
       else
-        temp_desc2 = "You have " + payments_left.to_s + " payment left.  Your renewal is comming up.  Your Renewal will be on #{(self.due_date + 30.days).strftime('%b %d, %Y')}"
+        temp_desc2 = "You have " + payments_left.to_s + " payment left.  Your renewal is comming up.  Your Renewal will be on #{self.when_next_due_date.strftime('%b %d, %Y')}"
       end
-      if !self.items.blank? || self.policy_type == "Existing"
+      if !self.items.valid_items.blank? || self.policy_type == "Existing"
         payment_amount = self.monthly_payment 
         sale_price = self.monthly_payment
       else 
@@ -46,7 +47,7 @@ class InsurancePolicy < ActiveRecord::Base
       full_desc = temp_desc + temp_desc2
       current_order.update_attribute(:customer_id, self.customer_id)
       Item.create!(:name => "Policy Payment", :short_description => full_desc, :visible => true, :new_service => true_or_false, :itemable => self, :user_id => user_id, :customer_id => self.customer_id, :order_id => current_order.id, :parent_company_id => parent_company_id, :assigned_company_id => assigned_company.id, :cost => payment_amount, :price => sale_price, :qty => 1, :category_id => Category.find_by_name("Insurance Policy").id, :vendor_id => self.vendor_id)
-      if !self.items.blank? || self.policy_type == "Existing"
+      if !self.items.valid_items.blank? || self.policy_type == "Existing"
         Item.create!(:name => "Processing Fee", :short_description => "Processing Fee", :visible => true, :new_service => true_or_false, :itemable => assigned_company, :user_id => user_id, :customer_id => self.customer_id, :order_id => current_order.id, :parent_company_id => parent_company_id, :assigned_company_id => assigned_company.id, :cost => "0.00", :price => "2.00", :qty => 1, :category_id => Category.find_by_name("Profit").id)
       end
     end
@@ -65,6 +66,18 @@ class InsurancePolicy < ActiveRecord::Base
         Task.create!(:asset => policy, :user_id => user_id, :assigned_to => user_id, :assigned_company => current_company_id, :category => "call", :name => "Call #{policy.customer.full_name} about renewing there policy.", :due_at => policy.due_date - 5.days)
       end
       policy.decrement!(:number_of_payments_left, 1)
+    end
+    
+    def when_next_due_date
+      # calculate the when next date due
+      if self.items.valid_items.blank?
+        new_due_date = (self.due_date + 30.days)
+      else
+        # adding extra 30 for current payment being made
+        x = ((self.items.valid_items.count * 30) + 30)
+        new_due_date = (self.due_date + x.days)
+      end  
+      return new_due_date
     end
     
 end

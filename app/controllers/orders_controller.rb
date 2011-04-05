@@ -81,7 +81,6 @@ class OrdersController < ApplicationController
   
   def all_services_popup
     @services = Service.all
-    @service_groups = ServiceGroup.all
     render :layout => false
   end
   

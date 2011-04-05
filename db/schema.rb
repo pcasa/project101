@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110331134318) do
+ActiveRecord::Schema.define(:version => 20110404190448) do
 
   create_table "addresses", :force => true do |t|
     t.string   "street1"
@@ -61,6 +61,13 @@ ActiveRecord::Schema.define(:version => 20110331134318) do
     t.string   "name"
     t.string   "subdomain"
     t.integer  "parent_id"
+    t.string   "phone_number"
+    t.string   "street1"
+    t.string   "street2"
+    t.string   "city",         :limit => 64
+    t.string   "state",        :limit => 64
+    t.string   "zipcode",      :limit => 16
+    t.string   "full_address"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -179,19 +186,16 @@ ActiveRecord::Schema.define(:version => 20110331134318) do
   add_index "orders", ["override"], :name => "index_orders_on_override"
   add_index "orders", ["payment_type", "total_cost", "total_amount"], :name => "index_orders_on_payment_type_and_total_cost_and_total_amount"
 
-  create_table "service_groups", :force => true do |t|
-    t.string   "name",              :limit => 64
-    t.string   "short_description", :limit => 256
-    t.decimal  "cost",                             :precision => 7, :scale => 2
-    t.decimal  "price",                            :precision => 7, :scale => 2
-    t.boolean  "new_service"
-    t.boolean  "deleted"
-    t.integer  "category_id"
+  create_table "phones", :force => true do |t|
+    t.string   "phone_number"
+    t.string   "phone_type"
+    t.integer  "customer_id"
+    t.boolean  "disabled",     :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "service_groups", ["name", "short_description", "price", "cost", "new_service", "deleted", "category_id"], :name => "add_index_to_service_groups_n_sd_p_c_ns_da_ci", :unique => true
+  add_index "phones", ["customer_id", "phone_type", "disabled"], :name => "index_phones_on_customer_id_and_phone_type_and_disabled"
 
   create_table "services", :force => true do |t|
     t.string   "name",              :limit => 64
@@ -220,15 +224,6 @@ ActiveRecord::Schema.define(:version => 20110331134318) do
 
   add_index "slugs", ["name", "sluggable_type", "sequence", "scope"], :name => "index_slugs_on_n_s_s_and_s", :unique => true
   add_index "slugs", ["sluggable_id"], :name => "index_slugs_on_sluggable_id"
-
-  create_table "special_services", :force => true do |t|
-    t.integer  "service_id"
-    t.integer  "service_group_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "special_services", ["service_id", "service_group_id"], :name => "add_index_to_special_services_si_sgi", :unique => true
 
   create_table "tasks", :force => true do |t|
     t.integer  "user_id"

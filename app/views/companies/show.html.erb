@@ -37,17 +37,10 @@
 <% end %>
 </table>
 
-<% unless @company.addresses.empty? %>
+<% unless @company.full_address.blank? %>
 
-
-  <% for address in @company.addresses.billing %>
-      <%= address.street1 %><br />
-	  <%= address.street2 %><br />
-	  <%= address.city %><br />
-	  <%= address.state %><br />
-	  <%= address.zipcode %><br />
-	  <%= address.address_type %><br />
-  <% end %>
+<p><b>Address on File:</b><br />
+<%= @company.full_address.html_safe %></p>
 <% end %>
 
 	

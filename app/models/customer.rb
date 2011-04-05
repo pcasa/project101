@@ -3,16 +3,19 @@ class Customer < ActiveRecord::Base
   default_scope order('lastname, firstname')
   
   belongs_to :company, :class_name => "Company", :foreign_key => :parent_company_id
-  attr_accessible :firstname, :lastname, :customer_number, :parent_company_id, :assigned_company_id, :street1, :street2, :city, :state, :zipcode, :full_address, :addresses_attributes, :search, :full_name
+  attr_accessible :firstname, :lastname, :customer_number, :parent_company_id, :assigned_company_id, :street1, :street2, :city, :state, :zipcode, :full_address, :addresses_attributes, :search, :full_name, :phones_attributes
   has_many :addresses, :class_name => "Address", :as => :addressable, :dependent => :destroy
   has_many :insurance_policies, :class_name => "InsurancePolicy"
   has_many :orders
   has_many :items
   has_many :tasks, :as => :asset, :dependent => :destroy
   has_many :comments, :as => :commentable, :dependent => :destroy
+  has_many :phones, :dependent => :destroy
   
   accepts_nested_attributes_for :addresses, :allow_destroy => true, :reject_if => proc { |obj| obj.blank? }
   accepts_nested_attributes_for :comments, :allow_destroy => true, :reject_if => lambda { |a| a[:content].blank? }
+  accepts_nested_attributes_for :phones, :allow_destroy => true, :reject_if => proc { |a| a[:phone_number].blank? }
+  
   
   
   
@@ -20,6 +23,8 @@ class Customer < ActiveRecord::Base
   validates_presence_of :firstname, :lastname, :street1, :city, :state, :zipcode, :message => "can't be blank"
   before_save :update_full_address
   before_update :check_if_address_changed
+  
+  
   
   
   include ActiveModel::Dirty

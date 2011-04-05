@@ -40,6 +40,7 @@ $(document).ready(function() {
 </script>
 <% end %>
 <%= semantic_form_for [current_company, @insurance_policy] do |f| -%>
+<%= f.error_messages %>
    <%= f.inputs do %>
 	  <%= f.input :assigned_company_id, :as => :hidden %>
 	  <%= f.input :parent_company_id, :as => :hidden %>
