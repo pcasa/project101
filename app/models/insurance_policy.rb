@@ -32,25 +32,26 @@ class InsurancePolicy < ActiveRecord::Base
       end
       temp_desc = "Payment on policy #" + self.policy_number + " from " + self.vendor.name + ".  "
       if payments_left > 1
-        temp_desc2 = "You have " + payments_left.to_s + " payments left.  Your next payment is on #{next_due_date.strftime('%b %d, %Y')}"
+        temp_desc2 = "You have " + payments_left.to_s + " payments left.  Your next payment is on #{next_due_date.strftime('%b %d, %Y')}."
       elsif payments_left == 0
-        temp_desc2 = "This is your last payment.  If you have any questions about your renewal, please feel free to ask us.  Your Renewal is on #{next_due_date.strftime('%b %d, %Y')}"
+        temp_desc2 = "This is your last payment.  If you have any questions about your renewal, please feel free to ask us.  Your Renewal is on #{next_due_date.strftime('%b %d, %Y')}."
       else
         temp_desc2 = "You have " + payments_left.to_s + " payment left. Your next payment is on #{next_due_date.strftime('%b %d, %Y')}.  Your renewal is comming up."
       end
       if !self.items.valid_items.blank? || self.policy_type == "Existing"
         payment_amount = self.monthly_payment 
-        sale_price = self.monthly_payment
+        sale_price = self.monthly_payment + 2.00
+        temp_desc3 = "  Includes $2.00 processing fee."
       else 
         payment_amount = self.down_payment 
         sale_price = payment_amount + club_price
+        temp_desc3 = ""
       end
-      full_desc = temp_desc + temp_desc2
+      full_desc = temp_desc + temp_desc2 + temp_desc3
+      
       current_order.update_attribute(:customer_id, self.customer_id)
       Item.create!(:name => "Policy Payment", :short_description => full_desc, :visible => true, :new_service => true_or_false, :itemable => self, :user_id => user_id, :customer_id => self.customer_id, :order_id => current_order.id, :parent_company_id => parent_company_id, :assigned_company_id => assigned_company.id, :cost => payment_amount, :price => sale_price, :qty => 1, :category_id => Category.find_by_name("Insurance Policy").id, :vendor_id => self.vendor_id)
-      if !self.items.valid_items.blank? || self.policy_type == "Existing"
-        Item.create!(:name => "Processing Fee", :short_description => "Processing Fee", :visible => true, :new_service => true_or_false, :itemable => assigned_company, :user_id => user_id, :customer_id => self.customer_id, :order_id => current_order.id, :parent_company_id => parent_company_id, :assigned_company_id => assigned_company.id, :cost => "0.00", :price => "2.00", :qty => 1, :category_id => Category.find_by_name("Profit").id)
-      end
+      
     end
     
     def schedule_policy_task(policy, user_id, current_company_id)
