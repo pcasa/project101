@@ -184,7 +184,7 @@ ActiveRecord::Schema.define(:version => 20110404190448) do
   add_index "orders", ["closed", "closed_date"], :name => "index_orders_on_closed_and_closed_date"
   add_index "orders", ["customer_id"], :name => "index_orders_on_customer_id"
   add_index "orders", ["override"], :name => "index_orders_on_override"
-  add_index "orders", ["payment_type", "total_cost", "total_amount"], :name => "index_orders_on_payment_type_and_total_cost_and_total_amount"
+  add_index "orders", ["payment_type", "total_cost", "total_amount"], :name => "index_orders_on_pt_tc_ta"
 
   create_table "phones", :force => true do |t|
     t.string   "phone_number"
