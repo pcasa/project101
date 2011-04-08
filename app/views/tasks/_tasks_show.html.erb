@@ -6,7 +6,7 @@
   <% for task in tasks %>
 	<%= form_for [current_company, task] do |f| -%>
 	<tr>
-      <td width="50%"><%= task.name %> Completed? = <%= task.completed? %></td>
+      <td width="50%"><%= task.name %></td>
       <td width="10%"><%= task.category %></td>
       <td width="20%"><%= task.due_at.strftime('%b %d %Y %I:%M %p') %></td>
       <td><%= link_to "Show", company_task_path(current_company, task) %></td>
