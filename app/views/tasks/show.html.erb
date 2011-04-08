@@ -1,48 +1,58 @@
 <% title "Task" %>
 
 <p>
-  <strong>User:</strong>
-  <%= @task.user_id %>
-</p>
-<p>
-  <strong>Assigned To:</strong>
-  <%= @task.assigned_to %>
-</p>
-<p>
-  <strong>Completed By:</strong>
-  <%= @task.completed_by %>
-</p>
-<p>
-  <strong>Assigned Company:</strong>
-  <%= @task.assigned_company %>
-</p>
-<p>
-  <strong>Name:</strong>
-  <%= @task.name %>
-</p>
-<p>
-  <strong>Asset:</strong>
-  <%= @task.asset_id %>
-</p>
-<p>
-  <strong>Asset Type:</strong>
-  <%= link_to_unless @task.asset_type.blank? || @task.asset_id.blank?,  @task.asset_type, [current_company, @task.asset] %>
-</p>
-<p>
-  <strong>Category:</strong>
-  <%= @task.category %>
-</p>
-<p>
-  <strong>Due At:</strong>
-  <%= @task.due_at %>
-</p>
-<p>
-  <strong>Deleted At:</strong>
-  <%= @task.deleted_at %>
+	<table width="100%">
+		<tr>
+			<th>Created By:</th>
+			<th>Assigned to:</th>
+			<th>Assigned company:</th>
+		</tr>
+		<tr>
+			<td><%= @task.user.full_name unless @task.user_id.blank? %></td>
+			<td><%= @task.assignee.full_name unless  @task.assigned_to.blank? %></td>
+			<td><%= @task.company.name unless @task.assigned_company.blank? %></td>
+		</tr>
+		<tr>
+			<th colspan="2">Task name:</th>
+			<th>Due By:</th>
+		</tr>
+		<tr>
+			<td colspan="2"><%= @task.name %></td>
+			<td><%= @task.due_at.strftime(' %b %d, %Y %l:%M %p') %></td>
+		</tr>
+		<tr>
+			<th>Task Category:</th>
+			<th>Concerning:</th>
+			<th>Options</th>
+		</tr>
+		<tr>
+			<td><%= @task.category.titleize %></td>
+			<td>
+				<% if @task.asset_type == "Company" %>
+					<% link_to_asset = company_dashboard_path(current_company) %>
+				<% else %>
+					<% link_to_asset = [current_company, @task.asset]%>
+				<% end %>
+				  <%= link_to_unless @task.asset_type.blank? || @task.asset_id.blank?,  @task.asset_type.titleize, link_to_asset %>
+				
+			</td>
+			<td>
+				<p>
+				  <%= link_to "Edit", edit_company_task_path(current_company, @task) %> |
+				  <%= link_to "Destroy", [current_company, @task], :confirm => 'Are you sure?', :method => :delete %> |
+				  <%= link_to "View All", company_tasks_path(current_company) %> | 
+				<a href="#" class="toggle-comment-form">Add Comment</a>
+				</p>
+			</td>
+		</tr>
+		<tr id="task-comment-form">
+			<td colspan="3">
+				
+				<p><b>Comment:</b>
+				<%= render :partial => "task_comment_form", :locals => { :task => @task }%></p>
+			</td>
+		</tr>
+	</table>
+	
 </p>
 
-<p>
-  <%= link_to "Edit", edit_company_task_path(current_company, @task) %> |
-  <%= link_to "Destroy", [current_company, @task], :confirm => 'Are you sure?', :method => :delete %> |
-  <%= link_to "View All", company_tasks_path(current_company) %>
-</p>

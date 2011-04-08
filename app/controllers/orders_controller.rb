@@ -3,6 +3,8 @@ class OrdersController < ApplicationController
   load_and_authorize_resource
   before_filter :check_if_printable, :only => :print_order
   
+  rescue_from ActiveRecord::RecordNotFound, :with => :no_order_found
+  
   def index
     unless params[:customer_id]
       if current_user.role == "admin"
@@ -38,9 +40,11 @@ class OrdersController < ApplicationController
   def edit
     @order = Order.find(params[:id])
     @comment = @order.build_comment
+    unless params[:customer_id].blank?
+      @customer = Customer.find(params[:customer_id])
+    end
     if @order.customer_id.blank?
       unless params[:customer_id].blank?
-        @customer = Customer.find(params[:customer_id])
         @order.update_attribute(:customer_id, @customer.id)
       else
         @order.customer = @order.build_customer
@@ -48,9 +52,13 @@ class OrdersController < ApplicationController
     else
       unless params[:customer_id].blank?
         if @order.customer_id != params[:customer_id]
+          # Update info on existing items of original customer
+          @order.changed_customer(current_company)
+          # clear the items
+          @order.items = current_order.items
+          @order.update_attribute(:customer_id, @customer.id)
           @order.customer_id = params[:customer_id]
         end
-        @customer = Customer.find(params[:customer_id])
       else
         @customer = Customer.find(@order.customer_id)
       end 
@@ -94,5 +102,9 @@ class OrdersController < ApplicationController
       flash[:alert] = "That Order is not printable!  Only Closed/Invoiced Orders can be printed."
       redirect_to company_dashboard_url(current_company)
     end
+  end
+  
+  def no_order_found
+    redirect_to company_dashboard_url, :alert => "Order not found"
   end
 end

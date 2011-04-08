@@ -1,0 +1,68 @@
+<%= form_for @search, :url => company_admins_completed_tasks_path(current_company), :html => {:method => :get} do |f| %>
+
+<table width="85%">
+	<tr>
+		<td colspan="3"><b>Task Info contains:</b> <%= f.text_field :name_contains %></td>
+	</tr>
+	<tr valign=TOP>
+		<td>
+			<b>Assigned to:</b><br />
+			<% f.collection_checks :assigned_to_in, User.all, :id, :full_name, :class => 'headcheck' do |check| %>
+			   <%= check.box %> <%= check.label %><br />
+			<% end %>
+		</td>
+		<td>
+			<b>Completed by:</b><br />
+			<% f.collection_checks :completed_by_in, User.all, :id, :full_name, :class => 'headcheck' do |check| %>
+			   <%= check.box %> <%= check.label %><br />
+			<% end %>
+		</td>
+		<td>
+			<b>Last updated from:</b><br />
+			<%= f.text_field :deleted_at_gt, :class => "updated-at-datetime", :value => f.object.try(:deleted_at_gt).try(:strftime,'%b %d %Y %H:%M:%S') %><br />
+			<b>To:</b><br />
+			<%= f.text_field :deleted_at_lt, :class => "updated-at-datetime", :value => f.object.try(:deleted_at_lt).try(:strftime,'%b %d %Y %H:%M:%S') %>
+		</td>
+	</tr>
+</table>
+
+
+	
+    <%= f.submit "Search", :class => "smallbtn  blue" %> - <a href="#" id="clear-tf" class="smallbtn blue">Reset Form</a>
+<% end %>
+
+<table width="100%" cellpadding="0" cellspacing="0" border="0">
+	<caption>Sort By</caption>
+  <tr>
+    <th width="25%"><%= sort_link @search, :name, "Task Info" %></th>
+    <th width="18%"><%= sort_link @search, :assigned_to %></th>
+	<th width="18%"><%= sort_link @search, :completed_by %></th>
+    <th width="25%"><%= sort_link @search, :deleted_at %></th>
+  </tr>
+  <% if @tasks.blank? %>
+	<tr>
+		<td colspan="3" align="center">
+			No Tasks Found!
+		</td>
+	</tr>
+  <% else %>
+  <% for task in @tasks %>
+    <tr class="<%= cycle("even", "odd") -%>">
+      <td>
+			<%= task.name %>
+			<% unless task.comment.blank? %>
+			<br /><span style="margin-left:10px;"><b>Comment: </b><%= task.comment.content unless task.comment.content.blank? %></span>
+			<% end %>
+	  </td>
+      <td><%= task.assignee.full_name unless task.assigned_to.blank? %></td>
+	  <td><%= task.completor.full_name unless task.completed_by.blank? %></td>
+      <td>
+			<%= task.updated_at.strftime('%b %d, %Y %l:%M %p') %> | 
+			<%= link_to "Delete", company_admins_completed_tasks_path(current_company, :delete_task_with_id => task.id) %>
+	  </td>
+    </tr>
+  <% end %>
+  <% end %>
+</table>
+
+<%= will_paginate @tasks %>

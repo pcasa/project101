@@ -23,12 +23,14 @@ class Item < ActiveRecord::Base
   belongs_to :vendor, :class_name => "Vendor", :foreign_key => "vendor_id"
   
   
-  attr_accessible :name, :short_description, :category_id, :cost, :price, :qty, :visible, :new_service, :deleted, :closed, :order_id, :customer_id, :itemable, :parent_id, :itemable_type, :itemable_id, :user_id, :assigned_company_id, :parent_company_id, :schedule_any_tasks, :vendor_id
+  attr_accessible :name, :short_description, :category_id, :cost, :price, :qty, :visible, :new_service, :deleted, :closed, :order_id, :customer_id, :itemable, :parent_id, :itemable_type, :itemable_id, :user_id, :assigned_company_id, :parent_company_id, :schedule_any_tasks, :vendor_id, :created_at, :deleted_at, :updated_at
+  
   
   scope :valid_items, where(:closed => true)
   scope :in_orders_with, lambda { |orders, type| where("itemable_type = ?", type.to_s).joins(:order) & orders }
   
   scope :in_orders, lambda { |orders| joins(:order) & orders }
+  scope :only_new_items, where(:new_service => true)
     
     
     

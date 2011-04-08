@@ -4,14 +4,31 @@
 <p><% if !tasks.blank? %>
   <table width="100%" id="task-table">
   <% for task in tasks %>
-    <tr>
-      <td width="50%"><%= task.name %></td>
+	<%= form_for [current_company, task] do |f| -%>
+	<tr>
+      <td width="50%"><%= task.name %> Completed? = <%= task.completed? %></td>
       <td width="10%"><%= task.category %></td>
-      <td width="25%"><%= task.due_at.strftime('%b %d %Y %I:%M %p') %></td>
+      <td width="20%"><%= task.due_at.strftime('%b %d %Y %I:%M %p') %></td>
       <td><%= link_to "Show", company_task_path(current_company, task) %></td>
       <td><%= link_to "Edit", edit_company_task_path(current_company, task) %></td>
-      <td><%= link_to "Delete", company_task_path(current_company, task), :class => "delete-task", :confirm => 'Are you sure?', :method => :delete %></td>
+	  <td><a href="#" class="toggle-comment-form">Add Comment</a></td>
     </tr>
+	<tr id="task-comment-form">
+		<td colspan="6">
+			<% if task.comment.blank? %>
+				<% task.comment = task.build_comment %>
+			<% end %>
+			<%= f.hidden_field :completed_by, :value => current_user.id %>
+			<%= f.fields_for :comment do |build| %>
+				<%= build.hidden_field :commentable_id, :value => task.id %>
+				<%= build.text_area :content, :size => "80x3" %>
+			<% end %><br />
+			<span class="smallertxt"><%= f.submit "Mark as completed", :class => "smallbtn green" %></span>
+		</td>
+	</tr>
+  
+	<% end -%>
+    
 	<tr>
 		<td colspan="6"><hr class="thinHr"></td>
 	</tr>

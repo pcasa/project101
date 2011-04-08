@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110404190448) do
+ActiveRecord::Schema.define(:version => 20110406141544) do
 
   create_table "addresses", :force => true do |t|
     t.string   "street1"
@@ -168,23 +168,23 @@ ActiveRecord::Schema.define(:version => 20110404190448) do
     t.integer  "parent_company_id"
     t.integer  "customer_id"
     t.integer  "user_id"
-    t.boolean  "closed",                                                          :default => false
+    t.boolean  "closed",                            :default => false
     t.datetime "closed_date"
     t.string   "payment_type",        :limit => 16
-    t.decimal  "total_cost",                        :precision => 7, :scale => 2
-    t.decimal  "total_amount",                      :precision => 7, :scale => 2
-    t.decimal  "amount_paid",                       :precision => 7, :scale => 2
+    t.decimal  "total_cost"
+    t.decimal  "total_amount"
+    t.decimal  "amount_paid"
     t.string   "override",            :limit => 6
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   add_index "orders", ["amount_paid"], :name => "index_orders_on_amount_paid"
-  add_index "orders", ["assigned_company_id", "parent_company_id"], :name => "index_orders_on_assigned_company_id_and_parent_company_id"
+  add_index "orders", ["assigned_company_id", "parent_company_id"], :name => "add_index_to_orders_assg_comp_prnt_comp"
   add_index "orders", ["closed", "closed_date"], :name => "index_orders_on_closed_and_closed_date"
   add_index "orders", ["customer_id"], :name => "index_orders_on_customer_id"
   add_index "orders", ["override"], :name => "index_orders_on_override"
-  add_index "orders", ["payment_type", "total_cost", "total_amount"], :name => "index_orders_on_pt_tc_ta"
+  add_index "orders", ["payment_type", "total_cost", "total_amount"], :name => "add_index_to_orders_pt_tc_ta"
 
   create_table "phones", :force => true do |t|
     t.string   "phone_number"

@@ -49,6 +49,13 @@ $(document).ready(function(){
 			});
 			
 			
+			
+			$('.toggle-comment-form').click(function () {
+				$(this).parents('tr').next('tr').toggle('slow');
+				return false;
+			});
+			
+			
 			$('#orders_orders').change(function(){
 				$.ajax({
 					url :'policy_reports/render_my_partial'
@@ -68,12 +75,19 @@ $(document).ready(function(){
 			
 			$("#clear-frf").click(function(){
 				$('#item_search select').val(0);
-				$('#item_search :input:not(:submit)').val('');		
+				$('#item_search :input:not(:submit)').val('');
+				$('#item_search input:checkbox').removeAttr('checked');		
+			});
+			
+			$('#clear-tf').click(function(){
+				$('#task_search select').val(0);
+				$('#task_search :input:not(:submit)').val('');
+				$('#task_search input:checkbox').removeAttr('checked');
 			});
 		    
 			$('input.ui-date-picker').datepicker({ dateFormat: 'M d yy' }); 
 			$('input.ui-datetime-picker, .task-datetime').datetimepicker({ dateFormat: 'M d yy', ampm: true });
-			$('.created-at-datetime').datetimepicker({dateFormat: 'yy-mm-dd ', timeFormat: 'hh:mm:ss ', ampm: false});
+			$('.created-at-datetime, .updated-at-datetime').datetimepicker({dateFormat: 'yy-mm-dd ', timeFormat: 'hh:mm:ss ', ampm: false});
 			
 			
 			

@@ -38,14 +38,22 @@ class TasksController < ApplicationController
 
   def edit
     @task = Task.find(params[:id])
-    @users = User.all
   end
 
   def update
     @task = Task.find(params[:id])
     if @task.update_attributes(params[:task])
-      flash[:notice] = "Successfully updated task."
-      redirect_to company_task_url(current_company, @task)
+      respond_to do |format|  
+        format.html { 
+          if @task.asset == current_company
+            redirect_to company_dashboard_url(current_company), :notice => "Successfully updated task."
+          else
+            redirect_to [current_company, @task.asset], :notice => "Successfully updated task."
+          end
+          
+        }  
+        format.js if request.xhr? 
+      end
     else
       render :action => 'edit'
     end

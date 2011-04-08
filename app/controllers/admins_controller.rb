@@ -6,7 +6,7 @@ class AdminsController < ApplicationController
   end
   
   def deleted_items
-    @items = Item.only_deleted
+    @items = Item.only_deleted.paginate(:page => params[:page], :per_page => 3)
   end
   
   def item_really_destroy
@@ -19,6 +19,20 @@ class AdminsController < ApplicationController
       }
       format.js if request.xhr?
     end
+  end
+  
+  def completed_tasks
+    if params[:delete_task_with_id]
+      if Task.with_deleted.exists?(:id => params[:delete_task_with_id])
+        task = Task.with_deleted.find(params[:delete_task_with_id])
+        task.destroy!
+        flash[:notice] = "Deleted task with id # #{task.id}"
+      end
+    end
+    
+    @search = Task.completed.only_deleted.search(params[:search])
+    @tasks = @search.paginate(:page => params[:page], :per_page => 25)
+    
   end
 
   

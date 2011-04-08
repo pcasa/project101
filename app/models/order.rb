@@ -44,6 +44,11 @@ class Order < ActiveRecord::Base
     
     PAYMENTTYPES = %w[cash credit_card other]
     
+    before_save :save_changes
+    before_update :save_changes
+    
+  include ActiveModel::Dirty
+    
     # totals only items that are not nested in parent_id like service groups.
     def total_price
       # convert to array so it doesn't try to do sum on database directly
@@ -79,10 +84,29 @@ class Order < ActiveRecord::Base
       if self.closed?
         self.update_attributes(:total_cost => self.true_cost, :total_amount => self.total_price, :amount_paid => self.amount_received)
       else
-        self.update_attributes(:closed => true, :closed_date => Date.today, :total_cost => self.true_cost, :total_amount => self.total_price, :amount_paid => self.amount_received)
+        self.update_attributes(:closed => true, :closed_date => Time.now, :total_cost => self.true_cost, :total_amount => self.total_price, :amount_paid => self.amount_received)
         self.items.each do |item|
-          item.update_attributes(:closed => true, :customer_id => self.customer_id, :user_id => self.user_id)
+          item.update_attributes(:closed => true, :customer_id => self.customer_id, :user_id => self.user_id, :created_at => Time.now)
           item.schedule_any_tasks
+        end
+      end
+    end
+    
+    
+    def save_changes
+      if closed_date_changed?
+        self.items.each do |item|
+          item.update_attribute(:created_at, closed_date)
+        end
+      end
+    end
+    
+    def changed_customer(current_company)
+      unless items.blank?
+        customer_info = "<a href='/#{current_company.subdomain}/customers/#{self.customer_id.to_s}'>#{self.customer_id.to_s}</a>"
+        items.each do |item|
+          temp_desc = item.name.to_s + " - Order changed customer.  Original Customer was " + customer_info.to_s
+          item.update_attributes(:name => temp_desc, :deleted_at => Time.now - 2.seconds)
         end
       end
     end

@@ -1,0 +1,11 @@
+<% if task.comment.blank? %>
+	<% task.comment = task.build_comment %>
+<% end %>
+<%= form_for [current_company, task] do |f| -%>
+<%= f.hidden_field :completed_by, :value => current_user.id %>
+<%= f.fields_for :comment do |build| %>
+	<%= build.hidden_field :commentable_id, :value => task.id %>
+	<%= build.text_area :content, :size => "80x3", :class => "lock-text-area" %>
+<% end %><br />
+<span class="smallertxt"><%= f.submit "Mark as completed", :class => "smallbtn green" %></span>
+<% end -%>

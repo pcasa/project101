@@ -1,16 +1,21 @@
 <% title "Edit Task" %>
-
+<% users = User.all %>
 <%= semantic_form_for [current_company, @task] do |f| %>
+<%= f.error_messages %>
   <%= f.inputs do %>
 	<%= f.hidden_field :user_id %>
-	<%= f.input :assigned_to, :as => :select, :collection => @users %>
-	<%= f.input :completed_by, :as => :select, :collection => @users %>
+	<%= f.input :assigned_to, :as => :select, :collection => users %>
+	<%= f.input :completed_by, :as => :select, :collection => users %>
 	<%= f.input :assigned_company, :as => :select, :collection => Company.all %>
 	<%= f.input :name %>
 	<%= f.input :category, :as => :select, :collection => Task::CATEGORY %>
 	<%= f.input :due_at, :as => :datetime_picker %>
 	<%= f.input :asset_type %>
 	<%= f.input :asset_id %>
+	<%= f.semantic_fields_for :comment do |comment| %>
+		<%= comment.input :commentable_id, :as => :hidden %>
+		<%= comment.input :content, :input_html => { :size => "90x3", :class => "lock-text-area"}  %>
+	<% end %>
   	<% end %>
   <%= f.buttons do %>
     <%= f.commit_button %>

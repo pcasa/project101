@@ -25,6 +25,7 @@ Project101::Application.routes.draw do
     match '/insurance_policies/:id/add_policy_payment' => 'insurance_policies#add_policy_payment', :as => :policy_payment
     match '/insurance_policies/:id/cancel_policy' => 'insurance_policies#cancel_policy', :as => :policy_cancel
     match '/admins/item_really_destroy/:item_id/' => 'admins#item_really_destroy', :as => :item_really_destroy
+    get '/admins/completed_tasks' => 'admins#completed_tasks'
     get '/admins/' => 'admins#index'
     get '/admins/deleted_items' => 'admins#deleted_items', :as => :deleted_items
     
@@ -59,7 +60,7 @@ Project101::Application.routes.draw do
     
     resources :comments
     
-    resources :tasks
+    resources :tasks 
     get '/reports' => 'reports#index', :as => :reports
     get '/reports/store_reports' => 'reports#store_reports', :as => :store_reports
     get '/reports/policy_reports' => 'reports#policy_reports', :as => :policy_reports

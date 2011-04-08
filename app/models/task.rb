@@ -14,8 +14,16 @@ class Task < ActiveRecord::Base
   belongs_to  :assignee, :class_name => "User", :foreign_key => :assigned_to
   belongs_to  :completor, :class_name => "User", :foreign_key => :completed_by
   belongs_to  :asset, :polymorphic => true
+  has_one :comment, :as => :commentable, :dependent => :destroy
   
-    attr_accessible :user_id, :assigned_to, :completed_by, :assigned_company, :name, :asset_id, :asset_type, :category, :due_at, :deleted_at, :mark_as_completed, :current_tasks_for
+    attr_accessible :user_id, :assigned_to, :completed_by, :assigned_company, :name, :asset_id, :asset_type, :category, :due_at, :deleted_at, :mark_as_completed, :current_tasks_for, :comment_attributes
+      
+    
+    accepts_nested_attributes_for :comment, :allow_destroy => true, :reject_if => proc { |a| a[:content].blank? }
+    
+    
+    before_update :check_if_notes, :if_user_assigned_delete_task
+    before_save :if_user_assigned_delete_task
     
     
    
@@ -50,6 +58,36 @@ class Task < ActiveRecord::Base
     def mark_as_completed(user_id)
       self.update_attributes(:completed_by => user_id, :deleted_at => Time.now)
     end
+    
+    def mark_completed_and_msg(user_id, msg)
+      if comment.blank?
+        Comment.create!(:commentable_type => self.class, :commentable_id => self.id, :content => msg )
+      else
+        comment.update_attribute(:content, msg)
+      end
+      self.update_attributes(:completed_by => user_id, :deleted_at => Time.now)
+    end
+    
+    def check_if_notes
+      if self.comment.blank? || self.comment.content.blank? || self.comment.content.scan(/[\w-]+/).size <= 2
+        saved = false
+        self.comment.errors[:content] << "You must have a comment and more than 3 words."
+        raise ActiveRecord::Rollback
+      end
+    end
+    
+    def completed?
+      !completed_by.blank?
+    end
+    
+    def if_user_assigned_delete_task
+      if completed?
+        if deleted_at.blank?
+          self.update_attribute(:deleted_at, Time.now)
+        end
+      end
+    end
+    
     
 end
 

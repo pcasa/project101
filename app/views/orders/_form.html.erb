@@ -120,5 +120,11 @@ $(document).ready(function(){
   
   
   
-  <p style="float:right;"><%= f.submit :class => "smallbtn green" %></p>
+  <p style="float:right;">
+	<% unless order.closed? %>
+		<%= f.submit "Print and Invoice", :class => "smallbtn green", :close_order => true %>
+	<% else %>
+		<%= f.submit :class => "smallbtn green" %>
+	<% end %>
+  </p>
 <% end %>

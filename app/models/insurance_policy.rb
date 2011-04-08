@@ -67,6 +67,7 @@ class InsurancePolicy < ActiveRecord::Base
           policy.parent.update_attribute(:completed, true)
          unless policy.parent.tasks.pending.blank?
            policy.parent.tasks.pending.each do |p|
+             Comment.create!(:commentable_type => p.class, :commentable_id => p.id, :content => "Renewed the policy with another one." )
              p.mark_as_completed(user_id)
            end
          end
@@ -76,15 +77,15 @@ class InsurancePolicy < ActiveRecord::Base
       current_policy_task = policy.tasks.first
       if policy.number_of_payments_left > 1
         if current_policy_task.blank?
-          Task.create!(:asset_type => policy.class, :asset_id => policy.id, :user_id => user_id, :assigned_to => user_id, :assigned_company => current_company_id, :category => "call", :name => message, :due_at => policy.due_date - 2.days)
+          Task.create!(:asset_type => policy.class, :asset_id => policy.id, :user_id => user_id, :assigned_company => policy.assigned_company_id, :category => "call", :name => message, :due_at => policy.due_date - 2.days)
         else
-          current_policy_task.mark_as_completed(user_id) 
           Task.create!(current_policy_task.attributes.merge(:due_at => policy.due_date - 2.days, :deleted_at => nil))
         end
       else
-        current_policy_task.mark_as_completed(user_id) unless current_policy_task.blank?
-        Task.create!(:asset_type => policy.class, :asset_id => policy.id, :user_id => user_id, :assigned_to => user_id, :assigned_company => current_company_id, :category => "call", :name => "Call #{policy.customer.full_name} about renewing there policy.", :due_at => policy.due_date - 5.days)
+        Task.create!(:asset_type => policy.class, :asset_id => policy.id, :user_id => user_id, :assigned_company => policy.assigned_company_id, :category => "call", :name => "Call #{policy.customer.full_name} about renewing there policy.", :due_at => policy.due_date - 5.days)
       end
+      Comment.create!(:commentable_type => current_policy_task.class, :commentable_id => current_policy_task.id, :content => "Made a policy payment.") unless current_policy_task.blank?
+      current_policy_task.mark_as_completed(user_id) unless current_policy_task.blank?
       policy.decrement!(:number_of_payments_left, 1)
     end
     

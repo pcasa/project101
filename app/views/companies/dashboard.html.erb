@@ -5,8 +5,8 @@
 		<tr valign=TOP>
 			<td>
 				
-			<div id="overdue-tasks"><%= render :partial => "tasks/tasks_show", :locals => { :tasks => current_tasks.overdue, :title => "overdue" }%></div>	
-			<div id="due-today-tasks"><%= render :partial => "tasks/tasks_show", :locals => { :tasks => current_tasks.due_today, :title => "due_today" }%></div>
+			<div id="overdue-tasks"><%= render :partial => "tasks/tasks_show", :locals => { :tasks => current_tasks.pending.overdue, :title => "overdue" }%></div>	
+			<div id="due-today-tasks"><%= render :partial => "tasks/tasks_show", :locals => { :tasks => current_tasks.pending.due_today, :title => "due_today" }%></div>
 			</td>
 		</tr>
 	</table>

@@ -8,15 +8,16 @@
   <% for item in @items %>
     
    		<%= content_tag_for(:tr, item) do %>
-   			<td><%= item.name %></td>
+   			<td><%= item.name.html_safe %></td>
 			<td><%= item.price %></td>
 			<td><%= item.user.firstname unless item.user_id.blank? %></td>
 			<td><%= link_to "See order", company_order_path(item.assigned_company, item.order) %> </td>
-			<td><%= link_to "Really Delete", company_item_really_destroy_path(current_company, item), :remote => true %></td>
+			<td><%= link_to "Really Delete", company_item_really_destroy_path(current_company, item), :remote => true, :class => "delete-tr-item" %></td>
    		<% end %>
     
   <% end %>
 </table>
+<%= will_paginate @items %>
 <% else %>
   <p>Nothing has been deleted.</p>
 <% end %>

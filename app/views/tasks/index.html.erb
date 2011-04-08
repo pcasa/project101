@@ -6,9 +6,9 @@
 <hr>
 </div>
 <% title "Tasks" %>
-<%= render :partial => "tasks_show", :locals => { :tasks => @tasks.overdue, :title => "overdue" }%>
-<%= render :partial => "tasks_show", :locals => { :tasks => @tasks.due_today, :title => "due_today" }%>
-<%= render :partial => "tasks_show", :locals => { :tasks => @tasks.due_tomorrow, :title => "due_tomorrow" }%>	
-<%= render :partial => "tasks_show", :locals => { :tasks => @tasks.due_this_week, :title => "due_this_week" }%>
-<%= render :partial => "tasks_show", :locals => { :tasks => @tasks.due_next_week, :title => "due_next_week" }%>
-<%= render :partial => "tasks_show", :locals => { :tasks => @tasks.due_later, :title => "due_later" }%>
+<%= render :partial => "tasks_show", :locals => { :tasks => @tasks.pending.overdue, :title => "overdue" }%>
+<%= render :partial => "tasks_show", :locals => { :tasks => @tasks.pending.due_today, :title => "due_today" }%>
+<%= render :partial => "tasks_show", :locals => { :tasks => @tasks.pending.due_tomorrow, :title => "due_tomorrow" }%>	
+<%= render :partial => "tasks_show", :locals => { :tasks => @tasks.pending.due_this_week, :title => "due_this_week" }%>
+<%= render :partial => "tasks_show", :locals => { :tasks => @tasks.pending.due_next_week, :title => "due_next_week" }%>
+<%= render :partial => "tasks_show", :locals => { :tasks => @tasks.pending.due_later, :title => "due_later" }%>

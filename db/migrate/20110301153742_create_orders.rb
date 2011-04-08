@@ -14,7 +14,7 @@ class CreateOrders < ActiveRecord::Migration
       t.string :override, :limit => 6
       t.timestamps
     end
-    add_index(:orders, [:assigned_company_id, :parent_company_id])
+    add_index(:orders, [:assigned_company_id, :parent_company_id], :name => "add_index_to_orders_assg_comp_prnt_comp")
     add_index(:orders, :customer_id)
     add_index(:orders, [:closed, :closed_date])
     add_index(:orders, [:payment_type, :total_cost, :total_amount], :name => "add_index_to_orders_pt_tc_ta")

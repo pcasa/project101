@@ -531,6 +531,17 @@ form.formtastic fieldset.buttons ol li.commit input {
 
 #new-comment-form .content {
 	resize: none;
+	overflow: auto
+}
+
+.lock-text-area {
+	resize: none;
+	overflow: auto
+}
+
+#task-comment-form{
+	height: 90px;
+	display: none;
 }
 
 
