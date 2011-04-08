@@ -1,14 +1,14 @@
 <% if !@orders.blank? %>
   <% @orders.each do |order| %>
-	<%= link_to "Order #" + order.id.to_s, company_order_path(current_company, order) %><br />
+	<p><%= link_to "Order #" + order.id.to_s, company_order_path(current_company, order) %><br />
 	<% if !order.items.blank? %>
-		<p><% order.items.each do |item| %>
+		<% order.items.each do |item| %>
 			<%= item.name %><br />
 		<% end %>
-		</p>
+		
 	<% else %>
 		This order has nothing in it!<br />
-	<% end %>
+	<% end %></p>
 	<br />
   <% end %>
 <% else %>
