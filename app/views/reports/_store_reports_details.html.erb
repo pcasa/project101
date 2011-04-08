@@ -30,7 +30,7 @@
 						<td><b>Cost:</b><br />
 							<%= number_to_currency(@items.collect.sum(&:cost)) %>
 						</td>
-						<td><b>Profie:</b><br />
+						<td><b>Profit:</b><br />
 							<%= number_to_currency((@items.collect.sum(&:price)) - (@items.collect.sum(&:cost))) %>
 						</td>
 					</tr>

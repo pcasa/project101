@@ -9,7 +9,7 @@
     
    		<%= content_tag_for(:tr, item) do %>
    			<td><%= item.name.html_safe %></td>
-			<td><%= item.price %></td>
+			<td><%= number_to_currency(item.price) %></td>
 			<td><%= item.user.firstname unless item.user_id.blank? %></td>
 			<td><% if Order.exists?(item.order_id)%>
 					<%= link_to "See order", company_order_path(item.assigned_company, item.order) %>
