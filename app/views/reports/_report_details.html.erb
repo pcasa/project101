@@ -27,7 +27,7 @@
 	    <tr>
 			<td><%= item.customer.full_name%></td>
 			<td>#<%= item.itemable.policy_number %></td>
-			<% if item.itemable.items.count == 1  %>
+			<% if !item.new_service?  %>
 				<td>Policy Payment</td>
 			<% else %>
 				<td><%= item.itemable.policy_type %></td>
