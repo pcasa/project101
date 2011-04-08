@@ -48,11 +48,11 @@ class InsurancePolicy < ActiveRecord::Base
         temp_desc3 = ""
       end
       full_desc = temp_desc + temp_desc2 + temp_desc3
-      
       current_order.update_attribute(:customer_id, self.customer_id)
-      Item.create!(:name => "Policy Payment", :short_description => full_desc, :visible => true, :new_service => true_or_false, :itemable => self, :user_id => user_id, :customer_id => self.customer_id, :order_id => current_order.id, :parent_company_id => parent_company_id, :assigned_company_id => assigned_company.id, :cost => payment_amount, :price => sale_price, :qty => 1, :category_id => Category.find_by_name("Insurance Policy").id, :vendor_id => self.vendor_id)
-      
+      Item.create!(:name => "Policy Payment", :short_description => full_desc, :visible => true, :new_service => true_or_false, :itemable => self, :user_id => user_id, :customer_id => self.customer_id, :order_id => current_order.id, :parent_company_id => parent_company_id, :assigned_company_id => assigned_company.id, :cost => payment_amount, :price => sale_price, :qty => 1, :category_id => Category.find_by_name("Insurance Policy").id, :vendor_id => self.vendor_id)      
     end
+    
+    
     
     def schedule_policy_task(policy, user_id, current_company_id)
       # First we update policy due_date if not Down Payment
@@ -67,7 +67,7 @@ class InsurancePolicy < ActiveRecord::Base
           policy.parent.update_attribute(:completed, true)
          unless policy.parent.tasks.pending.blank?
            policy.parent.tasks.pending.each do |p|
-             Comment.create!(:commentable_type => p.class, :commentable_id => p.id, :content => "Renewed the policy with another one." )
+             Comment.create!(:commentable_type => p.class, :commentable_id => p.id, :content => "System Note - Renewed the policy with another one." )
              p.mark_as_completed(user_id)
            end
          end
@@ -84,7 +84,7 @@ class InsurancePolicy < ActiveRecord::Base
       else
         Task.create!(:asset_type => policy.class, :asset_id => policy.id, :user_id => user_id, :assigned_company => policy.assigned_company_id, :category => "call", :name => "Call #{policy.customer.full_name} about renewing there policy.", :due_at => policy.due_date - 5.days)
       end
-      Comment.create!(:commentable_type => current_policy_task.class, :commentable_id => current_policy_task.id, :content => "Made a policy payment.") unless current_policy_task.blank?
+      Comment.create!(:commentable_type => current_policy_task.class, :commentable_id => current_policy_task.id, :content => "System Note - Made a policy payment.") unless current_policy_task.blank?
       current_policy_task.mark_as_completed(user_id) unless current_policy_task.blank?
       policy.decrement!(:number_of_payments_left, 1)
     end
