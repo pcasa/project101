@@ -7,10 +7,14 @@ class InsurancePolicy < ActiveRecord::Base
     belongs_to :parent, :class_name => "InsurancePolicy"
     has_many :items, :as => :itemable
     has_many :tasks, :as => :asset, :dependent => :destroy
+    has_many :comments, :as => :commentable
     
     scope :new_policies, where("policy_type='New'")
     scope :renewal, where("policy_type='Renewal'")
     scope :reinstated, where("policy_type='Reinstate'")
+    
+    scope :with_comments, :joins => :comments, 
+                                  :order => "comments.created_at DESC"
     
     validates_presence_of :policy_number, :customer_id, :vendor_id, :due_date, :number_of_payments_left, :policy_type, :down_payment, :monthly_payment, :club_price, :message => "can't be blank"
     

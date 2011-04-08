@@ -6,7 +6,7 @@ class AdminsController < ApplicationController
   end
   
   def deleted_items
-    @items = Item.only_deleted.paginate(:page => params[:page], :per_page => 3)
+    @items = Item.only_deleted.paginate(:page => params[:page], :per_page => 25)
   end
   
   def item_really_destroy

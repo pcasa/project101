@@ -30,7 +30,8 @@ $(document).ready(function(){
 			});
 			$(".new-task-form").bind('ajax:success', function(evt, data, status, xhr){
 			    var $this = $(this);
-			    $this.find('input:text,textarea').val('');	
+			    $this.find('input:text,textarea').val('');
+					
 			  });
 			$(".close-dashboard-tasks").click(function(){
 				$("#dashboard-tasks").slideUp("slow");

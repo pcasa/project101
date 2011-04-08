@@ -1,39 +1,85 @@
 <% if !@policies.blank? %>
-  <% @policies.order("id DESC").each do |policy| %>
-	<p>Policy #: <%= link_to policy.policy_number, company_insurance_policy_path(current_company, policy) %> - 
-		<span class="smallertxt">
-			<% unless policy.number_of_payments_left <= 0 || policy.cancelled? %>
-				<%= link_to "Add Policy Payment", company_policy_payment_path(current_company, policy), :class => "smallbtn green whitetxt" %> | <%= link_to "Cancel Policy", company_policy_cancel_path(current_company, policy), :class => "smallbtn green whitetxt", :confirm => 'Are you sure you want to cancel this policy?' %>
-			<% else %>
-				<% if policy.child.blank? %>
-					<% unless policy.cancelled? %>
-						<%= link_to "Renew Policy", new_company_insurance_policy_path(current_company, :policy_number => policy.policy_number, :parent_id => policy.id, :policy_type => "Renewal", :vendor_id => policy.vendor_id, :customer_id => @customer.id), :class => "smallbtn green whitetxt" %>
-					<% else %>
-						<%= link_to "Reinstate Policy", new_company_insurance_policy_path(current_company, :policy_number => policy.policy_number, :parent_id => policy.id, :policy_type => "Reinstate", :vendor_id => policy.vendor_id, :customer_id => @customer.id), :class => "smallbtn green whitetxt" %>
+  <table width="100%" border="0">
+	<tr valign="TOP">
+		<td width="60%">
+			<% @policies.order("id DESC").each do |policy| %>
+				<p>Policy #: <%= link_to policy.policy_number, company_insurance_policy_path(current_company, policy) %> - 
+					<span class="smallertxt">
+						<% unless policy.number_of_payments_left <= 0 || policy.cancelled? %>
+							<%= link_to "Add Policy Payment", company_policy_payment_path(current_company, policy), :class => "smallbtn green whitetxt" %> | <%= link_to "Cancel Policy", company_policy_cancel_path(current_company, policy), :class => "smallbtn green whitetxt", :confirm => 'Are you sure you want to cancel this policy?' %>
+						<% else %>
+							<% if policy.child.blank? %>
+								<% unless policy.cancelled? %>
+									<%= link_to "Renew Policy", new_company_insurance_policy_path(current_company, :policy_number => policy.policy_number, :parent_id => policy.id, :policy_type => "Renewal", :vendor_id => policy.vendor_id, :customer_id => @customer.id), :class => "smallbtn green whitetxt" %>
+								<% else %>
+									<%= link_to "Reinstate Policy", new_company_insurance_policy_path(current_company, :policy_number => policy.policy_number, :parent_id => policy.id, :policy_type => "Reinstate", :vendor_id => policy.vendor_id, :customer_id => @customer.id), :class => "smallbtn green whitetxt" %>
+								<% end %>
+							<% else %>
+							Carried over to policy: <%= link_to policy.child.policy_number, [current_company, policy.child]%>
+							<% end %>
+						<% end %>
+					</span><br />
+					<% if policy.cancelled? %>
+					Cancelled on: <%= policy.cancelled_on.strftime('%b %d, %Y')%>
 					<% end %>
+					<% unless policy.completed? || policy.cancelled?%>
+					Next Payment Due on: <%= policy.due_date.strftime('%b %d, %Y')%> | Payments Left: <%= policy.number_of_payments_left.to_s %>
+					<% end %>
+					</p>
+				<% if !policy.items.valid_items.blank? %>
+				  <ul><% for item in policy.items.valid_items %>
+				    <li><%= link_to item.name + " on " + item.created_at.strftime('%m/%d/%y'), company_order_path(current_company, item.order_id) %></li>
+				  <% end %></ul>
+					<table>
+						<tr>
+							<td><a href="#" class="toggle-comment-form">Add Note to <%= policy.policy_number %></a></td>
+						</tr>
+						<tr id="task-comment-form">
+							<td>
+								<% form_for [current_company, Comment.new], :remote => true do |f| -%>
+								  <%= f.hidden_field :commentable_type, :value => policy.class %>
+								  <%= f.hidden_field :commentable_id, :value => policy.id %>
+								  <%= f.text_area :content, :size => "40x3", :class => "lock-text-area content" %><br />
+								  <%= f.submit :class => "smallertxt green" %>
+								<% end -%>
+							</td>
+						</tr>
+						<tr>
+							<td><hr /></td>
+						</tr>
+					</table>
+
 				<% else %>
-				Carried over to policy: <%= link_to policy.child.policy_number, [current_company, policy.child]%>
+				   No policy payments have been made.
 				<% end %>
-			<% end %>
-		</span><br />
-		<% if policy.cancelled? %>
-		Cancelled on: <%= policy.cancelled_on.strftime('%b %d, %Y')%>
-		<% end %>
-		<% unless policy.completed? || policy.cancelled?%>
-		Next Payment Due on: <%= policy.due_date.strftime('%b %d, %Y')%> | Payments Left: <%= policy.number_of_payments_left.to_s %>
-		<% end %>
-		</p>
-	<% if !policy.items.valid_items.blank? %>
-	  <ul><% for item in policy.items.valid_items %>
-	    <li><%= link_to "Payment made on " + item.created_at.strftime('%m/%d/%y'), company_order_path(current_company, item.order_id) %></li>
-	  <% end %></ul>
-	
-		
-	
-	<% else %>
-	   No policy payments have been made.
-	<% end %>
-  <% end %>
+			  <% end %>
+		</td>
+		<td>Policy Notes:<br />
+			<div id="customer-comments">
+				<% comments = Comment.where(:commentable_id => @policies, :commentable_type => "InsurancePolicy") %>
+				<% if !comments.blank? %>
+				  <% for comment in comments %>
+					<%= render :partial => "common/comment", :locals => {:comment => comment }%>
+					
+				  <% end %>
+				<% else %>
+				  No Notes for Any policy
+				<% end %>
+			</div>
+			
+			
+		</td>
+	</tr>
+  </table>
 <% else %>
   <p>Does not have any Insurance Policies.</p>
 <% end %>
+
+<script>
+$(document).ready(function(){
+	$('.toggle-comment-form').click(function () {
+		$(this).parents('tr').next('tr').toggle('slow');
+		return false;
+	});
+});
+</script>
