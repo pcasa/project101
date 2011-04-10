@@ -1,6 +1,5 @@
 <% title "Orders" %>
-
-<table width="100%" border=1>
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
   <tr>
 	<th>Order ID:</th>
     <th>Location Closed At:</th>
@@ -11,7 +10,7 @@
 	<th>Paid</th>
   </tr>
   <% for order in @orders %>
-    <tr>
+    <tr class="<%= cycle("even", "odd") -%>">
 	  <td>
 		  <% if order.assigned_company_id.blank? %>
 		    <%= order.id %>
@@ -36,4 +35,3 @@
     </tr>
   <% end %>
 </table>
-
