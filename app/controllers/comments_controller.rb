@@ -16,10 +16,9 @@ class CommentsController < ApplicationController
   def create
     @comment = Comment.new(params[:comment])
     if @comment.save
-      
-      flash[:notice] = "Successfully created comment."
       respond_to do |format|  
         format.html { 
+          flash[:notice] = "Successfully created comment."
           if @comment.commentable == current_company
             redirect_to company_dashboard_url(current_company)
           else
@@ -32,7 +31,7 @@ class CommentsController < ApplicationController
         }
       end
     else
-      redirect_to company_dashboard_url(current_company), :notice => "It Failed"
+      redirect_to company_dashboard_url(current_company), :error => "Failed to create comment."
     end
   end
   

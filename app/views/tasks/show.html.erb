@@ -45,6 +45,16 @@
 				</p>
 			</td>
 		</tr>
+		<tr>
+			<td colspan="3">Comment:
+				<% if !@task.comment.blank? %>
+				  <%= @task.comment.content %>
+				<% else %>
+				NOT see it.
+				<% end %>
+				
+			</td>
+		</tr>
 		<tr id="task-comment-form">
 			<td colspan="3">
 				

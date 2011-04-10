@@ -1,0 +1,29 @@
+<% title "Endorsements" %>
+
+<table>
+  <tr>
+    <th>Insurance Policy</th>
+    <th>Name</th>
+    <th>Partial Payment</th>
+	<th>Previous Payment Amount:</th>
+    <th>Partial Payment Amount</th>
+    <th>New Payment Amount</th>
+    <th>Invoiced</th>
+  </tr>
+  <% for endorsement in @endorsements %>
+    <tr>
+      <td><%= endorsement.insurance_policy_id %></td>
+      <td><%= endorsement.name %></td>
+      <td><%= endorsement.partial_payment %></td>
+	  <td><%= endorsement.previous_payment_amount %></td>
+      <td><%= endorsement.partial_payment_amount %></td>
+      <td><%= endorsement.new_payment_amount %></td>
+      <td><%= endorsement.invoiced %></td>
+      <td><%= link_to "Show", [current_company, @insurance_policy, endorsement] %></td>
+      <td><%= link_to "Edit", edit_company_insurance_policy_endorsement_path(current_company, @insurance_policy, endorsement) %></td>
+      <td><%= link_to "Destroy", [current_company, @insurance_policy, endorsement], :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
+
+<p><%= link_to "New Endorsement", new_company_insurance_policy_endorsement_path(current_company, @insurance_policy, endorsement) %></p>

@@ -1,6 +1,9 @@
 
 <div id="show-order">
 	<% title "Order" %>
+
+<%= render :partial => "top-order-notes" %>
+
 <table width="100%" border="0">
 	<tr width="100%">
 		<td wdith="58%" class="silverBG">
@@ -49,7 +52,7 @@
 			<table width="100%">
 				<tr>
 					<td width="45%">Payment Type:</td>
-					<td ALIGN=RIGHT><%= @order.payment_type.titleize %></td>
+					<td ALIGN=RIGHT><%= @order.payment_type.titleize unless @order.payment_type.blank? %></td>
 				</tr>
 				<tr>
 					<td>Total Cost</td>

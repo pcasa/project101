@@ -1,5 +1,7 @@
 Project101::Application.routes.draw do
 
+  
+
   match '/companies' => 'companies#index'
   match '/:company_id/companies' => 'companies#index', :as => :index_company
   match '/:company_id' => 'companies#show', :as => :show_company
@@ -35,6 +37,7 @@ Project101::Application.routes.draw do
     end
     resources :insurance_policies do
       resources :tasks
+      resources :endorsements
     end
     
     resources :orders do

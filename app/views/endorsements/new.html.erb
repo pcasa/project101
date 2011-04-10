@@ -1,0 +1,8 @@
+<% title "New Endorsement" %>
+
+<%= render 'form' %>
+
+<p>
+	<%= link_to "Back to Customer", [current_company, @insurance_policy.customer] %> | 
+	<%= link_to "Back to Policy", [current_company, @insurance_policy.customer, @insurance_policy] %>
+<%= link_to "Back to List", company_insurance_policy_endorsements_path(current_company, @insurance_policy) %></p>

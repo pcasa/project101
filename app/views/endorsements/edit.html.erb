@@ -1,0 +1,8 @@
+<% title "Edit Endorsement" %>
+
+<%= render 'form' %>
+
+<p>
+  <%= link_to "Show", [current_company, @insurance_policy, @endorsement] %> |
+  <%= link_to "View All", company_insurance_policy_endorsements_path(current_company, @insurance_policy) %>
+</p>

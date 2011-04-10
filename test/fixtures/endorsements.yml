@@ -1,0 +1,15 @@
+one:
+  insurance_policy_id: 1
+  name: MyString
+  partial_payment: false
+  partial_payment: 9.99
+  new_payment_amount: 9.99
+  invoiced: false
+
+two:
+  insurance_policy_id: 1
+  name: MyString
+  partial_payment: false
+  partial_payment: 9.99
+  new_payment_amount: 9.99
+  invoiced: false

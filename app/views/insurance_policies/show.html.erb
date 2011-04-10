@@ -1,81 +1,171 @@
 <% title "Insurance Policy" %>
 
-<p>
-  <strong>Policy Number:</strong>
-  <%= @insurance_policy.policy_number %>
-</p>
-<% unless @insurance_policy.parent_id.blank? %>
-<p>
-  <strong>Renewal of:</strong>
-  <%= @insurance_policy.parent_id %>
-</p>
-<% end %>
-<p>
-  <strong>Yearly:</strong>
-  <%= @insurance_policy.yearly %>
-</p>
-<p>
-  <strong>Customer:</strong>
-  <%= link_to @insurance_policy.customer.full_name, company_customer_path(current_company, @insurance_policy.customer) %>
-</p>
-<p>
-  <strong>Vendor:</strong>
-  <%= link_to @insurance_policy.vendor.name, company_vendor_path(current_company, @insurance_policy.vendor) %>
-</p>
-<p>
-  <strong>Assigned Company:</strong>
-  <%= @insurance_policy.assigned_company_id %>
-</p>
-<p>
-  <strong>Parent Company:</strong>
-  <%= @insurance_policy.parent_company_id %>
-</p>
-<p>
-  <strong>Due Date:</strong>
-  <%= @insurance_policy.due_date %>
-</p>
-<p>
-  <strong>Cancelled on:</strong>
-  <%= @insurance_policy.cancelled_on.strftime('%b %d, %Y') unless @insurance_policy.cancelled_on.blank? %>
-</p>
-<p>
-  <strong>Completed:</strong>
-  <%= @insurance_policy.completed %>
-</p>
-<p>
-  <strong>Number Of Payments Left:</strong>
-  <%= @insurance_policy.number_of_payments_left %>
-</p>
-<p>
-  <strong>Down Payment:</strong>
-  <%= number_to_currency(@insurance_policy.down_payment) %>
-</p>
-<p>
-  <strong>Club Price:</strong>
-  <%= number_to_currency(@insurance_policy.club_price) %>
-</p>
-<p>
-  <strong>Monthly Payments:</strong>
-  <%= number_to_currency(@insurance_policy.monthly_payment) %>
-</p>
 
-<p>
-	Tasks:
-	<% if !@insurance_policy.tasks.blank? %>
-	  <% for task in @insurance_policy.tasks %>
-	    <%= task.name %> <br />
-	  <% end %>
-	<% else %>
-	  
-	<% end %>
+<div id="tabs">
+	<ul>
+	    <li><a href="#firstTab">Policy Info</a></li>
+		<li><a href="#secondTab">Endorsements</a></li>
+		<li><a href="#thirdTab">Notes and Tasks</a></li>
 	
-</p>
+	</ul>
+	<div id="firstTab">
+		<p>
+		<table width="100%" border="0">
+			<tr align=LEFT>
+				<th>Customer:</th>
+				<th>Policy Number:</th>
+				<th>Vendor:</th>
+				<th>Due on:</th>
+			</tr>
+			<tr>
+				<td><%= link_to @insurance_policy.customer.full_name, company_customer_path(current_company, @insurance_policy.customer) %></td>
+				<td><%= @insurance_policy.policy_number %></td>
+				<td><%= link_to @insurance_policy.vendor.name, company_vendor_path(current_company, @insurance_policy.vendor) %></td>
+				<td><%= @insurance_policy.due_date.strftime('%b %d, %Y') %></td>
+			</tr>
+			<tr>
+				<td colspan="4">&nbsp;</td>
+			</tr>
+			<tr align=LEFT>
+				<th>Payments Left</th>
+				<th>Down Payment</th>
+				<th>Club</th>
+				<th>Monthly Payment</th>
+			</tr>
+			<tr>
+				<td><%= @insurance_policy.number_of_payments_left %></td>
+				<td><%= number_to_currency(@insurance_policy.down_payment) %></td>
+				<td><%= number_to_currency(@insurance_policy.club_price) %></td>
+				<td><%= number_to_currency(@insurance_policy.monthly_payment) %></td>
+			</tr>
+			<tr>
+				<td colspan="4">&nbsp;</td>
+			</tr>
+			<tr align=LEFT>
+				<th>Yearly Policy?</th>
+				<th>Assigned Company:</th>
+				<th>Cancelled?</th>
+				<th>Policy Completed:</th>
+			</tr>
+			<tr>
+				<td><%= @insurance_policy.yearly %></td>
+				<td><%= @insurance_policy.assigned_company.name unless @insurance_policy.assigned_company_id.blank? %></td>
+				<td><%= @insurance_policy.cancelled_on.strftime('%b %d, %Y') unless @insurance_policy.cancelled_on.blank? %></td>
+				<td><%= @insurance_policy.completed %></td>
+			</tr>
+			<tr>
+				<td colspan="4">&nbsp;</td>
+			</tr>
+			<tr align=LEFT>
+				<th colspan="2">Renewal or Reinstated from:</th>
+				<th colspan="2"></th>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<% unless @insurance_policy.parent_id.blank? %>
+						<%= link_to @insurance_policy.parent.policy_number, company_insurance_policy_path(current_company, @insurance_policy.parent_id) %>
+					<% end %>
+				</td>
+				<td colspan="2"></td>
+			</tr>
+		</table>
+		</p>
+	</div>
+	<div id="secondTab">
+		<p>
+			<b>Endorsements:</b><br />
+			<% if !@insurance_policy.endorsements.valid_endorsement.blank? %>
+			 <table width="100%" border="0" cellpadding="0" cellspacing="0">
+				<tr align=LEFT>
+					<th width="35%">Info:</th>
+					<th width="20%">Partial Payment?</th>
+					<th width="20%">New Payment Amount:</th>
+				</tr>
+			  <% for endorsement in @insurance_policy.endorsements.valid_endorsement %>
+			   	<tr class="<%= cycle("even", "odd") -%>">
+			   		<td><%= link_to endorsement.name, [current_company, @insurance_policy, endorsement] %></td>
+					<td><%= endorsement.partial_payment %></td>
+					<td><%= number_to_currency(endorsement.new_payment_amount) %></td>
+			   	</tr>
+			  <% end %>
+			 </table>
+			<% else %>
+			  No Endorsements.
+			<% end %>
+		</p>
+	</div>
+	<div id="thirdTab">
+		<table width="100%" border=0>
+			<tr valign="TOP">
+				<td width="55%">
+					<p><b>Notes</b><br />
+					<div id="customer-comments">
+						<% if !@insurance_policy.comments.blank? %>
+						  <% for comment in @insurance_policy.comments %>
+							<%= render :partial => "common/comment", :locals => {:comment => comment }%>
+
+						  <% end %>
+						<% else %>
+						  No Notes.
+						<% end %>
+					</div></p>	
+					<table>
+						<tr>
+							<td><a href="#" class="toggle-comment-form">Add Note to <%= @insurance_policy.policy_number %></a></td>
+						</tr>
+						<tr id="task-comment-form">
+							<td>
+								<%= form_for [current_company, Comment.new], :remote => true do |f| -%>
+								  <%= f.hidden_field :commentable_type, :value => @insurance_policy.class %>
+								  <%= f.hidden_field :commentable_id, :value => @insurance_policy.id %>
+								  <%= f.text_area :content, :size => "40x3", :class => "lock-text-area content" %><br />
+								  <%= f.submit :class => "smallertxt green" %>
+								<% end -%>
+							</td>
+						</tr>
+						<tr>
+							<td><hr /></td>
+						</tr>
+					</table>
+
+				</td>
+				<td>
+					<p>
+						<b>Tasks:</b><br />
+						<% if !@insurance_policy.tasks.blank? %>
+						  <% for task in @insurance_policy.tasks %>
+						    <%= task.name %><br />Due on: <%= task.due_at.strftime('%b %d, %Y')%><br /><br />
+						  <% end %>
+						<% else %>
+							No Tasks.
+						<% end %>
+
+					</p>
+				</td>
+			</tr>
+		</table>
+		
+	</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
 
 <p>
-	<%= link_to "Add Policy Payment", company_policy_payment_path(current_company, @insurance_policy) %>
-</p>
-
-<p>
+	<%= link_to "Add Policy Payment", company_policy_payment_path(current_company, @insurance_policy), :class => "smallbtn green" %> | 
   	<%= link_to "Show", company_insurance_policy_path(current_company, @insurance_policy) %>
 	<% if can? :update, @insurance_policy %>
        | <%= link_to "Edit", edit_company_insurance_policy_path(current_company, @insurance_policy) %>

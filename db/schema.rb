@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110406141544) do
+ActiveRecord::Schema.define(:version => 20110409134832) do
 
   create_table "addresses", :force => true do |t|
     t.string   "street1"
@@ -103,6 +103,21 @@ ActiveRecord::Schema.define(:version => 20110406141544) do
   add_index "employmentships", ["company_id", "user_id"], :name => "index_employmentships_on_company_id_and_user_id", :unique => true
   add_index "employmentships", ["company_id"], :name => "index_employmentships_on_company_id"
   add_index "employmentships", ["user_id"], :name => "index_employmentships_on_user_id"
+
+  create_table "endorsements", :force => true do |t|
+    t.integer  "insurance_policy_id"
+    t.string   "name"
+    t.boolean  "partial_payment",                                       :default => false
+    t.decimal  "previous_payment_amount", :precision => 7, :scale => 2
+    t.decimal  "partial_payment_amount",  :precision => 7, :scale => 2
+    t.decimal  "new_payment_amount",      :precision => 7, :scale => 2
+    t.boolean  "invoiced",                                              :default => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "endorsements", ["insurance_policy_id"], :name => "index_endorsements_on_insurance_policy_id"
+  add_index "endorsements", ["partial_payment", "previous_payment_amount", "partial_payment_amount", "new_payment_amount", "invoiced"], :name => "add_index_to_endorsements_pp_ppa_ppa_npa_i"
 
   create_table "insurance_policies", :force => true do |t|
     t.string   "policy_number",           :limit => 24

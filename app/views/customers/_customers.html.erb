@@ -3,7 +3,7 @@
 	<caption>Sort By</caption>
   <tr>
     <th width="25%"><%= sort_link @search, :firstname, "First Name" %></th>
-    <th width="25%"><%= sort_link @search, :lastname %></th>
+    <th width="25%"><%= sort_link @search, :lastname, "Last Name" %></th>
     <th width="20%"><%= sort_link @search, :customer_number %></th>
   </tr>
   <% if @customers.blank? %>

@@ -1,0 +1,34 @@
+
+<%= form_for [current_company, @insurance_policy, @endorsement] do |f| %>
+  <%= f.error_messages %>
+    <%= f.hidden_field :insurance_policy_id, :value => @insurance_policy.id %>
+<table width="100%" cellpadding="5">
+<tr>
+	<th colspan="4">Description:</th>
+	
+</tr>
+<tr>
+	<td colspan="4"><%= f.text_field :name, :size => 100 %></td>
+	
+</tr>
+<tr valign="BOTTOM">
+	<th>Previous Payment Amount:</th>
+	<th>New payment amount</th>
+	<th>If partial payment, how much?</th>
+	<th>
+		Club Price<br />
+		<span class="smallertxt not-bold">1 time fee added.</span>
+	</th>
+</tr>
+<tr>
+	<td><%= f.text_field :previous_payment_amount, :value => @endorsement.get_previous_amount(@insurance_policy), :size => 20 %></td>
+	<td><%= f.text_field :new_payment_amount, :size => 20 %></td>
+	<td><%= f.text_field :partial_payment_amount, :size => 20 %></td>
+	<td><%= f.text_field :club_price, :size => 20 %></td>
+	
+</tr>
+</table>
+
+  
+  <p><%= f.submit %></p>
+<% end %>

@@ -12,7 +12,7 @@ $(document).ready(function(){
 	<% if order.closed? && current_user.role == "admin" %>
 	<p class="extrapadding" style="background-color:red;color:#eee;">  Sold At Location: <%= f.select :assigned_company_id, Company.all.collect { |u| [u.name, u.id] }, :selected => order.assigned_company_id unless order.assigned_company_id.nil? %> | 
 	Sold By: <%= f.select :user_id, User.all.collect { |u| [u.full_name, u.id] }, :selected => order.user_id unless order.user_id.nil? %> <%= f.hidden_field :parent_company_id %> | 
-	Invoice Date: <%= f.text_field :closed_date, :class => "created-at-datetime" %>
+	Invoice Date: <%= f.text_field :formated_closed_date, :class => "created-at-datetime" %>
 	</p>
 	<% else %>
 	<%= f.hidden_field :assigned_company_id %>

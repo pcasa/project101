@@ -46,8 +46,10 @@ class Item < ActiveRecord::Base
     end
     
     def schedule_any_tasks
-      if (self.itemable_type == "InsurancePolicy") && (self.name == "Policy Payment")
-        self.itemable.schedule_policy_task(self.itemable, self.user_id, self.assigned_company_id)
+      if (self.itemable_type == "InsurancePolicy")
+        if name == "Policy Payment" || name == "Endorsement and Policy Payment" || name == "Endorsement Payment"
+          self.itemable.schedule_policy_task(self.itemable, self.user_id, self.assigned_company_id, self)
+        end
       end
     end
 end

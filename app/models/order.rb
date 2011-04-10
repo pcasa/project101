@@ -29,7 +29,9 @@ class Order < ActiveRecord::Base
   
   
   
-  attr_accessible :assigned_company_id, :parent_company_id, :customer_id, :user_id, :closed, :closed_date, :payment_type, :total_cost, :total_amount, :amount_paid, :override, :customer_attributes, :comment_attributes, :items_attributes, :created_at
+  attr_accessible :assigned_company_id, :parent_company_id, :customer_id, :user_id, :closed, :closed_date, :payment_type, :total_cost, :total_amount, :amount_paid, :override, :customer_attributes, :comment_attributes, :items_attributes, :created_at, :formated_closed_date
+  
+  attr_accessor :formated_closed_date
   
   accepts_nested_attributes_for :customer, :allow_destroy => true, :reject_if => proc { |obj| obj.blank? }
   accepts_nested_attributes_for :items, :allow_destroy => true, :reject_if => proc { |obj| obj.blank? }
@@ -48,6 +50,17 @@ class Order < ActiveRecord::Base
     before_update :save_changes
     
   include ActiveModel::Dirty
+  
+  
+  def formated_closed_date
+    closed_date.strftime('%b %d, %Y %I:%M %p')
+  end
+  
+  def formated_closed_date=(time_str)
+     self.closed_date = Time.parse(time_str)
+   end
+  
+  
     
     # totals only items that are not nested in parent_id like service groups.
     def total_price
