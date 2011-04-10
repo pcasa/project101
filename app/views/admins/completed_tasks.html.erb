@@ -1,3 +1,5 @@
+<% title "Completed Tasks" %>
+
 <%= form_for @search, :url => company_admins_completed_tasks_path(current_company), :html => {:method => :get} do |f| %>
 
 <table width="85%">
@@ -19,9 +21,9 @@
 		</td>
 		<td>
 			<b>Last updated from:</b><br />
-			<%= f.text_field :deleted_at_gt, :class => "updated-at-datetime", :value => f.object.try(:deleted_at_gt).try(:strftime,'%b %d %Y %H:%M:%S') %><br />
+			<%= f.text_field :deleted_at_gt, :class => "created-at-datetime", :value => f.object.try(:deleted_at_gt).try(:strftime,'%b %d, %Y %I:%M %p') %><br />
 			<b>To:</b><br />
-			<%= f.text_field :deleted_at_lt, :class => "updated-at-datetime", :value => f.object.try(:deleted_at_lt).try(:strftime,'%b %d %Y %H:%M:%S') %>
+			<%= f.text_field :deleted_at_lt, :class => "created-at-datetime", :value => f.object.try(:deleted_at_lt).try(:strftime,'%b %d, %Y %I:%M %p') %>
 		</td>
 	</tr>
 </table>
