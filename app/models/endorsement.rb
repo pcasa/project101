@@ -6,7 +6,7 @@ class Endorsement < ActiveRecord::Base
   
   scope :valid_endorsement, where(:invoiced => true)
   
-    attr_accessible :insurance_policy_id, :name, :previous_payment_amount, :partial_payment_amount, :new_payment_amount, :club_price, :invoiced
+    attr_accessible :insurance_policy_id, :name, :previous_payment_amount, :partial_payment_amount, :new_payment_amount, :club_price, :invoiced, :user_id
     
     attr_accessor :valid_endorsement, :partial_payment
     

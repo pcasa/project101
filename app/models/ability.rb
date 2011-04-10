@@ -43,7 +43,7 @@ class Ability
       can [:read, :update], User do |current_user|
         user.id == current_user.id
       end
-      can [:read, :create], InsurancePolicy
+      can [:read, :create], [InsurancePolicy, Endorsement]
       can [:create, :update, :my_customers, :read], [Customer, Address]
       can [:index, :store_reports, :policy_reports, :render_my_partial], Report
     end

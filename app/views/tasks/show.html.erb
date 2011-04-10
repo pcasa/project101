@@ -41,8 +41,15 @@
 				  <%= link_to "Edit", edit_company_task_path(current_company, @task) %> |
 				  <%= link_to "Destroy", [current_company, @task], :confirm => 'Are you sure?', :method => :delete %> |
 				  <%= link_to "View All", company_tasks_path(current_company) %> | 
-				<a href="#" class="toggle-comment-form">Add Comment</a>
+				<a href="#" class="toggle-comment-form">Add Comment and Complete</a>
 				</p>
+			</td>
+		</tr>
+		<tr id="task-comment-form">
+			<td colspan="3">
+				
+				<p><b>Comment:</b>
+				<%= render :partial => "task_comment_form", :locals => { :task => @task }%></p>
 			</td>
 		</tr>
 		<tr>
@@ -55,13 +62,7 @@
 				
 			</td>
 		</tr>
-		<tr id="task-comment-form">
-			<td colspan="3">
-				
-				<p><b>Comment:</b>
-				<%= render :partial => "task_comment_form", :locals => { :task => @task }%></p>
-			</td>
-		</tr>
+		
 	</table>
 	
 </p>

@@ -13,7 +13,6 @@ gem 'will_paginate', '~> 3.0.pre2'
 gem 'devise'
 gem 'cancan'
 gem 'formtastic'
-gem 'faker'
 gem 'bcrypt-ruby'
 gem 'friendly_id', '~> 3.2.1'
 gem 'rails3_acts_as_paranoid'
@@ -24,6 +23,7 @@ gem 'nested_form'
 # Delete for production
 
 gem "populator"
+gem 'faker'
 
 # Use unicorn as the web server
 # gem 'unicorn'

@@ -2,3 +2,7 @@ $(".new-task-form").slideUp();
     $("#overdue-tasks").html("<%= escape_javascript(render(:partial => "tasks/tasks_show", :locals => { :tasks => current_tasks.overdue, :title => "overdue" })) %>").effect("highlight", {color:"#b1b1b1"}, 3000);
 
 	$("#due-today-tasks").html("<%= escape_javascript(render(:partial => "tasks/tasks_show", :locals => { :tasks => current_tasks.due_today, :title => "due_today" })) %>").effect("highlight", {color:"#b1b1b1"}, 3000);
+
+
+$('#basic-tasks').append("<%= escape_javascript(render :partial => "common/task", :locals => { :task => @task } ) %>"); // Insert the _comment partial at the bottom of the comments list
+$('.task').last().effect("highlight", {}, 2500);

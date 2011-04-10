@@ -77,15 +77,19 @@
 			<% if !@insurance_policy.endorsements.valid_endorsement.blank? %>
 			 <table width="100%" border="0" cellpadding="0" cellspacing="0">
 				<tr align=LEFT>
-					<th width="35%">Info:</th>
-					<th width="20%">Partial Payment?</th>
-					<th width="20%">New Payment Amount:</th>
+					<th width="25%">Info:</th>
+					<th width="18%">Was Partial Payment?</th>
+					<th width="19%">Payments where:</th>
+					<th width="19%">New Payment Amount:</th>
+					<th width="19%">Created By:</th>
 				</tr>
 			  <% for endorsement in @insurance_policy.endorsements.valid_endorsement %>
 			   	<tr class="<%= cycle("even", "odd") -%>">
 			   		<td><%= link_to endorsement.name, [current_company, @insurance_policy, endorsement] %></td>
-					<td><%= endorsement.partial_payment %></td>
+					<td><%= endorsement.partial_payment? %></td>
+					<td><%= number_to_currency(endorsement.previous_payment_amount) %></td>
 					<td><%= number_to_currency(endorsement.new_payment_amount) %></td>
+					<td><%= endorsement.user.full_name unless endorsement.user_id.blank? %></td>
 			   	</tr>
 			  <% end %>
 			 </table>
@@ -132,14 +136,14 @@
 				<td>
 					<p>
 						<b>Tasks:</b><br />
-						<% if !@insurance_policy.tasks.blank? %>
+						<div id="basic-tasks"><% if !@insurance_policy.tasks.blank? %>
 						  <% for task in @insurance_policy.tasks %>
-						    <%= task.name %><br />Due on: <%= task.due_at.strftime('%b %d, %Y')%><br /><br />
+						    <%= render :partial => "common/task", :locals => {:task => task }%>
 						  <% end %>
 						<% else %>
 							No Tasks.
-						<% end %>
-
+						<% end %></div>
+						<span class="new-task-button"><a href="#" class="smallbtn green smallertxt not-bold whitetxt" >Create new task</a></span> 
 					</p>
 				</td>
 			</tr>
@@ -150,7 +154,9 @@
 
 
 
-
+<div class="new-task-form hidden">
+<p><%= render :partial => "common/new_task", :locals => { :asset => @insurance_policy } %></p>	
+</div>
 
 
 

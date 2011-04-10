@@ -4,25 +4,30 @@
   <strong>Insurance Policy:</strong>
   <%= @endorsement.insurance_policy_id %>
 </p>
+
+<p>
+  <strong>Created by:</strong>
+  <%= @endorsement.user.full_name unless @endorsement.user_id.blank? %>
+</p>
 <p>
   <strong>Name:</strong>
   <%= @endorsement.name %>
 </p>
 <p>
-  <strong>Partial Payment:</strong>
-  <%= @endorsement.partial_payment %>
-</p>
-<p>
   <strong>Previous Payment Amount:</strong>
-  <%= @endorsement.previous_payment_amount %>
+  <%= number_to_currency(@endorsement.previous_payment_amount) %>
 </p>
 <p>
   <strong>Partial Payment Amount:</strong>
-  <%= @endorsement.partial_payment_amount %>
+  <%= number_to_currency(@endorsement.partial_payment_amount) %>
 </p>
 <p>
   <strong>New Payment Amount:</strong>
-  <%= @endorsement.new_payment_amount %>
+  <%= number_to_currency(@endorsement.new_payment_amount) %>
+</p>
+<p>
+  <strong>Club Price:</strong>
+  <%= number_to_currency(@endorsement.club_price) %>
 </p>
 <p>
   <strong>Invoiced:</strong>

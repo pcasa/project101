@@ -4,11 +4,22 @@
     <%= f.hidden_field :insurance_policy_id, :value => @insurance_policy.id %>
 <table width="100%" cellpadding="5">
 <tr>
-	<th colspan="4">Description:</th>
+	<th colspan="3">Description:</th>
+	<th><% if current_user.role == "admin" %>
+		Created By:
+		<% end %>
+	</th>
 	
 </tr>
 <tr>
-	<td colspan="4"><%= f.text_field :name, :size => 100 %></td>
+	<td colspan="3"><%= f.text_field :name, :size => 85 %></td>
+	<td>
+		<% if current_user.role == "admin" %>
+		<%= f.select :user_id, User.all.collect { |u| [u.full_name, u.id] } %>
+		<% else %>
+		<%= f.hidden_field :user_id, :value => current_user.id %>
+		<% end %>
+	</td>
 	
 </tr>
 <tr valign="BOTTOM">
