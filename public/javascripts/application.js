@@ -88,7 +88,7 @@ $(document).ready(function(){
 		    
 			$('input.ui-date-picker').datepicker({ dateFormat: 'M d yy' }); 
 			$('input.ui-datetime-picker, .task-datetime').datetimepicker({ dateFormat: 'M d yy', ampm: true });
-			$('.created-at-datetime, .updated-at-datetime').datetimepicker({dateFormat: 'M d, yy ', ampm: true});
+			$('.created-at-datetime, .updated-at-datetime').datetimepicker({dateFormat: 'M dd, yy ', ampm: true});
 			
 			
 			
