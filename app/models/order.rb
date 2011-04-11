@@ -118,9 +118,9 @@ class Order < ActiveRecord::Base
     
     def changed_customer(current_company)
       unless items.blank?
-        customer_info = "<a href='/#{current_company.subdomain}/customers/#{self.customer_id.to_s}'>Order Changed Cusotmer#{self.customer_id.to_s}</a>"
+        customer_info = "<a href='/#{current_company.subdomain}/customers/#{self.customer_id.to_s}'>#{self.customer_id.to_s}</a>"
         items.each do |item|
-          temp_desc = item.name.to_s + " - " + customer_info.to_s
+          temp_desc = item.name.to_s + " - Order changed customer.  Original Customer was " + customer_info.to_s
           item.update_attributes(:name => temp_desc, :deleted_at => Time.now - 2.seconds)
         end
       end

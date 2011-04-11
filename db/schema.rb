@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110410151930) do
+ActiveRecord::Schema.define(:version => 20110411004947) do
 
   create_table "addresses", :force => true do |t|
     t.string   "street1"
@@ -146,15 +146,15 @@ ActiveRecord::Schema.define(:version => 20110410151930) do
   add_index "insurance_policies", ["policy_type"], :name => "index_insurance_policies_on_policy_type"
 
   create_table "items", :force => true do |t|
-    t.string   "name",                :limit => 64
+    t.string   "name",                :limit => 128
     t.string   "short_description",   :limit => 256
-    t.decimal  "price",                              :precision => 7, :scale => 2
-    t.decimal  "cost",                               :precision => 7, :scale => 2
-    t.integer  "qty",                                                              :default => 1
-    t.boolean  "visible",                                                          :default => true
+    t.decimal  "price"
+    t.decimal  "cost"
+    t.integer  "qty",                                :default => 1
+    t.boolean  "visible",                            :default => true
     t.boolean  "new_service"
-    t.boolean  "deleted",                                                          :default => false
-    t.boolean  "closed",                                                           :default => false
+    t.boolean  "deleted",                            :default => false
+    t.boolean  "closed",                             :default => false
     t.integer  "order_id"
     t.integer  "category_id"
     t.integer  "itemable_id"
@@ -173,8 +173,8 @@ ActiveRecord::Schema.define(:version => 20110410151930) do
   add_index "items", ["customer_id"], :name => "index_items_on_customer_id"
   add_index "items", ["deleted_at"], :name => "index_items_on_deleted_at"
   add_index "items", ["itemable_type", "itemable_id"], :name => "index_items_on_itemable_type_and_itemable_id"
-  add_index "items", ["name", "price", "cost", "qty", "parent_id"], :name => "index_items_on_name_and_price_and_cost_and_qty_and_parent_id"
-  add_index "items", ["new_service", "deleted", "visible", "closed"], :name => "index_items_on_new_service_and_deleted_and_visible_and_closed"
+  add_index "items", ["name", "price", "cost", "qty", "parent_id"], :name => "add_index_to_items_n_p_c_q_pi"
+  add_index "items", ["new_service", "deleted", "visible", "closed"], :name => "add_index_to_items_on_ns_d_v_c"
   add_index "items", ["order_id", "vendor_id"], :name => "index_items_on_order_id_and_vendor_id"
   add_index "items", ["user_id", "assigned_company_id", "parent_company_id"], :name => "add_index_to_items_usr_assgn_comp_prnt_comp"
 
