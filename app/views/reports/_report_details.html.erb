@@ -25,7 +25,13 @@
 	<% if !@items.blank? %>
 	  <% for item in @items %>
 	    <tr>
-			<td><%= item.customer.full_name%></td>
+			<td>
+				<% unless item.customer_id.blank? || !Customer.exists?(item.customer_id) %>
+					<%= item.customer.full_name %>
+				  <% else %>
+					<%= !item.customer_id.blank? ? "Customer ID #{item.customer_id} Deleted!" : "No Customer Assigned" %>
+				  <% end %>
+			</td>
 			<td>#<%= item.itemable.policy_number %></td>
 			<% if !item.new_service?  %>
 				<td>Policy Payment</td>

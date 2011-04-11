@@ -34,7 +34,7 @@
 				  <% end %></ul>
 					<table>
 						<tr>
-							<td><a href="#" class="toggle-comment-form">Add Note to <%= policy.policy_number %></a></td>
+							<td><a href="#" class="toggle-comment-form smallertxt smallbtn green whitetxt">Add Note to <%= policy.policy_number %></a></td>
 						</tr>
 						<tr id="task-comment-form">
 							<td>
@@ -56,7 +56,7 @@
 				<% end %>
 			  <% end %>
 		</td>
-		<td>Policy Notes:<br />
+		<td><h3>Policy Notes:</h3>
 			<div id="customer-comments">
 				<% comments = Comment.where(:commentable_id => @policies, :commentable_type => "InsurancePolicy") %>
 				<% if !comments.blank? %>

@@ -57,11 +57,6 @@ $(document).ready(function(){
 			});
 			
 			
-			$('#orders_orders').change(function(){
-				$.ajax({
-					url :'policy_reports/render_my_partial'
-				});
-			});
 			
 			$('.pagination a').live('click',function (){  
 				            $.getScript(this.href);  

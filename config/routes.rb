@@ -21,7 +21,6 @@ Project101::Application.routes.draw do
     match '/services/:id/add_to_order' => 'services#add_to_order', :as => :add_service_to_order
     match '/customers/:customer_id/customer_orders' => 'customers#customer_orders', :as => :customer_orders
     match '/customers/:customer_id/customer_policies' => 'customers#customer_policies', :as => :customer_policies
-    match '/customers/:customer_id/customer_addresses' => 'customers#customer_addresses', :as => :customer_addresses
     match '/customers/:customer_id/customer_comments' => 'customers#customer_comments', :as => :customer_comments
     
     match '/insurance_policies/:id/add_policy_payment' => 'insurance_policies#add_policy_payment', :as => :policy_payment
@@ -68,7 +67,6 @@ Project101::Application.routes.draw do
     get '/reports/store_reports' => 'reports#store_reports', :as => :store_reports
     get '/reports/policy_reports' => 'reports#policy_reports', :as => :policy_reports
     get '/reports/full_reports' => 'reports#full_reports', :as => :full_reports
-    match '/reports/policy_reports/render_my_partial' => 'reports#render_my_partial', :as => :render_my_partial
   end
   
   resources :companies

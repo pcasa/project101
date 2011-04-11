@@ -3,13 +3,10 @@
 
 <div id="tabs">
 	<ul>
-	    <li><a href="#firstTab">Customer Info</a></li>
-	
+	    <li><a href="#firstTab">Customer Info</a></li>	
 	    <li><%= link_to "Orders Purchased", company_customer_orders_path(current_company, @customer) %> </li>
 	    <li><%= link_to "Insurance Policies", company_customer_policies_path(current_company, @customer) %></li>
-	    <li><%= link_to "Previous Addresses", company_customer_addresses_path(current_company, @customer) %></li>
-	    <li><%= link_to "Notes", company_customer_comments_path(current_company, @customer) %></li>
-		<li><a href="#tasks">Tasks</a></li>
+	    <li><%= link_to "Notes", company_customer_comments_path(current_company, @customer) %></li>		
 	</ul>
 	<div id="firstTab">
 		<table width="100%">
@@ -36,32 +33,51 @@
 				
 			</td>	
 			</tr>
-		</table>
-	</div>
-	<div id="tasks">
-		<p>
-			<% if !@customer.tasks.blank? %>
-			<%= render :partial => "tasks/tasks_show", :locals => {:tasks => @customer.tasks, :title => "Tasks"}%>
-			  
-			<% else %>
-			  No Tasks <%= @customer.full_name.titleize %>
-			<% end %>
-			
-		</p>
-	</div>
+			<tr>
+				<td colspan="2">
+					<div id="tasks">
+						<p>
+							<% if !@customer.tasks.blank? %>
+								<%= render :partial => "tasks/tasks_show", :locals => {:tasks => @customer.tasks, :title => "Tasks"}%>
+							<% else %>
+							  No Tasks <%= @customer.full_name.titleize %>
+							<% end %>
 
-	
-	
+						</p>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<% unless @customer.addresses.blank? %>
+					<br /><hr /	>
+					<strong>Previous Addresses Used:</strong><br />
+						<table width="100%">
+							<% @customer.addresses.in_groups_of(3, false) do |grouped_address| %>
+							    <tr>
+								<% grouped_address.each do |address| %>
+									<td><%= address.street1 %><br />
+									<% unless address.street2.blank? %><%= address.street2 %><br /><% end %>
+									<%= address.city %>, <%= address.state %> <%= address.zipcode %><br />
+									<%= link_to "Remove",  [current_company, @customer, address], :confirm => 'Are you sure?', :method => :delete %></td>
+								<% end %>
+								</tr>
+							<% end %>
+						</table>
+					<% end %>
+					
+				</td>
+			</tr>
+		</table>
+	</div>	
 </div>
 
 
 
-
-
-
-
 <p class="floatRight">
-	<%= link_to "New Order", edit_company_order_path(current_company, current_order, :customer_id => @customer.id), :class => "smallbtn green" %> <%= link_to "New Policy", new_company_customer_insurance_policy_path(current_company, @customer), :class => "smallbtn green"  %>
+	<%= link_to "Create Order", edit_company_order_path(current_company, current_order, :customer_id => @customer.id), :class => "smallbtn green" %> <%= link_to "Add a Policy", new_company_customer_insurance_policy_path(current_company, @customer), :class => "smallbtn green"  %> <span class="new-task-button">
+		<a href="#" class="smallbtn green">Create task for customer</a>
+		</span>
 </p>
 
 
@@ -74,9 +90,7 @@
 	<% if can? :destroy, @customer %>
   <%= link_to "Destroy", [current_company, @customer], :confirm => 'Are you sure?', :method => :delete %> |
 	<% end %>
-  <%= link_to "View All", company_customers_path %> | 	<span class="new-task-button">
-	<a href="#" >Create task for customer</a>
-	</span>
+  <%= link_to "View All", company_customers_path %>
 	<div class="new-task-form hidden">
 	<%= render :partial => "common/new_task", :locals => { :asset => @customer } %>	
 	</div>

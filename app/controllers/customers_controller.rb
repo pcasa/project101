@@ -72,10 +72,6 @@ class CustomersController < ApplicationController
     render :layout => false
   end
   
-  def customer_addresses
-    @customer = Customer.find(params[:customer_id])
-    render :layout => false
-  end
   
   def customer_comments
     @customer = Customer.find(params[:customer_id])

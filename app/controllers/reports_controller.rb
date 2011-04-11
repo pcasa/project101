@@ -18,14 +18,6 @@ class ReportsController < ApplicationController
     end
   end
   
-  def render_my_partial
-    @orders = Order.where(:assigned_company_id => current_company.id)
-      respond_to do |format|
-        format.js if request.xhr?
-      
-    end
-  end
-  
   def full_reports
     if params[:search].blank?
       @search = Item.valid_items.where("created_at >= ?", Time.now.beginning_of_month).search(params[:search])

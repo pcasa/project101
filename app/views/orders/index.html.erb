@@ -29,7 +29,7 @@
 		  <% end %>
 		</td>
       <td><%= order.user.full_name unless order.user_id.blank? %>
-      <td><%= order.closed %></td>
+      <td><%= order.closed ? 'Yes' : 'No' %></td>
 	  <td><%= order.payment_type %></td>
 	  <td><%= order.amount_paid %></td>
       <td><%= link_to "Show", [current_company, order] %></td>

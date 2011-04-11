@@ -18,7 +18,13 @@
 				<th>Due on:</th>
 			</tr>
 			<tr>
-				<td><%= link_to @insurance_policy.customer.full_name, company_customer_path(current_company, @insurance_policy.customer) %></td>
+				<td>
+					<% unless @insurance_policy.customer_id.blank? || !Customer.exists?(@insurance_policy.customer_id) %>
+					    <%= link_to @insurance_policy.customer.full_name, company_customer_path(current_company, @insurance_policy.customer) %>
+					<% else %>
+						<%= !@insurance_policy.customer_id.blank? ? "Customer ID #{@insurance_policy.customer_id} Deleted!" : "No Customer Assigned" %>
+					  <% end %>
+				</td>
 				<td><%= @insurance_policy.policy_number %></td>
 				<td><%= link_to @insurance_policy.vendor.name, company_vendor_path(current_company, @insurance_policy.vendor) %></td>
 				<td><%= @insurance_policy.due_date.strftime('%b %d, %Y') %></td>
