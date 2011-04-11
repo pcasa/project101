@@ -4,7 +4,7 @@
 	<th>Type</th>
 </tr>
 <tr>
-	<td><%= f.text_field :phone_number, :size => 13 %><br /><%= f.link_to_remove "Remove this Number" %></td>
+	<td><%= f.text_field :phone_number, :size => 17 %><br /><%= f.link_to_remove "Remove this Number" %></td>
 	<td><%= f.collection_select :phone_type, Phone::PHONETYPE, :to_s, :humanize %>
 	</td>
 </tr>
