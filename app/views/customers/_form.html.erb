@@ -21,7 +21,7 @@
     <% if current_user.role == "admin" %>
 	  <%= f.text_field :customer_number %>
 	<% else %>
-	  <%= @customer.customer_number %>
+	  <%= f.object.customer_number unless f.object.customer_number.blank? %>
    <% end %>
   <p>
   	<strong>Assigned Company is</strong> - <%= f.collection_select(:assigned_company_id, @companies, :id, :name, :prompt => "Select Main Company") %>
