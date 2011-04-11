@@ -10,12 +10,7 @@
     <strong><%= f.label :lastname %></strong><br />
     <%= f.text_field :lastname %>
   </p>
-<p>
-	<%= f.fields_for :phones do |f| %>
-		<%= render "phone_fields", :f => f %>
-	<% end %>
-	 
-</p>
+
   <p>
     <strong><%= f.label :customer_number %></strong><br />
     <% if current_user.role == "admin" %>
