@@ -22,10 +22,10 @@ class Customer < ActiveRecord::Base
   before_validation(:on => :create){ make_customer_number }
   validates_presence_of :firstname, :lastname, :street1, :city, :state, :zipcode, :message => "can't be blank"
   before_save :update_full_address
-  before_update :check_if_address_changed
+  before_update :check_if_address_changed, :check_if_number_changed
   
   
-  
+
   
   include ActiveModel::Dirty
 
@@ -56,6 +56,24 @@ class Customer < ActiveRecord::Base
   def check_if_address_changed
     if self.street1_changed? || self.street2_changed? || self.city_changed? || self.state_changed? || self.zipcode_changed?
       Address.create!(:street1 => self.street1_was, :street2 => self.street2_was, :city => self.city_was, :state => self.state_was, :zipcode => self.zipcode_was, :addressable_type => "Customer", :addressable_id => self.id, :full_address => self.full_address, :address_type => "Customer")
+    end
+  end
+  
+  def check_if_number_changed
+    unless self.phones.blank?
+      self.phones.each do |p|
+        if p.phone_number_changed? || p.phone_type_changed? || p.marked_for_destruction?
+          ph_numb = p.phone_number_was
+          ph_type = p.phone_type_was
+          if p.marked_for_destruction?
+            msg1 = "Deleted phone"
+          else
+            msg1 = "phone changed"
+          end
+          msg = msg1 + ", #{ph_numb} -  #{ph_type}." 
+          Comment.create!(:commentable_type => self.class, :commentable_id => self.id, :content =>  msg) unless ph_numb.blank?
+        end
+      end
     end
   end
   

@@ -28,7 +28,7 @@
 				<p><b>Numbers on File:</b><br /><br />
 				<% if !@customer.phones.blank? %>
 				  <% for phone in @customer.phones %>
-				    <b><%= phone.phone_type.capitalize %></b>: <%= phone.phone_number %><br /><br />
+				    <b><%= phone.phone_type.capitalize %></b>: <%= number_to_phone(phone.phone_number) %><br /><br />
 				  <% end %>
 				<% else %>
 				  No Number on file

@@ -63,6 +63,11 @@ $(document).ready(function(){
 				});
 			});
 			
+			$('.pagination a').live('click',function (){  
+				            $.getScript(this.href);  
+				            return false;  
+				    });
+			
 		   // $('#today').hide();
 		   // $('#yesterday').hide();
 		   // $("#thechoices").change(function(){	
