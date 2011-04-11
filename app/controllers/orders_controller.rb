@@ -2,15 +2,16 @@ class OrdersController < ApplicationController
   before_filter :authenticate_user!
   load_and_authorize_resource
   before_filter :check_if_printable, :only => :print_order
+  before_filter :check_customer_change, :only => :edit
   
   rescue_from ActiveRecord::RecordNotFound, :with => :no_order_found
   
   def index
     unless params[:customer_id]
       if current_user.role == "admin"
-        @order = Order.all
+        @orders = Order.paginate(:page => params[:page], :per_page => 25, :order => 'id DESC')
       else
-        @orders = Order.closed_orders
+        @orders = Order.closed_orders.paginate(:page => params[:page], :per_page => 25, :order => 'id DESC')
       end
     else
       @customer = Customer.find(params[:customer_id])
@@ -40,29 +41,38 @@ class OrdersController < ApplicationController
   def edit
     @order = Order.find(params[:id])
     @comment = @order.build_comment
-    unless params[:customer_id].blank?
+    if !params[:customer_id].blank?
       @customer = Customer.find(params[:customer_id])
-    end
-    if @order.customer_id.blank?
-      unless params[:customer_id].blank?
+      if @order.customer_id.blank? || (@order.customer_id != @customer.id)
         @order.update_attribute(:customer_id, @customer.id)
-      else
-        @order.customer = @order.build_customer
       end
+    elsif !@order.customer_id.blank? && @order.customer_id != 0 # this is in case that something happens
+      @customer = Customer.find(@order.customer_id)  
     else
-      unless params[:customer_id].blank?
-        if @order.customer_id != params[:customer_id]
-          # Update info on existing items of original customer
-          @order.changed_customer(current_company)
-          # clear the items
-          @order.items = current_order.items
-          @order.update_attribute(:customer_id, @customer.id)
-          @order.customer_id = params[:customer_id]
-        end
-      else
-        @customer = Customer.find(@order.customer_id)
-      end 
+      @order.customer = @order.build_customer
     end
+   # - Refactored to abave -  
+   # @order = Order.find(params[:id])
+   # @comment = @order.build_comment
+   # unless params[:customer_id].blank?
+   #   @customer = Customer.find(params[:customer_id])
+   # end
+   # if @order.customer_id.blank?
+   #   unless params[:customer_id].blank?
+   #     @order.update_attribute(:customer_id, @customer.id)
+   #   else
+   #     @order.customer = @order.build_customer
+   #   end
+   # else
+   #   unless params[:customer_id].blank?
+   #     if @order.customer_id != params[:customer_id]
+   #       @order.update_attribute(:customer_id, @customer.id)
+   #       @order.customer_id = params[:customer_id]
+   #     end
+   #   else
+   #     @customer = Customer.find(@order.customer_id)
+   #   end 
+   # end
     respond_to do |format|  
       format.html  
       format.js if request.xhr?
@@ -106,5 +116,15 @@ class OrdersController < ApplicationController
   
   def no_order_found
     redirect_to company_dashboard_url, :alert => "Order not found"
+  end
+  
+  def check_customer_change
+    # Update info on existing items of original customer
+    unless params[:customer_id].blank?
+      @order = Order.find(params[:id])
+      if !@order.customer_id.blank? && (@order.customer_id.to_s != params[:customer_id])
+        @order.changed_customer(current_company)        
+      end
+    end
   end
 end

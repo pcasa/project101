@@ -1,6 +1,6 @@
 class Order < ActiveRecord::Base
   cattr_reader :per_page
-    @@per_page = 10
+    @@per_page = 25
   
   belongs_to :customer, :class_name => "Customer", :foreign_key => "customer_id"
   belongs_to :user, :class_name => "User", :foreign_key => "user_id"

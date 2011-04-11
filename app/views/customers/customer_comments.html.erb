@@ -1,14 +1,14 @@
 <%= render :partial => "common/new_comment", :locals => { :commentable => @customer } %>
 
-<div id="customer-comments">
-	<% unless @customer.comments.blank? %>
+<div id="main-customer-comments">
+	<% unless @comments.blank? %>
 	<strong>Notes</strong><br />
-		<% for comment in @customer.comments %>
-		  <%= render :partial => "common/comment", :locals => { :comment => comment }%>
-		<% end %>
+		<%= render :partial => "customer_comments", :locals => {:comments => @comments }%>
 	<% else %>
 	<p>
 		Has no Notes.
 	</p>
-	<% end %>		
+	<% end %>	
+		
 </div>
+

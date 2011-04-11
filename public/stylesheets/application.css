@@ -577,8 +577,18 @@ form.formtastic fieldset ol li .inline-errors { margin-left:5px;color:red; }
 	font-weight: bold;
 }
 
-.whitetxt {
+.whitetxt, #tabs .ui-tabs-panel .pagination a {
 	color: #FFFFFF!important;
+}
+
+.pagination em {
+	background-color: #ddd;
+	font-weight: bold;
+	font-style: normal;
+	padding: 4px 6px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	border: solid 1px #000;
 }
 
 

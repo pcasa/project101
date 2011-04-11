@@ -1,0 +1,6 @@
+<div id="customer-comments">
+<% for comment in comments %>
+  <%= render :partial => "common/comment", :locals => { :comment => comment }%>
+<% end %>
+</div>
+<p><%= will_paginate @comments, :renderer => 'RemoteLinkRenderer' , :remote => { :update => 'customer-comments'} %></p>
