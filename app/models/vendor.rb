@@ -1,5 +1,5 @@
 class Vendor < ActiveRecord::Base
-    attr_accessible :name, :contact, :phone, :addresses_attributes, :address
+    attr_accessible :name, :contact, :phone, :addresses_attributes, :address, :website
     has_many :insurance_policies
     has_many :items
     

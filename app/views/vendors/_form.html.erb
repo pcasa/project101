@@ -13,6 +13,10 @@
     <%= f.text_field :phone %>
   </p>
 <p>
+    <%= f.label :website %><br />
+    <%= f.text_field :website %>
+  </p>
+<p>
 	<%= render "addresses/new", :f => f, :addressable_id => @vendor.id, :asset => @vendor, :type => "Vendor"%>
 </p>
 
