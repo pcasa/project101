@@ -13,6 +13,11 @@
   <%= @vendor.phone %>
 </p>
 
+<p>
+  <strong>Website:</strong>
+  <%= @vendor.website %>
+</p>
+
 <% unless @vendor.addresses.blank? %>
 <strong>Previous Addresses Used</strong><br />
 	<% for address in @vendor.addresses %>

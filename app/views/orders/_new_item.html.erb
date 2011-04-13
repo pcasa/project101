@@ -1,7 +1,7 @@
 <%= content_tag_for(:tr, item.object) do %>
 	<td class="itemName"><%= item.object.name %><br /><% unless @order.closed && !current_user.role == "admin" %><%= link_to( "Remove", [current_company, item.object], :method => :delete, :class => "delete-order-item") %><% end %></td>
 	<td><%= item.object.short_description %></td>
-	<% if current_user.role == "admin" %>
+	<% if item.object.name == "Policy Fee" || current_user.role == "admin" %>
 	<td align=CENTER>$ <%= item.text_field :cost, :class => "currency", :size => 5 %></td>
 	<% else %>
 	<td align=CENTER><%= number_to_currency(item.object.cost) %></td>
