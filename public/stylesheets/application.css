@@ -379,6 +379,11 @@ a {
   margin: 0;
 }
 
+.best_in_place {
+	background-color: #227c3c;
+	color: #fff;
+}
+
 /*** Reports ***/
 #orders-reports {
 	margin: 0 auto;

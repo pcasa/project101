@@ -9,7 +9,7 @@
 
 <% @order.items.order("id ASC").each do |item| %>
 	
-<%= tr_for(item) do %>
+<%= content_tag_for(:tr, item) do %>
 	<td width="25%" class="itemName"><%= item.name %></td>
 	<td width="35%"><%= item.short_description %></td>
 	<td width="15%" align=CENTER><%= number_to_currency(item.price) %></td>
