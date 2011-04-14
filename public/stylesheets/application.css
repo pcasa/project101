@@ -62,6 +62,8 @@ a {
 	color: #eeeeee;
 	border: 1px solid #042040;
 	background: #0b5ea6 url(../images/blueBtnSmall.jpg) repeat-y!important;
+	position:relative;
+	behavior: url(/stylesheets/PIE.htc);
 }
 
 .blue:hover, .pagination a:hover {
