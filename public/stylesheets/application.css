@@ -149,8 +149,7 @@ a {
 	-moz-border-radius: 6px;
 	-webkit-border-radius:6px;
 	border-radius: 6px;
-	background: #3bb351 url(../images/greenmenu.jpg) repeat-x;
-	-pie-background:url(/images/greenmenu.jpg); 
+	background-color: #3bb351;
     behavior: url(/stylesheets/PIE.htc);
 }
 
