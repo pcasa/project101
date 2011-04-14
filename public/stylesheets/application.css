@@ -61,12 +61,24 @@ a {
 .blue, .pagination a {
 	color: #eeeeee;
 	border: 1px solid #042040;
-	background: #0b5ea6 url(../images/blueBtnSmall.jpg) repeat-y!important;
+	background: #0487EC;
+background: -webkit-gradient(linear, 0 0, 0 bottom, from(#0487EC), to(#153247));
+background: -moz-linear-gradient(#0487EC, #153247);
+background: linear-gradient(#0487EC, #153247);
+-pie-background: linear-gradient(#0487EC, #153247);
+	position:relative;
+	behavior: url(/stylesheets/PIE.htc);
 }
 
 .blue:hover, .pagination a:hover {
 	border-color: #1d4e9c;
-	background: #0e274b url(../images/blueBtnSmallHover.jpg) repeat-x!important;
+	background: #0487EC;
+background: -webkit-gradient(linear, 0 0, 0 bottom, from(#0487EC), to(#153247));
+background: -moz-linear-gradient(#0487EC, #153247);
+background: linear-gradient(#0487EC, #153247);
+-pie-background: linear-gradient(#0487EC, #153247);
+	position:relative;
+	behavior: url(/stylesheets/PIE.htc);
 }
 
 .green {
@@ -196,7 +208,7 @@ background: linear-gradient(#2e7938, #39b652);
 	z-index: 1000;
 	behavior: url(/stylesheets/PIE.htc);
 }
-#menu li:hover ul {	
+#menu li:hover ul {
 	
 }
 
@@ -252,15 +264,25 @@ background: linear-gradient(#2e7938, #39b652);
 	border: 1px solid #042040;
 	-moz-border-radius: 6px;
 	border-radius: 6px;
-	background: #0b5ea6 url(../images/bluemenu.jpg) repeat-x;
 	display: block;
+	background: #0487EC;
+background: -webkit-gradient(linear, 0 0, 0 bottom, from(#0487EC), to(#153247));
+background: -moz-linear-gradient(#0487EC, #153247);
+background: linear-gradient(#0487EC, #153247);
+-pie-background: linear-gradient(#0487EC, #153247);
 	position:relative;
 	behavior: url(/stylesheets/PIE.htc);
 }
 
 #dashboard a:hover {
-	background: #0e274b url(/images/bluemenuhover.jpg) repeat-x;
 	border-color: #0b5ea6;
+	background: #153247;
+background: -webkit-gradient(linear, 0 0, 0 bottom, from(#153247), to(#0487EC));
+background: -moz-linear-gradient(#153247, #0487EC);
+background: linear-gradient(#153247, #0487EC);
+-pie-background: linear-gradient(#153247, #0487EC);
+position:relative;
+	behavior: url(/stylesheets/PIE.htc);
 }
 
 .dashIcon {
