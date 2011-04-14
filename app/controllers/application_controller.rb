@@ -33,7 +33,11 @@ class ApplicationController < ActionController::Base
   
   def current_order
     if cookies[:order_id]
-      @current_order ||= Order.find(cookies[:order_id])
+      if Order.exists?(cookies[:order_id])
+        @current_order ||= Order.find(cookies[:order_id])
+      else
+        cookies[:order_id] = nil
+      end
       cookies[:order_id] = nil if @current_order.closed_date
       cookies[:order_id] = nil if @current_order.assigned_company_id != current_company.id
     end
