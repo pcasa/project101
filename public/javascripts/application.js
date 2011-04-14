@@ -85,6 +85,18 @@ $(document).ready(function(){
 				$('#task_search :input:not(:submit)').val('');
 				$('#task_search input:checkbox').removeAttr('checked');
 			});
+			
+		    //	$('[class^=is]').hide(); Use this if ever want the collection
+			$('.isYesterday').hide();
+
+		    $('#theSelect').change(function(){
+				var value = $('#theSelect option:selected').val();
+				var theDiv = $('.is' + value);
+				theDiv.slideDown();
+				theDiv.siblings('[class^=is]').slideUp();
+			});
+			
+			
 		    
 			$('input.ui-date-picker').datepicker({ dateFormat: 'M d yy' }); 
 			$('input.ui-datetime-picker, .task-datetime').datetimepicker({ dateFormat: 'M d yy', ampm: true });
