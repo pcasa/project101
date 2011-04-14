@@ -61,24 +61,12 @@ a {
 .blue, .pagination a {
 	color: #eeeeee;
 	border: 1px solid #042040;
-	background: #0487EC;
-background: -webkit-gradient(linear, 0 0, 0 bottom, from(#0487EC), to(#153247));
-background: -moz-linear-gradient(#0487EC, #153247);
-background: linear-gradient(#0487EC, #153247);
--pie-background: linear-gradient(#0487EC, #153247);
-	position:relative;
-	behavior: url(/stylesheets/PIE.htc);
+	background: #0b5ea6 url(../images/blueBtnSmall.jpg) repeat-y!important;
 }
 
 .blue:hover, .pagination a:hover {
 	border-color: #1d4e9c;
-	background: #153247;
-background: -webkit-gradient(linear, 0 0, 0 bottom, from(#153247), to(#0487EC));
-background: -moz-linear-gradient(#153247, #0487EC);
-background: linear-gradient(#153247, #0487EC);
--pie-background: linear-gradient(#153247, #0487EC);
-	position:relative;
-	behavior: url(/stylesheets/PIE.htc);
+	background: #0e274b url(../images/blueBtnSmallHover.jpg) repeat-x!important;
 }
 
 .green {
