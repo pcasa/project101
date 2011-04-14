@@ -23,7 +23,7 @@
   </tr>
 <% if !@insurance_policies.blank? %>
   <% for insurance_policy in @insurance_policies %>
-    <tr>
+    <tr class="<%= cycle("even", "odd") -%>">
       <td><%= insurance_policy.policy_number %></td>
       <td><%= insurance_policy.customer.full_name unless insurance_policy.customer.blank? %></td>
       <td><%= insurance_policy.vendor.name %></td>
