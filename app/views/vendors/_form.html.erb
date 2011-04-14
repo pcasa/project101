@@ -1,4 +1,4 @@
-<%= form_for [current_company, @vendor] do |f| %>
+<%= nested_form_for [current_company, @vendor] do |f| %>
   <%= f.error_messages %>
   <p>
     <%= f.label :name %><br />
@@ -16,9 +16,21 @@
     <%= f.label :website %><br />
     <%= f.text_field :website %>
   </p>
+<% unless @vendor.blank? || @vendor.addresses.blank? %>
 <p>
-	<%= render "addresses/new", :f => f, :addressable_id => @vendor.id, :asset => @vendor, :type => "Vendor"%>
+	<%= f.fields_for :addresses do |address_form| %>
+	    <%= render :partial => "address_fields", :locals => {:f => address_form }%>
+		<%= address_form.link_to_remove "Remove this Address" %>
+	  <% end %>
 </p>
+<% end %>
+
+<p>
+	<%= f.fields_for :addresses  %>
+	 <p><%= f.link_to_add "Add a Address", :addresses %></p>
+</p>
+
+
 
   <p><%= f.submit %></p>
 <% end %>

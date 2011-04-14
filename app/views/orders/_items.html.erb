@@ -9,16 +9,12 @@
 
 <% @order.items.order("id ASC").each do |item| %>
 	
-<% unless item.parent_id.blank? %>
-	<tr class="item subItem">
-<% else %>
-	<tr class="item">
-<% end %>
+<%= tr_for(item) do %>
 	<td width="25%" class="itemName"><%= item.name %></td>
 	<td width="35%"><%= item.short_description %></td>
 	<td width="15%" align=CENTER><%= number_to_currency(item.price) %></td>
 	<td width="10%" align=CENTER><%= item.qty %></td>
 	<td width="15%" align=CENTER> <%= number_to_currency(item.full_price) %> </td>
-</tr>
+<% end %>
 <% end %>
 </table>

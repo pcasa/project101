@@ -33,20 +33,24 @@ class ApplicationController < ActionController::Base
   
   def current_order
     if cookies[:order_id]
-      @current_order ||= Order.find_or_create_by_id(cookies[:order_id])
+      @current_order ||= Order.find(cookies[:order_id])
       cookies[:order_id] = nil if @current_order.closed_date
       cookies[:order_id] = nil if @current_order.assigned_company_id != current_company.id
     end
     if cookies[:order_id].nil?
-      @order = Order.company(current_company).open_order.last
-      # try to find the last open order for this company
-      if @order.blank? || @order.assigned_company_id != current_company.id
-        @current_order = Order.create!(:assigned_company_id => current_company.id, :parent_company_id => main_company.id, :closed => false)
-      else
-        @current_order = @order
-      end
+      @current_order = Order.create!(:assigned_company_id => current_company.id, :parent_company_id => main_company.id, :closed => false)
       cookies.permanent[:order_id] = @current_order.id
     end
+   #if cookies[:order_id].nil?
+   #  @order = Order.company(current_company).open_order.last
+   #  # try to find the last open order for this company
+   #  if @order.blank? || @order.assigned_company_id != current_company.id
+   #    @current_order = Order.create!(:assigned_company_id => current_company.id, :parent_company_id => main_company.id, :closed => false)
+   #  else
+   #    @current_order = @order
+   #  end
+   #  cookies.permanent[:order_id] = @current_order.id
+   #end
     @current_order
   end
   

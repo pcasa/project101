@@ -9,6 +9,7 @@ class Address < ActiveRecord::Base
     
     before_save :update_full_address
     
+    ADDRESSTYPES = %w[Customer Business Billing Vendor]
     
     def update_full_address
       unless self.street2.blank?

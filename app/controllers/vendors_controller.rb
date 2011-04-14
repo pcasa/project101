@@ -12,7 +12,7 @@ class VendorsController < ApplicationController
 
   def new
     @vendor = Vendor.new
-    @vendor.addresses.build
+    address = @vendor.addresses.build
   end
 
   def create
@@ -27,16 +27,14 @@ class VendorsController < ApplicationController
 
   def edit
     @vendor = Vendor.find(params[:id])
-    if @vendor.addresses.blank?
-      @vendor.addresses.build
-    end
+    addresses = @vendor.addresses   
   end
 
   def update
     @vendor = Vendor.find(params[:id])
     if @vendor.update_attributes(params[:vendor])
       flash[:notice] = "Successfully updated vendor."
-      redirect_to vendor_url
+      redirect_to company_vendor_url(current_company, @vendor)
     else
       render :action => 'edit'
     end
@@ -46,6 +44,6 @@ class VendorsController < ApplicationController
     @vendor = Vendor.find(params[:id])
     @vendor.destroy
     flash[:notice] = "Successfully destroyed vendor."
-    redirect_to vendors_url
+    redirect_to company_vendors_url(current_company)
   end
 end

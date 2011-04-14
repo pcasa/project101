@@ -4,6 +4,7 @@
 		<td width="60%">
 			<% @policies.order("id DESC").each do |policy| %>
 				<p>Policy #: <%= link_to policy.policy_number, company_insurance_policy_path(current_company, policy) %> - 
+					<% unless policy.vendor_id.blank? || policy.vendor.website.blank? %>Go to <%= link_to "#{policy.vendor.name}'s Website", url_with_protocol(policy.vendor.website), :target => "_blank" %><% end %>
 					<span class="smallertxt">
 						<% unless policy.number_of_payments_left <= 0 || policy.cancelled? %>
 							<br /><br /><%= link_to "Add Policy Payment", company_policy_payment_path(current_company, policy), :class => "smallbtn green whitetxt" %> | 
@@ -17,7 +18,7 @@
 									<%= link_to "Reinstate Policy", new_company_insurance_policy_path(current_company, :policy_number => policy.policy_number, :parent_id => policy.id, :policy_type => "Reinstate", :vendor_id => policy.vendor_id, :customer_id => @customer.id), :class => "smallbtn green whitetxt" %>
 								<% end %>
 							<% else %>
-							Carried over to policy: <%= link_to policy.child.policy_number, [current_company, policy.child]%>
+							<br />Carried over to policy: <%= link_to policy.child.policy_number, [current_company, policy.child]%>
 							<% end %>
 						<% end %>
 					</span><br />

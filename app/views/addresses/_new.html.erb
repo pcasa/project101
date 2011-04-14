@@ -76,9 +76,9 @@
 <p>
     <%= builder.label :current %> - <%= builder.check_box :current %>
 
-    <%= builder.hidden_field :addressable_type, :value => "#{asset}" %>
+    <%= builder.hidden_field :addressable_type, :value => "#{asset}.class" %>
 
-    <%= builder.hidden_field :addressable_id %>
+    <%= builder.hidden_field :addressable_id, :value => "#{asset}.id" %>
 
 	<%= builder.hidden_field :address_type, :value => "#{type}" %>
 </p>

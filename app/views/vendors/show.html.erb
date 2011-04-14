@@ -15,7 +15,7 @@
 
 <p>
   <strong>Website:</strong>
-  <%= @vendor.website %>
+  <%= auto_link @vendor.website, :html => { :target => '_blank' } %>
 </p>
 
 <% unless @vendor.addresses.blank? %>

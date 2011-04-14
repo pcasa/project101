@@ -25,7 +25,17 @@ class OrdersController < ApplicationController
 
   def new
     @order = Order.new
-    
+    @comment = @order.build_comment
+    if !params[:customer_id].blank?
+      @customer = Customer.find(params[:customer_id])
+      if @order.customer_id.blank? || (@order.customer_id != @customer.id)
+        @order.update_attribute(:customer_id, @customer.id)
+      end
+    elsif !@order.customer_id.blank? && @order.customer_id != 0 # this is in case that something happens
+      @customer = Customer.find(@order.customer_id)  
+    else
+      @order.customer = @order.build_customer
+    end
   end
 
   def create
@@ -127,4 +137,5 @@ class OrdersController < ApplicationController
       end
     end
   end
+  
 end

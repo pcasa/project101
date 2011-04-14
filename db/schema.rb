@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110413184731) do
+ActiveRecord::Schema.define(:version => 20110413213915) do
 
   create_table "addresses", :force => true do |t|
     t.string    "street1"
@@ -297,6 +297,6 @@ ActiveRecord::Schema.define(:version => 20110413184731) do
     t.string    "website"
   end
 
-  add_index "vendors", ["name", "contact", "phone"], :name => "index_vendors_on_name_and_contact_and_phone", :unique => true
+  add_index "vendors", ["name", "contact", "phone"], :name => "index_vendors_on_name_and_contact_and_phone"
 
 end

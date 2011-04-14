@@ -1,7 +1,5 @@
 
-$(".best_in_place input").change(function(){
-	alert("ah");
-});
+
 $(".order-amount-due").html("<%= escape_javascript(number_to_currency(current_order.amount_due)) %>").effect("highlight", {}, 2000);
 $(".order-true-cost").html("<%= escape_javascript(number_to_currency(current_order.true_cost)) %>").effect("highlight", {}, 2000);
 $(".order-total-price").html("<%= escape_javascript(number_to_currency(current_order.total_price)) %>").effect("highlight", {}, 2000);

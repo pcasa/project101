@@ -4,6 +4,8 @@ $(document).ready(function(){
 	    $(this).closest('tr').fadeOut();
 	  	
 	});
+	$('.best_in_place').best_in_place();
+	
 });
 </script>
 
@@ -73,7 +75,7 @@ $(document).ready(function(){
 					<th width="8%">Qty</th>
 					<th width="14%">Total </th>
 				</tr>
-				<%= f.fields_for :items, :order => ("id ASC") do |item| %>
+				<% order.items.each do |item| %>
 					 <%= render :partial => 'orders/new_item', :locals => { :item => item, :order => order } %>
 			    <% end %>
 				</table>

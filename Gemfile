@@ -18,11 +18,12 @@ gem 'friendly_id', '~> 3.2.1'
 gem 'rails3_acts_as_paranoid'
 gem 'nested_set'
 gem 'nested_form'
+gem 'best_in_place'
 
 # have to add for heroku here.
 # Delete for production
 
-gem "populator"
+gem 'populator'
 gem 'faker'
 
 # Use unicorn as the web server

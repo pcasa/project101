@@ -31,6 +31,8 @@ GEM
     arel (2.0.8)
     babosa (0.2.2)
     bcrypt-ruby (2.1.4)
+    best_in_place (0.1.9)
+      rails (~> 3.0.0)
     builder (2.1.2)
     cancan (1.5.1)
     devise (1.1.5)
@@ -107,6 +109,7 @@ PLATFORMS
 
 DEPENDENCIES
   bcrypt-ruby
+  best_in_place
   cancan
   devise
   faker

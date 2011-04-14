@@ -4,5 +4,5 @@ class Vendor < ActiveRecord::Base
     has_many :items
     
     has_many :addresses, :as => :addressable
-    accepts_nested_attributes_for :addresses, :allow_destroy => true, :reject_if => proc { |obj| obj.blank? }
+    accepts_nested_attributes_for :addresses, :allow_destroy => true, :reject_if => proc { |a| a[:street1].blank? }
 end

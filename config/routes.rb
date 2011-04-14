@@ -1,6 +1,6 @@
 Project101::Application.routes.draw do
 
-  
+  resources :items
 
   match '/companies' => 'companies#index'
   match '/:company_id/companies' => 'companies#index', :as => :index_company

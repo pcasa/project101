@@ -30,12 +30,18 @@ class ItemsController < ApplicationController
 
   def update
     @item = Item.find(params[:id])
-    if @item.update_attributes(params[:item])
-      flash[:notice] = "Successfully updated item."
-      redirect_to edit_company_order_url(current_company, @item.order_id)
-    else
-      render :action => 'edit'
-    end
+
+    
+    respond_to do |format|
+        if @item.update_attributes(params[:item])
+          format.html { redirect_to edit_company_order_url(current_company, @item.order_id), :notice => "Successfully updated item." }
+          format.js {  }
+          format.json { head :ok }
+        else
+          format.html { render :action => "edit" }
+          format.json { render :json => @item.errors.full_messages, :status => :unprocessable_entity }
+        end
+      end
   end
 
   def destroy

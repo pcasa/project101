@@ -36,6 +36,7 @@ class CustomersController < ApplicationController
     @company= current_company
     @customer = Customer.find(params[:id])
     @companies = Company.where("id = ? OR parent_id = ?", main_company.id, main_company.id)
+    phones = @customer.phones
   end
 
   def update
