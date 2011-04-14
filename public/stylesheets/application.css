@@ -136,7 +136,6 @@ a {
 #menu li {
 	float: left;
 	margin-right: 5px;
-	behavior: url(/stylesheets/PIE.htc);
 }
 
 #menu li a {
@@ -169,6 +168,7 @@ a {
 	-moz-border-radius: 6px;
 	border-radius: 6px;
 	z-index: 1000;
+	behavior: url(/stylesheets/PIE.htc);
 }
 #menu li:hover ul {	
 	
