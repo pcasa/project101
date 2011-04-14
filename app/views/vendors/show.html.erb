@@ -15,7 +15,7 @@
 
 <p>
   <strong>Website:</strong>
-  <%= auto_link @vendor.website, :html => { :target => '_blank' } %>
+  <%= auto_link(url_with_protocol(@vendor.website), :html => { :target => '_blank' }) %>
 </p>
 
 <% unless @vendor.addresses.blank? %>
