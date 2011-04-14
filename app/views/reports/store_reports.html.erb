@@ -1,24 +1,11 @@
 <% title current_company.name + " Reports" %>
-<script>
-$(document).ready(function(){
-	
-	
-   	    
-  //      var value = $("#theSelect option:selected").val();
-  //      var theDiv = $(".is" + value);
-  //
-  //      theDiv.slideDown();
-  //      theDiv.siblings('[class^=is]').slideUp();
-  //  });​
-});
-</script>
 
 <div class="selectContainer">
-        <select id="theSelect">
-            <option value="Today">Today</option>
-            <option value="Yesterday">Yesterday</option>
-        </select>
-    </div>
+  <select id="theSelect">
+      <option value="Today">Today</option>
+      <option value="Yesterday">Yesterday</option>
+  </select>
+</div>
 
 <% orders =  @orders %>
 
@@ -28,10 +15,10 @@ $(document).ready(function(){
 	
 
 <div class="isToday"> 
-<%= render :partial => "store_reports_details", :locals => { :orders => orders.closed_today, :title => "Today" } %>
+<%= render :partial => "store_reports_details", :locals => { :orders => orders.closed_today, :title => "Sold on " + Date.today.strftime('%m/%d/%Y') } %>
 </div>
 <div class="isYesterday"> 
-<%= render :partial => "store_reports_details", :locals => { :orders => orders.closed_yesterday, :title => "Yesterday"  } %>
+<%= render :partial => "store_reports_details", :locals => { :orders => orders.closed_yesterday, :title => "Sold on " + Date.yesterday.strftime('%m/%d/%Y')  } %>
 </div>
 
 </div>
