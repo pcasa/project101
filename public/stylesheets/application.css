@@ -308,7 +308,6 @@ a {
 	-moz-border-radius: 6px;
 	border-radius: 6px;
 	background-color:silver;
-	behavior: url(/stylesheets/PIE.htc);
 }
 
 #items .item td {
@@ -495,7 +494,6 @@ form.formtastic fieldset.buttons ol li.commit input {
 	cursor: pointer;
 	margin-left: 5px;
 	margin-bottom: 5px;
-	behavior: url(/stylesheets/PIE.htc);
 }
 	
 .firerift-style {		
@@ -532,7 +530,6 @@ form.formtastic fieldset.buttons ol li.commit input {
 	background: #FFFFFF url(../images/inputBG.png) repeat-x;
 	-moz-border-radius: 6px;
 	border-radius: 6px;
-	behavior: url(PIE.htc);
 }
 
 #edit_order_form .silverBG table input {
