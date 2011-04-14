@@ -131,6 +131,7 @@ a {
 	margin: 5px 0 10px;
 	padding: 0;
 	z-index: 1001;
+	behavior: url(/stylesheets/PIE.htc);
 }
 
 #menu li {
@@ -144,12 +145,13 @@ a {
 	font-weight: bold;
 	font-size: 1em;
 	padding: 10px;
+	border: 1px solid #042040;
 	display: inline-block;
 	-moz-border-radius: 6px;
 	-webkit-border-radius:6px;
 	border-radius: 6px;
-	background-color: #3bb351;
-    behavior: url(/stylesheets/PIE.htc);
+	background: #3bb351 url(../images/greenmenu.jpg) repeat-x;
+    
 }
 
 #menu a:hover {
