@@ -39,6 +39,7 @@ a {
 	padding:4px 6px;
 	-moz-border-radius: 3px;
 	border-radius: 3px;
+	position:relative;
 	behavior: url(/stylesheets/PIE.htc);
 }
 
@@ -53,6 +54,7 @@ a {
 	display: inline-block;
 	-moz-border-radius: 3px;
 	border-radius: 3px;
+	position:relative;
 	behavior: url(/stylesheets/PIE.htc);
 }
 
@@ -149,8 +151,8 @@ a {
 	-moz-border-radius: 6px;
 	-webkit-border-radius:6px;
 	border-radius: 6px;
-	position:relative;
 	background: #3bb351 url(../images/greenmenu.jpg) repeat-x;
+	position:relative;
 	behavior: url(/stylesheets/PIE.htc);
     
 }
@@ -229,8 +231,7 @@ a {
 	border-radius: 6px;
 	background: #0b5ea6 url(../images/bluemenu.jpg) repeat-x;
 	display: block;
-	-pie-background: #0b5ea6 url(../images/bluemenu.jpg) repeat-x;
-	display: block;
+	position:relative;
 	behavior: url(/stylesheets/PIE.htc);
 }
 
@@ -313,6 +314,8 @@ a {
 	-moz-border-radius: 6px;
 	border-radius: 6px;
 	background-color:silver;
+	position:relative;
+	behavior: url(/stylesheets/PIE.htc);
 }
 
 #items .item td {
@@ -468,6 +471,7 @@ form.formtastic fieldset.buttons ol li.commit input {
 	background: #FFFFFF;
 	-moz-border-radius: 6px;
 	border-radius: 6px;
+	position:relative;
 	behavior: url(/stylesheets/PIE.htc);
 	}
 
@@ -535,6 +539,8 @@ form.formtastic fieldset.buttons ol li.commit input {
 	background: #FFFFFF url(../images/inputBG.png) repeat-x;
 	-moz-border-radius: 6px;
 	border-radius: 6px;
+	position:relative;
+	behavior: url(/stylesheets/PIE.htc);
 }
 
 #edit_order_form .silverBG table input {
@@ -601,6 +607,8 @@ form.formtastic fieldset ol li .inline-errors { margin-left:5px;color:red; }
 	-moz-border-radius: 3px;
 	border-radius: 3px;
 	border: solid 1px #000;
+	position:relative;
+	behavior: url(/stylesheets/PIE.htc);
 }
 
 .best_in_place input {
