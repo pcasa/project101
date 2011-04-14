@@ -33,11 +33,11 @@
 				  <% end %>
 			</td>
 			<% policy_exists = InsurancePolicy.exists?(item.itemable_id) %>
-			<td>#<%= item.itemable.policy_number if policy_exists?  %></td>
+			<td>#<%= item.itemable.policy_number if policy_exists  %></td>
 			<% if !item.new_service?  %>
 				<td>Policy Payment</td>
 			<% else %>
-				<td><%= item.itemable.policy_type if policy_exists? %></td>
+				<td><%= item.itemable.policy_type if policy_exists %></td>
 			<% end %>
 			<td><%= item.vendor.name %></td>
 			<td><%= number_to_currency(item.cost) %></td>
