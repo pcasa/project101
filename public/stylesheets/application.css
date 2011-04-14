@@ -39,7 +39,7 @@ a {
 	padding:4px 6px;
 	-moz-border-radius: 3px;
 	border-radius: 3px;
-	behavior: url(PIE.htc);
+	behavior: url(/stylesheets/PIE.htc);
 }
 
 
@@ -53,7 +53,7 @@ a {
 	display: inline-block;
 	-moz-border-radius: 3px;
 	border-radius: 3px;
-	behavior: url(PIE.htc);
+	behavior: url(/stylesheets/PIE.htc);
 }
 
 .blue, .pagination a {
@@ -149,7 +149,7 @@ a {
 	-moz-border-radius: 6px;
 	border-radius: 6px;
 	background: #3bb351 url(../images/greenmenu.jpg) repeat-x;
-	behavior: url(PIE.htc);
+	behavior: url(/stylesheets/PIE.htc);
 }
 
 #menu a:hover {
@@ -165,7 +165,7 @@ a {
 	-moz-border-radius: 6px;
 	border-radius: 6px;
 	z-index: 1000;
-	behavior: url(PIE.htc);
+	behavior: url(/stylesheets/PIE.htc);
 }
 #menu li:hover ul {	
 	
@@ -225,7 +225,7 @@ a {
 	border-radius: 6px;
 	background: #0b5ea6 url(../images/bluemenu.jpg) repeat-x;
 	display: block;
-	behavior: url(PIE.htc);
+	behavior: url(/stylesheets/PIE.htc);
 }
 
 #dashboard a:hover {
@@ -307,7 +307,7 @@ a {
 	-moz-border-radius: 6px;
 	border-radius: 6px;
 	background-color:silver;
-	behavior: url(PIE.htc);
+	behavior: url(/stylesheets/PIE.htc);
 }
 
 #items .item td {
@@ -463,7 +463,7 @@ form.formtastic fieldset.buttons ol li.commit input {
 	background: #FFFFFF;
 	-moz-border-radius: 6px;
 	border-radius: 6px;
-	behavior: url(PIE.htc);
+	behavior: url(/stylesheets/PIE.htc);
 	}
 
 
@@ -494,7 +494,7 @@ form.formtastic fieldset.buttons ol li.commit input {
 	cursor: pointer;
 	margin-left: 5px;
 	margin-bottom: 5px;
-	behavior: url(PIE.htc);
+	behavior: url(/stylesheets/PIE.htc);
 }
 	
 .firerift-style {		
@@ -598,6 +598,7 @@ form.formtastic fieldset ol li .inline-errors { margin-left:5px;color:red; }
 	-moz-border-radius: 3px;
 	border-radius: 3px;
 	border: solid 1px #000;
+	behavior: url(/stylesheets/PIE.htc);
 }
 
 .best_in_place input {
@@ -618,7 +619,7 @@ form.formtastic fieldset ol li .inline-errors { margin-left:5px;color:red; }
     -webkit-box-shadow: 0 0 10px rgba(128, 0, 0, 1); 
     -moz-box-shadow: 0 0 10px rgba(128, 0, 0, 1);
     border:1px solid rgba(128,0,0, 0.8); 
-    behavior: url(PIE.htc);
+    behavior: url(/stylesheets/PIE.htc);
 }
 
 
