@@ -71,12 +71,11 @@ a {
 
 .green {
 	color: #fff;
-	border: 1px solid #223e19;
-	background: #39b652;
-	background: -webkit-gradient(linear, 0 0, 0 bottom, from(#39b652), to(#2e7938));
-background: -moz-linear-gradient(#39b652, #2e7938);
-background: linear-gradient(#39b652, #2e7938);
--pie-background: linear-gradient(#39b652, #2e7938);
+	border: 1px solid #223e19;background: #39b652;
+	background: -webkit-gradient(linear, 0 0, 0 bottom, from(#39b652), to(#2e7938))!important;
+background: -moz-linear-gradient(#39b652, #2e7938)!important;
+background: linear-gradient(#39b652, #2e7938)!important;
+-pie-background: linear-gradient(#39b652, #2e7938)!important;
 	position:relative;
 	behavior: url(/stylesheets/PIE.htc);
 }
