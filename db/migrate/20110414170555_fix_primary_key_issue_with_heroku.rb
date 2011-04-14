@@ -1,6 +1,6 @@
 class FixPrimaryKeyIssueWithHeroku < ActiveRecord::Migration
   def self.up
-    execute 'SELECT setval('categories_id_seq'::regclass, MAX(id)) FROM categories;'
+    execute "SELECT setval('category_id_seq', 10000);"
   end
 
   def self.down
