@@ -91,6 +91,8 @@
   <%= link_to "Destroy", [current_company, @customer], :confirm => 'Are you sure?', :method => :delete %> |
 	<% end %>
   <%= link_to "View All", company_customers_path %>
+</p>
+<p>
 	<div class="new-task-form hidden">
 	<%= render :partial => "common/new_task", :locals => { :asset => @customer } %>	
 	</div>
