@@ -2,11 +2,11 @@
 	<td class="itemName"><%= item.name %><br /><% unless @order.closed && !current_user.role == "admin" %><%= link_to( "Remove", [current_company, item], :method => :delete, :remote => true, :class => "delete-order-item") %><% end %></td>
 	<td><%= item.short_description %></td>
 	<% if item.name == "Policy Fee" || current_user.role == "admin" %>
-	<td align=CENTER>$ <%= best_in_place item, :cost, :type => :input, :size => 10 %></td>
+	<td class="fake-inplace">$<%= best_in_place item, :cost, :type => :input, :size => 10 %></td>
 	<% else %>
 	<td align=CENTER><%= number_to_currency(item.object.cost) %></td>
 	<% end %>
-	<td align=CENTER>$<%= best_in_place item, :price, :type => :input %> </td>
+	<td class="fake-inplace">$<%= best_in_place item, :price, :type => :input %> </td>
 	<td align=CENTER><%= item.qty %></td>
 	<td align=CENTER> <%= number_to_currency(item.full_price) %> </td>
 <% end %>
