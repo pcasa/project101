@@ -150,6 +150,7 @@ a {
 	-webkit-border-radius:6px;
 	border-radius: 6px;
 	background-color: #3bb351;
+	z-index: 1001;
     behavior: url(/stylesheets/PIE.htc);
 }
 
