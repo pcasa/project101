@@ -149,13 +149,15 @@ a {
 	-moz-border-radius: 6px;
 	border-radius: 6px;
 	background: #3bb351 url(../images/greenmenu.jpg) repeat-x;
-	-pie-background: url(../../images/greenmenu.jpg);
+	-pie-background: #3bb351 url(../images/greenmenu.jpg) repeat-x;
 	behavior: url(/stylesheets/PIE.htc);
 }
 
 #menu a:hover {
 	background: #1f5327 url(/images/greenmenuhover.jpg) repeat-x;
 	border-color: #349e49;
+	-pie-background: #3bb351 url(../images/greenmenu.jpg) repeat-x;
+	behavior: url(/stylesheets/PIE.htc);
 }
 
 #menu li ul { display: none;padding: 0;
