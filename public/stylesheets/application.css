@@ -149,15 +149,12 @@ a {
 	-moz-border-radius: 6px;
 	border-radius: 6px;
 	background: #3bb351 url(../images/greenmenu.jpg) repeat-x;
-	-pie-background: #3bb351 url(../images/greenmenu.jpg) repeat-x;
-	behavior: url(/stylesheets/PIE.htc);
 }
 
 #menu a:hover {
 	background: #1f5327 url(/images/greenmenuhover.jpg) repeat-x;
 	border-color: #349e49;
-	-pie-background: #3bb351 url(../images/greenmenu.jpg) repeat-x;
-	behavior: url(/stylesheets/PIE.htc);
+	
 }
 
 #menu li ul { display: none;padding: 0;
@@ -168,7 +165,6 @@ a {
 	-moz-border-radius: 6px;
 	border-radius: 6px;
 	z-index: 1000;
-	behavior: url(/stylesheets/PIE.htc);
 }
 #menu li:hover ul {	
 	
@@ -227,6 +223,8 @@ a {
 	-moz-border-radius: 6px;
 	border-radius: 6px;
 	background: #0b5ea6 url(../images/bluemenu.jpg) repeat-x;
+	display: block;
+	-pie-background: #0b5ea6 url(../images/bluemenu.jpg) repeat-x;
 	display: block;
 	behavior: url(/stylesheets/PIE.htc);
 }
