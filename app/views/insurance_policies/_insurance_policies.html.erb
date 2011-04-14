@@ -1,11 +1,11 @@
 <p><%= form_for [current_company, @search], :html => {:method => :get} do |f| %>
-    Search by Policy Number: <%= f.text_field :policy_number_contains %><br />
+    Search by Policy Number: <%= f.text_field :policy_number_contains %><br /><br />
 	
 	
 	Cancelled from:<%= f.text_field :cancelled_on_gt, :class => "ui-date-picker", :value => (f.object.cancelled_on_gt.blank? ? '' : f.object.try(:cancelled_on_gt).try(:strftime,'%b %d %Y')) %> - 
 	
-	to:<%= f.text_field :cancelled_on_lt, :class => "ui-date-picker", :value => (f.object.cancelled_on_lt.blank? ? '' : f.object.try(:cancelled_on_lt).try(:strftime,'%b %d %Y')) %><br />
-	Completed Policies: <%= f.check_box :completed_is_true %><br />
+	to:<%= f.text_field :cancelled_on_lt, :class => "ui-date-picker", :value => (f.object.cancelled_on_lt.blank? ? '' : f.object.try(:cancelled_on_lt).try(:strftime,'%b %d %Y')) %><br /><br />
+	Completed Policies: <%= f.check_box :completed_is_true %><br /><br />
     <%= f.submit "Search", :class => "smallbtn  blue" %>
 <% end %>
 </p>
