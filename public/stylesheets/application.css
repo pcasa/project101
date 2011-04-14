@@ -54,8 +54,6 @@ a {
 	display: inline-block;
 	-moz-border-radius: 3px;
 	border-radius: 3px;
-	position:relative;
-	behavior: url(/stylesheets/PIE.htc);
 }
 
 .blue, .pagination a {
