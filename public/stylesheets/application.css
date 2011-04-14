@@ -77,7 +77,6 @@ a {
 background: -moz-linear-gradient(#39b652, #2e7938);
 background: linear-gradient(#39b652, #2e7938);
 -pie-background: linear-gradient(#39b652, #2e7938);
-behavior: url(/PIE.htc);
 	position:relative;
 	behavior: url(/stylesheets/PIE.htc);
 }
@@ -85,8 +84,15 @@ behavior: url(/PIE.htc);
 .green:hover {
 	color: #fff;
 	border: 1px solid #399e00;
-	background: #246500 url(../images/greenBtnSmallHover.jpg) repeat-x!important;
-	cursor: pointer; cursor: hand
+	cursor: pointer; cursor: hand;
+	background: #2e7938;
+background: -webkit-gradient(linear, 0 0, 0 bottom, from(#2e7938), to(#39b652));
+background: -moz-linear-gradient(#2e7938, #39b652);
+background: linear-gradient(#2e7938, #39b652);
+-pie-background: linear-gradient(#2e7938, #39b652);
+	position:relative;
+	behavior: url(/stylesheets/PIE.htc);
+	
 }
 
 .smallertxt {
@@ -163,15 +169,20 @@ behavior: url(/PIE.htc);
 background: -moz-linear-gradient(#39b652, #2e7938);
 background: linear-gradient(#39b652, #2e7938);
 -pie-background: linear-gradient(#39b652, #2e7938);
-behavior: url(/PIE.htc);
 	position:relative;
 	behavior: url(/stylesheets/PIE.htc);
     
 }
 
 #menu a:hover {
-	background: #1f5327 url(/images/greenmenuhover.jpg) repeat-x;
+	background: #2e7938;
+background: -webkit-gradient(linear, 0 0, 0 bottom, from(#2e7938), to(#39b652));
+background: -moz-linear-gradient(#2e7938, #39b652);
+background: linear-gradient(#2e7938, #39b652);
+-pie-background: linear-gradient(#2e7938, #39b652);
 	border-color: #349e49;
+	position:relative;
+	behavior: url(/stylesheets/PIE.htc);
 	
 }
 
