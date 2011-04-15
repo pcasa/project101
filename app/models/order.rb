@@ -109,9 +109,14 @@ class Order < ActiveRecord::Base
     
     
     def save_changes
-      if closed_date_changed?
+      if closed_date_changed? || assigned_company_id_changed?
         self.items.each do |item|
-          item.update_attribute(:created_at, closed_date)
+          if closed_date_changed?
+            item.update_attribute(:created_at, closed_date)
+          end
+          if assigned_company_id_changed?
+            item.update_attribute(:assigned_company_id, self.assigned_company_id)
+          end
         end
       end
     end
