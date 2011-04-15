@@ -1,4 +1,4 @@
 <% div_for(task) do %>
 	<%= link_to task.name, [current_company, task] %><br />
-	Assigned to: <%= task.assignee.full_name unless task.assigned_to.blank?%> | Due on: <%= task.due_at.strftime('%b %d, %Y')%><br /><br />
+	Assigned to: <%= task.assignee.full_name unless task.assigned_to.blank?%> | Due on: <%= task.due_at.strftime('%b %d, %Y') unless task.due_at.blank? %><br /><br />
 <% end %>
