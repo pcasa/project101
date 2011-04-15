@@ -4,7 +4,7 @@
 	<% if item.name == "Policy Fee" || current_user.role == "admin" %>
 	<td class="fake-inplace">$<%= best_in_place item, :cost, :type => :input, :size => 10 %></td>
 	<% else %>
-	<td align=CENTER><%= number_to_currency(item.object.cost) %></td>
+	<td align=CENTER><%= number_to_currency(item.cost) %></td>
 	<% end %>
 	<td class="fake-inplace">$<%= best_in_place item, :price, :type => :input %> </td>
 	<td align=CENTER><%= item.qty %></td>

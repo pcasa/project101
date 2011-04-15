@@ -24,6 +24,7 @@ class Task < ActiveRecord::Base
     
     before_update :check_if_notes, :if_user_assigned_delete_task
     before_save :if_user_assigned_delete_task
+    validates_presence_of :due_at, :message => "can't be blank"
     
     
    

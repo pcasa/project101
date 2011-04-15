@@ -76,7 +76,7 @@ class CustomersController < ApplicationController
   
   def customer_comments
     @customer = Customer.find(params[:customer_id])
-    @comments = @customer.comments.paginate(:page => params[:page], :per_page => 5, :order => 'id DESC')
+    @comments = @customer.comments.paginate(:page => params[:page], :per_page => 10, :order => 'id DESC')
     render :layout => false
   end
   
