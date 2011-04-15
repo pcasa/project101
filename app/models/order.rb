@@ -77,7 +77,7 @@ class Order < ActiveRecord::Base
       items.to_a.reject{|item|item.itemable_type == "ServiceGroup"}.sum(&:cost)
     end
     
-    
+  
     
     def amount_due
       unless amount_paid.blank?

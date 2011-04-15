@@ -1,6 +1,7 @@
 class Endorsement < ActiveRecord::Base
   
   belongs_to :insurance_policy, :class_name => "InsurancePolicy", :foreign_key => "insurance_policy_id"
+  belongs_to :user, :class_name => "User", :foreign_key => "user_id"
   
   has_many :items, :as => :itemable
   
