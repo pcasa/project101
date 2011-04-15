@@ -4,7 +4,7 @@ class OrdersController < ApplicationController
   before_filter :check_if_printable, :only => :print_order
   before_filter :check_customer_change, :only => :edit
   
-  rescue_from ActiveRecord::RecordNotFound, :with => :no_order_found
+ # rescue_from ActiveRecord::RecordNotFound, :with => :no_order_found
   
   def index
     unless params[:customer_id]
@@ -56,9 +56,10 @@ class OrdersController < ApplicationController
       if @order.customer_id.blank? || (@order.customer_id != @customer.id)
         @order.update_attribute(:customer_id, @customer.id)
       end
-    elsif !@order.customer_id.blank? && @order.customer_id != 0 # this is in case that something happens
-      @customer = Customer.find(@order.customer_id)  
+    elsif !@order.customer_id.blank? && Customer.exists?(@order.customer_id) # this is in case that something happens
+       @customer = Customer.find(@order.customer_id)
     else
+      @order.update_attribute(:customer_id, nil) unless @order.customer_id.blank? #Customer Deleted. Removed Customer_id
       @order.customer = @order.build_customer
     end
    # - Refactored to abave -  

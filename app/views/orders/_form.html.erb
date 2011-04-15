@@ -28,13 +28,15 @@ $(document).ready(function(){
 	<tr width="100%">
 		<td wdith="58%" class="silverBG">
 			
-			<% unless customer.blank? %>
+			<% if !customer.blank? && !order.closed? %>
 			  	<%= render :partial => 'common/show_customer_condensed', :locals => {:customer => customer } %>
 			    <%= f.hidden_field :customer_id, :value => customer.id %>
-			<% else %>
+			<% elsif !order.closed? %>
 				<%= f.fields_for :customer do |customer| %>
 			    	<%= render :partial => 'common/new_customer', :locals => { :f => customer } %>
 			    <% end %>
+			<% else %>
+				<%= f.collection_select :customer_id, Customer.all, :id, :full_name, :prompt => "Select Customer"%>
 			<% end %>
 		</td>
 		<td align=center><%= image_tag("/images/logos/med.png", :size => "240x166", :alt => "Logo") %></td>
