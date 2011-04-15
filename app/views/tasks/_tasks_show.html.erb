@@ -8,7 +8,7 @@
 	<tr>
       <td width="50%"><%= task.name %></td>
       <td width="10%"><%= task.category %></td>
-      <td width="20%"><%= task.due_at.strftime('%b %d %Y %I:%M %p') %></td>
+      <td width="20%"><%= task.due_at.strftime('%b %d %Y %I:%M %p') unless task.due_at.blank? %></td>
       <td><%= link_to "Show", company_task_path(current_company, task) %></td>
       <td><%= link_to "Edit", edit_company_task_path(current_company, task) %></td>
 	  <td><a href="#" class="toggle-comment-form">Add Comment</a></td>
