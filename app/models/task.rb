@@ -21,8 +21,8 @@ class Task < ActiveRecord::Base
     
     accepts_nested_attributes_for :comment, :allow_destroy => true, :reject_if => proc { |a| a[:content].blank? }
     
-    
-    before_update :check_if_notes, :if_user_assigned_delete_task
+    # before_update :check_if_notes
+    before_update :if_user_assigned_delete_task
     before_save :if_user_assigned_delete_task
     validates_presence_of :due_at, :message => "can't be blank"
     
