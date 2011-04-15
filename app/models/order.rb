@@ -110,16 +110,17 @@ class Order < ActiveRecord::Base
     
     def save_changes
       unless self.items.blank?
-        if closed_date_changed? || assigned_company_id_changed? || user_id_changed?
+        if closed_date_changed? || assigned_company_id_changed? || user_id_changed? || customer_id_changed?
           self.items.each do |item|
-            if closed_date_changed?
+            case
+            when closed_date_changed?
               item.update_attribute(:created_at, closed_date)
-            end
-            if assigned_company_id_changed?
+            when assigned_company_id_changed?
               item.update_attribute(:assigned_company_id, self.assigned_company_id)
-            end
-            if user_id_changed?
+            when user_id_changed?
               item.update_attribute(:user_id, self.user_id)
+            when customer_id_changed?
+              item.update_attribute(:customer_id, self.customer_id)
             end
           end
         end

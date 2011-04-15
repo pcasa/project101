@@ -36,7 +36,11 @@ $(document).ready(function(){
 			    	<%= render :partial => 'common/new_customer', :locals => { :f => customer } %>
 			    <% end %>
 			<% else %>
-				<%= f.collection_select :customer_id, Customer.all, :id, :full_name, :prompt => "Select Customer"%>
+				<%= f.collection_select :customer_id, Customer.all, :id, :full_name, :prompt => "Select Customer"%> 
+				<% unless customer.blank? %>
+				 - <b>Change Customer</b><br />
+				<%= render :partial => 'common/show_customer_condensed', :locals => {:customer => customer } %>
+				<% end %>
 			<% end %>
 		</td>
 		<td align=center><%= image_tag("/images/logos/med.png", :size => "240x166", :alt => "Logo") %></td>
