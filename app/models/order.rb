@@ -70,7 +70,8 @@ class Order < ActiveRecord::Base
   
   # Get all order that have partial payments
   def self.with_partial_payments
-    where("closed = 1 AND amount_paid < total_amount")
+   # where(:closed => true, :amount_paid < :total_amount)
+     where("closed IS ? AND amount_paid < total_amount", true)
   end
   
     
