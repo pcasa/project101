@@ -102,8 +102,7 @@ $(document).ready(function(){
 			$('input.ui-datetime-picker, .task-datetime').datetimepicker({ dateFormat: 'M d yy', ampm: true });
 			$('.created-at-datetime, .updated-at-datetime').datetimepicker({dateFormat: 'M dd, yy ', ampm: true});
 			
-			
-			
+			$('.task-picker').removeClass('hasDatepicker').datetimepicker({ onSelect: function() { $(".ui-datepicker a").removeAttr("href"); }, dateFormat: 'M dd, yy ', ampm: true });
 	});
 	
 

@@ -8,6 +8,7 @@ class ReportsController < ApplicationController
   
   def store_reports
     @orders = Order.where(:assigned_company_id => current_company.id)
+    @progressive = Vendor.find_by_name("Progressive")
   end
   
   def policy_reports

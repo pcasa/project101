@@ -43,6 +43,9 @@ class TasksController < ApplicationController
   def update
     @task = Task.find(params[:id])
     if @task.update_attributes(params[:task])
+      unless params[:task][:reschedule_date].blank?
+        Task.create!(@task.attributes.merge(:due_at => params[:task][:reschedule_date], :deleted_at => nil, :completed_by => nil))
+      end
       respond_to do |format|  
         format.html { 
           if @task.asset == current_company

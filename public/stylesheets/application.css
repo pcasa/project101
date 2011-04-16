@@ -515,6 +515,11 @@ form.formtastic fieldset.buttons ol li.commit input {
 	position:relative;
 	behavior: url(/stylesheets/PIE.htc);
 	}
+	
+.small-fancy-field {
+	width: 200px!important;
+	font-size: 0.9em!important;
+}
 
 
 .fancy-field:hover {
@@ -603,6 +608,7 @@ form.formtastic fieldset.buttons ol li.commit input {
 	height: 90px;
 	display: none;
 }
+
 
 
 /*** Formtastic Overrides ***/

@@ -26,7 +26,10 @@
 					Cancelled on: <%= policy.cancelled_on.strftime('%b %d, %Y')%>
 					<% end %>
 					<% unless policy.completed? || policy.cancelled?%>
-					Next Payment Due on: <%= policy.due_date.strftime('%b %d, %Y')%> | Payments Left: <%= policy.number_of_payments_left.to_s %>
+					<b>Next Payment:</b> <%= policy.due_date.strftime('%b %d, %Y')%> <br />
+					<b>Current Payments:</b> <%= number_to_currency(policy.current_monthly_amount) %><br />
+					<b>Payments Left:</b> <%= policy.number_of_payments_left.to_s %><br />
+					<b>Renewal Date:</b> <%= policy.renewal_date.strftime('%b %d, %Y')%>
 					<% end %>
 					</p>
 				<% if !policy.items.valid_items.blank? %>

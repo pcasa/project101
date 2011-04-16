@@ -1,4 +1,5 @@
 class Item < ActiveRecord::Base
+  
   acts_as_paranoid
   
   # item.only_deleted # retrieves the deleted records

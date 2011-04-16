@@ -15,7 +15,13 @@
 		    <tr class="<%= cycle("even", "odd") -%>">
 				<td><%= item.order_id %></td>
 		    	<td><%= item.name %></td>
-				<td><%= item.itemable_type.titleize %></td>
+				<td>
+					<% unless item.itemable_type == "InsurancePolicy" %>
+						<%= item.itemable_type.titleize %>
+					<% else %>
+						<%= item.vendor.name unless item.vendor_id.blank? %>
+					<% end %>
+				</td>
 				<td><%= number_to_currency(item.cost) %></td>
 				<td><%= number_to_currency(item.price) %></td>
 		    </tr>
@@ -24,7 +30,7 @@
 			<td colspan="4">
 				<table width="100%">
 					<tr>
-						<td><b>Sold For:</b><br />
+						<td><b>Sold:</b><br />
 							<%= number_to_currency(@items.collect.sum(&:price)) %>
 						</td>
 						<td><b>Cost:</b><br />
@@ -41,11 +47,16 @@
 			<td colspan="4">
 				<table width="100%" border="0" id="payment-type">
 					<tr>
-						<td class="biggertxt"><b>Insurance Cost:</b><br />
+						<% policy_items = @items.select{ |item| item.itemable_type == "InsurancePolicy"} %>
+						
+						<td class="biggertxt" width="33%"><b>101 Insurance Cost:</b><br />
+							<%= number_to_currency(policy_items.reject{ |item| item.vendor_id == @progressive.id}.sum(&:cost)) %>
+						</td>
+						<td class="biggertxt" width="33%"><b>Prograssive Cost:</b><br />
 							<%= number_to_currency(@items.select{ |item| item.itemable_type == "InsurancePolicy"}.sum(&:cost)) %>
 						</td>
-						<td class="biggertxt"><b>Services Cost:</b><br />
-							<%= number_to_currency(@items.select{ |item| item.itemable_type == "Service"}.sum(&:cost)) %>
+						<td class="biggertxt" width="33%"><b>Company Cost:</b><br />
+							<%= number_to_currency(@items.reject{ |item| item.itemable_type == "InsurancePolicy"  }.sum(&:cost)) %>
 						</td>
 					</tr>
 				</table>

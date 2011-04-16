@@ -63,16 +63,17 @@
 				<td colspan="4">&nbsp;</td>
 			</tr>
 			<tr align=LEFT>
+				<th colspan="2">Renewal Date:</th>
 				<th colspan="2">Renewal or Reinstated from:</th>
-				<th colspan="2"></th>
 			</tr>
 			<tr>
+				<td colspan="2"><%= @insurance_policy.renewal_date.strftime('%b %d, %Y') %></td>
 				<td colspan="2">
 					<% unless @insurance_policy.parent_id.blank? %>
 						<%= link_to @insurance_policy.parent.policy_number, company_insurance_policy_path(current_company, @insurance_policy.parent_id) %>
 					<% end %>
 				</td>
-				<td colspan="2"></td>
+				
 			</tr>
 		</table>
 		</p>

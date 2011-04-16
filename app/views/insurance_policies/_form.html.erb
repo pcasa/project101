@@ -46,8 +46,8 @@ $(document).ready(function() {
 <% if current_user.role == "admin" %>
 <div class="extrapadding" style="background-color:red;color:#eee;">  Assigned Location: <%= f.select :assigned_company_id, Company.all.collect { |u| [u.name, u.id] }, :selected => f.object.assigned_company_id unless f.object.assigned_company_id.nil? %>
 <br /><br />
-	<%= f.input :parent_id, :label => "Parent Policy: ", :as => :select, :collection => InsurancePolicy.all.collect { |u| [u.policy_number, u.id] }, :include_blank => true %>
-
+	<%= f.input :parent_id, :label => "Parent Policy: ", :as => :select, :collection => InsurancePolicy.all.collect { |u| [u.policy_number, u.id] }, :include_blank => true %><br />
+Policy Created at Date: <%= f.text_field :created_at, :class => "created-at-datetime", :value => (f.object.created_at.blank? ? Time.now.strftime('%b %d, %Y %I:%M %p') : f.object.try(:created_at).try(:strftime,'%b %d, %Y %I:%M %p')) %>
 	</div>
 <% else %>
 <%= f.input :assigned_company_id, :as => :hidden %>

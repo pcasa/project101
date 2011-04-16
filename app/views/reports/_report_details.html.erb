@@ -15,6 +15,7 @@
 <p>
 <table width="100%">
 	<tr>
+		<th>Order #</th>
 		<th>Customer Name</th>
 		<th>Policy Number</th>
 		<th>Payment Type</th>
@@ -23,8 +24,9 @@
 		<th>Sold For:</th>
 	</tr>
 	<% if !@items.blank? %>
-	  <% for item in @items %>
+	  <% for item in @items.order("order_id ASC") %>
 	    <tr>
+			<td><%= item.order_id %></td>
 			<td>
 				<% unless item.customer_id.blank? || !Customer.exists?(item.customer_id) %>
 					<%= item.customer.full_name %>
@@ -34,11 +36,13 @@
 			</td>
 			<% policy_exists = InsurancePolicy.exists?(item.itemable_id) %>
 			<td>#<%= policy_exists ? item.itemable.policy_number : "Policy deleted!" %></td>
+			<td> 
 			<% if !item.new_service?  %>
-				<td><%= policy_exists ? "Policy Payment" : "Policy deleted!" %></td>
+				<%= policy_exists ? "Policy Payment" : "Policy deleted!" %>
 			<% else %>
-				<td><%= policy_exists ? item.itemable.policy_type : "Policy deleted!" %></td>
+				<%= policy_exists ? item.itemable.policy_type : "Policy deleted!" %>
 			<% end %>
+			</td>
 			<td><%= item.vendor.name %></td>
 			<td><%= number_to_currency(item.cost) %></td>
 			<td><%= number_to_currency(item.price) %></td>

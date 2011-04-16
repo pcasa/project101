@@ -18,6 +18,7 @@ Project101::Application.routes.draw do
   scope '/:company_id', :as => :company do 
     match '/orders/all_services_popup' => 'orders#all_services_popup', :as => :all_services_popup
     match '/orders/:id/print_order' => 'orders#print_order', :as => :print_order
+    match '/orders/:id/make_partial_payment' => 'orders#make_payment_on_open_order', :as => :partial_payment
     match '/services/:id/add_to_order' => 'services#add_to_order', :as => :add_service_to_order
     match '/customers/:customer_id/customer_orders' => 'customers#customer_orders', :as => :customer_orders
     match '/customers/:customer_id/customer_policies' => 'customers#customer_policies', :as => :customer_policies

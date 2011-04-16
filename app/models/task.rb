@@ -16,15 +16,16 @@ class Task < ActiveRecord::Base
   belongs_to  :asset, :polymorphic => true
   has_one :comment, :as => :commentable, :dependent => :destroy
   
-    attr_accessible :user_id, :assigned_to, :completed_by, :assigned_company, :name, :asset_id, :asset_type, :category, :due_at, :deleted_at, :mark_as_completed, :current_tasks_for, :comment_attributes
-      
+    attr_accessible :user_id, :assigned_to, :completed_by, :assigned_company, :name, :asset_id, :asset_type, :category, :due_at, :deleted_at, :mark_as_completed, :current_tasks_for, :comment_attributes, :force_task
     
+    attr_accessor :reschedule_date, :force_task
+      
     accepts_nested_attributes_for :comment, :allow_destroy => true, :reject_if => proc { |a| a[:content].blank? }
     
-    # before_update :check_if_notes
-    before_update :if_user_assigned_delete_task
+    
+    before_update :if_user_assigned_delete_task, :check_if_notes, :unless => proc { |a| a.force_task }
     before_save :if_user_assigned_delete_task
-    validates_presence_of :due_at, :message => "can't be blank"
+    validates_presence_of :due_at, :on => :create, :message => "can't be blank"
     
     
    
@@ -66,7 +67,7 @@ class Task < ActiveRecord::Base
       else
         comment.update_attribute(:content, msg)
       end
-      self.update_attributes(:completed_by => user_id, :deleted_at => Time.now)
+      self.update_attributes!(:completed_by => user_id, :force_task => true)
     end
     
     def check_if_notes

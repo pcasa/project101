@@ -26,6 +26,9 @@ gem 'best_in_place'
 gem 'populator'
 gem 'faker'
 
+
+
+
 # Use unicorn as the web server
 # gem 'unicorn'
 

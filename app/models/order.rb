@@ -7,6 +7,9 @@ class Order < ActiveRecord::Base
   belongs_to :assigned_company, :class_name => "Company", :foreign_key => "assigned_company_id"
   belongs_to :parent_company, :class_name => "Company", :foreign_key => "parent_company_id"
   has_many :items, :dependent => :destroy
+  
+  
+  has_many :partial_payments, :through => :items, :source => :itemable, :source_type => 'Order'
   has_one :comment, :as => :commentable
   
   scope :company, lambda { |company| {:conditions => ["assigned_company_id = ?", company.id] }}
@@ -23,6 +26,7 @@ class Order < ActiveRecord::Base
   scope :closed_this_month, lambda { where("closed_date IS NOT ? AND closed_date >= ? AND closed_date < ?", nil, Time.now.beginning_of_month, Time.now.end_of_month)}
   scope :closed_last_month, lambda { where("closed_date IS NOT ? AND closed_date >= ? AND closed_date < ?", nil, (Time.now.beginning_of_month - 1.day).beginning_of_month, Time.now.beginning_of_month)}
   scope :closed_this_year, lambda { where("closed_date IS NOT ? AND closed_date >= ?", nil, Time.now.midnight.beginning_of_year)}
+  
   
   # Scope for payment types 
   scope :cash, where(:payment_type => "cash")
@@ -63,6 +67,12 @@ class Order < ActiveRecord::Base
    end
   
   
+  
+  # Get all order that have partial payments
+  def self.with_partial_payments
+    where("closed IS ? AND amount_paid < total_amount", true)
+  end
+  
     
     # totals only items that are not nested in parent_id like service groups.
     def total_price
@@ -77,6 +87,10 @@ class Order < ActiveRecord::Base
       items.to_a.reject{|item|item.itemable_type == "ServiceGroup"}.sum(&:cost)
     end
     
+    def still_owes
+      
+    end
+    
   
     
     def amount_due
@@ -85,6 +99,10 @@ class Order < ActiveRecord::Base
       else
         total_price
       end
+    end
+    
+    def amount_owed
+      total_price - amount_paid
     end
     
     def amount_received
@@ -135,6 +153,12 @@ class Order < ActiveRecord::Base
           item.update_attributes(:name => temp_desc, :deleted_at => Time.now - 2.seconds)
         end
       end
+    end
+    
+    
+    def make_partial_payment(current_order, current_user_id, assigned_company_id, parent_company_id)
+      Item.create!(:name => "Order Payment", :short_description => "Payment on Order ##{self.id}", :cost => self.amount_owed, :price => self.amount_owed, :qty => 1, :order_id => current_order.id, :customer_id => self.customer_id, :itemable_type => self.class, :itemable_id => self.id, :user_id => current_user_id, :assigned_company_id => assigned_company_id, :parent_company_id => parent_company_id, :category_id => Category.find_by_name("Expense").id)
+      current_order.update_attribute(:customer_id, self.customer_id)
     end
   
 end

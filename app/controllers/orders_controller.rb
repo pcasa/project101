@@ -108,6 +108,12 @@ class OrdersController < ApplicationController
     redirect_to company_orders_url
   end
   
+  def make_payment_on_open_order
+    @order = Order.find(params[:id])
+    @order.make_partial_payment(current_order, current_user.id, current_company.id, main_company.id)
+    redirect_to edit_company_order_path(current_company, current_order)
+  end
+  
   def all_services_popup
     @services = Service.all
     render :layout => false
