@@ -22,6 +22,7 @@ class Item < ActiveRecord::Base
   belongs_to :insurance_policy, :class_name => "InsurancePolicy"
   belongs_to :user, :class_name => "User", :foreign_key => "user_id"
   belongs_to :vendor, :class_name => "Vendor", :foreign_key => "vendor_id"
+  belongs_to :partial_payments, :class_name => "Order", :foreign_key => "itemable_id"
   
   
   attr_accessible :name, :short_description, :category_id, :cost, :price, :qty, :visible, :new_service, :deleted, :closed, :order_id, :customer_id, :itemable, :parent_id, :itemable_type, :itemable_id, :user_id, :assigned_company_id, :parent_company_id, :schedule_any_tasks, :vendor_id, :created_at, :deleted_at, :updated_at
@@ -32,6 +33,10 @@ class Item < ActiveRecord::Base
   
   scope :in_orders, lambda { |orders| joins(:order) & orders }
   scope :only_new_items, where(:new_service => true)
+  
+  scope :order_payments, lambda { |order| where("itemable_type = 'Order' AND itemable_id = ?", order.id)}
+  
+  scope :payments_on_all_orders, lambda { |orders| where("itemable_type = 'Order' AND itemable_id IN (?)", orders)}
     
     
     

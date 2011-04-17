@@ -7,16 +7,14 @@ class Order < ActiveRecord::Base
   belongs_to :assigned_company, :class_name => "Company", :foreign_key => "assigned_company_id"
   belongs_to :parent_company, :class_name => "Company", :foreign_key => "parent_company_id"
   has_many :items, :dependent => :destroy
-  
-  
-  has_many :partial_payments, :through => :items, :source => :itemable, :source_type => 'Order'
   has_one :comment, :as => :commentable
+  has_one :task, :as => :asset, :dependent => :destroy
   
   scope :company, lambda { |company| {:conditions => ["assigned_company_id = ?", company.id] }}
   scope :open_order, where(:closed => false)
   scope :closed_orders, where(:closed => true)
   
-  scope :with_policies, joins(:items).where("items.itemable_type = 'InsurancePolicy'")
+ # scope :with_policies, joins(:items).where("items.itemable_type = 'InsurancePolicy'")
   
   # Scopes for time of closed orders
   scope :closed_today, lambda { where("closed_date IS NOT ? AND closed_date >= ? AND closed_date < ?", nil, Time.now.midnight, Time.now.midnight.tomorrow)}
@@ -35,7 +33,7 @@ class Order < ActiveRecord::Base
   
   
   
-  attr_accessible :assigned_company_id, :parent_company_id, :customer_id, :user_id, :closed, :closed_date, :payment_type, :total_cost, :total_amount, :amount_paid, :override, :customer_attributes, :comment_attributes, :items_attributes, :created_at, :formated_closed_date
+  attr_accessible :assigned_company_id, :parent_company_id, :customer_id, :user_id, :closed, :closed_date, :payment_type, :total_cost, :total_amount, :amount_paid, :override, :customer_attributes, :comment_attributes, :items_attributes, :created_at, :formated_closed_date, :order_payments
   
   attr_accessor :formated_closed_date
   
@@ -66,14 +64,6 @@ class Order < ActiveRecord::Base
      self.closed_date = Time.parse(time_str)
    end
   
-  
-  
-  # Get all order that have partial payments
-  def self.with_partial_payments
-   # where(:closed => true, :amount_paid < :total_amount)
-     where("closed_date IS NOT NULL  AND amount_paid < total_amount")
-  end
-  
     
     # totals only items that are not nested in parent_id like service groups.
     def total_price
@@ -88,11 +78,6 @@ class Order < ActiveRecord::Base
       items.to_a.reject{|item|item.itemable_type == "ServiceGroup"}.sum(&:cost)
     end
     
-    def still_owes
-      
-    end
-    
-  
     
     def amount_due
       unless amount_paid.blank?
@@ -102,9 +87,7 @@ class Order < ActiveRecord::Base
       end
     end
     
-    def amount_owed
-      total_price - amount_paid
-    end
+    
     
     def amount_received
       if total_price <= amount_paid
@@ -156,10 +139,59 @@ class Order < ActiveRecord::Base
       end
     end
     
-    
+    #######################################################################################
+    # Making a partial payment
+    #######################################################################################
     def make_partial_payment(current_order, current_user_id, assigned_company_id, parent_company_id)
       Item.create!(:name => "Order Payment", :short_description => "Payment on Order ##{self.id}", :cost => self.amount_owed, :price => self.amount_owed, :qty => 1, :order_id => current_order.id, :customer_id => self.customer_id, :itemable_type => self.class, :itemable_id => self.id, :user_id => current_user_id, :assigned_company_id => assigned_company_id, :parent_company_id => parent_company_id, :category_id => Category.find_by_name("Expense").id)
       current_order.update_attribute(:customer_id, self.customer_id)
+    end
+    
+    #######################################################################################
+    # Everything about owing money to an order
+    #######################################################################################
+    
+    # Get all order that have partial payments
+    def self.with_partial_payments
+       where("closed_date IS NOT NULL AND amount_paid < total_amount")
+    end
+    
+    # Check if these Orders with partial payments have any payments made.
+    # An open order can have only one payment
+    def self.without_payments_made
+      ids = self.all.collect { |order| order.id }.to_a
+      items = Item.payments_on_all_orders(ids)
+      return items
+    end
+    
+    # Example of how to use above
+    # Order.with_partial_payments.without_payments_made
+    # Will return all orders that don't have a payment in one sql call
+    
+    def amount_owed
+      total_price - amount_paid
+    end
+    
+    def is_a_partial_payment
+      amount_paid < total_price
+    end
+    
+    # used to see if a particular order has a payment
+    def partial_payments_made
+      item = Item.order_payments(self).first
+      return item
+    end
+    
+    def still_owes
+      unless partial_payments_made.blank?
+        if amount_owed <= partial_payments_made.full_price
+          return false
+        else
+          return true
+        end
+      else
+        return true
+      end
     end
   
 end

@@ -9,12 +9,14 @@
 	    <li><%= link_to "Notes", company_customer_comments_path(current_company, @customer) %></li>		
 	</ul>
 	<div id="firstTab">
+		<% pending_payments = @customer.orders.with_partial_payments.without_payments_made %>
+		<% unless pending_payments.blank? %>
 		<p>
-			Customer Owes <% @customer.orders.with_partial_payments.each do |order| %>
-			<%= link_to number_to_currency(order.amount_owed), company_partial_payment_path(current_company, order) %><br />
-			<%= order.partial_payments.blank?%>
+			<% pending_payments.each do |item| %>
+			<%= item.name %>
 			<% end %>
 		</p>
+		<% end %>
 		<table width="100%">
 			<tr valign=TOP>
 			<td>
@@ -71,7 +73,6 @@
 							<% end %>
 						</table>
 					<% end %>
-					
 				</td>
 			</tr>
 		</table>

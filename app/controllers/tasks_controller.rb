@@ -32,7 +32,10 @@ class TasksController < ApplicationController
         format.js if request.xhr? 
       end
     else
-      render :action => 'new'
+      respond_to do |format|
+        format.html { render :action => 'new' }
+        format.js if request.xhr? 
+      end
     end
   end
 

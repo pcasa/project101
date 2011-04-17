@@ -6,3 +6,21 @@ $(".new-task-form").slideUp();
 
 $('#basic-tasks').append("<%= escape_javascript(render :partial => "common/task", :locals => { :task => @task } ) %>"); // Insert the _comment partial at the bottom of the comments list
 $('.task').last().effect("highlight", {}, 2500);
+
+$("#flash_notice").hide(300);
+$("#task_errors").html("");
+$("#task_errors").show(300);
+
+
+
+
+
+<% if @task.errors.any? -%>
+  $("#flash_notice").hide(300);
+  $("#task_errors").html("<%= escape_javascript(error_messages_for(@task))%>").hide();
+  $("#task_errors").slideDown('slow');
+<% else %>
+  $("#partial-payment-task").fadeTo('slow', 0, function() {
+  		$("#partial-payment-task").dialog('close');
+  });
+<% end -%>

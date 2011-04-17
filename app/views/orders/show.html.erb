@@ -89,3 +89,32 @@
   <%= link_to "View All", company_orders_path %>
 </p>
 </div>
+
+<% if @order.is_a_partial_payment && @order.still_owes %>
+<% if @order.task.blank? %>
+<script type="text/javascript" language="javascript">
+    $(document).ready(function(){
+        $("#partial-payment-task").dialog({ modal: true, resizable: false, height: 'auto', minWidth: '450', show: 'fade' });
+$("#task_submit").focus();
+    });
+</script>
+
+<div id="partial-payment-task" title="Setup reminder for partial payment">
+	<div id="task_errors" style="display:none"></div>
+	<br />
+	<%= form_for [current_company, Task.new], :remote => true do |f| %>
+		<%= f.hidden_field :user_id, :value => current_user.id %>
+		<%= f.hidden_field :asset_type, :value => @order.class %>
+		<%= f.hidden_field :asset_id, :value => @order.id %>
+		<%= f.hidden_field :assigned_company, :value => current_company.id %>
+		<%= f.hidden_field :assigned_to, :value => current_user.id %>
+		<%= f.hidden_field :category, :value => "money" %>
+		<%= f.text_field :name, :value => "Call #{@order.customer.full_name} about the Partial payment on Order #{@order.id}", :class => "fancy-field" %><br /><br />
+		<%= f.label "Due By: "%><br /><%= f.text_field :due_at, :class => "task-datetime fancy-field small-fancy-field" %>
+		
+		<p style="text-align:right;"><%= f.submit :class => "smallbtn green" %></p>		
+	<% end %>
+</div>
+<% else %>
+<% end %>
+<% end %>
