@@ -85,6 +85,12 @@
 					<td><b>Amount Paid:</b></td>
 					<td><%= number_to_currency(@order.amount_paid) %></td>
 				</tr>
+				<% if @order.is_a_partial_payment %>
+				<tr>
+					<td><b>Balance Owed:</b></td>
+					<td><%= number_to_currency(@order.amount_owed) %></td>
+				</tr>
+				<% end %>
 				</table>
 				</p>
 			</td>

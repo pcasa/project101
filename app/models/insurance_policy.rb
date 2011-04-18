@@ -21,6 +21,8 @@ class InsurancePolicy < ActiveRecord::Base
     
     scope :with_comments, :joins => :comments, 
                                   :order => "comments.created_at DESC"
+                                  
+    scope :sort_by_customer_firstname_asc, order('customer.firstname ASC')
     
     validates_presence_of :policy_number, :customer_id, :vendor_id, :due_date, :number_of_payments_left, :policy_type, :down_payment, :monthly_payment, :club_price, :message => "can't be blank"
     

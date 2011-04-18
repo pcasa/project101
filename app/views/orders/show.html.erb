@@ -9,8 +9,12 @@
 		<td wdith="58%" class="silverBG">
 			
 			<% unless @order.customer.blank? %>
-			  	<%= render :partial => 'common/show_customer_condensed', :locals => {:customer => @order.customer } %>
+			<p>
+				<%= render :partial => 'common/show_customer_condensed', :locals => {:customer => @order.customer } %>
 						<%= link_to "Go to Customer", [current_company, @order.customer], :class => "smallbtn blue" %>
+				
+			</p>
+			  	
 			<% end %>
 		</td>
 		<td align=center><%= image_tag("/images/logos/med.png", :size => "240x166", :alt => "Logo") %></td>

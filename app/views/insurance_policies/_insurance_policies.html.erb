@@ -1,5 +1,6 @@
 <p><%= form_for [current_company, @search], :html => {:method => :get} do |f| %>
     Search by Policy Number: <%= f.text_field :policy_number_contains %><br /><br />
+Customer First Name: <%= f.text_field :customer_firstname_contains %>  Last Name: <%= f.text_field :customer_lastname_contains %><br /><br />
 	
 	
 	Cancelled from:<%= f.text_field :cancelled_on_gt, :class => "ui-date-picker", :value => (f.object.cancelled_on_gt.blank? ? '' : f.object.try(:cancelled_on_gt).try(:strftime,'%b %d %Y')) %> - 
@@ -9,12 +10,12 @@
     <%= f.submit "Search", :class => "smallbtn  blue" %>
 <% end %>
 </p>
-
+<p><%= will_paginate @insurance_policies %></p>
 
 <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr>
     <th width="12%"><%= sort_link @search, :policy_number %></th>
-    <th width="15%"><%= sort_link @search, :customer %>	</th>
+    <th width="15%">Customer</th>
     <th width="12%"><%= sort_link @search, :vendor_id, "Vendor" %></th>
     <th width="12%"><%= sort_link @search, :due_date %></th>
     <th width="11%"><%= sort_link @search, :cancelled_on %></th>
@@ -47,3 +48,5 @@
 	</tr>
 <% end %>
 </table>
+
+<p><%= will_paginate @insurance_policies %></p>
