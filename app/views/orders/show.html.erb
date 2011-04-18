@@ -94,7 +94,7 @@
 </p>
 </div>
 
-<% if @order.is_a_partial_payment && @order.still_owes %>
+<% if @order.closed? && @order.is_a_partial_payment && @order.still_owes %>
 <% if @order.task.blank? %>
 <script type="text/javascript" language="javascript">
     $(document).ready(function(){
