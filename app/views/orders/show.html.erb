@@ -100,7 +100,7 @@ $("#task_submit").focus();
 </script>
 
 <div id="partial-payment-task" title="Setup reminder for partial payment">
-	<div id="task_errors" style="display:none"></div>
+	<div id="task-errors" style="display:none"></div>
 	<br />
 	<%= form_for [current_company, Task.new], :remote => true do |f| %>
 		<%= f.hidden_field :user_id, :value => current_user.id %>
@@ -110,7 +110,7 @@ $("#task_submit").focus();
 		<%= f.hidden_field :assigned_to, :value => current_user.id %>
 		<%= f.hidden_field :category, :value => "money" %>
 		<%= f.text_field :name, :value => "Call #{@order.customer.full_name} about the Partial payment on Order #{@order.id}", :class => "fancy-field" %><br /><br />
-		<%= f.label "Due By: "%><br /><%= f.text_field :due_at, :class => "task-datetime fancy-field small-fancy-field" %>
+		<%= f.label "Due at: "%><br /><%= f.text_field :due_at, :class => "task-datetime fancy-field small-fancy-field" %>
 		
 		<p style="text-align:right;"><%= f.submit :class => "smallbtn green" %></p>		
 	<% end %>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110413213915) do
+ActiveRecord::Schema.define(:version => 20110417183727) do
 
   create_table "addresses", :force => true do |t|
     t.string    "street1"
@@ -148,28 +148,28 @@ ActiveRecord::Schema.define(:version => 20110413213915) do
   add_index "insurance_policies", ["policy_type"], :name => "index_insurance_policies_on_policy_type"
 
   create_table "items", :force => true do |t|
-    t.string    "name",                :limit => 128
-    t.string    "short_description",   :limit => 256
-    t.decimal   "price"
-    t.decimal   "cost"
-    t.integer   "qty",                                :default => 1
-    t.boolean   "visible",                            :default => true
-    t.boolean   "new_service"
-    t.boolean   "deleted",                            :default => false
-    t.boolean   "closed",                             :default => false
-    t.integer   "order_id"
-    t.integer   "category_id"
-    t.integer   "itemable_id"
-    t.string    "itemable_type"
-    t.integer   "vendor_id"
-    t.integer   "user_id"
-    t.integer   "customer_id"
-    t.integer   "assigned_company_id"
-    t.integer   "parent_company_id"
-    t.integer   "parent_id"
-    t.timestamp "deleted_at"
-    t.timestamp "created_at"
-    t.timestamp "updated_at"
+    t.string   "name",                :limit => 128
+    t.string   "short_description",   :limit => 256
+    t.decimal  "price"
+    t.decimal  "cost"
+    t.integer  "qty",                                :default => 1
+    t.boolean  "visible",                            :default => true
+    t.boolean  "new_service",                        :default => false
+    t.boolean  "deleted",                            :default => false
+    t.boolean  "closed",                             :default => false
+    t.integer  "order_id"
+    t.integer  "category_id"
+    t.integer  "itemable_id"
+    t.string   "itemable_type"
+    t.integer  "vendor_id"
+    t.integer  "user_id"
+    t.integer  "customer_id"
+    t.integer  "assigned_company_id"
+    t.integer  "parent_company_id"
+    t.integer  "parent_id"
+    t.datetime "deleted_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "items", ["customer_id"], :name => "index_items_on_customer_id"

@@ -156,6 +156,7 @@ class Order < ActiveRecord::Base
        where("closed_date IS NOT NULL AND amount_paid < total_amount")
     end
     
+    
     # Check if these Orders with partial payments have any payments made.
     # An open order can have only one payment
     def self.without_payments_made
@@ -163,6 +164,15 @@ class Order < ActiveRecord::Base
       items = Item.payments_on_all_orders(ids)
       return items
     end
+    
+    def self.without_payments_made_new
+      ids = self.all.collect { |order| order.id }.to_a
+      items = Item.payments_on_all_orders(ids).all.collect { |item| item.itemable_id }.to_a
+      new_ids = ids - items # [1, 3, 4, 5, 7] - [1, 4, 5] will return [3, 7]
+      new_orders = Order.find(new_ids)
+      return new_orders
+    end
+    
     
     # Example of how to use above
     # Order.with_partial_payments.without_payments_made
@@ -191,6 +201,14 @@ class Order < ActiveRecord::Base
         end
       else
         return true
+      end
+    end
+    
+    
+    def clear_order_task(original_order, user_id)
+      msg = " - System Note - Made payment on Order ##{original_order}."
+      unless original_order.task.blank?
+        original_order.task.mark_completed_and_msg(user_id, msg)
       end
     end
   

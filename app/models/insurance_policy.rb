@@ -130,9 +130,9 @@ class InsurancePolicy < ActiveRecord::Base
         end
         if !current_policy_task.blank?
           if !current_policy_task.comment.blank? && !current_policy_task.comment.content.blank?
-            msg = current_policy_task.comment.content.to_s + " - I am line item 124 System Note - Made a policy payment."
+            msg = current_policy_task.comment.content.to_s + " System Note - Made a policy payment."
           else
-            msg = "I am line item 126 - System Note - Made a policy payment."
+            msg = " System Note - Made a policy payment."
           end
           current_policy_task.mark_completed_and_msg(user_id, msg)
         end 

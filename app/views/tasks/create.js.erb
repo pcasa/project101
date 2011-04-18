@@ -17,8 +17,8 @@ $("#task_errors").show(300);
 
 <% if @task.errors.any? -%>
   $("#flash_notice").hide(300);
-  $("#task_errors").html("<%= escape_javascript(error_messages_for(@task))%>").hide();
-  $("#task_errors").slideDown('slow');
+  $("#task-errors").html("<%= escape_javascript(error_messages_for(@task))%>").hide();
+  $("#task-errors").slideDown('slow');
 <% else %>
   $("#partial-payment-task").fadeTo('slow', 0, function() {
   		$("#partial-payment-task").dialog('close');

@@ -1,0 +1,16 @@
+
+
+
+<% if @task.errors.any? -%>
+  alert("in errors");
+  $("#comntent").html("<div id="task-errors" title="Something went wrong"></div>");
+  $("#task-errors").dialog({ modal: true, resizable: false, height: 'auto', minWidth: '450', show: 'fade' });
+  $("#flash_notice").hide(300);
+  $("#task-errors").html("<%= escape_javascript(error_messages_for(@task))%>").hide();
+  $("#task-errors").slideDown('slow');
+<% else %>
+alert("in OK");
+  $("#partial-payment-task").fadeTo('slow', 0, function() {
+  		$("#partial-payment-task").dialog('close');
+  });
+<% end -%>

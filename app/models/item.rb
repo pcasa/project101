@@ -57,5 +57,8 @@ class Item < ActiveRecord::Base
           self.itemable.schedule_policy_task(self.itemable, self.user_id, self.assigned_company_id, self)
         end
       end
+      if (self.itemable_type == "Order")
+        self.itemable.clear_order_task(self.itemable, self.user_id)
+      end
     end
 end
