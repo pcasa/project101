@@ -34,7 +34,8 @@ class Ability
       end
       can :dashboard, Company
       can [:customer_policies, :customer_orders, :customer_addresses, :customer_comments], Customer
-      can [:create, :update, :all_services_popup, :check_customer_change, :make_payment_on_open_order], Order, :closed => false
+      can [:create, :update, :all_services_popup, :check_customer_change], Order, :closed => false
+      can :make_payment_on_open_order, Order
       can [:check_if_printable, :print_order], Order
       can :add_to_order, :all
       can [:create, :update, :destroy], Item, :closed => false
