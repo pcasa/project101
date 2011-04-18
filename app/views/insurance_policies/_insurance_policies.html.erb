@@ -1,13 +1,27 @@
-<p><%= form_for [current_company, @search], :html => {:method => :get} do |f| %>
-    Search by Policy Number: <%= f.text_field :policy_number_contains %><br /><br />
-Customer First Name: <%= f.text_field :customer_firstname_contains %>  Last Name: <%= f.text_field :customer_lastname_contains %><br /><br />
-	
-	
-	Cancelled from:<%= f.text_field :cancelled_on_gt, :class => "ui-date-picker", :value => (f.object.cancelled_on_gt.blank? ? '' : f.object.try(:cancelled_on_gt).try(:strftime,'%b %d %Y')) %> - 
-	
-	to:<%= f.text_field :cancelled_on_lt, :class => "ui-date-picker", :value => (f.object.cancelled_on_lt.blank? ? '' : f.object.try(:cancelled_on_lt).try(:strftime,'%b %d %Y')) %><br /><br />
-	Completed Policies: <%= f.check_box :completed_is_true %><br /><br />
-    <%= f.submit "Search", :class => "smallbtn  blue" %>
+<p>
+
+<table>
+	<%= form_for [current_company, @search], :html => {:method => :get} do |f| %>
+	<tr>
+		<td>Search by Policy Number:<br /><%= f.text_field :policy_number_contains, :class => "fancy-field" %></td>
+		<td>Search by Vendor:<br /><%= f.text_field :vendor_name_contains, :class => "fancy-field" %></td>
+	</tr>
+	<tr>
+		<td>Customer First Name:<br /><%= f.text_field :customer_firstname_contains, :class => "fancy-field" %></td>
+		<td>Last Name:<br /><%= f.text_field :customer_lastname_contains, :class => "fancy-field" %></td>
+	</tr>
+	<tr>
+		<td>Cancelled from:<br /><%= f.text_field :cancelled_on_gt, :class => "ui-date-picker", :value => (f.object.cancelled_on_gt.blank? ? '' : f.object.try(:cancelled_on_gt).try(:strftime,'%b %d %Y')), :class => "fancy-field" %></td>
+		<td>to:<br /><%= f.text_field :cancelled_on_lt, :class => "ui-date-picker", :value => (f.object.cancelled_on_lt.blank? ? '' : f.object.try(:cancelled_on_lt).try(:strftime,'%b %d %Y')), :class => "fancy-field" %></td>
+	</tr>
+	<tr>
+		<td>Completed Policies: <%= f.check_box :completed_is_true %></td>
+		<td><%= f.submit "Search", :class => "smallbtn  blue" %></td>
+	</tr>
+</table>
+
+
+    
 <% end %>
 </p>
 <p><%= will_paginate @insurance_policies %></p>

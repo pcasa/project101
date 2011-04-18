@@ -509,7 +509,7 @@ form.formtastic fieldset.buttons ol li.commit input {
 	outline: 0;
 	font-size:1.2em;
 	width: 80%;
-	background: #FFFFFF;
+	background: #FFFFFF url(../images/inputBG.png) repeat-x;
 	-moz-border-radius: 6px;
 	border-radius: 6px;
 	position:relative;

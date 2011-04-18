@@ -1,4 +1,5 @@
-<p style="float:left;"><% unless @order.closed? %>
+<% unless @order.closed? %>
+<p style="float:left;">
 	<b>This order is still open!</b>
 <% else %>
 <b>Invoiced at:</b> <%= @order.assigned_company.name unless @order.assigned_company_id.blank? %><br />
@@ -6,8 +7,9 @@
 <% if @order.is_a_partial_payment && @order.still_owes %>
 <br /><br /><b>Still Owes:</b> <%= link_to "Click here to pay", company_partial_payment_path(current_company, @order), :class => "smallbtn green" %>
 <% end %>
-<% end %>
+
 </p>
 
 <p style="float:right;"><%= link_to "Print Order", company_print_order_url(current_company, @order), :rel => 'facebox', :class => "smallbtn blue" %></p>
 <div class="clear"></div>
+<% end %>
