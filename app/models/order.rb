@@ -7,7 +7,7 @@ class Order < ActiveRecord::Base
   belongs_to :assigned_company, :class_name => "Company", :foreign_key => "assigned_company_id"
   belongs_to :parent_company, :class_name => "Company", :foreign_key => "parent_company_id"
   has_many :items, :dependent => :destroy
-  has_one :comment, :as => :commentable
+  has_one :comment, :as => :commentable, :dependent => :destroy
   has_one :task, :as => :asset, :dependent => :destroy
   
   scope :company, lambda { |company| {:conditions => ["assigned_company_id = ?", company.id] }}

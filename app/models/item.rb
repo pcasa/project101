@@ -42,7 +42,7 @@ class Item < ActiveRecord::Base
     
     belongs_to :itemable, :polymorphic => true
     
-    has_many :children, :class_name => "Item", :foreign_key => "parent_id"
+    has_many :children, :class_name => "Item", :foreign_key => "parent_id", :dependent => :destroy
     
     validates_numericality_of :price, :cost, :allow_nil => true
     

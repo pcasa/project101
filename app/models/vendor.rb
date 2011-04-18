@@ -3,6 +3,6 @@ class Vendor < ActiveRecord::Base
     has_many :insurance_policies
     has_many :items
     
-    has_many :addresses, :as => :addressable
+    has_many :addresses, :as => :addressable, :dependent => :destroy
     accepts_nested_attributes_for :addresses, :allow_destroy => true, :reject_if => proc { |a| a[:street1].blank? }
 end
