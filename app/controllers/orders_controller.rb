@@ -21,7 +21,7 @@ class OrdersController < ApplicationController
 
   def show
     @order = Order.find(params[:id])
-    if @order.is_a_partial_payment
+    if @order.is_a_partial_payment if @order.closed?
       @partial_order = true
     end
   end
