@@ -7,7 +7,7 @@
 					<% unless policy.vendor_id.blank? || policy.vendor.website.blank? %>Go to <%= link_to "#{policy.vendor.name}'s Website", url_with_protocol(policy.vendor.website), :target => "_blank" %><% end %>
 					<span class="smallertxt">
 						<% unless policy.number_of_payments_left <= 0 || policy.cancelled? %>
-							<br /><br /><%= link_to "Add Policy Payment", company_policy_payment_path(current_company, policy), :class => "smallbtn green whitetxt" %> | 
+							<br /><br /><%= link_to "Make Policy Payment", company_policy_payment_path(current_company, policy), :class => "smallbtn green whitetxt" %> | 
 							<%= link_to "Add Endorsement", new_company_insurance_policy_endorsement_path(current_company, policy), :class => "smallbtn green whitetxt" %> | 
 							<%= link_to "Cancel Policy", company_policy_cancel_path(current_company, policy), :class => "smallbtn green whitetxt", :confirm => 'Are you sure you want to cancel this policy?' %>
 						<% else %>
