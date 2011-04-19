@@ -51,6 +51,10 @@ class Customer < ActiveRecord::Base
     self.firstname + " " + self.lastname
   end
   
+  def current_policy
+    
+  end
+  
   
   
   def check_if_address_changed
