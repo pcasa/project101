@@ -93,12 +93,12 @@
 
 
 <p><% if can? :update, @customer %>
-  <%= link_to "Edit", edit_company_customer_path %> |
+  <%= link_to "Edit", edit_company_customer_path, :class => "smallbtn green" %> |
 	<% end %>
 	<% if can? :destroy, @customer %>
-  <%= link_to "Destroy", [current_company, @customer], :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "Destroy", [current_company, @customer], :confirm => 'Are you sure?', :method => :delete, :class => "smallbtn green" %> |
 	<% end %>
-  <%= link_to "View All", company_customers_path %>
+  <%= link_to "View All", company_customers_path, :class => "smallbtn green" %>
 </p>
 <br />
 <p>
