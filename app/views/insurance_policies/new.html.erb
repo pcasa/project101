@@ -49,16 +49,16 @@ $(document).ready(function() {
 	 <table border=0 cellpadding="5" cellspacing="5" id="policy-new">
 		<tr>
 			<td colspan="3">Policy Number:<br />
-				<%= f.input :policy_number, :label => "" %>
+				<%= f.input :policy_number, :label => "" %> 
 			</td>
 		</tr>
 		<tr valign="TOP">
-			<td><%= f.input :vendor, :label => "Insurance Company", :prompt => "Select Company" %></td>
-			<td><input name="insurance_policy[yearly]" type="hidden" value="0" />
+			<td width="33%"><%= f.input :vendor, :label => "Insurance Company", :prompt => "Select Company" %></td>
+			<td width="33%"><input name="insurance_policy[yearly]" type="hidden" value="0" />
 			 <label for="insurance_policy_yearly">Is it a 12 Month Policy?</label><br />
 			   <input class="iphone-style-checkbox" id="checkbox-1"
 			name="insurance_policy[yearly]" type="checkbox" value="1" /></td>
-		 	<td>Policy Type<br />
+		 	<td width="33%">Policy Type<br />
 				<%= f.input :policy_type, :as => :select, :collection => InsurancePolicy::POLICYTYPE, :include_blank => false, :label => "" %>
 			</td>
 		</tr>
@@ -68,11 +68,15 @@ $(document).ready(function() {
 		 	<td><%= f.input :monthly_payment %></td>
 		</tr>
 		<tr>
-			<td colspan="2">Total number of payments including Down Payment.
+			<td>Total number of payments including Down Payment.
 				<%= f.input :number_of_payments_left, :label => "" %>
 			</td>
-		 	<td>Date first payment due on.<br /><span class="smallertxt">If existing policy, enter next due date.</span>
+		 	<td>Date first payment due on.<br /><span class="smallertxt">If existing, enter next due date.</span>
 				<%= f.input :due_date, :as => :date_picker, :label => "" %>
+			</td>
+			<td>
+				Policy Created at Date:<br /><span class="smallertxt">If existing, enter policy start date.</span>
+				<%= f.text_field :created_at, :class => "created-at-datetime", :label => "", :value => (f.object.created_at.blank? ? Time.now.strftime('%b %d, %Y %I:%M %p') : f.object.try(:created_at).try(:strftime,'%b %d, %Y %I:%M %p')) %>
 			</td>
 		</tr>
 	  </table><br />
