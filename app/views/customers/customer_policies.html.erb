@@ -60,7 +60,9 @@
 				<% end %>
 			  <% end %>
 		</td>
-		<td><h3>Policy Notes:</h3>
+		<td>
+			<p><%= link_to "Add a Policy", new_company_customer_insurance_policy_path(current_company, @customer), :class => "smallbtn green"  %></p>
+			<h3>Policy Notes:</h3>
 			<div id="customer-comments">
 				<% comments = Comment.where(:commentable_id => @policies, :commentable_type => "InsurancePolicy") %>
 				<% if !comments.blank? %>
