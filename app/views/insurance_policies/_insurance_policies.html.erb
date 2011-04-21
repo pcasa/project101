@@ -29,7 +29,7 @@
 <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr>
     <th width="12%"><%= sort_link @search, :policy_number %></th>
-    <th width="15%">Customer</th>
+    <th width="15%">Customers</th>
     <th width="12%"><%= sort_link @search, :vendor_id, "Vendor" %></th>
     <th width="12%"><%= sort_link @search, :due_date %></th>
     <th width="11%"><%= sort_link @search, :cancelled_on %></th>
@@ -40,7 +40,7 @@
   <% for insurance_policy in @insurance_policies %>
     <tr class="<%= cycle("even", "odd") -%>">
       <td><%= insurance_policy.policy_number %></td>
-      <td><%= insurance_policy.customer.full_name unless insurance_policy.customer.blank? %></td>
+      <td><%= insurance_policy.customer.firstname unless insurance_policy.customer.blank? %></td>
       <td><%= insurance_policy.vendor.name %></td>
       <td><%= insurance_policy.due_date.strftime("%b %d %Y") %></td>
       <td><%= insurance_policy.cancelled_on %></td>

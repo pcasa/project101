@@ -1,7 +1,7 @@
 <%= content_tag_for(:tr, item) do %>
 	<td class="itemName"><%= item.name %><br /><% unless @order.closed && !current_user.role == "admin" %><%= link_to( "Remove", [current_company, item], :method => :delete, :remote => true, :class => "delete-order-item") %><% end %></td>
 	<td><%= item.short_description %></td>
-	<% if item.name == "Policy Fee" || current_user.role == "admin" %>
+	<% if item.name == "Policy Fee" || item.name == "Convenience Fee" || current_user.role == "admin" %>
 	<td class="fake-inplace">$<%= best_in_place item, :cost, :type => :input, :size => 10 %></td>
 	<% else %>
 	<td align=CENTER><%= number_to_currency(item.cost) %></td>

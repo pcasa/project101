@@ -1,7 +1,7 @@
 
 <%= nested_form_for [current_company, @customer] do |f| %>
   <%= f.error_messages %>
-  <%= f.hidden_field :parent_company_id %>
+  <%= f.hidden_field :parent_company_id, :class => "hidden" %>
   <p>
     <strong><%= f.label :firstname %></strong><br />
     <%= f.text_field :firstname %>

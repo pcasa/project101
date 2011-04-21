@@ -53,7 +53,7 @@
 							<%= number_to_currency(policy_items.reject{ |item| item.vendor_id == @progressive.id}.sum(&:cost)) %>
 						</td>
 						<td class="biggertxt" width="33%"><b>Prograssive Cost:</b><br />
-							<%= number_to_currency(@items.select{ |item| item.itemable_type == "InsurancePolicy"}.sum(&:cost)) %>
+							<%= number_to_currency(policy_items.select{ |item| item.vendor_id == @progressive.id}.sum(&:cost)) %>
 						</td>
 						<td class="biggertxt" width="33%"><b>Company Cost:</b><br />
 							<%= number_to_currency(@items.reject{ |item| item.itemable_type == "InsurancePolicy"  }.sum(&:cost)) %>
