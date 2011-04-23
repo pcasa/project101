@@ -21,5 +21,5 @@ class Address < ActiveRecord::Base
       self.full_address = street + citystatezip
     end
     
-    
+    #
 end
