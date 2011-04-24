@@ -467,10 +467,11 @@ tr.odd td {
 }
 
 .checkboxy {
-	-moz-border-radius: 0px;
-	border-radius: 0px;
+	-moz-border-radius: 0px!important;
+	border-radius: 0px!important;
 	background: none!important;
-	border-style: none;
+	border-style: none!important;
+	padding: 0;
 	position:relative;
 	behavior: url(/stylesheets/PIE.htc);
 	
