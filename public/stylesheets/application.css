@@ -465,7 +465,7 @@ tr.odd td {
 #report-totals {
 	background-color: #cff3ce;
 	width: 30%;
-	height: 200px;
+	height: 230px;
 	float: left;
 	padding: 5px;
 	border: 1px solid #042040;
@@ -493,10 +493,20 @@ tr.odd td {
 	padding-bottom: 2px;
 	margin-bottom: 8px;
 	color: #506151;
+	display: inline-block;
+	width: 99%;
+}
+
+#report-totals .title {
+	font-weight: bold;
+	width: 60%;
+	float: left;
 }
 
 #report-totals .amount {
+	width: 40%;
 	float: right;
+	text-align: right;
 }
 
 

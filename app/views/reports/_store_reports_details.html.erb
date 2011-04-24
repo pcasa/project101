@@ -72,27 +72,27 @@
 				<div id="report-totals" class="invoiced">
 					<h2>Invoiced</h2>
 					<ul>
-						<li><b>Invoiced:</b> <span class="amount"><%= number_to_currency(orders.collect.sum(&:total_amount)) %></span></li>
-						<li><b>Costs:</b> <span class="amount"><%= number_to_currency(orders.collect.sum(&:total_cost)) %></span></li>
-						<li><b>Profits:</b><span class="amount"> <%= number_to_currency(orders.collect.sum(&:amount_paid) - orders.collect.sum(&:total_cost)) %></span></li>
-						<li><b>Partial Payment Balances:</b> <span class="amount"><%= number_to_currency(orders_with_pending_payments.collect.sum(&:amount_owed))%></span></li>
+						<li><div class="title">Invoiced:</div><div class="amount"><%= number_to_currency(orders.collect.sum(&:total_amount)) %></div></li>
+						<li><div class="title">Costs:</div><div class="amount"><%= number_to_currency(orders.collect.sum(&:total_cost)) %></div></li>
+						<li><div class="title">Profits:</div><div class="amount"> <%= number_to_currency(orders.collect.sum(&:amount_paid) - orders.collect.sum(&:total_cost)) %></div></li>
+						<li><div class="title">Partial Payment Balances:</div><div class="amount"><%= number_to_currency(orders_with_pending_payments.collect.sum(&:amount_owed))%></div></li>
 					</ul>
 				</div>
 				<div id="report-totals" class="deposits">
 					<h2>Deposits</h2>
 					<ul>
-						<li><b>101 Insurance Cost:</b> <span class="amount"><%= number_to_currency((insurance_policies_others + convenience_fees).sum(&:cost)) %></li>
-						<li><b>Progressive Cost:</b> <span class="amount"><%= number_to_currency(progressive_items.sum(&:cost)) %></span></li>
-						<li><b>Runner Fees:</b> <span class="amount"><%= number_to_currency(runner_fees.sum(&:cost)) %></span></li>
-						<li><b>Company Cost:</b> <span class="amount"><%= number_to_currency((others - convenience_fees).sum(&:cost)) %></span></li>
+						<li><div class="title">101 Insurance Cost:</div><div class="amount"><%= number_to_currency((insurance_policies_others + convenience_fees).sum(&:cost)) %></div></li>
+						<li><div class="title">Progressive Cost:</div><div class="amount"><%= number_to_currency(progressive_items.sum(&:cost)) %></div></li>
+						<li><div class="title">Runner Fees:</div><div class="amount"><%= number_to_currency(runner_fees.sum(&:cost)) %></div></li>
+						<li><div class="title">Company Cost:</div><div class="amount"><%= number_to_currency((others - convenience_fees).sum(&:cost)) %></div></li>
 					</ul>
 				</div>
 				<div id="report-totals" class="register">
 					<h2>Register</h2>
 					<ul>
-						<li><b>Cash Totals:</b> <span class="amount"><%= number_to_currency(orders.select{ |order| order.payment_type == "cash"}.sum(&:amount_received)) %></span></li>
-						<li><b>Credit Card Totals:</b> <span class="amount"><%= number_to_currency(orders.select{ |order| order.payment_type == "credit_card"}.sum(&:amount_received)) %></span></li>
-						<li><b>Other:</b> <span class="amount"><%= number_to_currency(orders.select{ |order| order.payment_type == "other"}.sum(&:amount_received)) %></span></li>
+						<li><div class="title">Cash Totals:</div><div class="amount"><%= number_to_currency(orders.select{ |order| order.payment_type == "cash"}.sum(&:amount_received)) %></div></li>
+						<li><div class="title">Credit Card Totals:</div><div class="amount"><%= number_to_currency(orders.select{ |order| order.payment_type == "credit_card"}.sum(&:amount_received)) %></div></li>
+						<li><div class="title">Other:</div><div class="amount"><%= number_to_currency(orders.select{ |order| order.payment_type == "other"}.sum(&:amount_received)) %></div></li>
 					</ul>
 				</div>
 			</td>			
