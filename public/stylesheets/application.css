@@ -464,7 +464,7 @@ tr.odd td {
 
 #categories-checkboxes li {
 	list-style-type: none;
-	background: none;
+	background: none!important;
 }
 
 #report-totals {
