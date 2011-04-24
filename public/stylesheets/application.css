@@ -467,6 +467,8 @@ tr.odd td {
 }
 
 .checkboxy {
+	-moz-border-radius: 0px;
+	border-radius: 0px;
 	background: none!important;
 	border-style: none;
 	position:relative;
