@@ -467,9 +467,11 @@ tr.odd td {
 }
 
 .checkboxy {
-	background: green!important;
+	background: none!important;
+	border-style: none;
 	position:relative;
 	behavior: url(/stylesheets/PIE.htc);
+	
 }
 
 #report-totals {

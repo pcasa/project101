@@ -18,7 +18,7 @@
 	</tr>
 	<tr valign="TOP">
 		<td><b>Vendor: </b><br />
-			<% f.collection_checks :vendor_id_in, Vendor.all, :id, :name, :class => 'headcheck' do |check| %>
+			<% f.collection_checks :vendor_id_in, Vendor.all, :id, :name, :class => 'checkboxy' do |check| %>
 			   <%= check.box %> <%= check.label %><br />
 			<% end %>
 		</td>
@@ -31,12 +31,12 @@
 			</ul>
 		</td>
 		<td><b>Location:</b> <br />
-			<% f.collection_checks :assigned_company_id_in, Company.all, :id, :name, :class => 'headcheck' do |check| %>
+			<% f.collection_checks :assigned_company_id_in, Company.all, :id, :name, :class => 'checkboxy' do |check| %>
 			   <%= check.box %> <%= check.label %><br />
 			<% end %>
 		</td>
 		<td><b>Sold By:</b> <br />
-			<% f.collection_checks :user_id_in, User.all, :id, :full_name, :class => 'headcheck' do |check| %>
+			<% f.collection_checks :user_id_in, User.all, :id, :full_name, :class => 'checkboxy' do |check| %>
 			   <%= check.box %> <%= check.label %><br />
 			<% end %>
 		</td>
