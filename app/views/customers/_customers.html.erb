@@ -1,5 +1,5 @@
 
-<table width="100%" cellpadding="0" cellspacing="0">
+<table width="100%" cellpadding="0" cellspacing="0" id="customers">
 	<caption>Sort By</caption>
   <tr>
     <th width="25%"><%= sort_link @search, :firstname, "First Name" %></th>
@@ -14,9 +14,9 @@
 	</tr>
   <% else %>
   <% for customer in @customers %>
-    <tr class="<%= cycle("even", "odd") -%>">
-      <td><%= customer.firstname %></td>
-      <td><%= customer.lastname %></td>
+	<%= content_tag :tr, :class => cycle("even", "odd") do -%>
+      <td><%= link_to customer.firstname, company_customer_path(current_company, customer) %></td>
+      <td><%= link_to customer.lastname, company_customer_path(current_company, customer)  %></td>
       <td><%= customer.customer_number %></td>
       <td><%= link_to "Show", company_customer_path(current_company, customer), :class => "smallbtn blue smallertxt" %>
 	<% if can? :update, customer %>
@@ -26,7 +26,7 @@
        | <%= link_to "Destroy", [current_company, customer], :confirm => 'Are you sure?', :method => :delete, :class => "smallbtn blue smallertxt" %>
 	<% end %>
 	</td>
-    </tr>
+    <% end %>
   <% end %>
   <% end %>
 </table>

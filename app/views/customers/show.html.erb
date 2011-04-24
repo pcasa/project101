@@ -10,7 +10,7 @@
 	</ul>
 	<div id="firstTab">
 		
-		<% pending_payments = @customer.orders.with_partial_payments.without_payments_made_new %>
+		<% pending_payments = @customer.orders.with_partial_payments.without_payments_made %>
 		<% unless pending_payments.blank? %>
 		<% pending_payments.each do |order| %>
 		<b>Customer Owes:</b>  <%= link_to number_to_currency(order.amount_owed) + " from this Order", company_order_path(current_company, order.id)%>  | <%= link_to "Click here to pay", company_partial_payment_path(current_company, order) %><br />

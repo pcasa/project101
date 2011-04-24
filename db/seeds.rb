@@ -7,6 +7,11 @@
 #   Mayor.create(:name => 'Daley', :city => cities.first)
 
 require 'faker'
+require 'populator'
+
+
+
+
 
 puts "Clearing Addresses"
 Address.delete_all
@@ -89,6 +94,20 @@ e_category = Category.new do |c|
   c.save
 end
 
+e_category = Category.new do |c|
+  c.id = 6
+  c.name = "Credit Card Processing Fees"
+  c.parent_id = 2 
+  c.save
+end
+
+e_category = Category.new do |c|
+  c.id = 7
+  c.name = "Invoiced Partial Payments"
+  c.parent_id = 2 
+  c.save
+end
+
 
 
 
@@ -140,6 +159,10 @@ Service.create!(:name => "Special Tag", :short_description => "Special Tag Servi
 Service.create!(:name => "Tag Renewal", :short_description => "Tag Renewal Services", :price => 50, :cost => 20, :category_id => 5, :new_service => true, :deleted => false, :visible => true)
 Service.create!(:name => "Salvage Title", :short_description => "Salvage Title Services", :price => 370, :cost => 370, :category_id => 5, :new_service => true, :deleted => false, :visible => true)
 Service.create!(:name => "Title Bond", :short_description => "Title Bond Services", :price => 140, :cost => 40, :category_id => 5, :new_service => true, :deleted => false, :visible => true)
+Service.create!(:name => "Tag Transfer", :short_description => "Tag Transfer", :price => 120, :cost => 90, :category_id => 2, :new_service => false, :deleted => false, :visible => true)
+Service.create!(:name => "Affidavit Correction", :short_description => "Affidavit Correction", :price => 30, :cost => 30, :category_id => 2, :new_service => false, :deleted => false, :visible => true)
+Service.create!(:name => "Policy Fee", :short_description => "Policy Fee", :price => 1, :cost => 1, :category_id => 3, :new_service => false, :deleted => false, :visible => true)
+Service.create!(:name => "Convenience Fee", :short_description => "Convenience Fee", :price => 5, :cost => 5, :category_id => 6, :new_service => false, :deleted => false, :visible => true)
 
 
 
@@ -161,4 +184,43 @@ puts "Adding Users..."
   :passcode =>  user.upcase + "12345"[0,8],
   :role => user,
   :employmentships_attributes => [{:company_id => 1}]) 
+end
+
+
+puts "Adding Customers and Orders..."
+Company.all.each do |company|
+  Customer.populate(50..300) do |person|
+      person.parent_company_id = company.id
+      person.assigned_company_id = 1
+      street1 = Faker::Address.street_address(include_secondary = false)
+      city = Faker::Address.city
+      state = Faker::Address.state_abbr
+      zip = Faker::Address.zip
+      person.firstname = Faker::Name.first_name
+      person.lastname = Faker::Name.last_name
+      person.street1 = street1
+      person.city = city
+      person.state = state
+      person.zipcode = zip
+      person.full_address = street1 + "<br />" + city + ", " + state + " " + zip
+      person.customer_number = 11111111..99999999
+      Order.populate(0..5) do |order|
+        date = (rand*10).days.ago
+        order.customer_id = person.id
+        offset = rand(Service.count)
+        @service = Service.first(:offset => offset)
+        user_offset = rand(User.count)
+        @user = User.first(:offset => user_offset)
+        Item.create!(@service.attributes.merge(:items => @service.items, :order_id => order.id, :itemable => @service, :qty => 1, :visible => true, :assigned_company_id => company.id, :parent_company_id => 1, :user_id => @user.id, :closed => true, :created_at => date, :customer_id => person.id))
+        order.user_id = @user.id
+        order.closed = true
+        order.created_at = date
+        order.closed_date = date
+        order.assigned_company_id = company.id
+        order.parent_company_id = 1
+        order.total_amount = @service.price
+        order.amount_paid = @service.price
+        order.total_cost = @service.cost
+      end
+    end
 end

@@ -29,8 +29,8 @@
 <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr>
     <th width="12%"><%= sort_link @search, :policy_number %></th>
-    <th width="15%">Customers</th>
-    <th width="12%"><%= sort_link @search, :vendor_id, "Vendor" %></th>
+    <th width="15%"><%= sort_link @search, :customer_firstname, "Customer" %></th>
+    <th width="12%"><%= sort_link @search, :vendor_name, "Vendor" %></th>
     <th width="12%"><%= sort_link @search, :due_date %></th>
     <th width="11%"><%= sort_link @search, :cancelled_on %></th>
     <th width="10%"><%= sort_link @search, :completed %></th>

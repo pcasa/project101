@@ -1,5 +1,5 @@
 class Service < ActiveRecord::Base
-  
+  default_scope order("name ASC")
   belongs_to :category, :class_name => "Category", :foreign_key => "category_id"
   has_many :items, :as => :itemable
   

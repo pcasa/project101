@@ -61,4 +61,6 @@ class Item < ActiveRecord::Base
         self.itemable.clear_order_task(self.itemable, self.user_id)
       end
     end
+    
+    
 end

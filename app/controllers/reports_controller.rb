@@ -27,6 +27,9 @@ class ReportsController < ApplicationController
     end
     
     @items = @search.paginate(:page => params[:page], :per_page => 25)
+    order_ids = @search.all.collect { |item| item.order_id }.to_a
+    @orders = Order.with_partial_payments.where("id IN (?)", order_ids)
+  #  @orders = Order.find(order_ids)
     @items_totals = @search.all
   end
   

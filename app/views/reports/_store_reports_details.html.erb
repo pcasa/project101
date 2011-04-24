@@ -1,19 +1,22 @@
 <h2><%= title %></h2>
 <% if !orders.blank? %>
+<% orders_with_pending_payments = orders.with_partial_payments %>
 <p>
 	<% @items = Item.in_orders(orders) %>
-	<table width="85%" border="0" id="orders-reports" cellpadding="0" cellspacing="0">
+	<table width="95%" border="0" id="orders-reports" cellpadding="0" cellspacing="0">
 		<tr>
-			<th width="14%">Order #</th>
-			<th width="28%">Item Name</th>
-			<th width="30%">Type</th>
-			<th width="14%">Cost</th>
-			<th width="14%">Sold For:</th>
+			<th width="10%">Order #</th>
+			<th width="25%">Customer</th>
+			<th width="20%">Item Name</th>
+			<th width="25%">Type</th>
+			<th width="10%">Cost</th>
+			<th width="10%">Sold For:</th>
 		</tr>
 		<% if !@items.blank? %>
 		  <% for item in @items %>
 		    <tr class="<%= cycle("even", "odd") -%>">
 				<td><%= item.order_id %></td>
+				<td><%= item.customer.full_name unless item.customer_id.blank? || !Customer.exists?(item.customer_id)%></td>
 		    	<td><%= item.name %></td>
 				<td>
 					<% unless item.itemable_type == "InsurancePolicy" %>
@@ -26,62 +29,77 @@
 				<td><%= number_to_currency(item.price) %></td>
 		    </tr>
 		  <% end %>
-		<tr>
-			<td colspan="4">
-				<table width="100%">
+		<% if !orders_with_pending_payments.blank? %>
+		  <tr>
+			<td colspan="6">&nbsp;</td>	
+		  </tr>
+		  <tr>
+			<td colspan="6"><h3>Partial Payments</h3></td>	
+		  </tr>
+		  <tr>
+		  	<td colspan="6">
+		  		<table width="100%" cellpadding="0" cellspacing="0" border="0">
 					<tr>
-						<td><b>Sold:</b><br />
-							<%= number_to_currency(@items.collect.sum(&:price)) %>
-						</td>
-						<td><b>Cost:</b><br />
-							<%= number_to_currency(@items.collect.sum(&:cost)) %>
-						</td>
-						<td><b>Profit:</b><br />
-							<%= number_to_currency((@items.collect.sum(&:price)) - (@items.collect.sum(&:cost))) %>
-						</td>
+						<th width="15%">Order #</th>
+						<th>Customer</th>
+						<th width="15%">Order Amount</th>
+						<th width="15%">Amount Owed</th>
 					</tr>
-				</table>
-			</td>
-		</tr>
+					<% for order in orders_with_pending_payments %>
+						<tr class="<%= cycle("even", "odd") -%>">
+						<td><%= order.id %></td>
+						<td><%= order.customer.full_name unless order.customer_id.blank? || !Customer.exists?(order.customer_id)%></td>
+						<td><%= number_to_currency(order.total_amount) %></td>
+						<td><%= number_to_currency(order.amount_owed) %></td>
+						</tr>
+					<% end %>
+		  		</table>
+		  	</td>
+		  </tr>
+		  <tr>
+			<td colspan="6">&nbsp;</td>	
+		  </tr>
+		<% end %>
 		<tr>
-			<td colspan="4">
-				<table width="100%" border="0" id="payment-type">
-					<tr>
-						<% policy_items = @items.select{ |item| item.itemable_type == "InsurancePolicy"} %>
-						
-						<td class="biggertxt" width="33%"><b>101 Insurance Cost:</b><br />
-							<%= number_to_currency(policy_items.reject{ |item| item.vendor_id == @progressive.id}.sum(&:cost)) %>
-						</td>
-						<td class="biggertxt" width="33%"><b>Prograssive Cost:</b><br />
-							<%= number_to_currency(policy_items.select{ |item| item.vendor_id == @progressive.id}.sum(&:cost)) %>
-						</td>
-						<td class="biggertxt" width="33%"><b>Company Cost:</b><br />
-							<%= number_to_currency(@items.reject{ |item| item.itemable_type == "InsurancePolicy"  }.sum(&:cost)) %>
-						</td>
-					</tr>
-				</table>
-			</td>
-		</tr>
-		<tr>
-			<td colspan="4">
-				<table width="100%" border="0" id="payment-type">
-					<tr>
-						<td width="33%"><b>Other:<br />
-							<%= number_to_currency(orders.select{ |order| order.payment_type == "other"}.sum(&:amount_received)) %></b>
-						</td>
-						<td width="33%"><b>Credit Card Totals:<br />
-							<%= number_to_currency(orders.select{ |order| order.payment_type == "credit_card"}.sum(&:amount_received)) %></b>
-						</td>
-						<td width="33%"><b>Cash Totals:<br />
-							<%= number_to_currency(orders.select{ |order| order.payment_type == "cash"}.sum(&:amount_received)) %></b>
-						</td>
-					</tr>
-				</table>
-			</td>
+			<td colspan="6">
+				<% policy_items = @items.select{ |item| item.itemable_type == "InsurancePolicy"} %>
+				<% insurance_policies_others = policy_items.reject{ |item| item.vendor_id == @progressive.id }%>
+				<% progressive_items = policy_items.select{ |item| item.vendor_id == @progressive.id } %>
+				<% runners = Category.find_by_name("Runner Fees") %>
+				<% runner_fees = @items.select{ |item| item.category_id == runners.id } %>
+				<% convenience_fees = @items.select{ |item| item.name == "Convenience Fee"} %>
+				<% others = @items.reject{ |item| item.itemable_type == "InsurancePolicy" || item.category_id == runners.id  } %>
+				<div id="report-totals" class="invoiced">
+					<h2>Invoiced</h2>
+					<ul>
+						<li><b>Invoiced:</b> <span class="amount"><%= number_to_currency(orders.collect.sum(&:total_amount)) %></span></li>
+						<li><b>Costs:</b> <span class="amount"><%= number_to_currency(orders.collect.sum(&:total_cost)) %></span></li>
+						<li><b>Profits:</b><span class="amount"> <%= number_to_currency(orders.collect.sum(&:amount_paid) - orders.collect.sum(&:total_cost)) %></span></li>
+						<li><b>Partial Payment Balances:</b> <span class="amount"><%= number_to_currency(orders_with_pending_payments.collect.sum(&:amount_owed))%></span></li>
+					</ul>
+				</div>
+				<div id="report-totals" class="deposits">
+					<h2>Deposits</h2>
+					<ul>
+						<li><b>101 Insurance Cost:</b> <span class="amount"><%= number_to_currency((insurance_policies_others + convenience_fees).sum(&:cost)) %></li>
+						<li><b>Progressive Cost:</b> <span class="amount"><%= number_to_currency(progressive_items.sum(&:cost)) %></span></li>
+						<li><b>Runner Fees:</b> <span class="amount"><%= number_to_currency(runner_fees.sum(&:cost)) %></span></li>
+						<li><b>Company Cost:</b> <span class="amount"><%= number_to_currency((others - convenience_fees).sum(&:cost)) %></span></li>
+					</ul>
+				</div>
+				<div id="report-totals" class="register">
+					<h2>Register</h2>
+					<ul>
+						<li><b>Cash Totals:</b> <span class="amount"><%= number_to_currency(orders.select{ |order| order.payment_type == "cash"}.sum(&:amount_received)) %></span></li>
+						<li><b>Credit Card Totals:</b> <span class="amount"><%= number_to_currency(orders.select{ |order| order.payment_type == "credit_card"}.sum(&:amount_received)) %></span></li>
+						<li><b>Other:</b> <span class="amount"><%= number_to_currency(orders.select{ |order| order.payment_type == "other"}.sum(&:amount_received)) %></span></li>
+					</ul>
+				</div>
+			</td>			
 		</tr>
 		
 		<% else %>
-		  Nothing to show here.
+		  No Items Sold.
 		<% end %>
 		</table>
 </p>

@@ -75,7 +75,8 @@ class Order < ActiveRecord::Base
     #  something like |item|item.itemable_type == "ServiceGroup" || "whatever_else"
     def true_cost
       # convert to array so it doesn't try to do sum on database directly
-      items.to_a.reject{|item|item.itemable_type == "ServiceGroup"}.sum(&:cost)
+      #items.to_a.reject{|item|item.itemable_type == "ServiceGroup"}.sum(&:cost)
+      items.collect.sum(&:cost)
     end
     
     
@@ -143,7 +144,7 @@ class Order < ActiveRecord::Base
     # Making a partial payment
     #######################################################################################
     def make_partial_payment(current_order, current_user_id, assigned_company_id, parent_company_id)
-      Item.create!(:name => "Order Payment", :short_description => "Payment on Order ##{self.id}", :cost => self.amount_owed, :price => self.amount_owed, :qty => 1, :order_id => current_order.id, :customer_id => self.customer_id, :itemable_type => self.class, :itemable_id => self.id, :user_id => current_user_id, :assigned_company_id => assigned_company_id, :parent_company_id => parent_company_id, :category_id => Category.find_by_name("Expense").id)
+      Item.create!(:name => "Order Payment", :short_description => "Payment on Order ##{self.id}", :cost => 0, :price => self.amount_owed, :qty => 1, :order_id => current_order.id, :customer_id => self.customer_id, :itemable_type => self.class, :itemable_id => self.id, :user_id => current_user_id, :assigned_company_id => assigned_company_id, :parent_company_id => parent_company_id, :category_id => Category.find_or_create_by_name("Invoiced Partial Payments").id)
       current_order.update_attribute(:customer_id, self.customer_id)
     end
     
@@ -159,13 +160,8 @@ class Order < ActiveRecord::Base
     
     # Check if these Orders with partial payments have any payments made.
     # An open order can have only one payment
-    def self.without_payments_made
-      ids = self.all.collect { |order| order.id }.to_a
-      items = Item.payments_on_all_orders(ids)
-      return items
-    end
     
-    def self.without_payments_made_new
+    def self.without_payments_made
       ids = self.all.collect { |order| order.id }.to_a
       items = Item.payments_on_all_orders(ids).all.collect { |item| item.itemable_id }.to_a
       new_ids = ids - items # [1, 3, 4, 5, 7] - [1, 4, 5] will return [3, 7]

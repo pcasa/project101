@@ -20,7 +20,7 @@
       <td><%= service.visible %></td>
       <td><%= service.new_service %></td>
       <td><%= service.deleted %></td>
-      <td><%= service.category.name unless service.category_id.blank? %></td>
+      <td><%= truncate(service.category.name, :omission => "...", :length => 20) unless service.category_id.blank? %></td>
       <td><%= link_to "Show", company_service_path(current_company, service), :class => "smallbtn blue smallertxt" %>
 	  <% if can? :update, service %>
       <%= link_to "Edit", edit_company_service_path(current_company, service), :class => "smallbtn blue smallertxt" %>
