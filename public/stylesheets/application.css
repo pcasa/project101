@@ -466,7 +466,7 @@ tr.odd td {
 	list-style-type: none;
 }
 
-#categories-checkboxes li input {
+.checkboxy {
 	background: none;
 }
 
