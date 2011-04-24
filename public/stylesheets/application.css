@@ -467,7 +467,9 @@ tr.odd td {
 }
 
 .checkboxy {
-	background: none!important;
+	background: green!important;
+	position:relative;
+	behavior: url(/stylesheets/PIE.htc);
 }
 
 #report-totals {
@@ -651,6 +653,7 @@ form.formtastic fieldset.buttons ol li.commit input {
 	outline: 0;
 	padding: 5px;
 	font-size:1.2em;
+	background: #FFFFFF url(../images/inputBG.png) repeat-x;
 	-moz-border-radius: 6px;
 	border-radius: 6px;
 	position:relative;
