@@ -3,7 +3,7 @@
 
 <%= form_for @search, :url => company_full_reports_path(current_company), :html => {:method => :get}, :remote => true do |f| %>
 <div id="full-reports-search-form" class="">
-<table border=0 width="100%"> 
+<table border="1" width="100%"> 
 	
 	
 	<tr>
@@ -16,7 +16,7 @@
 			<%= f.text_field :created_at_lt, :class => "created-at-datetime", :value => f.object.try(:created_at_lt).try(:strftime,'%b %d %Y %I:%M %p') %><br />
 		    
 		</td>
-		<td width="25%"><p>&nbsp;</p></td>
+		<td width="25%"><p> &nbsp;</p></td>
 	</tr>
 	<tr valign="TOP">
 		<td><b>Vendor: </b><br />
