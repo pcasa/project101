@@ -422,6 +422,10 @@ position:relative;
 }
 
 /*** Reports ***/
+#full-reports-search-form .created-at-datetime, #full-reports-search-form .name-field {
+	width: 210px;
+}
+
 #orders-reports {
 	margin: 0 auto;
 }

@@ -3,11 +3,9 @@
 
 <%= form_for @search, :url => company_full_reports_path(current_company), :html => {:method => :get}, :remote => true do |f| %>
 <div id="full-reports-search-form" class="">
-<table border="1" width="100%"> 
-	
-	
-	<tr>
-		<td width="25%"><b>Item Name:</b> <br /><%= f.text_field :name_contains %></td>
+<table border="0" width="100%"> 
+<tr>
+		<td width="25%"><b>Item Name:</b> <br /><%= f.text_field :name_contains, :class => "name-field" %></td>
 		<td width="25%"><b>Sold from date:</b> <br />
 			<%= f.text_field :created_at_gt, :class => "created-at-datetime", :value => (f.object.created_at_gt.blank? ? Time.now.beginning_of_month.strftime('%b %d, %Y %I:%M %p') : f.object.try(:created_at_gt).try(:strftime,'%b %d, %Y %I:%M %p')) %>
 		</td>
