@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   helper_method :current_company, :main_company, :is_employed_at?, :current_order, :current_tasks
   
-  before_filter :user_belongs_to_company
+#  before_filter :user_belongs_to_company
   
   
   
