@@ -100,7 +100,7 @@ class ApplicationController < ActionController::Base
 protected
 
  def user_belongs_to_company
-   unless current_user.role != "admin"
+   unless current_user.role != "admin" || !current_company.present?
      if user_signed_in? && current_company.present? && !current_user.company_ids.include?(current_company.id)
        redirect_to root_url, :alert => "You don't belong there!"
      end
