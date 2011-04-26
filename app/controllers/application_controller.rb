@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   helper_method :current_company, :main_company, :is_employed_at?, :current_order, :current_tasks
   
-#  before_filter :user_belongs_to_company
+  before_filter :user_belongs_to_company
   
   
   
@@ -100,8 +100,8 @@ class ApplicationController < ActionController::Base
 protected
 
  def user_belongs_to_company
-   unless current_user.role != "admin" || !current_company.present?
-     if user_signed_in? && current_company.present? && !current_user.company_ids.include?(current_company.id)
+   unless !user_signed_in? || current_user.role == "admin" || params[:company_id] == nil 
+     if current_company.present? && !current_user.company_ids.include?(current_company.id)
        redirect_to root_url, :alert => "You don't belong there!"
      end
    end
