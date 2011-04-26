@@ -68,6 +68,8 @@
 				<% runners = Category.find_by_name("Runner Fees") %>
 				<% runner_fees = @items.select{ |item| item.category_id == runners.id } %>
 				<% convenience_fees = @items.select{ |item| item.name == "Convenience Fee"} %>
+				<% policy_fees = @items.select{ |item| item.name == "Policy Fee"} %>
+				<% progressive_policy_fees = @items.select{ |item| item.name == "Progressive Policy Fee"} %>
 				<% others = @items.reject{ |item| item.itemable_type == "InsurancePolicy" || item.category_id == runners.id  } %>
 				<div id="report-totals" class="invoiced">
 					<h2>Invoiced</h2>
@@ -81,10 +83,10 @@
 				<div id="report-totals" class="deposits">
 					<h2>Deposits</h2>
 					<ul>
-						<li><div class="title">101 Insurance Cost:</div><div class="amount"><%= number_to_currency((insurance_policies_others + convenience_fees).sum(&:cost)) %></div></li>
-						<li><div class="title">Progressive Cost:</div><div class="amount"><%= number_to_currency(progressive_items.sum(&:cost)) %></div></li>
+						<li><div class="title">101 Insurance Cost:</div><div class="amount"><%= number_to_currency((insurance_policies_others + convenience_fees + policy_fees).sum(&:cost)) %></div></li>
+						<li><div class="title">Progressive Cost:</div><div class="amount"><%= number_to_currency((progressive_items + progressive_policy_fees).sum(&:cost)) %></div></li>
 						<li><div class="title">Runner Fees:</div><div class="amount"><%= number_to_currency(runner_fees.sum(&:cost)) %></div></li>
-						<li><div class="title">Company Cost:</div><div class="amount"><%= number_to_currency((others - convenience_fees).sum(&:cost)) %></div></li>
+						<li><div class="title">Company Cost:</div><div class="amount"><%= number_to_currency((others - convenience_fees - policy_fees -  progressive_policy_fees).sum(&:cost)) %></div></li>
 					</ul>
 				</div>
 				<div id="report-totals" class="register">

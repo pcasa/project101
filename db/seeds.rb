@@ -163,6 +163,7 @@ Service.create!(:name => "Tag Transfer", :short_description => "Tag Transfer", :
 Service.create!(:name => "Affidavit Correction", :short_description => "Affidavit Correction", :price => 30, :cost => 30, :category_id => 2, :new_service => false, :deleted => false, :visible => true)
 Service.create!(:name => "Policy Fee", :short_description => "Policy Fee", :price => 1, :cost => 1, :category_id => 3, :new_service => false, :deleted => false, :visible => true)
 Service.create!(:name => "Convenience Fee", :short_description => "Convenience Fee", :price => 5, :cost => 5, :category_id => 6, :new_service => false, :deleted => false, :visible => true)
+Service.create!(:name => "Progressive Policy Fee", :short_description => "Progressive Policy Fee", :price => 1, :cost => 1, :category_id => 3, :new_service => false, :deleted => false, :visible => true)
 
 
 
