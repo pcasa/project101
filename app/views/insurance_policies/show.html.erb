@@ -70,7 +70,12 @@
 				<td colspan="2"><%= @insurance_policy.renewal_date.strftime('%b %d, %Y') %></td>
 				<td colspan="2">
 					<% unless @insurance_policy.parent_id.blank? %>
-						<%= link_to @insurance_policy.parent.policy_number, company_insurance_policy_path(current_company, @insurance_policy.parent_id) %>
+						<% if InsurancePolicy.exists?(@insurance_policy.parent_id) %>
+							<%= link_to @insurance_policy.parent.policy_number, company_insurance_policy_path(current_company, @insurance_policy.parent_id) %>
+						<% else %>
+						  	Policy Has been deleted!  Old Policy ID <%= @insurance_policy.parent_id %>
+						<% end %>
+						
 					<% end %>
 				</td>
 				
