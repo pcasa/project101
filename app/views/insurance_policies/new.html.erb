@@ -42,10 +42,10 @@ $(document).ready(function() {
 <%= semantic_form_for [current_company, @insurance_policy] do |f| -%>
 <%= f.error_messages %>
    <%= f.inputs do %>
-	  <%= f.input :assigned_company_id, :as => :hidden, :input_html => { :class => 'hidden' } %>
-	  <%= f.input :parent_company_id, :as => :hidden, :input_html => { :class => 'hidden' } %>
-	  <%= f.input :parent_id, :as => :hidden, :input_html => { :class => 'hidden' } %>
-	  <%= f.input :customer_id, :as => :hidden, :input_html => { :class => 'hidden' } %>
+	  <%= f.input :assigned_company_id, :as => :hidden %>
+	  <%= f.input :parent_company_id, :as => :hidden %>
+	  <%= f.input :parent_id, :as => :hidden %>
+	  <%= f.input :customer_id, :as => :hidden %>
 	 <table border=0 cellpadding="5" cellspacing="5" id="policy-new">
 		<tr>
 			<td colspan="3">Policy Number:<br />
@@ -54,10 +54,8 @@ $(document).ready(function() {
 		</tr>
 		<tr valign="TOP">
 			<td width="33%"><%= f.input :vendor, :label => "Insurance Company", :prompt => "Select Company" %></td>
-			<td width="33%"><input name="insurance_policy[yearly]" type="hidden" value="0" />
-			 <label for="insurance_policy_yearly">Is it a 12 Month Policy?</label><br />
-			   <input class="iphone-style-checkbox" id="checkbox-1"
-			name="insurance_policy[yearly]" type="checkbox" value="1" /></td>
+			<td width="33%">
+				</td>
 		 	<td width="33%">Policy Type<br />
 				<%= f.input :policy_type, :as => :select, :collection => InsurancePolicy::POLICYTYPE, :include_blank => false, :label => "" %>
 			</td>
