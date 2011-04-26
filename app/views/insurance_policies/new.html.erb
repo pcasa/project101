@@ -42,10 +42,10 @@ $(document).ready(function() {
 <%= semantic_form_for [current_company, @insurance_policy] do |f| -%>
 <%= f.error_messages %>
    <%= f.inputs do %>
-	  <%= f.input :assigned_company_id, :as => :hidden %>
-	  <%= f.input :parent_company_id, :as => :hidden %>
-	  <%= f.input :parent_id, :as => :hidden %>
-	  <%= f.input :customer_id, :as => :hidden %>
+	  <span class="hidden"><%= f.input :assigned_company_id, :as => :hidden %></span>
+	  <span class="hidden"><%= f.input :parent_company_id, :as => :hidden %></span>
+	  <span class="hidden"><%= f.input :parent_id, :as => :hidden %></span>
+	  <span class="hidden"><%= f.input :customer_id, :as => :hidden %></span>
 	 <table border=0 cellpadding="5" cellspacing="5" id="policy-new">
 		<tr>
 			<td colspan="3">Policy Number:<br />
