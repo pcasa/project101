@@ -1,4 +1,4 @@
-body {font-family: Georgia, serif;background: none;color: black;}
+body {font-family: Georgia, serif;background: none;color: black; font-size:12px;}
 #page {width: 100%;margin: 0;padding: 0;background: none;}
 #header, #menu, #show-order, .print-btn, h1, select, #full-reports-search-form {display: none;}
 #reports {display: visible;}
@@ -9,3 +9,51 @@ tr.odd td {background-color: #ddd;}
 #orders-reports #payment-type {margin-top: 30px;}
 #print-order {}
 #full-reports-results {}
+#report-totals {
+	background-color: #cff3ce;
+	font-size:10px;
+	width: 29%;
+	height: 200px;
+	float: left;
+	padding: 5px;
+	border: 1px solid #042040;
+	-moz-border-radius: 6px;
+	border-radius: 6px;
+	position:relative;
+	behavior: url(/stylesheets/PIE.htc);
+	margin: 50px 7px 5px;
+}
+
+#report-totals h2 {
+	margin-left: 14px;
+	color: #637663;
+}
+
+#report-totals ul {
+	padding-left: 5px;
+	list-style-type: none;
+	margin-left: 1px;
+}
+
+#report-totals li {
+	border-bottom: 1px solid #45664b;
+	padding-top: 5px;
+	padding-bottom: 2px;
+	margin-bottom: 8px;
+	color: #506151;
+	display: inline-block;
+	width: 99%;
+}
+
+#report-totals .title {
+	font-weight: bold;
+	width: 60%;
+	float: left;
+}
+
+#report-totals .amount {
+	width: 40%;
+	float: right;
+	text-align: right;
+}
+
