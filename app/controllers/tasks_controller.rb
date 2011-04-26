@@ -44,6 +44,7 @@ class TasksController < ApplicationController
   end
 
   def update
+    request_url = request.referer
     @task = Task.find(params[:id])
     if @task.update_attributes(params[:task])
       unless params[:task][:reschedule_date].blank?
@@ -51,17 +52,23 @@ class TasksController < ApplicationController
       end
       respond_to do |format|  
         format.html { 
-          if @task.asset == current_company
-            redirect_to company_dashboard_url(current_company), :notice => "Successfully updated task."
+          if request_url.blank? || request_url != edit_company_task_url(@task)
+            if @task.asset == current_company
+              redirect_to company_dashboard_url(current_company), :notice => "Successfully updated task."
+            else
+              redirect_to [current_company, @task.asset], :notice => "Successfully updated task."
+            end
           else
-            redirect_to [current_company, @task.asset], :notice => "Successfully updated task."
+            redirect_to request_url
           end
-          
         }  
         format.js if request.xhr? 
       end
     else
-      render :action => 'edit'
+      respond_to do |format|
+        format.html { render :action => 'edit' }
+        format.js if request.xhr? 
+      end
     end
   end
 

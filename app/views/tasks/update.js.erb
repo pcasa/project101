@@ -9,7 +9,7 @@
   $("#task-errors").html("<%= escape_javascript(error_messages_for(@task))%>").hide();
   $("#task-errors").slideDown('slow');
 <% else %>
-alert("in OK");
+alert("is OK");
   $("#partial-payment-task").fadeTo('slow', 0, function() {
   		$("#partial-payment-task").dialog('close');
   });
