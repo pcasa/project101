@@ -1,5 +1,6 @@
 class Customer < ActiveRecord::Base
   
+  # if want to add sorting capabilities in view, uncomment below.
   default_scope order('lastname, firstname')
   
   belongs_to :company, :class_name => "Company", :foreign_key => :parent_company_id

@@ -4,6 +4,8 @@ class CustomersController < ApplicationController
   
   
   def index
+    # if want to add sorting capabilities in view, uncomment default scope in customers.
+    # Drawback is that it will then default to sorting by customer id.
     @search = Customer.search(params[:search])
     @customers = @search.relation.where("parent_company_id = ?", main_company.id).paginate(:page => params[:page], :per_page => 20)
   end

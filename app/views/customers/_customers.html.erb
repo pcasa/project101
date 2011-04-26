@@ -1,10 +1,9 @@
-
+<p><%= will_paginate @customers %></p>
 <table width="100%" cellpadding="0" cellspacing="0" id="customers">
-	<caption>Sort By</caption>
   <tr>
-    <th width="25%"><%= sort_link @search, :firstname, "First Name" %></th>
-    <th width="25%"><%= sort_link @search, :lastname, "Last Name" %></th>
-    <th width="20%"><%= sort_link @search, :customer_number %></th>
+    <th width="25%">First Name:</th>
+    <th width="25%">Last Name:</th>
+    <th width="20%">Customer Number:</th>
   </tr>
   <% if @customers.blank? %>
 	<tr>
@@ -31,4 +30,4 @@
   <% end %>
 </table>
 
-<%= will_paginate @customers %>
+<p><%= will_paginate @customers %></p>

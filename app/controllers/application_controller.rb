@@ -3,6 +3,8 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   helper_method :current_company, :main_company, :is_employed_at?, :current_order, :current_tasks
   
+  before_filter :user_belongs_to_company
+  
   
   
   
@@ -86,6 +88,7 @@ class ApplicationController < ActionController::Base
   
   
   
+  
   rescue_from CanCan::AccessDenied do |exception|
     if user_signed_in? && current_company.present?
       redirect_to company_dashboard_url, :alert => exception.message
@@ -95,6 +98,15 @@ class ApplicationController < ActionController::Base
   end
 
 protected
+
+ def user_belongs_to_company
+   unless current_user.role != "admin"
+     if user_signed_in? && current_company.present? && !current_user.company_ids.include?(current_company.id)
+       redirect_to root_url, :alert => "You don't belong there!"
+     end
+   end
+ end
+ 
  def after_sign_in_path_for(resource_or_scope)
    if resource_or_scope.is_a?(User) 
      if resource_or_scope.role == "banned"

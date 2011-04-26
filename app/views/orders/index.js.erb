@@ -1,3 +1,3 @@
-$("#full-reports-results").html("<%= escape_javascript(render :partial => 'items') %>");
+$("#orders").html("<%= escape_javascript(render("orders")) %>");
 document.title = "<%= escape_javascript("#{params[:search].to_s.titleize} - Page #{params[:page] || 1}").html_safe %>"
 $('.pagination a').click(function () {location.hash = $(this).attr('href');});

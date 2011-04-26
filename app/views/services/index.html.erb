@@ -1,22 +1,22 @@
 <% title "Services" %>
 
-<table>
+<table width="100%" border="0">
   <tr>
-    <th>Name</th>
-    <th>Short Description</th>
-    <th>Price</th>
-    <th>Cost</th>
-    <th>Visible</th>
-    <th>New Service</th>
-    <th>Disabled ?</th>
-    <th>Category</th>
+    <th width="15%">Name</th>
+    <th width="20%">Short Description</th>
+    <th width="8%">Price</th>
+    <th width="8%">Cost</th>
+    <th width="7%">Visible</th>
+    <th width="8%">New Service</th>
+    <th width="8%">Disabled ?</th>
+    <th width="16%">Category</th>
   </tr>
   <% for service in @services %>
     <tr>
       <td><%= service.name %></td>
       <td><%= truncate(service.short_description, :omission => "... (more)", :length => 60) %></td>
-      <td><%= service.price %></td>
-      <td><%= service.cost %></td>
+      <td><%= number_to_currency(service.price) %></td>
+      <td><%= number_to_currency(service.cost) %></td>
       <td><%= service.visible %></td>
       <td><%= service.new_service %></td>
       <td><%= service.deleted %></td>

@@ -23,7 +23,9 @@ $(document).ready(function(){
 						// $panel.css({float: 'none'});
 				     }
 				    }
+				
 			});
+			$('#tabs ul li a').click(function () {location.hash = $(this).attr('href');});
 			
 			$(".new-task-button").click(function () {
 			$(".new-task-form").toggle("slow");

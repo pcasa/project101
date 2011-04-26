@@ -12,8 +12,8 @@
 	</tr>
 	<% if !@items.blank? %>
 	  <% for item in @items %>
-	<tr class="<%= cycle("even", "odd") -%>">
-		<td><%= item.order_id %></td>
+	<tr class="<%= cycle("even", "odd") -%> <%= "partial-payment" if item.order.is_a_partial_payment %>">
+		<td><%= link_to item.order_id, company_order_path(current_company, item.order_id) %></td>
 		<td><%= item.assigned_company.name %></td>
 		<td><%= item.name %></td>
 		<td><%= item.category.name unless item.category_id.blank? %></td>
@@ -31,7 +31,7 @@
 				<tr class ="biggertxt">
 					<% amount_owed = @orders.collect.sum(&:amount_owed) %>
 					<td width="24%">
-						<b>Total Sold:</b><br />
+						<b>Total Invoiced:</b><br />
 						<%= number_to_currency(@items_totals.collect.sum(&:price)) %>
 					</td>
 					<td width="24%">

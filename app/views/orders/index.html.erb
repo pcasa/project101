@@ -1,45 +1,4 @@
 <% title "Orders" %>
-<p><%= will_paginate @orders %></p>
-<table width="100%" border="0" cellpadding="0" cellspacing="0">
-  <tr>
-	<th>Order ID:</th>
-    <th>Location Closed At:</th>
-    <th>Customer</th>
-    <th>User</th>
-    <th>Closed</th>
-    <th>Payment Type</th>
-	<th>Paid</th>
-  </tr>
-  <% for order in @orders %>
-    <tr class="<%= cycle("even", "odd") -%>">
-	  <td>
-		  <% if order.assigned_company_id.blank? %>
-		    <%= order.id %>
-		  <% else %>
-		   <%= link_to order.id, company_order_path(order.assigned_company.subdomain, order) %>
-		  <% end %>
-			
-	  </td>
-      <td><%= order.assigned_company.name unless order.assigned_company_id.blank? %></td>
-      <td>
-		  <% unless order.customer_id.blank? || !Customer.exists?(order.customer_id) %>
-			<%= order.customer.full_name %>
-		  <% else %>
-			<%= !order.customer_id.blank? ? "Customer ID #{order.customer_id} Deleted!" : "No Customer Assigned" %>
-		  <% end %>
-		</td>
-      <td><%= order.user.full_name unless order.user_id.blank? %>
-      <td><%= order.closed ? 'Yes' : 'No' %></td>
-	  <td><%= order.payment_type %></td>
-	  <td><%= order.amount_paid %></td>
-      <td><%= link_to "Show", [current_company, order] %></td>
-	 <% if can? :update, order %>
-      <td><%= link_to "Edit", edit_company_order_path(current_company, order) %></td>
-	  <% end %>
-	<% if can? :destroy, order %>
-      <td><%= link_to "Destroy", [current_company, order], :confirm => 'Are you sure?', :method => :delete %></td>
- 	<% end %>
-    </tr>
-  <% end %>
-</table>
-<p><%= will_paginate @orders %></p>
+
+  <div id="orders"><%= render 'orders' %></div>
+

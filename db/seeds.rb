@@ -187,40 +187,41 @@ puts "Adding Users..."
 end
 
 
-puts "Adding Customers and Orders..."
-Company.all.each do |company|
-  Customer.populate(50..300) do |person|
-      person.parent_company_id = company.id
-      person.assigned_company_id = 1
-      street1 = Faker::Address.street_address(include_secondary = false)
-      city = Faker::Address.city
-      state = Faker::Address.state_abbr
-      zip = Faker::Address.zip
-      person.firstname = Faker::Name.first_name
-      person.lastname = Faker::Name.last_name
-      person.street1 = street1
-      person.city = city
-      person.state = state
-      person.zipcode = zip
-      person.full_address = street1 + "<br />" + city + ", " + state + " " + zip
-      person.customer_number = 11111111..99999999
-      Order.populate(0..5) do |order|
-        date = (rand*10).days.ago
-        order.customer_id = person.id
-        offset = rand(Service.count)
-        @service = Service.first(:offset => offset)
-        user_offset = rand(User.count)
-        @user = User.first(:offset => user_offset)
-        Item.create!(@service.attributes.merge(:items => @service.items, :order_id => order.id, :itemable => @service, :qty => 1, :visible => true, :assigned_company_id => company.id, :parent_company_id => 1, :user_id => @user.id, :closed => true, :created_at => date, :customer_id => person.id))
-        order.user_id = @user.id
-        order.closed = true
-        order.created_at = date
-        order.closed_date = date
-        order.assigned_company_id = company.id
-        order.parent_company_id = 1
-        order.total_amount = @service.price
-        order.amount_paid = @service.price
-        order.total_cost = @service.cost
+  puts "Adding Customers and Orders..."
+  Company.all.each do |company|
+    Customer.populate(50..200) do |person|
+        person.parent_company_id = company.id
+        person.assigned_company_id = 1
+        street1 = Faker::Address.street_address(include_secondary = false)
+        city = Faker::Address.city
+        state = Faker::Address.state_abbr
+        zip = Faker::Address.zip
+        person.firstname = Faker::Name.first_name
+        person.lastname = Faker::Name.last_name
+        person.street1 = street1
+        person.city = city
+        person.state = state
+        person.zipcode = zip
+        person.full_address = street1 + "<br />" + city + ", " + state + " " + zip
+        person.customer_number = 11111111..99999999
+        Order.populate(0..3) do |order|
+          date = (rand*10).days.ago
+          order.customer_id = person.id
+          offset = rand(Service.count)
+          @service = Service.first(:offset => offset)
+          user_offset = rand(User.count)
+          @user = User.first(:offset => user_offset)
+          Item.create!(@service.attributes.merge(:items => @service.items, :order_id => order.id, :itemable => @service, :qty => 1, :visible => true, :assigned_company_id => company.id, :parent_company_id => 1, :user_id => @user.id, :closed => true, :created_at => date, :customer_id => person.id))
+          order.user_id = @user.id
+          order.closed = true
+          order.payment_type = "cash"
+          order.created_at = date
+          order.closed_date = date
+          order.assigned_company_id = company.id
+          order.parent_company_id = 1
+          order.total_amount = @service.price
+          order.amount_paid = @service.price
+          order.total_cost = @service.cost
+        end
       end
-    end
-end
+  end

@@ -3,8 +3,9 @@
   <head>
     <title><%= content_for?(:title) ? yield(:title) : "Untitled" %></title>
     <%= stylesheet_link_tag "application", 'formtastic', 'jquery-ui', 'facebox' %>
-    <%= javascript_include_tag :defaults, 'facebox', 'jquery-ui-timepicker-addon', 'nested_form' %>
 	<%= stylesheet_link_tag 'print', :media => "print"%>
+    <%= javascript_include_tag :defaults, 'facebox', 'jquery-ui-timepicker-addon', 'nested_form' %>
+	
 	
     <%= csrf_meta_tag %>
     <%= yield(:head) %>

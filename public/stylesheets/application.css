@@ -448,7 +448,7 @@ tr.odd td {
 	background-color: #ddd;
 }
 
-#customers tr.odd:hover td, #customers tr.even:hover td {
+#customers tr.odd:hover td, #customers tr.even:hover td, #full-reports-results tr.odd:hover td, #full-reports-results tr.even:hover td {
 	background-color: #fff5b5!important;
 }
 
@@ -522,6 +522,14 @@ tr.odd td {
 	width: 40%;
 	float: right;
 	text-align: right;
+}
+
+#full-reports-results .partial-payment, #full-reports-results .partial-payment a {
+	color: red;
+}
+
+#full-reports-results tr th {
+	border-bottom: 1px solid #000;
 }
 
 
