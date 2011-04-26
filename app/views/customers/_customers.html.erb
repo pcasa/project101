@@ -1,9 +1,9 @@
 <p><%= will_paginate @customers %></p>
 <table width="100%" cellpadding="0" cellspacing="0" id="customers">
   <tr>
-    <th width="25%">First Name:</th>
-    <th width="25%">Last Name:</th>
-    <th width="20%">Customer Number:</th>
+    <th width="25%"><%= sort_link @search, :lastname, "Last Name" %></th>
+    <th width="25%"><%= sort_link @search, :firstname %></th>
+    <th width="20%"><%= sort_link @search, :customer_number %></th>
   </tr>
   <% if @customers.blank? %>
 	<tr>
@@ -14,8 +14,8 @@
   <% else %>
   <% for customer in @customers %>
 	<%= content_tag :tr, :class => cycle("even", "odd") do -%>
-      <td><%= link_to customer.firstname, company_customer_path(current_company, customer) %></td>
       <td><%= link_to customer.lastname, company_customer_path(current_company, customer)  %></td>
+      <td><%= link_to customer.firstname, company_customer_path(current_company, customer) %></td>
       <td><%= customer.customer_number %></td>
       <td><%= link_to "Show", company_customer_path(current_company, customer), :class => "smallbtn blue smallertxt" %>
 	<% if can? :update, customer %>
