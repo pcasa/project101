@@ -52,7 +52,7 @@ class TasksController < ApplicationController
       end
       respond_to do |format|  
         format.html { 
-          if request_url.blank? || request_url != edit_company_task_url(@task)
+          if request_url.blank? || request_url == company_task_url(current_company, @task)
             if @task.asset == current_company
               redirect_to company_dashboard_url(current_company), :notice => "Successfully updated task."
             else
