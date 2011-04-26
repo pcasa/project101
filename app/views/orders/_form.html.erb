@@ -85,7 +85,7 @@ $(document).ready(function(){
 					<th width="8%">Qty</th>
 					<th width="14%">Total </th>
 				</tr>
-				<% order.items.each do |item| %>
+				<% order.items.order('id ASC').each do |item| %>
 					 <%= render :partial => 'orders/new_item', :locals => { :item => item, :order => order } %>
 			    <% end %>
 				</table>
