@@ -47,7 +47,7 @@
 						<% if item.parent_id.blank? %>
 						<tr valign=TOP>
 						<td width="75%">
-							<b><%= item.name unless item.name.blank? %></b><br /><%= item.short_description unless item.short_description.blank? %>
+							<b><%= item.name unless item.name.blank? %></b><br />
 						</td>
 						<td width="7%">
 							<%= item.qty %>
@@ -55,6 +55,9 @@
 						<td width="18%">
 							<%= number_to_currency(item.full_price)%>
 						</td>
+						</tr>
+						<tr>
+							<td colspan="3"><%= item.short_description unless item.short_description.blank? %></td>
 						</tr>
 						<% end %>
 					  <% end %>
