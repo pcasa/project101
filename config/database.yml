@@ -16,7 +16,9 @@ test:
   timeout: 5000
 
 production:
-  adapter: sqlite3
-  database: postgresql
+  adapter: mysql
+  database: autoins_prod
+  username: autoins
+  password: lalo123
   pool: 5
   timeout: 5000

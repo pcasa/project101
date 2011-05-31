@@ -62,7 +62,7 @@ class Order < ActiveRecord::Base
   
   def formated_closed_date=(time_str)
      self.closed_date = Time.parse(time_str)
-   end
+  end
   
     
     # totals only items that are not nested in parent_id like service groups.
