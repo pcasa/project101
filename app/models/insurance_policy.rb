@@ -36,7 +36,7 @@ class InsurancePolicy < ActiveRecord::Base
       if endorsements.valid_endorsement.blank?
         current_amount = self.monthly_payment
       else
-        current_amount = endorsements.valid_endorsement.first.new_payment_amount
+        current_amount = endorsements.valid_endorsement.last.new_payment_amount
       end
       return current_amount
     end
@@ -112,9 +112,9 @@ class InsurancePolicy < ActiveRecord::Base
         end
       end
       if (item.name == "Endorsement Payment") || (item.name == "Endorsement and Policy Payment")
-        unless policy.endorsements.first.invoiced?
-          policy.endorsements.first.update_attribute(:invoiced, true)
-        end
+       # unless policy.endorsements.first.invoiced?
+          policy.endorsements.last.update_attribute(:invoiced, true)
+       # end
       end
       if item.name != "Endorsement Payment"
         message = "Call " + policy.customer.full_name + " to remind them about there payment."

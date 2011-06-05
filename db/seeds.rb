@@ -132,7 +132,7 @@ end
 d_company = Company.new do |p| 
   p.id = 3
   p.name = 'Cumming'
-  p.subdomain = 'Commin'
+  p.subdomain = 'Cumming'
   p.parent_id = 1
   p.save
 end

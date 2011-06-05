@@ -65,6 +65,7 @@ GEM
     mime-types (1.16)
     mocha (0.9.10)
       rake
+    mysql (2.8.1)
     nested_form (0.1.0)
     nested_set (1.6.4)
       activerecord (>= 3.0.0)
@@ -111,13 +112,14 @@ DEPENDENCIES
   bcrypt-ruby
   best_in_place
   cancan
-  devise
+  devise (= 1.1.5)
   faker
   formtastic
   friendly_id (~> 3.2.1)
   jquery-rails
   meta_search
   mocha
+  mysql
   nested_form
   nested_set
   nifty-generators
