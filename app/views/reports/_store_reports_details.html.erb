@@ -15,7 +15,7 @@
 		<% if !@items.blank? %>
 		  <% for item in @items %>
 		    <tr class="<%= cycle("even", "odd") -%>">
-				<td><%= item.order_id %></td>
+				<td><%= link_to item.order_id, [current_company, item.order] %></td>
 				<td><%= item.customer.full_name unless item.customer_id.blank? || !Customer.exists?(item.customer_id)%></td>
 		    	<td><%= item.name %></td>
 				<td>
