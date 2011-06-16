@@ -8,10 +8,14 @@
 			<% @policies.order("id DESC").each do |policy| %>
 				<p>Policy #: <%= link_to policy.policy_number, company_insurance_policy_path(current_company, policy) %> - 
 					<% unless policy.vendor_id.blank? || policy.vendor.website.blank? %>Go to <%= link_to "#{policy.vendor.name}'s Website", url_with_protocol(policy.vendor.website), :target => "_blank" %><% end %>
-					<span class="smallertxt">
+					<span class="smallertxt"><br /><br />
 						<% unless policy.number_of_payments_left <= 0 || policy.cancelled? %>
-							<br /><br /><%= link_to "Make Policy Payment", company_policy_payment_path(current_company, policy), :class => "smallbtn green whitetxt" %> | 
-							<%= link_to "Add Endorsement", new_company_insurance_policy_endorsement_path(current_company, policy), :class => "smallbtn green whitetxt" %> | 
+							<%= link_to "Make Policy Payment", company_policy_payment_path(current_company, policy), :class => "smallbtn green whitetxt" %> | 
+						<% end %>
+						<% unless !policy.child.blank? || policy.cancelled? %>
+							<%= link_to "Add Endorsement", new_company_insurance_policy_endorsement_path(current_company, policy), :class => "smallbtn green whitetxt" %> |
+						<% end %>
+						<% unless policy.number_of_payments_left <= 0 || policy.cancelled? %>
 							<%= link_to "Cancel Policy", company_policy_cancel_path(current_company, policy), :class => "smallbtn green whitetxt", :confirm => 'Are you sure you want to cancel this policy?' %>
 						<% else %>
 							<% if policy.child.blank? %>
@@ -26,7 +30,7 @@
 						<% end %>
 					</span><br />
 					<% if policy.cancelled? %>
-					Cancelled on: <%= policy.cancelled_on.strftime('%b %d, %Y')%>
+					<br /><b>Cancelled on: <i><%= policy.cancelled_on.strftime('%b %d, %Y')%></i></b>
 					<% end %>
 					<% unless policy.completed? || policy.cancelled?%>
 					<br /><b>Next Payment:</b> <%= policy.due_date.strftime('%b %d, %Y')%> <br />
@@ -53,11 +57,8 @@
 								<% end -%>
 							</td>
 						</tr>
-						<tr>
-							<td><hr /></td>
-						</tr>
 					</table>
-
+					<hr />
 				<% else %>
 				   No policy payments have been made.
 				<% end %>
