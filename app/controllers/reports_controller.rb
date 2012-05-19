@@ -7,7 +7,7 @@ class ReportsController < ApplicationController
   end
   
   def store_reports
-    @orders = Order.where(:assigned_company_id => current_company.id)
+    @orders = Order.includes([:customer]).where(:assigned_company_id => current_company.id)
     @progressive = Vendor.find_by_name("Progressive")
   end
   

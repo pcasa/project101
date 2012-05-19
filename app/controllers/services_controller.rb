@@ -3,7 +3,7 @@ class ServicesController < ApplicationController
    load_and_authorize_resource
    
   def index
-    @services = Service.all
+    @services = Service.includes(:category).all
   end
 
   def show

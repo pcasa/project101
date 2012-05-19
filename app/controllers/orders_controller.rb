@@ -20,10 +20,10 @@ class OrdersController < ApplicationController
    
    
    if current_user.role == "admin"
-     @search = Order.search(params[:search])
+     @search = Order.includes([:customer, :items, :assigned_company]).search(params[:search])
      @orders = @search.paginate(:page => params[:page], :per_page => 25, :order => 'id DESC')
    else
-     @search = Order.where('assigned_company_id = ?', current_company).search(params[:search])
+     @search = Order.where('assigned_company_id = ?', current_company).includes([:customer, :items, :assigned_company]).search(params[:search])
      @orders = @search.relation.closed_orders.paginate(:page => params[:page], :per_page => 25, :order => 'id DESC')
    end
   end
