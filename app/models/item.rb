@@ -45,6 +45,7 @@ class Item < ActiveRecord::Base
     has_many :children, :class_name => "Item", :foreign_key => "parent_id", :dependent => :destroy
     
     validates_numericality_of :price, :cost, :allow_nil => true
+    validates_presence_of :price, :cost
     
     
     def full_price

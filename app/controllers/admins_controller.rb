@@ -21,6 +21,17 @@ class AdminsController < ApplicationController
     end
   end
   
+  def really_destroy_items
+    @items = Item.with_deleted
+    @items.destroy_all
+    respond_to do |format|
+      format.html {
+        redirect_to company_deleted_items_path(current_company), :notice => "Successfully destroyed item."
+      }
+      format.js if request.xhr?
+    end
+  end
+  
   def completed_tasks
     if params[:delete_task_with_id]
       if Task.with_deleted.exists?(:id => params[:delete_task_with_id])

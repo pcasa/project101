@@ -26,6 +26,7 @@ Project101::Application.routes.draw do
     
     match '/insurance_policies/:id/add_policy_payment' => 'insurance_policies#add_policy_payment', :as => :policy_payment
     match '/insurance_policies/:id/cancel_policy' => 'insurance_policies#cancel_policy', :as => :policy_cancel
+    match '/admins/really_destroy_items' => 'admins#really_destroy_items', :as => :really_destroy_items
     match '/admins/item_really_destroy/:item_id/' => 'admins#item_really_destroy', :as => :item_really_destroy
     get '/admins/completed_tasks' => 'admins#completed_tasks'
     get '/admins/' => 'admins#index'

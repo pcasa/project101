@@ -3,7 +3,7 @@
 	<b>This order is still open!</b>
 <% else %>
 <b>Invoiced at:</b> <%= @order.assigned_company.name unless @order.assigned_company_id.blank? %><br />
-<b>By:</b> <%= @order.user.full_name unless @order.user_id.blank? %>
+<b>By:</b> <%= @order.user ? @order.user.full_name : @order.user_id  %>
 <% if @order.is_a_partial_payment && @order.still_owes %>
 <br /><br /><b>Still Owes:</b> <%= link_to "Click here to pay", company_partial_payment_path(current_company, @order), :class => "smallbtn green" %>
 <% end %>

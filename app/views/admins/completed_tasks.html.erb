@@ -56,8 +56,8 @@
 			<br /><span style="margin-left:10px;"><b>Comment: </b><%= task.comment.content unless task.comment.content.blank? %></span>
 			<% end %>
 	  </td>
-      <td><%= task.assignee.full_name unless task.assigned_to.blank? %></td>
-	  <td><%= task.completor.full_name unless task.completed_by.blank? %></td>
+      <td><%= task.assignee ? task.assignee.full_name : task.assigned_to %></td>
+	  <td><%= task.completor ? task.completor.full_name : task.completed_by %></td>
       <td>
 			<%= task.updated_at.strftime('%b %d, %Y %l:%M %p') %> | 
 			<%= link_to "Delete", company_admins_completed_tasks_path(current_company, :delete_task_with_id => task.id) %>
