@@ -85,7 +85,7 @@ class Task < ActiveRecord::Base
     def if_user_assigned_delete_task
       if completed?
         if deleted_at.blank?
-          self.update_attribute(:deleted_at, Time.now)
+         # self.update_attribute(:deleted_at, Time.now)
         end
       end
     end

@@ -63,5 +63,21 @@ class Item < ActiveRecord::Base
       end
     end
     
+    #######################################################################################
+    # Special for Reports
+    #######################################################################################
+    def self.grouped_ins_payments_profit
+      # Grab all Insurance
+      fetch_incurance_policies.where(:new_service => false).collect(&:profits).sum
+    end
+    
+    
+    def self.fetch_incurance_policies
+      @fetch_incurance_policies ||= where(:itemable_type => "InsurancePolicy")
+    end
+    
+    def profits
+      price - cost
+    end
     
 end
