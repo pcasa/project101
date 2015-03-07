@@ -5,7 +5,7 @@ Devise.setup do |config|
   # Configure the e-mail address which will be shown in DeviseMailer.
   config.mailer_sender = "please-change-me@config-initializers-devise.com"
   
-  # config.reset_password_keys = [ :username ]
+  config.reset_password_keys = [ :username ]
 
   # Configure the class responsible to send e-mails.
   # config.mailer = "Devise::Mailer"
