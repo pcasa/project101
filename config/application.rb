@@ -6,6 +6,8 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.
 Bundler.require(:default, Rails.env) if defined?(Bundler)
 
+ActionController::Base.config.relative_url_root = ''
+
 module Project101
   class Application < Rails::Application
     
