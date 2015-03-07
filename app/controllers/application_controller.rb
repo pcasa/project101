@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   include UrlHelper
-  protect_from_forgery
+  # protect_from_forgery  # temp disable till Jquery UJS updated
+  protect_from_forgery :except => [:destory, :update, :delete, :create]
   helper_method :current_company, :main_company, :is_employed_at?, :current_order, :current_tasks
   
   before_filter :user_belongs_to_company
