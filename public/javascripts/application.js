@@ -2,6 +2,12 @@
 // This file is automatically included by javascript_include_tag :defaults
 
 $(document).ready(function(){
+    $.ajaxSetup({
+      headers: {
+        'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+      }
+    });
+  
 		$('#menu li').hover(
 			function() { $('ul', this).slideDown('fast'); },
 			function() { $('ul', this).slideUp('fast'); });
